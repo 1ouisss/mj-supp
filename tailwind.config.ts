@@ -82,12 +82,22 @@ export default {
             transform: 'translateY(0) scale(1)'
           },
           '50%': { 
-            opacity: '0.4',
-            transform: 'translateY(-20px) scale(1.8)'
+            opacity: '0.6',
+            transform: 'translateY(-20px) scale(2)'
           },
           '100%': { 
             opacity: '0',
-            transform: 'translateY(-40px) scale(2.5)'
+            transform: 'translateY(-40px) scale(3)'
+          }
+        },
+        'float': {
+          '0%, 100%': { 
+            transform: 'translateY(0) translateX(0)',
+            opacity: '0'
+          },
+          '50%': { 
+            transform: 'translateY(-20px) translateX(10px)',
+            opacity: '1'
           }
         }
       },
@@ -95,7 +105,8 @@ export default {
         'accordion-down': 'accordion-down 0.2s ease-out',
         'accordion-up': 'accordion-up 0.2s ease-out',
         'gradient-shift': 'gradient-shift 6s ease infinite',
-        'smoke': 'smoke-drift 6s ease-out infinite'
+        'smoke': 'smoke-drift 8s ease-out infinite',
+        'float': 'float 4s ease-in-out infinite'
       }
     }
   },

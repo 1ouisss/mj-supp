@@ -21,19 +21,39 @@ const Index = () => {
         }}
       />
       
+      {/* Large smoke particles */}
       <div className="absolute inset-0 pointer-events-none">
-        {[...Array(8)].map((_, i) => (
+        {[...Array(12)].map((_, i) => (
           <div
-            key={i}
+            key={`smoke-large-${i}`}
             className="absolute animate-smoke"
             style={{
-              left: `${10 + i * 12}%`,
+              left: `${Math.random() * 100}%`,
               top: '60%',
-              width: '200px',
-              height: '200px',
-              background: 'radial-gradient(circle, rgba(255,215,0,0.6) 0%, rgba(255,215,0,0) 70%)',
-              animationDelay: `${i * 1}s`,
-              animationDuration: '6s'
+              width: '300px',
+              height: '300px',
+              background: 'radial-gradient(circle, rgba(255,215,0,0.8) 0%, rgba(255,215,0,0) 70%)',
+              animationDelay: `${i * 0.8}s`,
+              animationDuration: '8s'
+            }}
+          />
+        ))}
+      </div>
+
+      {/* Small floating particles */}
+      <div className="absolute inset-0 pointer-events-none">
+        {[...Array(20)].map((_, i) => (
+          <div
+            key={`particle-${i}`}
+            className="absolute animate-float"
+            style={{
+              left: `${Math.random() * 100}%`,
+              top: `${Math.random() * 100}%`,
+              width: '10px',
+              height: '10px',
+              background: 'radial-gradient(circle, rgba(255,223,0,0.9) 0%, rgba(255,223,0,0) 100%)',
+              animationDelay: `${i * 0.3}s`,
+              animationDuration: '4s'
             }}
           />
         ))}
