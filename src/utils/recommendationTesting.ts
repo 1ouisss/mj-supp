@@ -15,7 +15,7 @@ const CORE_TEST_SCENARIOS = [
       { questionId: 3, answers: ["Problèmes digestifs"] }
     ],
     expectedProducts: ["focus", "omega-3", "jus-aloes"],
-    expectedCategories: ["brain", "digestive"],
+    expectedCategories: ["brain" as ProductCategory, "digestive" as ProductCategory],
     minimumProducts: 3
   },
   {
@@ -26,7 +26,7 @@ const CORE_TEST_SCENARIOS = [
       { questionId: 3, answers: ["Aucune"] }
     ],
     expectedProducts: ["energie-adaptogene"],
-    expectedCategories: ["energy"],
+    expectedCategories: ["energy" as ProductCategory],
     minimumProducts: 1
   },
   {
@@ -37,7 +37,7 @@ const CORE_TEST_SCENARIOS = [
       { questionId: 3, answers: ["Difficulté à se détendre ou à dormir"] }
     ],
     expectedProducts: ["melatonine", "magnesium", "poudre-dodo"],
-    expectedCategories: ["sleep", "relaxation"],
+    expectedCategories: ["sleep" as ProductCategory, "relaxation" as ProductCategory],
     minimumProducts: 2
   },
   {
@@ -48,7 +48,7 @@ const CORE_TEST_SCENARIOS = [
       { questionId: 3, answers: ["Migraines"] }
     ],
     expectedProducts: ["coenzyme-q10"],
-    expectedCategories: ["migraine", "brain"],
+    expectedCategories: ["migraine" as ProductCategory, "brain" as ProductCategory],
     minimumProducts: 1
   }
 ];
@@ -131,14 +131,14 @@ function testPerformance(): boolean {
 
 // Test product diversity
 function testDiversityRequirements(recommendations: Product[]): boolean {
-  const uniqueCategories = new Set(recommendations.flatMap(r => r.categories));
+  const uniqueCategories = new Set<ProductCategory>(recommendations.flatMap(r => r.categories));
   if (uniqueCategories.size < 2) {
     console.error("❌ Not enough diversity in recommendations");
     console.log("Found categories:", Array.from(uniqueCategories));
     return false;
   }
 
-  const categoryCount: { [key: string]: number } = {};
+  const categoryCount: { [key in ProductCategory]?: number } = {};
   recommendations.forEach(product => {
     product.categories.forEach(category => {
       categoryCount[category] = (categoryCount[category] || 0) + 1;
