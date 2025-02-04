@@ -1,9 +1,6 @@
 import { Answer } from "@/components/quiz/types";
-import { ProductDefinition, ProductCategory } from "../products/productTypes";
-
-interface ScoredProduct extends ProductDefinition {
-  totalScore: number;
-}
+import { ProductDefinition } from "../products/productTypes";
+import { Product } from "@/components/results/ProductCard";
 
 const WEIGHTS = {
   PRIMARY_GOAL: 4,
@@ -13,154 +10,82 @@ const WEIGHTS = {
   MULTI_MATCH_BONUS: 1.5
 };
 
-const MIN_CATEGORIES = 2;
-const MAX_PRODUCTS_PER_CATEGORY = 1;
-const RELEVANCE_THRESHOLD = 0.4; // 40% du score maximum possible
+export function calculateProductScores(product: ProductDefinition, answers: Answer[]): number {
+  let totalScore = 0;
 
-function calculatePrimaryGoalScore(
-  product: ProductDefinition,
-  primaryGoal: string
-): number {
-  let score = 0;
-  
-  const primaryGoalScore = product.scores.find(s => 
-    s.condition === primaryGoal
-  )?.score || 0;
-  
-  score += primaryGoalScore * WEIGHTS.PRIMARY_GOAL;
-  
-  const relevantCategories = PRIMARY_GOAL_CATEGORIES[primaryGoal] || [];
-  const matchingCategories = product.categories.filter(cat => 
-    relevantCategories.includes(cat)
-  );
-  
-  if (matchingCategories.length > 0) {
-    score += WEIGHTS.CATEGORY_MATCH * matchingCategories.length;
-    
-    if (matchingCategories.length > 1) {
-      score *= WEIGHTS.MULTI_MATCH_BONUS;
-    }
+  // Score pour l'objectif principal
+  const primaryGoalAnswer = answers.find(a => a.questionId === 2)?.answers[0];
+  if (primaryGoalAnswer) {
+    const primaryGoalScore = product.scores.find(s => s.condition === primaryGoalAnswer)?.score || 0;
+    totalScore += primaryGoalScore * WEIGHTS.PRIMARY_GOAL;
   }
 
-  return score;
-}
-
-function calculateHealthConcernsScore(
-  product: ProductDefinition,
-  healthConcerns: string[]
-): number {
-  let score = 0;
-  let matchCount = 0;
-
+  // Score pour les préoccupations de santé
+  const healthConcerns = answers.find(a => a.questionId === 3)?.answers || [];
   healthConcerns.forEach(concern => {
-    const concernScore = product.scores.find(s => 
-      s.condition === concern
-    )?.score || 0;
-    
+    const concernScore = product.scores.find(s => s.condition === concern)?.score || 0;
     if (concernScore > 0) {
-      score += concernScore * WEIGHTS.HEALTH_CONCERN;
-      matchCount++;
+      totalScore += concernScore * WEIGHTS.HEALTH_CONCERN;
     }
-    
+
+    // Bonus pour les allégations thérapeutiques correspondantes
     if (product.therapeuticClaims?.some(claim => 
       claim.toLowerCase().includes(concern.toLowerCase())
     )) {
-      score += WEIGHTS.THERAPEUTIC_CLAIM;
-      matchCount++;
+      totalScore += WEIGHTS.THERAPEUTIC_CLAIM;
     }
   });
 
-  if (matchCount > 1) {
-    score *= WEIGHTS.MULTI_MATCH_BONUS;
+  // Bonus pour correspondances multiples
+  if (healthConcerns.length > 1) {
+    const matchingScores = product.scores.filter(s => 
+      healthConcerns.includes(s.condition)
+    );
+    if (matchingScores.length > 1) {
+      totalScore *= WEIGHTS.MULTI_MATCH_BONUS;
+    }
   }
 
-  return score;
+  return totalScore;
 }
 
-function isProductRelevant(product: ScoredProduct, maxScore: number): boolean {
-  return product.totalScore >= maxScore * RELEVANCE_THRESHOLD;
-}
+export function diversifyRecommendations(scoredProducts: (ProductDefinition & { totalScore: number })[]): Product[] {
+  const MIN_CATEGORIES = 2;
+  const usedCategories = new Set<string>();
+  const recommendations: (ProductDefinition & { totalScore: number })[] = [];
 
-function getUniqueCategories(products: ProductDefinition[]): Set<ProductCategory> {
-  return new Set(products.flatMap(p => p.categories));
-}
+  // Trier par score décroissant
+  const sortedProducts = [...scoredProducts].sort((a, b) => b.totalScore - a.totalScore);
 
-function diversifyRecommendations(
-  scoredProducts: ScoredProduct[]
-): ScoredProduct[] {
-  console.group("Diversifying recommendations");
-  
-  try {
-    const validProducts = scoredProducts
-      .filter(p => p.totalScore > 0)
-      .sort((a, b) => b.totalScore - a.totalScore);
+  // Première passe : sélectionner les produits les plus pertinents
+  for (const product of sortedProducts) {
+    if (recommendations.length >= 3) break;
 
-    if (validProducts.length === 0) {
-      console.log("No valid products found");
-      return [];
-    }
-
-    const maxScore = Math.max(...validProducts.map(p => p.totalScore));
-    const recommendations: ScoredProduct[] = [];
-    const usedCategories = new Set<ProductCategory>();
-
-    // Première passe : sélectionner les produits les plus pertinents
-    for (const product of validProducts) {
-      // Vérifier si le produit est suffisamment pertinent
-      if (!isProductRelevant(product, maxScore)) {
-        continue;
-      }
-
-      // Vérifier si une catégorie du produit est déjà trop représentée
-      const categoryOverlap = product.categories.some(cat => 
-        usedCategories.has(cat)
-      );
-
-      if (!categoryOverlap && recommendations.length < 3) {
-        recommendations.push(product);
-        product.categories.forEach(cat => usedCategories.add(cat));
-      }
-    }
-
-    // Deuxième passe : s'assurer d'avoir au moins MIN_CATEGORIES catégories
-    if (usedCategories.size < MIN_CATEGORIES && validProducts.length > recommendations.length) {
-      for (const product of validProducts) {
-        if (recommendations.includes(product)) continue;
-
-        const newCategories = product.categories.filter(cat => !usedCategories.has(cat));
-        if (newCategories.length > 0 && isProductRelevant(product, maxScore)) {
-          recommendations.push(product);
-          newCategories.forEach(cat => usedCategories.add(cat));
-        }
-
-        if (usedCategories.size >= MIN_CATEGORIES || recommendations.length >= 3) {
-          break;
-        }
-      }
-    }
-
-    console.log("Final recommendations:", recommendations.map(r => ({
-      name: r.name,
-      score: r.totalScore,
-      categories: r.categories
-    })));
+    // Vérifier si une catégorie du produit est déjà utilisée
+    const categoryOverlap = product.categories.some(cat => usedCategories.has(cat));
     
-    return recommendations;
-  } catch (error) {
-    console.error("Error in diversifyRecommendations:", error);
-    throw error;
-  } finally {
-    console.groupEnd();
+    if (!categoryOverlap) {
+      recommendations.push(product);
+      product.categories.forEach(cat => usedCategories.add(cat));
+    }
   }
+
+  // Deuxième passe : assurer la diversité minimale
+  if (usedCategories.size < MIN_CATEGORIES && sortedProducts.length > recommendations.length) {
+    for (const product of sortedProducts) {
+      if (recommendations.includes(product)) continue;
+
+      const newCategories = product.categories.filter(cat => !usedCategories.has(cat));
+      if (newCategories.length > 0) {
+        recommendations.push(product);
+        newCategories.forEach(cat => usedCategories.add(cat));
+      }
+
+      if (usedCategories.size >= MIN_CATEGORIES || recommendations.length >= 3) {
+        break;
+      }
+    }
+  }
+
+  return recommendations;
 }
-
-export { calculateProductScores, diversifyRecommendations };
-
-const PRIMARY_GOAL_CATEGORIES: Record<string, ProductCategory[]> = {
-  "Renforcer l'immunité": ["immune", "seasonal"],
-  "Améliorer l'énergie": ["energy", "concentration"],
-  "Soutenir la santé cérébrale": ["brain", "concentration"],
-  "Gérer le stress": ["stress", "relaxation"],
-  "Améliorer le sommeil": ["sleep", "relaxation"],
-  "Améliorer la digestion": ["digestive"]
-};
