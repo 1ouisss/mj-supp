@@ -69,29 +69,35 @@ export default {
 				sm: 'calc(var(--radius) - 4px)'
 			},
 			keyframes: {
-				'accordion-down': {
-					from: { height: '0' },
-					to: { height: 'var(--radix-accordion-content-height)' }
-				},
-				'accordion-up': {
-					from: { height: 'var(--radix-accordion-content-height)' },
-					to: { height: '0' }
-				},
 				'gradient-shift': {
 					'0%, 100%': { 'background-position': '0% 50%' },
 					'50%': { 'background-position': '100% 50%' }
 				},
 				'bounce-gentle': {
-					'0%, 2%, 4%, 6%, 8%, 10%, 100%': { transform: 'translateY(0)' },
-					'3%': { transform: 'translateY(-10px)' },
-					'5%': { transform: 'translateY(-5px)' }
+					'0%, 0.5%, 1%, 100%': { transform: 'translateY(0)' },
+					'0.75%': { transform: 'translateY(-3px)' }
+				},
+				'smoke-drift': {
+					'0%': { 
+						opacity: '0',
+						transform: 'translateY(0) scale(1)'
+					},
+					'50%': { 
+						opacity: '0.15',
+						transform: 'translateY(-20px) scale(1.5)'
+					},
+					'100%': { 
+						opacity: '0',
+						transform: 'translateY(-40px) scale(2)'
+					}
 				}
 			},
 			animation: {
 				'accordion-down': 'accordion-down 0.2s ease-out',
 				'accordion-up': 'accordion-up 0.2s ease-out',
 				'gradient-shift': 'gradient-shift 10s ease infinite',
-				'bounce-gentle': 'bounce-gentle 10s infinite'
+				'bounce-gentle': 'bounce-gentle 10s infinite',
+				'smoke': 'smoke-drift 8s ease-out infinite'
 			}
 		}
 	},
