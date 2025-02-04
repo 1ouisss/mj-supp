@@ -177,7 +177,7 @@ const Quiz = () => {
   const currentQuestionData = QUESTIONS[currentQuestion];
 
   return (
-    <QuizLayout>
+    <QuizLayout currentQuestion={currentQuestion}>
       <QuizProgress 
         currentQuestion={currentQuestion} 
         totalQuestions={QUESTIONS.length}

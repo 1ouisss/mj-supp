@@ -16,23 +16,24 @@ const Index = () => {
       <div className="absolute inset-0 animate-gradient-shift" 
         style={{
           background: 'linear-gradient(-45deg, #FFD700, #FFA500, #FF8C00, #FFB347)',
-          backgroundSize: '400% 400%'
+          backgroundSize: '400% 400%',
+          opacity: 0.8
         }}
       />
       
-      {/* Smoke effect overlays */}
+      {/* Enhanced smoke effect overlays */}
       <div className="absolute inset-0 pointer-events-none">
-        {[...Array(3)].map((_, i) => (
+        {[...Array(5)].map((_, i) => (
           <div
             key={i}
             className="absolute animate-smoke"
             style={{
-              left: `${30 + i * 20}%`,
+              left: `${20 + i * 15}%`,
               top: '60%',
-              width: '100px',
-              height: '100px',
-              background: 'radial-gradient(circle, rgba(255,215,0,0.2) 0%, rgba(255,215,0,0) 70%)',
-              animationDelay: `${i * 2}s`
+              width: '120px',
+              height: '120px',
+              background: 'radial-gradient(circle, rgba(255,215,0,0.3) 0%, rgba(255,215,0,0) 70%)',
+              animationDelay: `${i * 1.5}s`
             }}
           />
         ))}
