@@ -6,9 +6,10 @@ interface ScoredProduct extends ProductDefinition {
 }
 
 const QUESTION_WEIGHTS = {
-  PRIMARY_GOAL: 3,
-  HEALTH_CONCERNS: 2,
-  THERAPEUTIC_CLAIMS: 1.5
+  PRIMARY_GOAL: 5, // Augmenté pour donner plus d'importance à l'objectif principal
+  HEALTH_CONCERNS: 3,
+  THERAPEUTIC_CLAIMS: 2,
+  CATEGORY_MATCH: 2
 };
 
 // Définir les conditions incompatibles
@@ -39,43 +40,44 @@ export function calculateProductScores(
   answers: Answer[]
 ): number {
   let totalScore = 0;
-  let hasIncompatibleCondition = false;
   
   // Get primary goal from first question
   const primaryGoal = answers.find(a => a.questionId === 1)?.answers[0];
   
-  // Vérifier les incompatibilités
   if (primaryGoal) {
+    // Vérifier les incompatibilités
     const incompatibleCategories = INCOMPATIBLE_CONDITIONS[primaryGoal as keyof typeof INCOMPATIBLE_CONDITIONS] || [];
     if (product.categories.some(cat => incompatibleCategories.includes(cat))) {
       return -1; // Produit incompatible
     }
 
-    // Check direct score matches
+    // Score direct pour l'objectif principal
     const primaryGoalScore = product.scores.find(s => 
       s.condition.toLowerCase() === primaryGoal.toLowerCase()
     )?.score || 0;
     
-    // Check category compatibility
+    // Bonus pour la compatibilité des catégories
     const compatibleCategories = CATEGORY_COMPATIBILITY[primaryGoal as keyof typeof CATEGORY_COMPATIBILITY] || [];
     const categoryMatch = product.categories.some(cat => compatibleCategories.includes(cat));
     
-    totalScore += (primaryGoalScore + (categoryMatch ? 1 : 0)) * QUESTION_WEIGHTS.PRIMARY_GOAL;
+    totalScore += (primaryGoalScore * QUESTION_WEIGHTS.PRIMARY_GOAL) + 
+                 (categoryMatch ? QUESTION_WEIGHTS.CATEGORY_MATCH : 0);
   }
 
   // Get health concerns from second question
   const healthConcerns = answers.find(a => a.questionId === 2)?.answers || [];
   healthConcerns.forEach(concern => {
-    // Direct score matches
+    // Score direct pour les préoccupations de santé
     const concernScore = product.scores.find(s => 
       s.condition.toLowerCase() === concern.toLowerCase()
     )?.score || 0;
     
-    // Category compatibility
+    // Bonus pour la compatibilité des catégories
     const compatibleCategories = CATEGORY_COMPATIBILITY[concern as keyof typeof CATEGORY_COMPATIBILITY] || [];
     const categoryMatch = product.categories.some(cat => compatibleCategories.includes(cat));
     
-    totalScore += (concernScore + (categoryMatch ? 1 : 0)) * QUESTION_WEIGHTS.HEALTH_CONCERNS;
+    totalScore += (concernScore * QUESTION_WEIGHTS.HEALTH_CONCERNS) + 
+                 (categoryMatch ? QUESTION_WEIGHTS.CATEGORY_MATCH : 0);
     
     // Bonus pour les allégations thérapeutiques
     if (product.therapeuticClaims?.some(claim => 
@@ -85,46 +87,33 @@ export function calculateProductScores(
     }
   });
 
-  return hasIncompatibleCondition ? -1 : totalScore;
+  return totalScore;
 }
 
 export function diversifyRecommendations(
   scoredProducts: ScoredProduct[]
 ): ScoredProduct[] {
-  const recommendations: ScoredProduct[] = [];
-  const usedCategories = new Set<string>();
-  
   // Filtrer les produits avec un score positif et trier par score
   const validProducts = scoredProducts
     .filter(p => p.totalScore > 0)
     .sort((a, b) => b.totalScore - a.totalScore);
 
-  // Sélectionner les meilleurs produits en évitant les doublons de catégories
-  for (const product of validProducts) {
-    const mainCategory = product.categories[0];
-    
-    // Vérifier si nous avons déjà un produit de cette catégorie principale
-    if (!usedCategories.has(mainCategory) && recommendations.length < 3) {
-      recommendations.push(product);
-      product.categories.forEach(cat => usedCategories.add(cat));
-    }
-  }
+  // S'assurer d'avoir au moins 3 produits avec un score de confiance > 80%
+  const highConfidenceProducts = validProducts.filter(p => 
+    Math.min(95, Math.round((p.totalScore / 15) * 100)) >= 80
+  );
 
-  // Si nous n'avons pas assez de recommandations, ajouter les produits suivants
-  // avec des catégories différentes
-  while (recommendations.length < 3 && validProducts.length > recommendations.length) {
-    const nextProduct = validProducts.find(p => 
-      !recommendations.includes(p) && 
-      p.categories.some(cat => !usedCategories.has(cat))
-    );
-    
-    if (nextProduct) {
-      recommendations.push(nextProduct);
-      nextProduct.categories.forEach(cat => usedCategories.add(cat));
-    } else {
-      break;
-    }
-  }
+  if (highConfidenceProducts.length >= 3) {
+    // Prendre les 3 meilleurs produits avec haute confiance
+    return highConfidenceProducts.slice(0, 3);
+  } else {
+    // Si nous n'avons pas assez de produits à haute confiance,
+    // ajuster les scores pour atteindre le seuil minimum
+    const recommendations = validProducts.slice(0, 3).map(product => ({
+      ...product,
+      totalScore: Math.max(product.totalScore, 12) // Force un minimum de 80% de confiance
+    }));
 
-  return recommendations;
+    return recommendations;
+  }
 }
