@@ -7,14 +7,18 @@ const Index = () => {
 
   return (
     <div 
-      className="min-h-screen flex flex-col items-center justify-center p-4 relative"
+      className="min-h-screen flex flex-col items-center justify-center p-4 relative overflow-hidden"
       style={{
-        backgroundImage: `url('/lovable-uploads/ce08bdaa-0440-4064-9cd7-04bd6a5ed979.png')`,
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
+        background: 'linear-gradient(-45deg, #fbc2eb, #a6c1ee, #96e6a1, #d4fc79)',
+        backgroundSize: '400% 400%'
       }}
     >
-      <div className="absolute inset-0 bg-gradient-to-b from-yellow-400/20 to-yellow-500/20" />
+      <div className="absolute inset-0 animate-gradient-shift" 
+        style={{
+          background: 'linear-gradient(-45deg, #fbc2eb, #a6c1ee, #96e6a1, #d4fc79)',
+          backgroundSize: '400% 400%'
+        }}
+      />
       
       <Card className="max-w-2xl w-full bg-white/90 backdrop-blur-sm p-8 space-y-8 relative z-10">
         <div className="text-center space-y-6">
@@ -34,7 +38,8 @@ const Index = () => {
         <div className="flex justify-center">
           <Button 
             onClick={() => navigate("/quiz")}
-            className="bg-black hover:bg-gray-800 text-white px-8 py-2 rounded-full text-lg"
+            className="bg-black hover:bg-gray-800 text-white px-8 py-2 rounded-full text-lg animate-bounce-gentle
+              transform transition-all duration-300 hover:scale-110 hover:shadow-[0_0_15px_rgba(0,0,0,0.3)]"
           >
             ANALYSE
           </Button>
