@@ -17,11 +17,10 @@ const Index = () => {
         style={{
           background: 'linear-gradient(-45deg, #FFD700, #FFA500, #FF8C00, #FFB347)',
           backgroundSize: '400% 400%',
-          opacity: 0.8
+          opacity: 0.9
         }}
       />
       
-      {/* Enhanced smoke effect overlays */}
       <div className="absolute inset-0 pointer-events-none">
         {[...Array(5)].map((_, i) => (
           <div
@@ -30,9 +29,9 @@ const Index = () => {
             style={{
               left: `${20 + i * 15}%`,
               top: '60%',
-              width: '120px',
-              height: '120px',
-              background: 'radial-gradient(circle, rgba(255,215,0,0.3) 0%, rgba(255,215,0,0) 70%)',
+              width: '150px',
+              height: '150px',
+              background: 'radial-gradient(circle, rgba(255,215,0,0.4) 0%, rgba(255,215,0,0) 70%)',
               animationDelay: `${i * 1.5}s`
             }}
           />
@@ -41,14 +40,14 @@ const Index = () => {
       
       <Card className="max-w-2xl w-full bg-white/90 backdrop-blur-sm p-8 space-y-8 relative z-10">
         <div className="text-center space-y-6">
-          <h1 className="text-5xl font-light tracking-wide text-gray-800">
+          <h1 className="text-6xl font-light tracking-wide text-gray-800">
             Maison Jacynthe
           </h1>
           <div className="space-y-2">
-            <h2 className="text-2xl font-medium text-gray-700">
+            <h2 className="text-3xl font-medium text-gray-700">
               MJ Supp
             </h2>
-            <p className="text-xl text-gray-600">
+            <p className="text-2xl text-gray-600 font-light">
               Découvrez Votre Chemin Vers le Bien-être Naturel
             </p>
           </div>
@@ -57,8 +56,8 @@ const Index = () => {
         <div className="flex justify-center">
           <Button 
             onClick={() => navigate("/quiz")}
-            className="bg-black hover:bg-gray-800 text-white px-8 py-2 rounded-full text-lg animate-bounce-gentle
-              transform transition-all duration-300 hover:scale-105 hover:shadow-[0_0_15px_rgba(0,0,0,0.3)]"
+            className="bg-black hover:bg-gray-800 text-white px-12 py-3 rounded-full text-xl
+              transform transition-all duration-300 hover:scale-110 hover:shadow-[0_0_25px_rgba(0,0,0,0.3)]"
           >
             ANALYSE
           </Button>
