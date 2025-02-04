@@ -26,7 +26,8 @@ export function getRecommendations(answers: Answer[]): Product[] {
       recommendationReason: product.recommendationReason,
       dietaryInfo: product.dietaryInfo,
       confidenceLevel: Math.min(95, Math.round((product.totalScore / 15) * 100)), // Normalize to percentage
-      productUrl: product.productUrl
+      productUrl: product.productUrl,
+      categories: product.categories // Ajout de la propriété manquante
     }));
 
     console.log("Final recommendations:", finalRecommendations);
