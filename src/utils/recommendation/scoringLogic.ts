@@ -5,11 +5,11 @@ interface ScoredProduct extends ProductDefinition {
   totalScore: number;
 }
 
-const QUESTION_WEIGHTS = {
+const WEIGHTS = {
   PRIMARY_GOAL: 3,
-  HEALTH_CONCERNS: 2,
+  HEALTH_CONCERN: 2,
   CATEGORY_MATCH: 1.5,
-  THERAPEUTIC_CLAIMS: 1
+  THERAPEUTIC_CLAIM: 1
 };
 
 const PRIMARY_GOAL_CATEGORIES: Record<string, ProductCategory[]> = {
@@ -21,54 +21,90 @@ const PRIMARY_GOAL_CATEGORIES: Record<string, ProductCategory[]> = {
   "Améliorer la digestion": ["digestive"]
 };
 
-export function calculateProductScores(
+function calculatePrimaryGoalScore(
   product: ProductDefinition,
-  answers: Answer[]
+  primaryGoal: string
 ): number {
-  let totalScore = 0;
-  console.group(`Calculating score for ${product.name}`);
-
-  const primaryGoal = answers.find(a => a.questionId === 1)?.answers[0];
-  if (primaryGoal) {
-    const primaryGoalScore = product.scores.find(s => 
-      s.condition === primaryGoal
-    )?.score || 0;
-    
-    totalScore += primaryGoalScore * QUESTION_WEIGHTS.PRIMARY_GOAL;
-    
-    const relevantCategories = PRIMARY_GOAL_CATEGORIES[primaryGoal] || [];
-    const hasRelevantCategory = product.categories.some(cat => 
-      relevantCategories.includes(cat)
-    );
-    
-    if (hasRelevantCategory) {
-      totalScore += QUESTION_WEIGHTS.CATEGORY_MATCH;
-    }
-
-    console.log(`Primary goal score for ${primaryGoal}: ${primaryGoalScore * QUESTION_WEIGHTS.PRIMARY_GOAL}`);
+  let score = 0;
+  
+  // Score basé sur les scores directs du produit
+  const primaryGoalScore = product.scores.find(s => 
+    s.condition === primaryGoal
+  )?.score || 0;
+  
+  score += primaryGoalScore * WEIGHTS.PRIMARY_GOAL;
+  
+  // Score basé sur les catégories correspondantes
+  const relevantCategories = PRIMARY_GOAL_CATEGORIES[primaryGoal] || [];
+  const hasRelevantCategory = product.categories.some(cat => 
+    relevantCategories.includes(cat)
+  );
+  
+  if (hasRelevantCategory) {
+    score += WEIGHTS.CATEGORY_MATCH;
   }
 
-  const healthConcerns = answers.find(a => a.questionId === 2)?.answers || [];
+  return score;
+}
+
+function calculateHealthConcernsScore(
+  product: ProductDefinition,
+  healthConcerns: string[]
+): number {
+  let score = 0;
+
   healthConcerns.forEach(concern => {
+    // Score basé sur les scores directs du produit
     const concernScore = product.scores.find(s => 
       s.condition === concern
     )?.score || 0;
     
-    totalScore += concernScore * QUESTION_WEIGHTS.HEALTH_CONCERNS;
-
+    score += concernScore * WEIGHTS.HEALTH_CONCERN;
+    
+    // Score bonus pour les allégations thérapeutiques correspondantes
     if (product.therapeuticClaims?.some(claim => 
       claim.toLowerCase().includes(concern.toLowerCase())
     )) {
-      totalScore += QUESTION_WEIGHTS.THERAPEUTIC_CLAIMS;
+      score += WEIGHTS.THERAPEUTIC_CLAIM;
     }
-
-    console.log(`Health concern score for ${concern}: ${concernScore * QUESTION_WEIGHTS.HEALTH_CONCERNS}`);
   });
 
-  console.log(`Final score for ${product.name}: ${totalScore}`);
-  console.groupEnd();
+  return score;
+}
 
-  return totalScore;
+export function calculateProductScores(
+  product: ProductDefinition,
+  answers: Answer[]
+): number {
+  console.group(`Calculating score for ${product.name}`);
+  
+  try {
+    let totalScore = 0;
+    
+    // Score pour l'objectif principal
+    const primaryGoal = answers.find(a => a.questionId === 1)?.answers[0];
+    if (primaryGoal) {
+      const primaryGoalScore = calculatePrimaryGoalScore(product, primaryGoal);
+      totalScore += primaryGoalScore;
+      console.log(`Primary goal score: ${primaryGoalScore}`);
+    }
+    
+    // Score pour les préoccupations de santé
+    const healthConcerns = answers.find(a => a.questionId === 2)?.answers || [];
+    if (healthConcerns.length > 0) {
+      const healthConcernsScore = calculateHealthConcernsScore(product, healthConcerns);
+      totalScore += healthConcernsScore;
+      console.log(`Health concerns score: ${healthConcernsScore}`);
+    }
+    
+    console.log(`Final score for ${product.name}: ${totalScore}`);
+    return totalScore;
+  } catch (error) {
+    console.error(`Error calculating score for ${product.name}:`, error);
+    return 0;
+  } finally {
+    console.groupEnd();
+  }
 }
 
 export function diversifyRecommendations(
@@ -77,33 +113,38 @@ export function diversifyRecommendations(
   console.group("Diversifying recommendations");
   
   try {
+    // Filtrer les produits avec un score positif et trier par score
     const validProducts = scoredProducts
       .filter(p => p.totalScore > 0)
       .sort((a, b) => b.totalScore - a.totalScore);
 
     if (validProducts.length === 0) {
       console.log("No valid products found");
-      console.groupEnd();
       return [];
     }
 
     const recommendations: ScoredProduct[] = [];
-    const usedCategories = new Set<string>();
+    const usedCategories = new Set<ProductCategory>();
 
+    // Ajouter le produit avec le meilleur score
     recommendations.push(validProducts[0]);
     validProducts[0].categories.forEach(cat => usedCategories.add(cat));
 
+    // Ajouter des produits avec des catégories différentes
     for (const product of validProducts.slice(1)) {
-      const newCategories = product.categories.filter(cat => !usedCategories.has(cat));
+      const hasNewCategories = product.categories.some(
+        cat => !usedCategories.has(cat)
+      );
       
-      if (newCategories.length > 0 && recommendations.length < 3) {
+      if (hasNewCategories && recommendations.length < 3) {
         recommendations.push(product);
-        newCategories.forEach(cat => usedCategories.add(cat));
+        product.categories.forEach(cat => usedCategories.add(cat));
       }
 
       if (recommendations.length >= 3) break;
     }
 
+    // Si nous n'avons pas assez de recommandations, ajouter les meilleurs produits restants
     while (recommendations.length < 2 && validProducts.length > recommendations.length) {
       const nextProduct = validProducts[recommendations.length];
       if (!recommendations.includes(nextProduct)) {
@@ -117,11 +158,11 @@ export function diversifyRecommendations(
       categories: r.categories
     })));
     
-    console.groupEnd();
     return recommendations;
   } catch (error) {
     console.error("Error in diversifyRecommendations:", error);
-    console.groupEnd();
     throw error;
+  } finally {
+    console.groupEnd();
   }
 }

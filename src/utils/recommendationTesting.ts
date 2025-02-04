@@ -54,6 +54,21 @@ const TEST_SCENARIOS: TestScenario[] = [
     ],
     expectedCategories: ["sleep", "relaxation"],
     minimumProducts: 2
+  },
+  {
+    name: "Scénario 4: Immunité et thyroïde",
+    answers: [
+      {
+        questionId: 1,
+        answers: ["Renforcer l'immunité"]
+      },
+      {
+        questionId: 2,
+        answers: ["Soutien de la fonction thyroïdienne"]
+      }
+    ],
+    expectedCategories: ["immune", "thyroid"],
+    minimumProducts: 2
   }
 ];
 
@@ -80,6 +95,7 @@ export function runRecommendationTests() {
         recommendationReason: r.recommendationReason
       })));
       
+      // Vérifier le nombre minimum de recommandations
       if (recommendations.length < scenario.minimumProducts) {
         console.error(`❌ Error: Not enough recommendations. Expected at least ${scenario.minimumProducts}, got ${recommendations.length}`);
         allTestsPassed = false;
@@ -87,6 +103,7 @@ export function runRecommendationTests() {
         console.log("✅ Correct number of recommendations");
       }
       
+      // Vérifier la couverture des catégories attendues
       const recommendedCategories = new Set(
         recommendations.flatMap(r => r.categories)
       );
@@ -102,6 +119,7 @@ export function runRecommendationTests() {
         console.log("✅ All expected categories covered");
       }
       
+      // Vérifier les niveaux de confiance
       const lowConfidenceProducts = recommendations.filter(
         r => r.confidenceLevel < 70
       );
