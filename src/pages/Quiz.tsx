@@ -62,6 +62,16 @@ const QUESTIONS: Question[] = [
       "Traiter les ridules, rides ou le vieillissement",
       "Aucune préoccupation particulière"
     ]
+  },
+  {
+    id: 6,
+    question: "Avez-vous des objectifs spécifiques pour la santé hormonale ou thyroïdienne ?",
+    type: "single",
+    options: [
+      "Gestion des symptômes de la ménopause ou du SPM",
+      "Soutien de la fonction thyroïdienne",
+      "Aucune préoccupation hormonale spécifique"
+    ]
   }
 ];
 
@@ -90,10 +100,19 @@ const Quiz = () => {
 
     setAnswers(newAnswers);
 
-    if (currentQuestion < QUESTIONS.length - 1) {
-      setCurrentQuestion(prev => prev + 1);
+    // If this is the last question, navigate to results
+    if (currentQuestion === QUESTIONS.length - 1) {
+      // Here you would typically process the answers and generate recommendations
+      // based only on Questions 1 and 2
+      navigate("/results", { 
+        state: { 
+          answers: newAnswers,
+          // Only pass answers from questions 1 and 2 for recommendation logic
+          recommendationData: newAnswers.filter(a => a.questionId <= 2)
+        } 
+      });
     } else {
-      navigate("/");
+      setCurrentQuestion(prev => prev + 1);
     }
   };
 
@@ -128,10 +147,15 @@ const Quiz = () => {
   };
 
   const handleNext = () => {
-    if (currentQuestion < QUESTIONS.length - 1) {
-      setCurrentQuestion(prev => prev + 1);
+    if (currentQuestion === QUESTIONS.length - 1) {
+      navigate("/results", { 
+        state: { 
+          answers,
+          recommendationData: answers.filter(a => a.questionId <= 2)
+        } 
+      });
     } else {
-      navigate("/");
+      setCurrentQuestion(prev => prev + 1);
     }
   };
 
@@ -156,7 +180,7 @@ const Quiz = () => {
     <QuizLayout>
       <QuizProgress 
         currentQuestion={currentQuestion} 
-        totalQuestions={6}
+        totalQuestions={QUESTIONS.length}
       />
       {currentQuestionData.type === "single" ? (
         <SingleChoiceQuestion
