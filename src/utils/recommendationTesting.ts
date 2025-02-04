@@ -213,6 +213,37 @@ const GENDER_SPECIFIC_TEST_SCENARIOS: TestScenario[] = [
   }
 ];
 
+function testDiversityRequirements(recommendations: Product[]): boolean {
+  // Vérifier qu'il y a au moins 2 catégories différentes
+  const uniqueCategories = new Set(recommendations.flatMap(r => r.categories));
+  if (uniqueCategories.size < 2) {
+    console.error("❌ Not enough diversity in recommendations categories");
+    console.log("Found categories:", Array.from(uniqueCategories));
+    return false;
+  }
+
+  // Vérifier qu'il n'y a pas trop de produits similaires
+  const categoryCount: { [key: string]: number } = {};
+  recommendations.forEach(product => {
+    product.categories.forEach(category => {
+      categoryCount[category] = (categoryCount[category] || 0) + 1;
+    });
+  });
+
+  const maxProductsPerCategory = Math.ceil(recommendations.length / 2);
+  const overrepresentedCategories = Object.entries(categoryCount)
+    .filter(([_, count]) => count > maxProductsPerCategory);
+
+  if (overrepresentedCategories.length > 0) {
+    console.error("❌ Some categories are overrepresented in recommendations");
+    console.log("Category distribution:", categoryCount);
+    return false;
+  }
+
+  console.log("✅ Recommendations meet diversity requirements");
+  return true;
+}
+
 export function runRecommendationTests() {
   console.group("Running Recommendation Algorithm Tests");
   
