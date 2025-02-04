@@ -82,16 +82,16 @@ export default {
 					'50%': { 'background-position': '100% 50%' }
 				},
 				'bounce-gentle': {
-					'0%, 20%, 50%, 80%, 100%': { transform: 'translateY(0)' },
-					'40%': { transform: 'translateY(-10px)' },
-					'60%': { transform: 'translateY(-5px)' }
+					'0%, 2%, 4%, 6%, 8%, 10%, 100%': { transform: 'translateY(0)' },
+					'3%': { transform: 'translateY(-10px)' },
+					'5%': { transform: 'translateY(-5px)' }
 				}
 			},
 			animation: {
 				'accordion-down': 'accordion-down 0.2s ease-out',
 				'accordion-up': 'accordion-up 0.2s ease-out',
 				'gradient-shift': 'gradient-shift 10s ease infinite',
-				'bounce-gentle': 'bounce-gentle 2s infinite'
+				'bounce-gentle': 'bounce-gentle 10s infinite'
 			}
 		}
 	},

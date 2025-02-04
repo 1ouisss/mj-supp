@@ -9,13 +9,13 @@ const Index = () => {
     <div 
       className="min-h-screen flex flex-col items-center justify-center p-4 relative overflow-hidden"
       style={{
-        background: 'linear-gradient(-45deg, #fbc2eb, #a6c1ee, #96e6a1, #d4fc79)',
+        background: 'linear-gradient(-45deg, #FFD700, #FFA500, #FF8C00, #FFB347)',
         backgroundSize: '400% 400%'
       }}
     >
       <div className="absolute inset-0 animate-gradient-shift" 
         style={{
-          background: 'linear-gradient(-45deg, #fbc2eb, #a6c1ee, #96e6a1, #d4fc79)',
+          background: 'linear-gradient(-45deg, #FFD700, #FFA500, #FF8C00, #FFB347)',
           backgroundSize: '400% 400%'
         }}
       />
