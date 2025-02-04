@@ -8,17 +8,17 @@ interface SingleChoiceQuestionProps {
 
 export const SingleChoiceQuestion = ({ question, options, onAnswer }: SingleChoiceQuestionProps) => {
   return (
-    <div className="space-y-6">
-      <h2 className="text-xl sm:text-2xl font-medium text-center">
+    <div className="space-y-8">
+      <h2 className="text-2xl sm:text-3xl font-medium text-center">
         {question}
       </h2>
-      <div className="grid gap-4">
+      <div className="grid gap-6">
         {options.map((option) => (
           <Button
             key={option}
             onClick={() => onAnswer(option)}
             variant="outline"
-            className="w-full py-4 sm:py-6 text-base sm:text-lg"
+            className="w-full py-6 sm:py-8 text-lg sm:text-xl hover:scale-105 transition-transform"
           >
             {option}
           </Button>
