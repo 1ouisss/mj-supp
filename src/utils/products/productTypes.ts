@@ -12,7 +12,20 @@ export type ProductCategory =
   | "immune"
   | "heart_health"
   | "hormonal_health"
-  | "throat_health";
+  | "throat_health"
+  | "muscle"
+  | "joint_health"
+  | "metabolism"
+  | "seasonal"
+  | "topical"
+  | "pain"
+  | "healing"
+  | "essential"
+  | "bone_health"
+  | "children"
+  | "nails"
+  | "migraine"
+  | "thyroid";
 
 export interface ProductScore {
   condition: string;
@@ -30,4 +43,5 @@ export interface ProductDefinition {
   productUrl: string;
   categories: ProductCategory[];
   scores: ProductScore[];
+  therapeuticClaims?: string[];
 }
