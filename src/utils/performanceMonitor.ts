@@ -1,31 +1,25 @@
-type PerformanceMetric = {
-  name: string;
-  startTime: number;
-  duration?: number;
-};
-
 class PerformanceMonitor {
-  private static metrics: PerformanceMetric[] = [];
-
-  static startMeasure(name: string) {
-    this.metrics.push({
-      name,
-      startTime: performance.now()
-    });
-    console.log(`📊 Starting measurement: ${name}`);
-  }
-
-  static endMeasure(name: string) {
-    const metric = this.metrics.find(m => m.name === name && !m.duration);
-    if (metric) {
-      metric.duration = performance.now() - metric.startTime;
-      console.log(`📊 ${name} took ${metric.duration.toFixed(2)}ms`);
+  private logToConsole(eventName: string, details?: Record<string, any>) {
+    console.log(`[Performance] ${eventName}`, details || '');
+    if (window.performance && window.performance.now) {
+      console.log(`Timestamp: ${window.performance.now().toFixed(2)}ms`);
     }
   }
 
-  static clearMetrics() {
-    this.metrics = [];
+  logEvent(eventName: string, details?: Record<string, any>) {
+    this.logToConsole(eventName, details);
+    // Here we could add real performance monitoring service integration
+    // like Google Analytics, New Relic, etc.
+  }
+
+  measureTimeSpent(label: string, callback: () => void) {
+    const start = performance.now();
+    callback();
+    const end = performance.now();
+    this.logToConsole(`Time spent on ${label}`, {
+      duration: `${(end - start).toFixed(2)}ms`
+    });
   }
 }
 
-export default PerformanceMonitor;
+export const performanceMonitor = new PerformanceMonitor();
