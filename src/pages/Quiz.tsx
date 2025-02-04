@@ -30,6 +30,16 @@ const QUESTIONS = [
       "Problèmes de peau",
       "Déséquilibres hormonaux"
     ]
+  },
+  {
+    id: 3,
+    question: "Êtes-vous physiquement actif ou avez-vous des objectifs de fitness ?",
+    type: "single",
+    options: [
+      "Améliorer l'endurance et la performance",
+      "Aide à la récupération et réparation musculaire",
+      "Pas très actif"
+    ]
   }
 ];
 
@@ -66,7 +76,7 @@ const Quiz = () => {
     if (currentQuestion < QUESTIONS.length - 1) {
       setCurrentQuestion(prev => prev + 1);
     } else {
-      // For now, just go back to home since we only have the first two pages
+      // For now, just go back to home since we only have the first three pages
       navigate("/");
     }
   };
@@ -105,7 +115,7 @@ const Quiz = () => {
     if (currentQuestion < QUESTIONS.length - 1) {
       setCurrentQuestion(prev => prev + 1);
     } else {
-      // For now, just go back to home since we only have the first two pages
+      // For now, just go back to home since we only have the first three pages
       navigate("/");
     }
   };
