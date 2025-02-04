@@ -31,24 +31,10 @@ export function getRecommendations(answers: Answer[]): Product[] {
     // Get diversified recommendations
     const recommendations = diversifyRecommendations(scoredProducts);
 
-    // Convert back to Product type and add confidence levels
-    const finalRecommendations = recommendations.map(product => ({
-      id: product.id,
-      name: product.name,
-      description: product.description,
-      imageUrl: product.imageUrl,
-      expectedResults: product.expectedResults,
-      recommendationReason: product.recommendationReason,
-      dietaryInfo: product.dietaryInfo,
-      confidenceLevel: Math.min(95, Math.round((product.totalScore / 15) * 100)),
-      productUrl: product.productUrl,
-      categories: product.categories
-    }));
-
-    console.log("Final recommendations:", finalRecommendations);
+    console.log("Final recommendations:", recommendations);
     console.groupEnd();
 
-    return finalRecommendations;
+    return recommendations;
   } catch (error) {
     console.error("Error generating recommendations:", error);
     console.groupEnd();
