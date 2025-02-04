@@ -11,18 +11,17 @@ export type ProductCategory =
   | "skin"
   | "immune"
   | "muscle"
-  | "seasonal"
-  | "hormonal_health"
-  | "migraine"
-  | "heart_health"
+  | "joints"
+  | "nails"
+  | "hormones"
   | "thyroid"
-  | "metabolism"
-  | "throat_health"
-  | "topical"
+  | "women_specific"
+  | "men_specific"
+  | "migraine"
   | "pain"
   | "healing"
-  | "women_specific"
-  | "men_specific";
+  | "topical"
+  | "immunity";
 
 export interface ProductScore {
   condition: string;

@@ -8,7 +8,8 @@ const WEIGHTS = {
   CATEGORY_MATCH: 2,
   THERAPEUTIC_CLAIM: 1.5,
   MULTI_MATCH_BONUS: 1.5,
-  MIN_CONFIDENCE: 80 // Minimum confidence level
+  MIN_CONFIDENCE: 80,
+  MAX_CONFIDENCE: 95
 };
 
 export function calculateProductScores(product: ProductDefinition, answers: Answer[]): number {
@@ -48,58 +49,35 @@ export function calculateProductScores(product: ProductDefinition, answers: Answ
     totalScore *= WEIGHTS.MULTI_MATCH_BONUS;
   }
 
-  return totalScore;
+  // Assurer un score minimum pour les produits pertinents
+  if (totalScore > 0) {
+    totalScore = Math.max(totalScore, WEIGHTS.MIN_CONFIDENCE);
+  }
+
+  return Math.min(totalScore, WEIGHTS.MAX_CONFIDENCE);
 }
 
 export function diversifyRecommendations(scoredProducts: (ProductDefinition & { totalScore: number })[]): Product[] {
-  const MIN_CATEGORIES = 2;
-  const usedCategories = new Set<string>();
   const recommendations: Product[] = [];
+  const usedCategories = new Set<string>();
 
   // Trier par score décroissant
-  const sortedProducts = [...scoredProducts].sort((a, b) => b.totalScore - a.totalScore);
+  const sortedProducts = [...scoredProducts]
+    .sort((a, b) => b.totalScore - a.totalScore)
+    .filter(p => p.totalScore >= WEIGHTS.MIN_CONFIDENCE);
 
-  // Première passe : sélectionner les produits les plus pertinents
   for (const product of sortedProducts) {
     if (recommendations.length >= 3) break;
 
-    // Calculer le niveau de confiance
-    let confidenceLevel = Math.min(95, Math.round((product.totalScore / 15) * 100));
-    
-    // Assurer un niveau minimum de confiance
-    confidenceLevel = Math.max(confidenceLevel, WEIGHTS.MIN_CONFIDENCE);
+    const productRecommendation: Product = {
+      ...product,
+      confidenceLevel: Math.round(product.totalScore),
+      recommendationReason: product.recommendationReason || "Produit recommandé selon vos besoins",
+      dietaryInfo: product.dietaryInfo || "Information nutritionnelle non disponible"
+    };
 
-    // Vérifier si une catégorie du produit est déjà utilisée
-    const categoryOverlap = product.categories.some(cat => usedCategories.has(cat));
-    
-    if (!categoryOverlap || recommendations.length < 3) {
-      recommendations.push({
-        ...product,
-        confidenceLevel
-      });
-      product.categories.forEach(cat => usedCategories.add(cat));
-    }
-  }
-
-  // Deuxième passe : assurer la diversité minimale
-  if (usedCategories.size < MIN_CATEGORIES && sortedProducts.length > recommendations.length) {
-    for (const product of sortedProducts) {
-      if (recommendations.some(r => r.id === product.id)) continue;
-
-      const newCategories = product.categories.filter(cat => !usedCategories.has(cat));
-      if (newCategories.length > 0) {
-        recommendations.push({
-          ...product,
-          confidenceLevel: Math.max(WEIGHTS.MIN_CONFIDENCE, 
-            Math.min(95, Math.round((product.totalScore / 15) * 100)))
-        });
-        newCategories.forEach(cat => usedCategories.add(cat));
-      }
-
-      if (usedCategories.size >= MIN_CATEGORIES || recommendations.length >= 3) {
-        break;
-      }
-    }
+    recommendations.push(productRecommendation);
+    product.categories.forEach(cat => usedCategories.add(cat));
   }
 
   return recommendations;
