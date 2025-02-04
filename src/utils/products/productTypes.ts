@@ -9,7 +9,20 @@ export type ProductCategory =
   | "energy" 
   | "hair_health" 
   | "skin"
-  | "immune";
+  | "immune"
+  | "muscle"
+  | "seasonal"
+  | "hormonal_health"
+  | "migraine"
+  | "heart_health"
+  | "thyroid"
+  | "metabolism"
+  | "throat_health"
+  | "topical"
+  | "pain"
+  | "healing"
+  | "women_specific"
+  | "men_specific";
 
 export interface ProductScore {
   condition: string;
@@ -22,7 +35,10 @@ export interface ProductDefinition {
   description: string;
   imageUrl: string;
   expectedResults: string;
+  recommendationReason: string;
+  dietaryInfo: string;
   productUrl: string;
   categories: ProductCategory[];
   scores: ProductScore[];
+  therapeuticClaims?: string[];
 }
