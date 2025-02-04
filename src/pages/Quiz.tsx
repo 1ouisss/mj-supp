@@ -4,6 +4,7 @@ import { QuizLayout } from "@/components/quiz/QuizLayout";
 import { QuizProgress } from "@/components/quiz/QuizProgress";
 import { SingleChoiceQuestion } from "@/components/quiz/questions/SingleChoiceQuestion";
 import { MultipleChoiceQuestion } from "@/components/quiz/questions/MultipleChoiceQuestion";
+import { runRecommendationTests } from "@/utils/recommendationTesting";
 import type { Question, Answer } from "@/components/quiz/types";
 
 const QUESTIONS: Question[] = [
@@ -80,6 +81,11 @@ const Quiz = () => {
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [answers, setAnswers] = useState<Answer[]>([]);
 
+  // Run tests in development
+  if (process.env.NODE_ENV === 'development') {
+    runRecommendationTests();
+  }
+
   const handleSingleAnswer = (answer: string) => {
     const newAnswers = [...answers];
     const existingAnswerIndex = newAnswers.findIndex(
@@ -102,12 +108,9 @@ const Quiz = () => {
 
     // If this is the last question, navigate to results
     if (currentQuestion === QUESTIONS.length - 1) {
-      // Here you would typically process the answers and generate recommendations
-      // based only on Questions 1 and 2
       navigate("/results", { 
         state: { 
           answers: newAnswers,
-          // Only pass answers from questions 1 and 2 for recommendation logic
           recommendationData: newAnswers.filter(a => a.questionId <= 2)
         } 
       });

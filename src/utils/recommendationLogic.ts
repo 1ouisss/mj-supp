@@ -210,6 +210,7 @@ function calculateProductScore(
   healthConcerns: string[]
 ): number {
   let score = 0;
+  const debugInfo: string[] = [];
   
   // Primary Goal scoring (Weight = 3)
   if (product.keywords.some(keyword => 
@@ -217,6 +218,7 @@ function calculateProductScore(
     keyword.includes(primaryGoal.toLowerCase())
   )) {
     score += 3;
+    debugInfo.push(`+3 points for primary goal match: ${primaryGoal}`);
   }
 
   // Health Concerns scoring (Weight = 2 per concern)
@@ -226,16 +228,26 @@ function calculateProductScore(
       keyword.includes(concern.toLowerCase())
     )) {
       score += 2;
+      debugInfo.push(`+2 points for health concern match: ${concern}`);
     }
+  });
+
+  console.debug(`Score calculation for ${product.name}:`, {
+    score,
+    details: debugInfo
   });
 
   return score;
 }
 
 export function getRecommendations(answers: Answer[]): Product[] {
+  console.group("Generating Recommendations");
+  
   // Get primary goal and health concerns from answers
   const primaryGoal = answers.find(a => a.questionId === 1)?.answers[0] || "";
   const healthConcerns = answers.find(a => a.questionId === 2)?.answers || [];
+
+  console.log("Inputs:", { primaryGoal, healthConcerns });
 
   // Calculate scores for all products
   const scoredProducts = PRODUCTS.map(product => ({
@@ -245,6 +257,12 @@ export function getRecommendations(answers: Answer[]): Product[] {
 
   // Sort by score
   scoredProducts.sort((a, b) => b.score - a.score);
+
+  console.log("Scored products:", scoredProducts.map(p => ({
+    name: p.name,
+    score: p.score,
+    categories: p.categories
+  })));
 
   // Get top 3 products, ensuring category diversity
   const recommendations: Product[] = [];
@@ -260,6 +278,8 @@ export function getRecommendations(answers: Answer[]): Product[] {
     if (newCategory || recommendations.length < 2) {
       recommendations.push(product);
       product.categories.forEach(cat => usedCategories.add(cat));
+      
+      console.log(`Selected ${product.name} (categories: ${product.categories.join(", ")})`);
     }
   }
 
@@ -271,10 +291,14 @@ export function getRecommendations(answers: Answer[]): Product[] {
     );
     if (fallbackProduct) {
       recommendations.push(fallbackProduct);
+      console.log(`Added fallback product: ${fallbackProduct.name}`);
     } else {
       break;
     }
   }
+
+  console.log("Final recommendations:", recommendations.map(r => r.name));
+  console.groupEnd();
 
   return recommendations;
 }
