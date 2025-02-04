@@ -169,17 +169,17 @@ const Quiz = () => {
         a => a.questionId === QUESTIONS[currentQuestion].id
       );
 
-      // If "Aucune" is selected, clear other selections and move to next question
-      if (answer === "Aucune" && checked) {
+      // Special handling for "Aucune préoccupation particulière" in question 5
+      if (QUESTIONS[currentQuestion].id === 5 && answer === "Aucune préoccupation particulière" && checked) {
         if (existingAnswerIndex !== -1) {
           newAnswers[existingAnswerIndex] = {
             questionId: QUESTIONS[currentQuestion].id,
-            answers: ["Aucune"]
+            answers: ["Aucune préoccupation particulière"]
           };
         } else {
           newAnswers.push({
             questionId: QUESTIONS[currentQuestion].id,
-            answers: ["Aucune"]
+            answers: ["Aucune préoccupation particulière"]
           });
         }
         setAnswers(newAnswers);
@@ -187,11 +187,11 @@ const Quiz = () => {
         return;
       }
 
-      // If any other option is selected, remove "Aucune" if it exists
+      // If any other option is selected, remove "Aucune préoccupation particulière" if it exists
       if (existingAnswerIndex !== -1) {
         let currentAnswers = newAnswers[existingAnswerIndex].answers;
         if (checked) {
-          currentAnswers = currentAnswers.filter(a => a !== "Aucune");
+          currentAnswers = currentAnswers.filter(a => a !== "Aucune préoccupation particulière");
           currentAnswers.push(answer);
         } else {
           const index = currentAnswers.indexOf(answer);
