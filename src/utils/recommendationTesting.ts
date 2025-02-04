@@ -1,10 +1,11 @@
 import { Answer } from "@/components/quiz/types";
 import { getRecommendations } from "./recommendationLogic";
+import { ProductCategory } from "./products/productTypes";
 
 interface TestScenario {
   name: string;
   answers: Answer[];
-  expectedCategories: string[];
+  expectedCategories: ProductCategory[];
   minimumProducts: number;
 }
 
@@ -79,7 +80,6 @@ export function runRecommendationTests() {
         recommendationReason: r.recommendationReason
       })));
       
-      // Validate number of recommendations
       if (recommendations.length < scenario.minimumProducts) {
         console.error(`❌ Error: Not enough recommendations. Expected at least ${scenario.minimumProducts}, got ${recommendations.length}`);
         allTestsPassed = false;
@@ -87,7 +87,6 @@ export function runRecommendationTests() {
         console.log("✅ Correct number of recommendations");
       }
       
-      // Validate category coverage
       const recommendedCategories = new Set(
         recommendations.flatMap(r => r.categories)
       );
@@ -103,7 +102,6 @@ export function runRecommendationTests() {
         console.log("✅ All expected categories covered");
       }
       
-      // Validate confidence levels
       const lowConfidenceProducts = recommendations.filter(
         r => r.confidenceLevel < 70
       );
