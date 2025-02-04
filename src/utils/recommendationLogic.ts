@@ -76,7 +76,7 @@ const PRODUCTS: ProductWithCategories[] = [
     id: "jus-aloes",
     name: "Jus d'Aloès",
     description: "Boisson naturelle pour soutenir la santé digestive.",
-    imageUrl: "/lovable-uploads/3d4695a5-4f00-4d50-8c0f-ba0fc614d742.png",
+    imageUrl: "/lovable-uploads/8fe4ae95-85e6-4127-a217-447d2915f2f0.png",
     expectedResults: "Amélioration de la digestion, soulagement des maux d'estomac 🍃",
     recommendationReason: "Soutien digestif naturel",
     dietaryInfo: "100% Naturel, Vegan",
