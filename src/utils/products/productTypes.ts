@@ -25,12 +25,14 @@ export type ProductCategory =
   | "children"
   | "nails"
   | "migraine"
-  | "thyroid";
+  | "thyroid"
+  | "women_specific"
+  | "men_specific";
 
 export interface ProductScore {
   condition: string;
   score: number;
-  incompatibleWith?: string[]; // Nouvelles conditions incompatibles
+  incompatibleWith?: string[];
 }
 
 export interface ProductDefinition {
