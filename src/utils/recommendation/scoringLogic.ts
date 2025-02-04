@@ -7,7 +7,17 @@ interface ScoredProduct extends ProductDefinition {
 
 const QUESTION_WEIGHTS = {
   PRIMARY_GOAL: 3,
-  HEALTH_CONCERNS: 2
+  HEALTH_CONCERNS: 2,
+  THERAPEUTIC_CLAIMS: 1.5
+};
+
+// Définir les conditions incompatibles
+const INCOMPATIBLE_CONDITIONS = {
+  "Améliorer l'énergie": ["sleep", "relaxation"],
+  "Améliorer le sommeil": ["energy", "concentration"],
+  "Soutenir la santé cérébrale": [],
+  "Améliorer la digestion": [],
+  "Gérer le stress": []
 };
 
 const CATEGORY_COMPATIBILITY = {
@@ -16,8 +26,8 @@ const CATEGORY_COMPATIBILITY = {
   "Améliorer la digestion": ["digestive", "general_health"],
   "Soutenir la santé cérébrale": ["brain", "concentration"],
   "Problèmes de peau": ["skin", "hair_health"],
-  "Améliorer l'énergie": ["energy", "general_health"],
-  "Déséquilibres hormonaux": ["hormonal_health"],
+  "Améliorer l'énergie": ["energy", "concentration"],
+  "Déséquilibres hormonaux": ["hormonal_health", "thyroid"],
   "Renforcer l'immunité": ["immune", "seasonal"],
   "Problèmes articulaires": ["joint_health", "muscle"],
   "Migraines": ["migraine", "brain"],
@@ -29,10 +39,18 @@ export function calculateProductScores(
   answers: Answer[]
 ): number {
   let totalScore = 0;
+  let hasIncompatibleCondition = false;
   
   // Get primary goal from first question
   const primaryGoal = answers.find(a => a.questionId === 1)?.answers[0];
+  
+  // Vérifier les incompatibilités
   if (primaryGoal) {
+    const incompatibleCategories = INCOMPATIBLE_CONDITIONS[primaryGoal as keyof typeof INCOMPATIBLE_CONDITIONS] || [];
+    if (product.categories.some(cat => incompatibleCategories.includes(cat))) {
+      return -1; // Produit incompatible
+    }
+
     // Check direct score matches
     const primaryGoalScore = product.scores.find(s => 
       s.condition.toLowerCase() === primaryGoal.toLowerCase()
@@ -59,15 +77,15 @@ export function calculateProductScores(
     
     totalScore += (concernScore + (categoryMatch ? 1 : 0)) * QUESTION_WEIGHTS.HEALTH_CONCERNS;
     
-    // Bonus for therapeutic claims if they match the concern
+    // Bonus pour les allégations thérapeutiques
     if (product.therapeuticClaims?.some(claim => 
       claim.toLowerCase().includes(concern.toLowerCase())
     )) {
-      totalScore += QUESTION_WEIGHTS.HEALTH_CONCERNS;
+      totalScore += QUESTION_WEIGHTS.THERAPEUTIC_CLAIMS;
     }
   });
 
-  return totalScore;
+  return hasIncompatibleCondition ? -1 : totalScore;
 }
 
 export function diversifyRecommendations(
@@ -75,27 +93,27 @@ export function diversifyRecommendations(
 ): ScoredProduct[] {
   const recommendations: ScoredProduct[] = [];
   const usedCategories = new Set<string>();
-  const mainCategories = new Set<string>();
+  
+  // Filtrer les produits avec un score positif et trier par score
+  const validProducts = scoredProducts
+    .filter(p => p.totalScore > 0)
+    .sort((a, b) => b.totalScore - a.totalScore);
 
-  // Sort by score descending
-  const sortedProducts = [...scoredProducts].sort((a, b) => b.totalScore - a.totalScore);
-
-  for (const product of sortedProducts) {
-    // Get main category (first category in the array)
+  // Sélectionner les meilleurs produits en évitant les doublons de catégories
+  for (const product of validProducts) {
     const mainCategory = product.categories[0];
     
-    // Check if we already have a product from this main category
-    if (!mainCategories.has(mainCategory) && recommendations.length < 3) {
+    // Vérifier si nous avons déjà un produit de cette catégorie principale
+    if (!usedCategories.has(mainCategory) && recommendations.length < 3) {
       recommendations.push(product);
-      mainCategories.add(mainCategory);
       product.categories.forEach(cat => usedCategories.add(cat));
     }
   }
 
-  // If we don't have enough recommendations, add highest scoring products
-  // from unused categories
-  while (recommendations.length < 3 && sortedProducts.length > recommendations.length) {
-    const nextProduct = sortedProducts.find(p => 
+  // Si nous n'avons pas assez de recommandations, ajouter les produits suivants
+  // avec des catégories différentes
+  while (recommendations.length < 3 && validProducts.length > recommendations.length) {
+    const nextProduct = validProducts.find(p => 
       !recommendations.includes(p) && 
       p.categories.some(cat => !usedCategories.has(cat))
     );

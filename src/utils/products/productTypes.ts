@@ -30,6 +30,7 @@ export type ProductCategory =
 export interface ProductScore {
   condition: string;
   score: number;
+  incompatibleWith?: string[]; // Nouvelles conditions incompatibles
 }
 
 export interface ProductDefinition {
