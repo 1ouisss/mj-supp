@@ -12,6 +12,17 @@ import type { Question, Answer } from "@/components/quiz/types";
 const QUESTIONS: Question[] = [
   {
     id: 1,
+    question: "Quel est votre sexe ou genre ?",
+    type: "single",
+    options: [
+      "Femme",
+      "Homme",
+      "Autre",
+      "Je préfère ne pas répondre"
+    ]
+  },
+  {
+    id: 2,
     question: "Quel est votre objectif principal de bien-être ?",
     type: "single",
     options: [
@@ -24,7 +35,7 @@ const QUESTIONS: Question[] = [
     ]
   },
   {
-    id: 2,
+    id: 3,
     question: "Avez-vous des préoccupations de santé spécifiques ?",
     type: "multiple",
     options: [
@@ -37,7 +48,7 @@ const QUESTIONS: Question[] = [
     ]
   },
   {
-    id: 3,
+    id: 4,
     question: "Êtes-vous physiquement actif ou avez-vous des objectifs de fitness ?",
     type: "single",
     options: [
@@ -47,7 +58,7 @@ const QUESTIONS: Question[] = [
     ]
   },
   {
-    id: 4,
+    id: 5,
     question: "Comment gérez-vous habituellement le stress ?",
     type: "single",
     options: [
@@ -57,7 +68,7 @@ const QUESTIONS: Question[] = [
     ]
   },
   {
-    id: 5,
+    id: 6,
     question: "Quels sont vos objectifs ou préoccupations concernant la peau ?",
     type: "multiple",
     options: [
@@ -68,7 +79,7 @@ const QUESTIONS: Question[] = [
     ]
   },
   {
-    id: 6,
+    id: 7,
     question: "Avez-vous des objectifs spécifiques pour la santé hormonale ou thyroïdienne ?",
     type: "single",
     options: [
@@ -169,8 +180,8 @@ const Quiz = () => {
         a => a.questionId === QUESTIONS[currentQuestion].id
       );
 
-      // Special handling for "Aucune préoccupation particulière" in question 5
-      if (QUESTIONS[currentQuestion].id === 5 && answer === "Aucune préoccupation particulière" && checked) {
+      // Special handling for "Aucune préoccupation particulière" in question 6
+      if (QUESTIONS[currentQuestion].id === 6 && answer === "Aucune préoccupation particulière" && checked) {
         if (existingAnswerIndex !== -1) {
           newAnswers[existingAnswerIndex] = {
             questionId: QUESTIONS[currentQuestion].id,
