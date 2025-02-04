@@ -40,6 +40,16 @@ const QUESTIONS = [
       "Aide à la récupération et réparation musculaire",
       "Pas très actif"
     ]
+  },
+  {
+    id: 4,
+    question: "Comment gérez-vous habituellement le stress ?",
+    type: "single",
+    options: [
+      "Constamment stressé et dépassé",
+      "Stress léger occasionnel",
+      "Difficulté à se détendre ou à dormir"
+    ]
   }
 ];
 
