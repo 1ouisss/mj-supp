@@ -1,10 +1,12 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { QuizLayout } from "@/components/quiz/QuizLayout";
 import { QuizProgress } from "@/components/quiz/QuizProgress";
 import { SingleChoiceQuestion } from "@/components/quiz/questions/SingleChoiceQuestion";
 import { MultipleChoiceQuestion } from "@/components/quiz/questions/MultipleChoiceQuestion";
 import { runRecommendationTests } from "@/utils/recommendationTesting";
+import { useToast } from "@/components/ui/use-toast";
+import PerformanceMonitor from "@/utils/performanceMonitor";
 import type { Question, Answer } from "@/components/quiz/types";
 
 const QUESTIONS: Question[] = [
@@ -78,95 +80,172 @@ const QUESTIONS: Question[] = [
 
 const Quiz = () => {
   const navigate = useNavigate();
+  const { toast } = useToast();
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [answers, setAnswers] = useState<Answer[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
 
-  // Run tests in development
-  if (process.env.NODE_ENV === 'development') {
-    runRecommendationTests();
-  }
+  useEffect(() => {
+    const initQuiz = async () => {
+      try {
+        PerformanceMonitor.startMeasure('quizInit');
+        setIsLoading(true);
+
+        // Run tests in development
+        if (process.env.NODE_ENV === 'development') {
+          await runRecommendationTests();
+        }
+
+        setIsLoading(false);
+        PerformanceMonitor.endMeasure('quizInit');
+      } catch (error) {
+        console.error('Quiz initialization error:', error);
+        toast({
+          variant: "destructive",
+          title: "Erreur",
+          description: "Une erreur est survenue lors du chargement du quiz. Veuillez réessayer.",
+        });
+      }
+    };
+
+    initQuiz();
+
+    return () => {
+      PerformanceMonitor.clearMetrics();
+    };
+  }, [toast]);
 
   const handleSingleAnswer = (answer: string) => {
-    const newAnswers = [...answers];
-    const existingAnswerIndex = newAnswers.findIndex(
-      a => a.questionId === QUESTIONS[currentQuestion].id
-    );
+    try {
+      PerformanceMonitor.startMeasure('answerSubmission');
+      
+      const newAnswers = [...answers];
+      const existingAnswerIndex = newAnswers.findIndex(
+        a => a.questionId === QUESTIONS[currentQuestion].id
+      );
 
-    if (existingAnswerIndex !== -1) {
-      newAnswers[existingAnswerIndex] = {
-        questionId: QUESTIONS[currentQuestion].id,
-        answers: [answer]
-      };
-    } else {
-      newAnswers.push({
-        questionId: QUESTIONS[currentQuestion].id,
-        answers: [answer]
+      if (existingAnswerIndex !== -1) {
+        newAnswers[existingAnswerIndex] = {
+          questionId: QUESTIONS[currentQuestion].id,
+          answers: [answer]
+        };
+      } else {
+        newAnswers.push({
+          questionId: QUESTIONS[currentQuestion].id,
+          answers: [answer]
+        });
+      }
+
+      setAnswers(newAnswers);
+
+      if (currentQuestion === QUESTIONS.length - 1) {
+        navigate("/results", { 
+          state: { 
+            answers: newAnswers,
+            recommendationData: newAnswers.filter(a => a.questionId <= 2)
+          } 
+        });
+      } else {
+        setCurrentQuestion(prev => prev + 1);
+      }
+
+      PerformanceMonitor.endMeasure('answerSubmission');
+    } catch (error) {
+      console.error('Error handling single answer:', error);
+      toast({
+        variant: "destructive",
+        title: "Erreur",
+        description: "Une erreur est survenue lors de l'enregistrement de votre réponse.",
       });
-    }
-
-    setAnswers(newAnswers);
-
-    // If this is the last question, navigate to results
-    if (currentQuestion === QUESTIONS.length - 1) {
-      navigate("/results", { 
-        state: { 
-          answers: newAnswers,
-          recommendationData: newAnswers.filter(a => a.questionId <= 2)
-        } 
-      });
-    } else {
-      setCurrentQuestion(prev => prev + 1);
     }
   };
 
   const handleMultipleAnswers = (answer: string, checked: boolean) => {
-    const newAnswers = [...answers];
-    const existingAnswerIndex = newAnswers.findIndex(
-      a => a.questionId === QUESTIONS[currentQuestion].id
-    );
+    try {
+      PerformanceMonitor.startMeasure('multipleAnswerUpdate');
+      
+      const newAnswers = [...answers];
+      const existingAnswerIndex = newAnswers.findIndex(
+        a => a.questionId === QUESTIONS[currentQuestion].id
+      );
 
-    if (existingAnswerIndex !== -1) {
-      const currentAnswers = newAnswers[existingAnswerIndex].answers;
-      if (checked) {
-        currentAnswers.push(answer);
-      } else {
-        const index = currentAnswers.indexOf(answer);
-        if (index > -1) {
-          currentAnswers.splice(index, 1);
+      if (existingAnswerIndex !== -1) {
+        const currentAnswers = newAnswers[existingAnswerIndex].answers;
+        if (checked) {
+          currentAnswers.push(answer);
+        } else {
+          const index = currentAnswers.indexOf(answer);
+          if (index > -1) {
+            currentAnswers.splice(index, 1);
+          }
         }
+        newAnswers[existingAnswerIndex] = {
+          questionId: QUESTIONS[currentQuestion].id,
+          answers: currentAnswers
+        };
+      } else {
+        newAnswers.push({
+          questionId: QUESTIONS[currentQuestion].id,
+          answers: checked ? [answer] : []
+        });
       }
-      newAnswers[existingAnswerIndex] = {
-        questionId: QUESTIONS[currentQuestion].id,
-        answers: currentAnswers
-      };
-    } else {
-      newAnswers.push({
-        questionId: QUESTIONS[currentQuestion].id,
-        answers: checked ? [answer] : []
+
+      setAnswers(newAnswers);
+      PerformanceMonitor.endMeasure('multipleAnswerUpdate');
+    } catch (error) {
+      console.error('Error handling multiple answers:', error);
+      toast({
+        variant: "destructive",
+        title: "Erreur",
+        description: "Une erreur est survenue lors de l'enregistrement de vos réponses.",
       });
     }
-
-    setAnswers(newAnswers);
   };
 
   const handleNext = () => {
-    if (currentQuestion === QUESTIONS.length - 1) {
-      navigate("/results", { 
-        state: { 
-          answers,
-          recommendationData: answers.filter(a => a.questionId <= 2)
-        } 
+    try {
+      PerformanceMonitor.startMeasure('navigation');
+      
+      if (currentQuestion === QUESTIONS.length - 1) {
+        navigate("/results", { 
+          state: { 
+            answers,
+            recommendationData: answers.filter(a => a.questionId <= 2)
+          } 
+        });
+      } else {
+        setCurrentQuestion(prev => prev + 1);
+      }
+
+      PerformanceMonitor.endMeasure('navigation');
+    } catch (error) {
+      console.error('Navigation error:', error);
+      toast({
+        variant: "destructive",
+        title: "Erreur",
+        description: "Une erreur est survenue lors de la navigation.",
       });
-    } else {
-      setCurrentQuestion(prev => prev + 1);
     }
   };
 
   const handleBack = () => {
-    if (currentQuestion > 0) {
-      setCurrentQuestion(prev => prev - 1);
-    } else {
-      navigate("/");
+    try {
+      PerformanceMonitor.startMeasure('navigation');
+      
+      if (currentQuestion > 0) {
+        setCurrentQuestion(prev => prev - 1);
+      } else {
+        navigate("/");
+      }
+
+      PerformanceMonitor.endMeasure('navigation');
+    } catch (error) {
+      console.error('Navigation error:', error);
+      toast({
+        variant: "destructive",
+        title: "Erreur",
+        description: "Une erreur est survenue lors de la navigation.",
+      });
     }
   };
 
@@ -176,6 +255,16 @@ const Quiz = () => {
     );
     return currentAnswerObj?.answers || [];
   };
+
+  if (isLoading) {
+    return (
+      <QuizLayout currentQuestion={currentQuestion}>
+        <div className="flex items-center justify-center min-h-[200px]">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div>
+        </div>
+      </QuizLayout>
+    );
+  }
 
   const currentQuestionData = QUESTIONS[currentQuestion];
 
