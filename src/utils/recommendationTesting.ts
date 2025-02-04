@@ -7,11 +7,12 @@ interface TestScenario {
   answers: Answer[];
   expectedCategories: ProductCategory[];
   minimumProducts: number;
+  expectedTopProducts?: string[];
 }
 
 const TEST_SCENARIOS: TestScenario[] = [
   {
-    name: "Scénario 1: Homme - Santé cérébrale et stress",
+    name: "Scénario 1: Santé cérébrale et stress",
     answers: [
       {
         questionId: 1,
@@ -27,10 +28,11 @@ const TEST_SCENARIOS: TestScenario[] = [
       }
     ],
     expectedCategories: ["brain", "stress"],
-    minimumProducts: 2
+    minimumProducts: 2,
+    expectedTopProducts: ["focus", "omega-3"]
   },
   {
-    name: "Scénario 2: Femme - Santé hormonale",
+    name: "Scénario 2: Problèmes digestifs",
     answers: [
       {
         questionId: 1,
@@ -38,15 +40,16 @@ const TEST_SCENARIOS: TestScenario[] = [
       },
       {
         questionId: 2,
-        answers: ["Améliorer l'énergie"]
+        answers: ["Améliorer la digestion"]
       },
       {
         questionId: 3,
-        answers: ["Déséquilibres hormonaux"]
+        answers: ["Problèmes digestifs"]
       }
     ],
-    expectedCategories: ["women_specific", "hormonal_health", "energy"],
-    minimumProducts: 2
+    expectedCategories: ["digestive"],
+    minimumProducts: 2,
+    expectedTopProducts: ["jus-aloes", "fibres-ami"]
   },
   {
     name: "Scénario 3: Autre - Bien-être général",
@@ -99,6 +102,7 @@ export function runRecommendationTests() {
     try {
       const recommendations = getRecommendations(scenario.answers);
       
+      // Tests existants
       console.log("Test Inputs:", {
         gender: scenario.answers[0]?.answers[0],
         primaryGoal: scenario.answers[1]?.answers[0],
@@ -147,6 +151,23 @@ export function runRecommendationTests() {
         );
       } else {
         console.log("✅ All recommendations have good confidence levels");
+      }
+      
+      // Nouveau test pour vérifier les produits attendus en tête
+      if (scenario.expectedTopProducts) {
+        const topProductIds = recommendations.slice(0, 2).map(r => r.id);
+        const hasExpectedTopProducts = scenario.expectedTopProducts.every(
+          expectedId => topProductIds.includes(expectedId)
+        );
+        
+        if (!hasExpectedTopProducts) {
+          console.error("❌ Error: Top products do not match expected products");
+          console.log("Expected:", scenario.expectedTopProducts);
+          console.log("Got:", topProductIds);
+          allTestsPassed = false;
+        } else {
+          console.log("✅ Top products match expected products");
+        }
       }
       
     } catch (error) {

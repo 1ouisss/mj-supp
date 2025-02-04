@@ -6,19 +6,11 @@ interface ScoredProduct extends ProductDefinition {
 }
 
 const WEIGHTS = {
-  PRIMARY_GOAL: 3,
-  HEALTH_CONCERN: 2,
-  CATEGORY_MATCH: 1.5,
-  THERAPEUTIC_CLAIM: 1
-};
-
-const PRIMARY_GOAL_CATEGORIES: Record<string, ProductCategory[]> = {
-  "Renforcer l'immunité": ["immune", "seasonal"],
-  "Améliorer l'énergie": ["energy", "concentration"],
-  "Soutenir la santé cérébrale": ["brain", "concentration"],
-  "Gérer le stress": ["stress", "relaxation"],
-  "Améliorer le sommeil": ["sleep", "relaxation"],
-  "Améliorer la digestion": ["digestive"]
+  PRIMARY_GOAL: 4, // Augmenté de 3 à 4
+  HEALTH_CONCERN: 3, // Augmenté de 2 à 3
+  CATEGORY_MATCH: 2, // Augmenté de 1.5 à 2
+  THERAPEUTIC_CLAIM: 1.5, // Augmenté de 1 à 1.5
+  MULTI_MATCH_BONUS: 1.5 // Nouveau multiplicateur pour les correspondances multiples
 };
 
 function calculatePrimaryGoalScore(
@@ -34,14 +26,19 @@ function calculatePrimaryGoalScore(
   
   score += primaryGoalScore * WEIGHTS.PRIMARY_GOAL;
   
-  // Score basé sur les catégories correspondantes
+  // Bonus pour les catégories correspondantes
   const relevantCategories = PRIMARY_GOAL_CATEGORIES[primaryGoal] || [];
-  const hasRelevantCategory = product.categories.some(cat => 
+  const matchingCategories = product.categories.filter(cat => 
     relevantCategories.includes(cat)
   );
   
-  if (hasRelevantCategory) {
-    score += WEIGHTS.CATEGORY_MATCH;
+  if (matchingCategories.length > 0) {
+    score += WEIGHTS.CATEGORY_MATCH * matchingCategories.length;
+    
+    // Bonus supplémentaire pour les correspondances multiples
+    if (matchingCategories.length > 1) {
+      score *= WEIGHTS.MULTI_MATCH_BONUS;
+    }
   }
 
   return score;
@@ -52,6 +49,7 @@ function calculateHealthConcernsScore(
   healthConcerns: string[]
 ): number {
   let score = 0;
+  let matchCount = 0;
 
   healthConcerns.forEach(concern => {
     // Score basé sur les scores directs du produit
@@ -59,18 +57,36 @@ function calculateHealthConcernsScore(
       s.condition === concern
     )?.score || 0;
     
-    score += concernScore * WEIGHTS.HEALTH_CONCERN;
+    if (concernScore > 0) {
+      score += concernScore * WEIGHTS.HEALTH_CONCERN;
+      matchCount++;
+    }
     
     // Score bonus pour les allégations thérapeutiques correspondantes
     if (product.therapeuticClaims?.some(claim => 
       claim.toLowerCase().includes(concern.toLowerCase())
     )) {
       score += WEIGHTS.THERAPEUTIC_CLAIM;
+      matchCount++;
     }
   });
 
+  // Bonus pour les correspondances multiples
+  if (matchCount > 1) {
+    score *= WEIGHTS.MULTI_MATCH_BONUS;
+  }
+
   return score;
 }
+
+const PRIMARY_GOAL_CATEGORIES: Record<string, ProductCategory[]> = {
+  "Renforcer l'immunité": ["immune", "seasonal"],
+  "Améliorer l'énergie": ["energy", "concentration"],
+  "Soutenir la santé cérébrale": ["brain", "concentration"],
+  "Gérer le stress": ["stress", "relaxation"],
+  "Améliorer le sommeil": ["sleep", "relaxation"],
+  "Améliorer la digestion": ["digestive"]
+};
 
 export function calculateProductScores(
   product: ProductDefinition,
