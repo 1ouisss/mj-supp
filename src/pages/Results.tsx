@@ -7,15 +7,9 @@ import type { Answer } from "@/components/quiz/types";
 const Results = () => {
   const location = useLocation();
   const navigate = useNavigate();
-  const rawAnswers = location.state?.answers || {};
+  const answers = (location.state?.answers || []) as Answer[];
   
-  // Transform answers from Record to Array format
-  const formattedAnswers: Answer[] = Object.entries(rawAnswers).map(([questionId, answers]) => ({
-    questionId: parseInt(questionId) + 1,
-    answers: Array.isArray(answers) ? answers : [answers]
-  }));
-  
-  const recommendations = getRecommendations(formattedAnswers);
+  const recommendations = getRecommendations(answers);
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-amber-700 via-amber-500 to-amber-300 py-12 px-4">
