@@ -9,30 +9,31 @@ const Index = () => {
     <div 
       className="min-h-screen flex flex-col items-center justify-center p-4 relative overflow-hidden"
       style={{
-        background: 'linear-gradient(-45deg, #FFD700, #FFA500, #FF8C00, #FFB347)',
-        backgroundSize: '400% 400%'
+        background: 'linear-gradient(-45deg, #FFD700, #FFA500, #FFB700, #FFDB58)',
+        backgroundSize: '300% 300%'
       }}
     >
       <div className="absolute inset-0 animate-gradient-shift" 
         style={{
-          background: 'linear-gradient(-45deg, #FFD700, #FFA500, #FF8C00, #FFB347)',
-          backgroundSize: '400% 400%',
-          opacity: 0.9
+          background: 'linear-gradient(-45deg, #FFD700, #FFA500, #FFB700, #FFDB58)',
+          backgroundSize: '300% 300%',
+          opacity: 0.95
         }}
       />
       
       <div className="absolute inset-0 pointer-events-none">
-        {[...Array(5)].map((_, i) => (
+        {[...Array(8)].map((_, i) => (
           <div
             key={i}
             className="absolute animate-smoke"
             style={{
-              left: `${20 + i * 15}%`,
+              left: `${10 + i * 12}%`,
               top: '60%',
-              width: '150px',
-              height: '150px',
-              background: 'radial-gradient(circle, rgba(255,215,0,0.4) 0%, rgba(255,215,0,0) 70%)',
-              animationDelay: `${i * 1.5}s`
+              width: '200px',
+              height: '200px',
+              background: 'radial-gradient(circle, rgba(255,215,0,0.6) 0%, rgba(255,215,0,0) 70%)',
+              animationDelay: `${i * 1}s`,
+              animationDuration: '6s'
             }}
           />
         ))}
