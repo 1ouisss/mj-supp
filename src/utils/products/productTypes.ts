@@ -21,7 +21,8 @@ export type ProductCategory =
   | "pain"
   | "healing"
   | "topical"
-  | "immunity";
+  | "immunity"
+  | "heart_health";
 
 export interface ProductScore {
   condition: string;
