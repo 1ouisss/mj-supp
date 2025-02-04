@@ -31,42 +31,6 @@ const questions = [
       "Fatigue chronique",
       "Système immunitaire faible"
     ]
-  },
-  {
-    id: 3,
-    type: 'single',
-    question: "À quel moment de la journée ressentez-vous le plus de fatigue ?",
-    options: [
-      "Le matin au réveil",
-      "En milieu de matinée",
-      "Après le déjeuner",
-      "En fin d'après-midi",
-      "Le soir"
-    ]
-  },
-  {
-    id: 4,
-    type: 'multiple',
-    question: "Quels sont vos habitudes de vie actuelles ?",
-    options: [
-      "Sport régulier",
-      "Alimentation équilibrée",
-      "Méditation/Yoga",
-      "Sommeil régulier",
-      "Travail stressant"
-    ]
-  },
-  {
-    id: 5,
-    type: 'single',
-    question: "Comment qualifieriez-vous votre niveau de stress quotidien ?",
-    options: [
-      "Très faible",
-      "Faible",
-      "Modéré",
-      "Élevé",
-      "Très élevé"
-    ]
   }
 ];
 
