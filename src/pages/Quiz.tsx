@@ -51,6 +51,17 @@ const QUESTIONS: Question[] = [
       "Stress léger occasionnel",
       "Difficulté à se détendre ou à dormir"
     ]
+  },
+  {
+    id: 5,
+    question: "Quels sont vos objectifs ou préoccupations concernant la peau ?",
+    type: "multiple",
+    options: [
+      "Réduire la sécheresse ou le teint terne",
+      "Gérer l'acné ou l'inflammation",
+      "Traiter les ridules, rides ou le vieillissement",
+      "Aucune préoccupation particulière"
+    ]
   }
 ];
 
