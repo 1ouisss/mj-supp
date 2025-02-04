@@ -18,6 +18,28 @@ export const MultipleChoiceQuestion = ({
   onNext,
   onBack,
 }: MultipleChoiceQuestionProps) => {
+  const handleAnswerChange = (option: string, checked: boolean) => {
+    if (option === "Aucune" && checked) {
+      // If "Aucune" is selected, clear all other selections
+      options.forEach(opt => {
+        if (opt !== "Aucune" && selectedAnswers.includes(opt)) {
+          onAnswerChange(opt, false);
+        }
+      });
+      onAnswerChange(option, checked);
+    } else if (option === "Aucune" && !checked) {
+      // If "Aucune" is unselected, just remove it
+      onAnswerChange(option, checked);
+    } else if (checked && selectedAnswers.includes("Aucune")) {
+      // If another option is selected and "Aucune" was selected, remove "Aucune"
+      onAnswerChange("Aucune", false);
+      onAnswerChange(option, checked);
+    } else {
+      // Normal case - just toggle the selected option
+      onAnswerChange(option, checked);
+    }
+  };
+
   return (
     <div className="space-y-8">
       <h2 className="text-2xl sm:text-3xl font-medium text-center">
@@ -30,13 +52,18 @@ export const MultipleChoiceQuestion = ({
               id={option}
               checked={selectedAnswers.includes(option)}
               onCheckedChange={(checked) => 
-                onAnswerChange(option, checked as boolean)
+                handleAnswerChange(option, checked as boolean)
               }
+              disabled={option !== "Aucune" && selectedAnswers.includes("Aucune")}
               className="h-6 w-6"
             />
             <label
               htmlFor={option}
-              className="text-lg sm:text-xl cursor-pointer"
+              className={`text-lg sm:text-xl cursor-pointer ${
+                option !== "Aucune" && selectedAnswers.includes("Aucune")
+                  ? "text-gray-400"
+                  : ""
+              }`}
             >
               {option}
             </label>
