@@ -12,8 +12,10 @@ export const PRODUCTS: ProductDefinition[] = [
     productUrl: "https://maisonjacynthe.ca/fr/melatonine-cerise",
     categories: ["relaxation", "sleep"],
     scores: [
-      { condition: "Améliorer le sommeil", score: 3 }
-    ]
+      { condition: "Améliorer le sommeil", score: 3 },
+      { condition: "Gérer le stress", score: 2 }
+    ],
+    therapeuticClaims: ["Troubles du sommeil", "Insomnie"]
   },
   {
     id: "magnesium",
@@ -24,11 +26,13 @@ export const PRODUCTS: ProductDefinition[] = [
     recommendationReason: "Soutien pour la relaxation et le stress",
     dietaryInfo: "Vegan, Sans gluten",
     productUrl: "https://maisonjacynthe.ca/fr/capsules-vegetales-magnesium",
-    categories: ["relaxation", "stress"],
+    categories: ["relaxation", "stress", "muscle"],
     scores: [
       { condition: "Améliorer le sommeil", score: 2 },
-      { condition: "Gérer le stress", score: 2 }
-    ]
+      { condition: "Gérer le stress", score: 3 },
+      { condition: "Aide à la récupération et réparation musculaire", score: 2 }
+    ],
+    therapeuticClaims: ["Stress", "Tension musculaire", "Fatigue"]
   },
   {
     id: "poudre-dodo",
@@ -41,8 +45,10 @@ export const PRODUCTS: ProductDefinition[] = [
     productUrl: "https://maisonjacynthe.ca/fr/dodo-super-poudre",
     categories: ["relaxation", "sleep"],
     scores: [
-      { condition: "Améliorer le sommeil", score: 3 }
-    ]
+      { condition: "Améliorer le sommeil", score: 3 },
+      { condition: "Gérer le stress", score: 2 }
+    ],
+    therapeuticClaims: ["Insomnie", "Anxiété nocturne"]
   },
   {
     id: "respire-bien",
@@ -53,10 +59,12 @@ export const PRODUCTS: ProductDefinition[] = [
     recommendationReason: "Soutien respiratoire et relaxation",
     dietaryInfo: "100% Naturel",
     productUrl: "https://maisonjacynthe.ca/fr/respire-bien-vapo",
-    categories: ["relaxation"],
+    categories: ["relaxation", "seasonal"],
     scores: [
-      { condition: "Améliorer le sommeil", score: 2 }
-    ]
+      { condition: "Améliorer le sommeil", score: 2 },
+      { condition: "Problèmes respiratoires", score: 3 }
+    ],
+    therapeuticClaims: ["Congestion", "Respiration difficile"]
   },
   {
     id: "jus-aloes",
@@ -71,7 +79,8 @@ export const PRODUCTS: ProductDefinition[] = [
     scores: [
       { condition: "Améliorer la digestion", score: 3 },
       { condition: "Problèmes digestifs", score: 3 }
-    ]
+    ],
+    therapeuticClaims: ["Troubles digestifs", "Inflammation intestinale"]
   },
   {
     id: "fibres-ami",
@@ -84,9 +93,10 @@ export const PRODUCTS: ProductDefinition[] = [
     productUrl: "https://maisonjacynthe.ca/fr/duo-de-base-pour-un-ventre-plat",
     categories: ["digestive"],
     scores: [
-      { condition: "Problèmes digestifs", score: 2 },
-      { condition: "Améliorer la digestion", score: 2 }
-    ]
+      { condition: "Problèmes digestifs", score: 3 },
+      { condition: "Améliorer la digestion", score: 3 }
+    ],
+    therapeuticClaims: ["Transit intestinal", "Santé digestive"]
   },
   {
     id: "focus",
@@ -99,23 +109,10 @@ export const PRODUCTS: ProductDefinition[] = [
     productUrl: "https://maisonjacynthe.ca/fr/focus",
     categories: ["brain", "concentration"],
     scores: [
-      { condition: "Soutenir la santé cérébrale", score: 3 }
-    ]
-  },
-  {
-    id: "energie-adaptogenes",
-    name: "Énergie & Adaptogènes",
-    description: "Mélange d'herbes pour augmenter l'énergie et réduire le stress.",
-    imageUrl: "/lovable-uploads/d8dda143-00ec-455f-bc07-9fcc6c854721.png",
-    expectedResults: "Augmentation de l'énergie, meilleure adaptation au stress ⚡",
-    recommendationReason: "Boost d'énergie et gestion du stress",
-    dietaryInfo: "Vegan, Sans gluten",
-    productUrl: "https://maisonjacynthe.ca/fr/energie-adaptogene",
-    categories: ["energy", "stress"],
-    scores: [
-      { condition: "Améliorer l'énergie", score: 3 },
-      { condition: "Gérer le stress", score: 2 }
-    ]
+      { condition: "Soutenir la santé cérébrale", score: 3 },
+      { condition: "Améliorer l'énergie", score: 2 }
+    ],
+    therapeuticClaims: ["Concentration", "Mémoire", "Clarté mentale"]
   },
   {
     id: "zinc",
@@ -126,10 +123,28 @@ export const PRODUCTS: ProductDefinition[] = [
     recommendationReason: "Soutien immunitaire et cutané",
     dietaryInfo: "Vegan, Sans gluten",
     productUrl: "https://maisonjacynthe.ca/fr/zinc-cuivre",
-    categories: ["hair_health", "skin"],
+    categories: ["immune", "skin"],
     scores: [
-      { condition: "Problèmes de peau", score: 2 }
-    ]
+      { condition: "Problèmes de peau", score: 3 },
+      { condition: "Renforcer l'immunité", score: 3 }
+    ],
+    therapeuticClaims: ["Immunité", "Santé de la peau"]
+  },
+  {
+    id: "omega-3",
+    name: "Oméga-3",
+    description: "Soutient la santé cardiovasculaire et cérébrale.",
+    imageUrl: "/lovable-uploads/9b2bbab2-451b-4cae-993b-bbe8ddd50663.png",
+    expectedResults: "Soutien cognitif et cardiovasculaire 🧠",
+    recommendationReason: "Santé cognitive et cardiaque",
+    dietaryInfo: "Sans gluten",
+    productUrl: "https://maisonjacynthe.ca/fr/omega-astaxanthine",
+    categories: ["brain", "heart_health"],
+    scores: [
+      { condition: "Soutenir la santé cérébrale", score: 3 },
+      { condition: "Préoccupations cardiovasculaires", score: 3 }
+    ],
+    therapeuticClaims: ["Santé cardiovasculaire", "Fonction cognitive"]
   },
   {
     id: "cocktail-cheveux",
@@ -143,33 +158,159 @@ export const PRODUCTS: ProductDefinition[] = [
     categories: ["hair_health"],
     scores: [
       { condition: "Problèmes de peau", score: 2 }
-    ]
+    ],
+    therapeuticClaims: ["Santé des cheveux", "Force capillaire"]
   },
   {
-    id: "multivitamines",
-    name: "Multivitamines",
-    description: "Formule complète pour le soutien quotidien.",
-    imageUrl: "/lovable-uploads/83811a8d-7d09-452e-9991-a4f4ef7c4c71.png",
-    expectedResults: "Soutien général, renforcement de l'énergie 🏋️‍♂️",
-    recommendationReason: "Soutien nutritionnel complet",
+    id: "formule-menopause",
+    name: "Formule Ménopause",
+    description: "Soutien naturel pour les symptômes de la ménopause.",
+    imageUrl: "/lovable-uploads/placeholder.svg",
+    expectedResults: "Réduction des symptômes de la ménopause 🌸",
+    recommendationReason: "Équilibre hormonal naturel",
     dietaryInfo: "Vegan, Sans gluten",
-    productUrl: "https://maisonjacynthe.ca/fr/multivitamine-la-totale",
-    categories: ["general_health"],
-    scores: []
+    productUrl: "https://maisonjacynthe.ca/fr/formule-menopause",
+    categories: ["hormonal_health"],
+    scores: [
+      { condition: "Gestion des symptômes de la ménopause ou du SPM", score: 3 }
+    ],
+    therapeuticClaims: ["Symptômes de la ménopause", "Équilibre hormonal"]
   },
   {
-    id: "omega-3",
-    name: "Oméga-3",
-    description: "Soutient la santé cardiovasculaire et cérébrale.",
-    imageUrl: "/lovable-uploads/9b2bbab2-451b-4cae-993b-bbe8ddd50663.png",
-    expectedResults: "Soutien cognitif et cardiovasculaire 🧠",
-    recommendationReason: "Santé cognitive et cardiaque",
-    dietaryInfo: "Sans gluten",
-    productUrl: "https://maisonjacynthe.ca/fr/omega-astaxanthine",
-    categories: ["general_health"],
+    id: "coenzyme-q10",
+    name: "Coenzyme Q10",
+    description: "Soutien pour la santé cardiovasculaire et la gestion des migraines.",
+    imageUrl: "/lovable-uploads/placeholder.svg",
+    expectedResults: "Réduction des migraines, soutien énergétique ⚡",
+    recommendationReason: "Gestion des migraines et énergie cellulaire",
+    dietaryInfo: "Vegan, Sans gluten",
+    productUrl: "https://maisonjacynthe.ca/fr/coenzyme-q10",
+    categories: ["migraine", "heart_health"],
     scores: [
-      { condition: "Soutenir la santé cérébrale", score: 2 },
-      { condition: "Problèmes cardiovasculaires", score: 2 }
-    ]
+      { condition: "Migraines", score: 3 },
+      { condition: "Préoccupations cardiovasculaires", score: 2 }
+    ],
+    therapeuticClaims: ["Migraines", "Énergie cellulaire"]
+  },
+  {
+    id: "selenium",
+    name: "Sélénium",
+    description: "Soutien pour la fonction thyroïdienne et le système immunitaire.",
+    imageUrl: "/lovable-uploads/placeholder.svg",
+    expectedResults: "Amélioration de la fonction thyroïdienne 🛡️",
+    recommendationReason: "Santé thyroïdienne et immunité",
+    dietaryInfo: "Vegan, Sans gluten",
+    productUrl: "https://maisonjacynthe.ca/fr/selenium",
+    categories: ["thyroid", "immune"],
+    scores: [
+      { condition: "Soutien de la fonction thyroïdienne", score: 3 },
+      { condition: "Renforcer l'immunité", score: 2 }
+    ],
+    therapeuticClaims: ["Fonction thyroïdienne", "Système immunitaire"]
+  },
+  {
+    id: "metabzen",
+    name: "Metabzen",
+    description: "Soutien pour le métabolisme et la gestion du poids.",
+    imageUrl: "/lovable-uploads/placeholder.svg",
+    expectedResults: "Optimisation du métabolisme 🔄",
+    recommendationReason: "Équilibre métabolique",
+    dietaryInfo: "Vegan, Sans gluten",
+    productUrl: "https://maisonjacynthe.ca/fr/metabzen",
+    categories: ["metabolism"],
+    scores: [
+      { condition: "Métabolisme", score: 3 }
+    ],
+    therapeuticClaims: ["Métabolisme", "Gestion du poids"]
+  },
+  {
+    id: "gluconig",
+    name: "Gluconig",
+    description: "Soutien pour l'équilibre glycémique.",
+    imageUrl: "/lovable-uploads/placeholder.svg",
+    expectedResults: "Meilleur équilibre glycémique 🍯",
+    recommendationReason: "Équilibre du sucre sanguin",
+    dietaryInfo: "Vegan, Sans gluten",
+    productUrl: "https://maisonjacynthe.ca/fr/gluconig",
+    categories: ["metabolism"],
+    scores: [
+      { condition: "Métabolisme", score: 3 }
+    ],
+    therapeuticClaims: ["Équilibre glycémique"]
+  },
+  {
+    id: "les-apothicaires",
+    name: "Les Apothicaires",
+    description: "Soutien immunitaire saisonnier.",
+    imageUrl: "/lovable-uploads/placeholder.svg",
+    expectedResults: "Renforcement du système immunitaire 🌿",
+    recommendationReason: "Protection immunitaire naturelle",
+    dietaryInfo: "100% Naturel",
+    productUrl: "https://maisonjacynthe.ca/fr/les-apothicaires",
+    categories: ["immune", "seasonal"],
+    scores: [
+      { condition: "Renforcer l'immunité", score: 3 }
+    ],
+    therapeuticClaims: ["Défense immunitaire", "Santé saisonnière"]
+  },
+  {
+    id: "miel-protecteur",
+    name: "Miel Protecteur",
+    description: "Protection naturelle pour la gorge et l'immunité.",
+    imageUrl: "/lovable-uploads/placeholder.svg",
+    expectedResults: "Soulagement de la gorge 🍯",
+    recommendationReason: "Protection de la gorge",
+    dietaryInfo: "100% Naturel",
+    productUrl: "https://maisonjacynthe.ca/fr/miel-protecteur",
+    categories: ["immune", "throat_health"],
+    scores: [
+      { condition: "Renforcer l'immunité", score: 2 }
+    ],
+    therapeuticClaims: ["Santé de la gorge", "Protection immunitaire"]
+  },
+  {
+    id: "defense-topic",
+    name: "Défense Topic",
+    description: "Solution topique pour le soulagement de la douleur.",
+    imageUrl: "/lovable-uploads/placeholder.svg",
+    expectedResults: "Soulagement local de la douleur 🌿",
+    recommendationReason: "Soulagement naturel",
+    dietaryInfo: "Usage externe",
+    productUrl: "https://maisonjacynthe.ca/fr/defense-topic",
+    categories: ["topical", "pain"],
+    scores: [
+      { condition: "Douleur", score: 3 }
+    ],
+    therapeuticClaims: ["Douleur musculaire", "Inflammation locale"]
+  },
+  {
+    id: "formule-apaisante",
+    name: "Formule Apaisante",
+    description: "Solution apaisante pour la peau.",
+    imageUrl: "/lovable-uploads/placeholder.svg",
+    expectedResults: "Apaisement cutané 🌸",
+    recommendationReason: "Soin apaisant naturel",
+    dietaryInfo: "Usage externe",
+    productUrl: "https://maisonjacynthe.ca/fr/formule-apaisante",
+    categories: ["topical", "healing"],
+    scores: [
+      { condition: "Problèmes de peau", score: 3 }
+    ],
+    therapeuticClaims: ["Irritation cutanée", "Apaisement"]
+  },
+  {
+    id: "bobome",
+    name: "Bobôme",
+    description: "Solution naturelle pour les petits bobos.",
+    imageUrl: "/lovable-uploads/placeholder.svg",
+    expectedResults: "Soin des petites blessures 🩹",
+    recommendationReason: "Premiers soins naturels",
+    dietaryInfo: "Usage externe",
+    productUrl: "https://maisonjacynthe.ca/fr/bobome",
+    categories: ["topical", "healing"],
+    scores: [
+      { condition: "Premiers soins", score: 3 }
+    ],
+    therapeuticClaims: ["Petites blessures", "Cicatrisation"]
   }
 ];
