@@ -19,10 +19,10 @@ const Results = () => {
       <div className="max-w-7xl mx-auto px-4 py-12 space-y-12">
         <div className="text-center space-y-6">
           <h1 className="text-4xl md:text-5xl font-serif text-amber-900">
-            Vos recommandations personnalisées
+            Voici ce que nous avons choisi pour vous
           </h1>
           <p className="text-lg text-amber-800 max-w-2xl mx-auto">
-            Basé sur vos réponses, nous avons sélectionné ces produits spécifiquement pour vous
+            En fonction de vos réponses, nous avons sélectionné ces produits naturels qui correspondent le mieux à vos besoins
           </p>
         </div>
 
@@ -31,10 +31,10 @@ const Results = () => {
             <Info className="w-5 h-5 text-amber-600 mt-1 flex-shrink-0" />
             <div>
               <h3 className="text-lg font-medium text-amber-900 mb-2">
-                Recommandations diversifiées
+                Une approche complète pour votre bien-être
               </h3>
               <p className="text-amber-700 mb-4">
-                Nos suggestions couvrent plusieurs aspects de votre santé pour une approche holistique.
+                Nous avons choisi des produits qui se complètent pour prendre soin de vous de manière naturelle et équilibrée.
               </p>
               <div className="flex flex-wrap gap-2">
                 {uniqueCategories.map((category) => (
@@ -62,7 +62,7 @@ const Results = () => {
             onClick={() => navigate("/")}
             className="bg-amber-900 text-white hover:bg-amber-800"
           >
-            Recommencer le quiz
+            Refaire le questionnaire
           </Button>
         </div>
       </div>
