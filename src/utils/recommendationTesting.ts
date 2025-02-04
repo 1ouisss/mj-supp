@@ -9,6 +9,7 @@ interface TestScenario {
   expectedCategories: ProductCategory[];
   minimumProducts: number;
   expectedTopProducts?: string[];
+  validateFn?: (recommendations: Product[]) => boolean;
 }
 
 const TEST_SCENARIOS: TestScenario[] = [
@@ -134,33 +135,83 @@ const DIVERSITY_TEST_SCENARIOS: TestScenario[] = [
   }
 ];
 
-function testDiversityRequirements(recommendations: Product[]) {
-  const categories = new Set(recommendations.flatMap(r => r.categories));
-  
-  // Vérifier le nombre minimum de catégories
-  if (categories.size < 2) {
-    console.error("❌ Diversité insuffisante : moins de 2 catégories différentes");
-    return false;
+const GENDER_SPECIFIC_TEST_SCENARIOS: TestScenario[] = [
+  {
+    name: "Test Homme - Exclusion produits féminins",
+    answers: [
+      {
+        questionId: 1,
+        answers: ["Homme"]
+      },
+      {
+        questionId: 2,
+        answers: ["Renforcer l'immunité"]
+      }
+    ],
+    expectedCategories: ["immune"],
+    minimumProducts: 1,
+    validateFn: (recommendations: Product[]) => {
+      const hasWomenSpecific = recommendations.some(r => 
+        r.categories.includes("women_specific")
+      );
+      if (hasWomenSpecific) {
+        console.error("❌ Found women-specific products in recommendations for male user");
+        return false;
+      }
+      return true;
+    }
+  },
+  {
+    name: "Test Femme - Exclusion produits masculins",
+    answers: [
+      {
+        questionId: 1,
+        answers: ["Femme"]
+      },
+      {
+        questionId: 2,
+        answers: ["Renforcer l'immunité"]
+      }
+    ],
+    expectedCategories: ["immune"],
+    minimumProducts: 1,
+    validateFn: (recommendations: Product[]) => {
+      const hasMenSpecific = recommendations.some(r => 
+        r.categories.includes("men_specific")
+      );
+      if (hasMenSpecific) {
+        console.error("❌ Found men-specific products in recommendations for female user");
+        return false;
+      }
+      return true;
+    }
+  },
+  {
+    name: "Test Préférence non spécifiée - Produits neutres uniquement",
+    answers: [
+      {
+        questionId: 1,
+        answers: ["Je préfère ne pas répondre"]
+      },
+      {
+        questionId: 2,
+        answers: ["Renforcer l'immunité"]
+      }
+    ],
+    expectedCategories: ["immune"],
+    minimumProducts: 1,
+    validateFn: (recommendations: Product[]) => {
+      const hasGenderSpecific = recommendations.some(r => 
+        r.categories.includes("women_specific") || r.categories.includes("men_specific")
+      );
+      if (hasGenderSpecific) {
+        console.error("❌ Found gender-specific products in recommendations for neutral user");
+        return false;
+      }
+      return true;
+    }
   }
-
-  // Vérifier la sur-représentation
-  const categoryCounts = new Map<string, number>();
-  recommendations.forEach(r => {
-    r.categories.forEach(cat => {
-      categoryCounts.set(cat, (categoryCounts.get(cat) || 0) + 1);
-    });
-  });
-
-  const overrepresented = Array.from(categoryCounts.entries())
-    .filter(([_, count]) => count > 1);
-
-  if (overrepresented.length > 0) {
-    console.error("❌ Catégories sur-représentées:", overrepresented);
-    return false;
-  }
-
-  return true;
-}
+];
 
 export function runRecommendationTests() {
   console.group("Running Recommendation Algorithm Tests");
@@ -251,6 +302,30 @@ export function runRecommendationTests() {
         allTestsPassed = false;
       } else {
         console.log("✅ Diversité des recommandations validée");
+      }
+      
+    } catch (error) {
+      console.error("❌ Test failed with error:", error);
+      allTestsPassed = false;
+    }
+    
+    console.groupEnd();
+  });
+  
+  // Nouveaux tests spécifiques au genre
+  console.group("Running Gender-Specific Tests");
+  
+  GENDER_SPECIFIC_TEST_SCENARIOS.forEach(scenario => {
+    console.group(`Test: ${scenario.name}`);
+    
+    try {
+      const recommendations = getRecommendations(scenario.answers);
+      
+      // Validation spécifique au genre
+      if (scenario.validateFn && !scenario.validateFn(recommendations)) {
+        allTestsPassed = false;
+      } else {
+        console.log("✅ Gender-specific validation passed");
       }
       
     } catch (error) {
