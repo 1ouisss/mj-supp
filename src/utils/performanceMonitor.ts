@@ -23,6 +23,10 @@ class PerformanceMonitor {
     }
   }
 
+  static getMetric(name: string): PerformanceMetric | undefined {
+    return this.metrics.find(m => m.name === name);
+  }
+
   static clearMetrics() {
     this.metrics = [];
   }

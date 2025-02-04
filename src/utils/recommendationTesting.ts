@@ -2,6 +2,8 @@ import { Answer } from "@/components/quiz/types";
 import { getRecommendations } from "@/utils/recommendationLogic";
 import { ProductCategory } from "./products/productTypes";
 import { Product } from "@/components/results/ProductCard";
+import { PRODUCTS } from "./products/productDatabase";
+import PerformanceMonitor from "./performanceMonitor";
 
 interface TestScenario {
   name: string;
@@ -244,6 +246,100 @@ function testDiversityRequirements(recommendations: Product[]): boolean {
   return true;
 }
 
+const PRECISION_TEST_SCENARIOS: TestScenario[] = [
+  {
+    name: "Test de précision 1: Santé cérébrale et digestive",
+    answers: [
+      { questionId: 1, answers: ["Femme"] },
+      { questionId: 2, answers: ["Soutenir la santé cérébrale"] },
+      { questionId: 3, answers: ["Problèmes digestifs"] }
+    ],
+    expectedCategories: ["brain", "digestive"],
+    minimumProducts: 3,
+    expectedTopProducts: ["focus", "omega-3", "jus-aloes"],
+    validateFn: (recommendations: Product[]) => {
+      const expectedIds = new Set(["focus", "omega-3", "jus-aloes"]);
+      const recommendedIds = new Set(recommendations.map(r => r.id));
+      const missingProducts = Array.from(expectedIds).filter(id => !recommendedIds.has(id));
+      
+      if (missingProducts.length > 0) {
+        console.error("❌ Missing expected products:", missingProducts);
+        return false;
+      }
+      return true;
+    }
+  }
+];
+
+function testProductCoverage(): boolean {
+  console.group("Testing Product Coverage");
+  
+  const allTestScenarios = [
+    ...TEST_SCENARIOS,
+    ...DIVERSITY_TEST_SCENARIOS,
+    ...GENDER_SPECIFIC_TEST_SCENARIOS,
+    ...PRECISION_TEST_SCENARIOS
+  ];
+  
+  const coveredProducts = new Set<string>();
+  
+  allTestScenarios.forEach(scenario => {
+    const recommendations = getRecommendations(scenario.answers);
+    recommendations.forEach(product => coveredProducts.add(product.id));
+  });
+  
+  const uncoveredProducts = PRODUCTS.filter(p => !coveredProducts.has(p.id));
+  
+  if (uncoveredProducts.length > 0) {
+    console.error("❌ Some products are never recommended:", 
+      uncoveredProducts.map(p => p.name)
+    );
+    console.groupEnd();
+    return false;
+  }
+  
+  console.log("✅ All products are covered in test scenarios");
+  console.groupEnd();
+  return true;
+}
+
+function testPerformance(): boolean {
+  console.group("Testing Performance");
+  
+  const TEST_ITERATIONS = 100;
+  const MAX_ALLOWED_TIME = 50; // 50ms
+  
+  const testScenario = TEST_SCENARIOS[0]; // Use first scenario for performance testing
+  const times: number[] = [];
+  
+  for (let i = 0; i < TEST_ITERATIONS; i++) {
+    PerformanceMonitor.startMeasure(`recommendation-${i}`);
+    getRecommendations(testScenario.answers);
+    PerformanceMonitor.endMeasure(`recommendation-${i}`);
+    
+    const metric = PerformanceMonitor.getMetric(`recommendation-${i}`);
+    if (metric?.duration) {
+      times.push(metric.duration);
+    }
+  }
+  
+  const averageTime = times.reduce((a, b) => a + b, 0) / times.length;
+  const maxTime = Math.max(...times);
+  
+  console.log(`Average recommendation time: ${averageTime.toFixed(2)}ms`);
+  console.log(`Maximum recommendation time: ${maxTime.toFixed(2)}ms`);
+  
+  if (maxTime > MAX_ALLOWED_TIME) {
+    console.error(`❌ Performance test failed. Max time (${maxTime.toFixed(2)}ms) exceeds limit (${MAX_ALLOWED_TIME}ms)`);
+    console.groupEnd();
+    return false;
+  }
+  
+  console.log("✅ Performance requirements met");
+  console.groupEnd();
+  return true;
+}
+
 export function runRecommendationTests() {
   console.group("Running Recommendation Algorithm Tests");
   
@@ -343,7 +439,7 @@ export function runRecommendationTests() {
     console.groupEnd();
   });
   
-  // Nouveaux tests spécifiques au genre
+  // Tests spécifiques au genre
   console.group("Running Gender-Specific Tests");
   
   GENDER_SPECIFIC_TEST_SCENARIOS.forEach(scenario => {
@@ -367,7 +463,38 @@ export function runRecommendationTests() {
     console.groupEnd();
   });
   
+  // Nouveaux tests de précision
+  console.group("Running Precision Tests");
+  PRECISION_TEST_SCENARIOS.forEach(scenario => {
+    console.group(`Test: ${scenario.name}`);
+    
+    try {
+      const recommendations = getRecommendations(scenario.answers);
+      
+      if (scenario.validateFn && !scenario.validateFn(recommendations)) {
+        allTestsPassed = false;
+      } else {
+        console.log("✅ Precision validation passed");
+      }
+      
+    } catch (error) {
+      console.error("❌ Test failed with error:", error);
+      allTestsPassed = false;
+    }
+    
+    console.groupEnd();
+  });
   console.groupEnd();
+  
+  // Test de couverture des produits
+  if (!testProductCoverage()) {
+    allTestsPassed = false;
+  }
+  
+  // Test de performance
+  if (!testPerformance()) {
+    allTestsPassed = false;
+  }
   
   if (allTestsPassed) {
     console.log("✅ All tests passed successfully");
