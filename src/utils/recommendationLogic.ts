@@ -50,32 +50,32 @@ export function getRecommendations(answers: Answer[]): Product[] {
     const primaryGoal = answers.find(a => a.questionId === 2)?.answers[0];
     const healthConcerns = answers.find(a => a.questionId === 3)?.answers || [];
     
-    // Calculate scores for all products
-    const scoredProducts = PRODUCTS.map(product => {
-      if (!isProductGenderAppropriate(product, gender)) {
-        return { ...product, totalScore: 0, confidenceLevel: 0 };
+    // Calculate scores for all products and transform them into Product type
+    const scoredProducts = PRODUCTS.map(productDef => {
+      if (!isProductGenderAppropriate({ ...productDef, confidenceLevel: 0 }, gender)) {
+        return null;
       }
 
       let totalScore = 0;
       
       // Primary goal scoring
       if (primaryGoal) {
-        const goalScore = product.scores.find(s => s.condition === primaryGoal)?.score || 0;
+        const goalScore = productDef.scores.find(s => s.condition === primaryGoal)?.score || 0;
         totalScore += goalScore * WEIGHTS.PRIMARY_GOAL;
       }
       
       // Health concerns scoring
       healthConcerns.forEach(concern => {
-        const concernScore = product.scores.find(s => s.condition === concern)?.score || 0;
+        const concernScore = productDef.scores.find(s => s.condition === concern)?.score || 0;
         totalScore += concernScore * WEIGHTS.HEALTH_CONCERN;
       });
       
       // Category matching
       const relevantCategories = [...(primaryGoal ? [primaryGoal] : []), ...healthConcerns];
-      totalScore += calculateCategoryScore(product.categories, relevantCategories);
+      totalScore += calculateCategoryScore(productDef.categories, relevantCategories);
       
       // Therapeutic claims scoring
-      totalScore += calculateTherapeuticScore(product.therapeuticClaims, healthConcerns);
+      totalScore += calculateTherapeuticScore(productDef.therapeuticClaims, healthConcerns);
 
       // Calculate confidence level (80-95% range)
       const confidenceLevel = Math.min(
@@ -86,17 +86,19 @@ export function getRecommendations(answers: Answer[]): Product[] {
         )
       );
 
-      return {
-        ...product,
-        totalScore,
+      // Transform ProductDefinition into Product
+      const product: Product = {
+        ...productDef,
         confidenceLevel
       };
-    });
+
+      return product;
+    }).filter((product): product is Product => product !== null);
 
     // Filter and sort products
     let recommendations = scoredProducts
-      .filter(p => p.totalScore >= WEIGHTS.MIN_SCORE)
-      .sort((a, b) => b.totalScore - a.totalScore)
+      .filter(p => p.confidenceLevel >= WEIGHTS.MIN_CONFIDENCE)
+      .sort((a, b) => b.confidenceLevel - a.confidenceLevel)
       .slice(0, 5);
 
     // Ensure category diversity
