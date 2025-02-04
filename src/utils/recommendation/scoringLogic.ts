@@ -52,7 +52,7 @@ export function calculateProductScores(product: ProductDefinition, answers: Answ
 export function diversifyRecommendations(scoredProducts: (ProductDefinition & { totalScore: number })[]): Product[] {
   const MIN_CATEGORIES = 2;
   const usedCategories = new Set<string>();
-  const recommendations: (ProductDefinition & { totalScore: number })[] = [];
+  const recommendations: Product[] = [];
 
   // Trier par score décroissant
   const sortedProducts = [...scoredProducts].sort((a, b) => b.totalScore - a.totalScore);
@@ -65,7 +65,10 @@ export function diversifyRecommendations(scoredProducts: (ProductDefinition & { 
     const categoryOverlap = product.categories.some(cat => usedCategories.has(cat));
     
     if (!categoryOverlap) {
-      recommendations.push(product);
+      recommendations.push({
+        ...product,
+        confidenceLevel: Math.min(95, Math.round((product.totalScore / 15) * 100))
+      });
       product.categories.forEach(cat => usedCategories.add(cat));
     }
   }
@@ -73,11 +76,14 @@ export function diversifyRecommendations(scoredProducts: (ProductDefinition & { 
   // Deuxième passe : assurer la diversité minimale
   if (usedCategories.size < MIN_CATEGORIES && sortedProducts.length > recommendations.length) {
     for (const product of sortedProducts) {
-      if (recommendations.includes(product)) continue;
+      if (recommendations.some(r => r.id === product.id)) continue;
 
       const newCategories = product.categories.filter(cat => !usedCategories.has(cat));
       if (newCategories.length > 0) {
-        recommendations.push(product);
+        recommendations.push({
+          ...product,
+          confidenceLevel: Math.min(95, Math.round((product.totalScore / 15) * 100))
+        });
         newCategories.forEach(cat => usedCategories.add(cat));
       }
 

@@ -1,6 +1,7 @@
 import { Answer } from "@/components/quiz/types";
 import { getRecommendations } from "@/utils/recommendationLogic";
 import { ProductCategory } from "./products/productTypes";
+import { Product } from "@/components/results/ProductCard";
 
 interface TestScenario {
   name: string;
