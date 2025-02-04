@@ -1,4 +1,6 @@
 import { ProductCategory } from "@/utils/products/productTypes";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card";
 
 export interface Product {
   id: string;
@@ -11,45 +13,87 @@ export interface Product {
   confidenceLevel: number;
   productUrl: string;
   categories: ProductCategory[];
+  therapeuticClaims?: string[];
 }
 
 export const ProductCard = ({ product }: { product: Product }) => {
   return (
-    <div className="border rounded-lg p-4 bg-white shadow-md">
-      <div className="aspect-video w-full overflow-hidden rounded-md">
-        <img 
-          src={product.imageUrl} 
-          alt={product.name} 
-          className="w-full h-full object-cover"
-          onError={(e) => {
-            e.currentTarget.src = "/placeholder.svg";
-          }}
-        />
-      </div>
-      <h2 className="text-lg font-semibold mt-4">{product.name}</h2>
-      <p className="text-sm text-gray-600 mt-2">{product.description}</p>
-      <p className="text-sm text-gray-700 mt-2">
-        <span className="font-medium">Résultats attendus:</span> {product.expectedResults}
-      </p>
-      <div className="mt-3 flex flex-wrap gap-2">
-        {product.categories.map((category) => (
-          <span 
-            key={category}
-            className="px-2 py-1 bg-amber-100 text-amber-800 rounded-full text-xs"
+    <Card className="h-full flex flex-col bg-white overflow-hidden hover:shadow-lg transition-shadow">
+      <CardHeader className="p-0">
+        <div className="aspect-square w-full overflow-hidden">
+          <img 
+            src={product.imageUrl} 
+            alt={product.name} 
+            className="w-full h-full object-contain"
+            onError={(e) => {
+              e.currentTarget.src = "/placeholder.svg";
+            }}
+          />
+        </div>
+      </CardHeader>
+      <CardContent className="flex-grow p-6 space-y-4">
+        <h2 className="text-xl font-semibold">{product.name}</h2>
+        <p className="text-gray-600">{product.description}</p>
+        
+        <div className="space-y-2">
+          <p className="font-medium">Résultats attendus:</p>
+          <p className="text-gray-600">{product.expectedResults}</p>
+        </div>
+
+        {product.recommendationReason && (
+          <div className="space-y-2">
+            <p className="font-medium">Pourquoi ce produit est recommandé:</p>
+            <p className="text-gray-600">{product.recommendationReason}</p>
+          </div>
+        )}
+
+        {product.therapeuticClaims && product.therapeuticClaims.length > 0 && (
+          <div className="space-y-2">
+            <p className="font-medium">Allégations thérapeutiques:</p>
+            <ul className="list-disc pl-4 text-gray-600">
+              {product.therapeuticClaims.map((claim, index) => (
+                <li key={index}>{claim}</li>
+              ))}
+            </ul>
+          </div>
+        )}
+
+        {product.dietaryInfo && (
+          <div className="space-y-2">
+            <p className="font-medium">Informations diététiques:</p>
+            <p className="text-gray-600">{product.dietaryInfo}</p>
+          </div>
+        )}
+
+        <div className="flex flex-wrap gap-2 pt-2">
+          {product.categories.map((category) => (
+            <span 
+              key={category}
+              className="px-2 py-1 bg-amber-100 text-amber-800 rounded-full text-xs"
+            >
+              {category}
+            </span>
+          ))}
+        </div>
+      </CardContent>
+      <CardFooter className="p-6 pt-0 flex justify-between items-center border-t">
+        <div className="text-sm font-medium">
+          Confiance: {product.confidenceLevel}%
+        </div>
+        <Button 
+          asChild
+          variant="default"
+          className="bg-[#0f172a] hover:bg-[#1e293b] text-white"
+        >
+          <a 
+            href={product.productUrl}
+            target="_blank"
+            rel="noopener noreferrer"
           >
-            {category}
-          </span>
-        ))}
-      </div>
-      <p className="mt-3 font-bold">Confiance: {product.confidenceLevel}%</p>
-      <a 
-        href={product.productUrl} 
-        target="_blank" 
-        rel="noopener noreferrer" 
-        className="text-blue-500 hover:underline mt-2 block"
-      >
-        En savoir plus
-      </a>
-    </div>
+            En savoir plus
+          </a>
+        </Button>
+      </CardFooter>
+    </Card>
   );
 };

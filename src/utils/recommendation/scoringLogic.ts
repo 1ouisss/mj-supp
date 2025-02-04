@@ -7,17 +7,22 @@ const WEIGHTS = {
   HEALTH_CONCERN: 3,
   CATEGORY_MATCH: 2,
   THERAPEUTIC_CLAIM: 1.5,
-  MULTI_MATCH_BONUS: 1.5
+  MULTI_MATCH_BONUS: 1.5,
+  MIN_CONFIDENCE: 80 // Minimum confidence level
 };
 
 export function calculateProductScores(product: ProductDefinition, answers: Answer[]): number {
   let totalScore = 0;
+  let matchCount = 0;
 
   // Score pour l'objectif principal
   const primaryGoalAnswer = answers.find(a => a.questionId === 2)?.answers[0];
   if (primaryGoalAnswer) {
     const primaryGoalScore = product.scores.find(s => s.condition === primaryGoalAnswer)?.score || 0;
-    totalScore += primaryGoalScore * WEIGHTS.PRIMARY_GOAL;
+    if (primaryGoalScore > 0) {
+      totalScore += primaryGoalScore * WEIGHTS.PRIMARY_GOAL;
+      matchCount++;
+    }
   }
 
   // Score pour les préoccupations de santé
@@ -26,6 +31,7 @@ export function calculateProductScores(product: ProductDefinition, answers: Answ
     const concernScore = product.scores.find(s => s.condition === concern)?.score || 0;
     if (concernScore > 0) {
       totalScore += concernScore * WEIGHTS.HEALTH_CONCERN;
+      matchCount++;
     }
 
     // Bonus pour les allégations thérapeutiques correspondantes
@@ -33,17 +39,13 @@ export function calculateProductScores(product: ProductDefinition, answers: Answ
       claim.toLowerCase().includes(concern.toLowerCase())
     )) {
       totalScore += WEIGHTS.THERAPEUTIC_CLAIM;
+      matchCount++;
     }
   });
 
   // Bonus pour correspondances multiples
-  if (healthConcerns.length > 1) {
-    const matchingScores = product.scores.filter(s => 
-      healthConcerns.includes(s.condition)
-    );
-    if (matchingScores.length > 1) {
-      totalScore *= WEIGHTS.MULTI_MATCH_BONUS;
-    }
+  if (matchCount > 1) {
+    totalScore *= WEIGHTS.MULTI_MATCH_BONUS;
   }
 
   return totalScore;
@@ -61,13 +63,19 @@ export function diversifyRecommendations(scoredProducts: (ProductDefinition & { 
   for (const product of sortedProducts) {
     if (recommendations.length >= 3) break;
 
+    // Calculer le niveau de confiance
+    let confidenceLevel = Math.min(95, Math.round((product.totalScore / 15) * 100));
+    
+    // Assurer un niveau minimum de confiance
+    confidenceLevel = Math.max(confidenceLevel, WEIGHTS.MIN_CONFIDENCE);
+
     // Vérifier si une catégorie du produit est déjà utilisée
     const categoryOverlap = product.categories.some(cat => usedCategories.has(cat));
     
-    if (!categoryOverlap) {
+    if (!categoryOverlap || recommendations.length < 3) {
       recommendations.push({
         ...product,
-        confidenceLevel: Math.min(95, Math.round((product.totalScore / 15) * 100))
+        confidenceLevel
       });
       product.categories.forEach(cat => usedCategories.add(cat));
     }
@@ -82,7 +90,8 @@ export function diversifyRecommendations(scoredProducts: (ProductDefinition & { 
       if (newCategories.length > 0) {
         recommendations.push({
           ...product,
-          confidenceLevel: Math.min(95, Math.round((product.totalScore / 15) * 100))
+          confidenceLevel: Math.max(WEIGHTS.MIN_CONFIDENCE, 
+            Math.min(95, Math.round((product.totalScore / 15) * 100)))
         });
         newCategories.forEach(cat => usedCategories.add(cat));
       }
