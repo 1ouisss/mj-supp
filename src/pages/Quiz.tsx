@@ -32,7 +32,8 @@ const QUESTIONS: Question[] = [
       "Problèmes digestifs",
       "Préoccupations cardiovasculaires",
       "Problèmes de peau",
-      "Déséquilibres hormonaux"
+      "Déséquilibres hormonaux",
+      "Aucune"
     ]
   },
   {
@@ -91,7 +92,6 @@ const Quiz = () => {
         PerformanceMonitor.startMeasure('quizInit');
         setIsLoading(true);
 
-        // Run tests in development
         if (process.env.NODE_ENV === 'development') {
           await runRecommendationTests();
         }
@@ -169,9 +169,29 @@ const Quiz = () => {
         a => a.questionId === QUESTIONS[currentQuestion].id
       );
 
+      // If "Aucune" is selected, clear other selections and move to next question
+      if (answer === "Aucune" && checked) {
+        if (existingAnswerIndex !== -1) {
+          newAnswers[existingAnswerIndex] = {
+            questionId: QUESTIONS[currentQuestion].id,
+            answers: ["Aucune"]
+          };
+        } else {
+          newAnswers.push({
+            questionId: QUESTIONS[currentQuestion].id,
+            answers: ["Aucune"]
+          });
+        }
+        setAnswers(newAnswers);
+        setCurrentQuestion(prev => prev + 1);
+        return;
+      }
+
+      // If any other option is selected, remove "Aucune" if it exists
       if (existingAnswerIndex !== -1) {
-        const currentAnswers = newAnswers[existingAnswerIndex].answers;
+        let currentAnswers = newAnswers[existingAnswerIndex].answers;
         if (checked) {
+          currentAnswers = currentAnswers.filter(a => a !== "Aucune");
           currentAnswers.push(answer);
         } else {
           const index = currentAnswers.indexOf(answer);
