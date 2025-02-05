@@ -36,16 +36,18 @@ export const SliderQuestion = ({
             </>
           )}
         </div>
-        <Slider
-          min={min}
-          max={max}
-          step={step}
-          value={[value]}
-          onValueChange={([newValue]) => onChange(newValue)}
-          className="w-full"
-        />
+        <div className="px-2">
+          <Slider
+            min={min}
+            max={max}
+            step={step}
+            value={[value]}
+            onValueChange={([newValue]) => onChange(newValue)}
+            className="w-full cursor-pointer"
+          />
+        </div>
         <div className="text-center text-lg font-medium">
-          {value}
+          {value} heures
         </div>
       </div>
     </div>
