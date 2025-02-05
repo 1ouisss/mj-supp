@@ -16,6 +16,7 @@ export interface Product {
   productUrl: string;
   categories: ProductCategory[];
   therapeuticClaims?: string[];
+  score?: number; // Added score as an optional property
 }
 
 export const ProductCard = ({ product }: { product: Product }) => {

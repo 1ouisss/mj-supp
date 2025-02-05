@@ -196,7 +196,7 @@ export function getRecommendations(answers: Answer[]): Product[] {
       const product: Product = {
         ...productDef,
         confidenceLevel,
-        score: totalScore
+        score: totalScore // Now TypeScript knows this is allowed
       };
 
       return product;
@@ -206,7 +206,7 @@ export function getRecommendations(answers: Answer[]): Product[] {
 
     // Sort by score and ensure category diversity
     let recommendations = ensureCategoryDiversity(
-      scoredProducts.sort((a, b) => (b as any).score - (a as any).score)
+      scoredProducts.sort((a, b) => (b.score || 0) - (a.score || 0))
     );
 
     // Add fallback products if needed
