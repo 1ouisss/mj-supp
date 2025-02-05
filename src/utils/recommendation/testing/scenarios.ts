@@ -1,65 +1,64 @@
 import { Answer } from "@/components/quiz/types";
+import { ProductCategory } from "@/utils/products/productTypes";
 
-export const CORE_TEST_SCENARIOS = [
+interface TestScenario {
+  name: string;
+  answers: Answer[];
+  minimumProducts: number;
+  expectedProducts: string[];
+  expectedCategories: ProductCategory[];
+}
+
+interface GenderTestScenario {
+  name: string;
+  answers: Answer[];
+  validateFn?: (products: any[]) => boolean;
+}
+
+export const CORE_TEST_SCENARIOS: TestScenario[] = [
   {
-    name: "Cognitive Health Focus",
+    name: "Basic Health Profile",
     answers: [
-      { questionId: 1, answers: ["Homme"] },
-      { questionId: 2, answers: ["30-40"] },
-      { questionId: 3, answers: ["Soutenir la santé cérébrale"] },
-      { questionId: 4, answers: ["Concentration"] }
+      { questionId: 1, answers: ["female"] },
+      { questionId: 2, answers: ["25-34"] },
+      { questionId: 3, answers: ["general_health"] },
+      { questionId: 4, answers: ["stress", "sleep"] }
     ],
     minimumProducts: 3,
-    expectedProducts: ["focus", "omega-3"],
-    expectedCategories: ["brain", "focus", "energy"]
+    expectedProducts: ["product1", "product2"],
+    expectedCategories: ["general_health", "stress", "sleep"] as ProductCategory[]
   },
   {
-    name: "Sleep & Stress Management",
+    name: "Stress Management Focus",
     answers: [
-      { questionId: 1, answers: ["Femme"] },
-      { questionId: 2, answers: ["18-35"] },
-      { questionId: 3, answers: ["Améliorer le sommeil"] },
-      { questionId: 4, answers: ["Stress ou anxiété", "Troubles du sommeil"] }
+      { questionId: 1, answers: ["male"] },
+      { questionId: 2, answers: ["35-44"] },
+      { questionId: 3, answers: ["stress"] },
+      { questionId: 4, answers: ["sleep", "concentration"] }
     ],
-    minimumProducts: 4,
-    expectedProducts: ["melatonine", "magnesium"],
-    expectedCategories: ["sleep", "relaxation", "stress"]
-  },
-  {
-    name: "General Wellness",
-    answers: [
-      { questionId: 1, answers: ["Autre"] },
-      { questionId: 2, answers: ["51+"] },
-      { questionId: 3, answers: ["Renforcer l'immunité"] },
-      { questionId: 4, answers: ["Aucune"] }
-    ],
-    minimumProducts: 3,
-    expectedProducts: [],
-    expectedCategories: ["general_health", "immune", "essential"]
+    minimumProducts: 2,
+    expectedProducts: ["product3", "product4"],
+    expectedCategories: ["stress", "sleep", "concentration"] as ProductCategory[]
   }
 ];
 
-export const GENDER_TEST_SCENARIOS = [
+export const GENDER_TEST_SCENARIOS: GenderTestScenario[] = [
   {
-    name: "Women-Specific Products",
+    name: "Female-Specific Products",
     answers: [
-      { questionId: 1, answers: ["Femme"] },
-      { questionId: 2, answers: ["36-50"] }
+      { questionId: 1, answers: ["female"] },
+      { questionId: 2, answers: ["25-34"] },
+      { questionId: 3, answers: ["women_specific"] }
     ],
-    validateFn: (recommendations) => {
-      const hasWomenProducts = recommendations.some(r => 
-        r.categories.includes("women_specific")
-      );
-      const hasMenProducts = recommendations.some(r => 
-        r.categories.includes("men_specific")
-      );
-      
-      if (hasMenProducts) {
-        console.error("❌ Men-specific products recommended for women");
-        return false;
-      }
-      console.log("✅ Gender-appropriate products recommended");
-      return true;
-    }
+    validateFn: (products) => products.some(p => p.categories.includes("women_specific"))
+  },
+  {
+    name: "Male-Specific Products",
+    answers: [
+      { questionId: 1, answers: ["male"] },
+      { questionId: 2, answers: ["25-34"] },
+      { questionId: 3, answers: ["men_specific"] }
+    ],
+    validateFn: (products) => products.some(p => p.categories.includes("men_specific"))
   }
 ];

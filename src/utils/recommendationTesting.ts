@@ -2,6 +2,7 @@ import { getRecommendations } from "./recommendationLogic";
 import { CORE_TEST_SCENARIOS, GENDER_TEST_SCENARIOS } from "./recommendation/testing/scenarios";
 import { testDiversityRequirements } from "./recommendation/testing/diversityTests";
 import { testPerformance } from "./recommendation/testing/performanceTests";
+import { ProductCategory } from "./products/productTypes";
 
 export function runRecommendationTests() {
   console.group("Running Recommendation System Tests");
@@ -26,7 +27,9 @@ export function runRecommendationTests() {
       }
 
       const recommendedCategories = new Set(recommendations.flatMap(r => r.categories));
-      const missingCategories = scenario.expectedCategories.filter(cat => !recommendedCategories.has(cat));
+      const missingCategories = scenario.expectedCategories.filter(
+        (cat: ProductCategory) => !recommendedCategories.has(cat)
+      );
       if (missingCategories.length > 0) {
         console.error("❌ Missing expected categories:", missingCategories);
         allTestsPassed = false;
