@@ -10,31 +10,31 @@ const Index = () => {
       className="min-h-screen flex flex-col items-center justify-center p-4 relative overflow-hidden"
       style={{
         background: 'linear-gradient(-45deg, #E4D780, #E8DB85, #E4D780, #EAE090)',
-        backgroundSize: '300% 300%'
+        backgroundSize: '400% 400%'
       }}
     >
       <div className="absolute inset-0 animate-gradient-shift" 
         style={{
           background: 'linear-gradient(-45deg, #E4D780, #E8DB85, #E4D780, #EAE090)',
-          backgroundSize: '300% 300%',
+          backgroundSize: '400% 400%',
           opacity: 0.95
         }}
       />
       
       {/* Large smoke particles */}
       <div className="absolute inset-0 pointer-events-none">
-        {[...Array(12)].map((_, i) => (
+        {[...Array(15)].map((_, i) => (
           <div
             key={`smoke-large-${i}`}
             className="absolute animate-smoke"
             style={{
               left: `${Math.random() * 100}%`,
-              top: '60%',
-              width: '300px',
-              height: '300px',
-              background: 'radial-gradient(circle, rgba(228,215,128,0.8) 0%, rgba(228,215,128,0) 70%)',
-              animationDelay: `${i * 0.8}s`,
-              animationDuration: '8s'
+              top: '80%',
+              width: '200px',
+              height: '200px',
+              background: 'radial-gradient(circle, rgba(228,215,128,0.6) 0%, rgba(228,215,128,0) 70%)',
+              animationDelay: `${i * 0.4}s`,
+              filter: 'blur(8px)'
             }}
           />
         ))}
@@ -42,24 +42,24 @@ const Index = () => {
 
       {/* Small floating particles */}
       <div className="absolute inset-0 pointer-events-none">
-        {[...Array(20)].map((_, i) => (
+        {[...Array(30)].map((_, i) => (
           <div
             key={`particle-${i}`}
             className="absolute animate-float"
             style={{
               left: `${Math.random() * 100}%`,
               top: `${Math.random() * 100}%`,
-              width: '10px',
-              height: '10px',
-              background: 'radial-gradient(circle, rgba(228,215,128,0.9) 0%, rgba(228,215,128,0) 100%)',
-              animationDelay: `${i * 0.3}s`,
-              animationDuration: '4s'
+              width: '8px',
+              height: '8px',
+              background: 'radial-gradient(circle, rgba(228,215,128,1) 0%, rgba(228,215,128,0) 100%)',
+              animationDelay: `${i * 0.2}s`,
+              filter: 'blur(1px)'
             }}
           />
         ))}
       </div>
       
-      <Card className="max-w-2xl w-full bg-white/90 backdrop-blur-sm p-8 space-y-8 relative z-10">
+      <Card className="max-w-2xl w-full bg-white/80 backdrop-blur-sm p-8 space-y-8 relative z-10 shadow-xl">
         <div className="text-center space-y-6">
           <h1 className="text-6xl font-light tracking-wide text-gray-800">
             Maison Jacynthe
