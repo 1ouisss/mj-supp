@@ -1,7 +1,7 @@
 import { Answer } from "@/components/quiz/types";
 import { Product } from "@/components/results/ProductCard";
 import { PRODUCTS } from "./products/productDatabase";
-import { ProductCategory, ProductDefinition } from "./products/productTypes";
+import { ProductCategory, ProductDefinition, TimeFrame } from "./products/productTypes";
 
 const WEIGHTS = {
   PRIMARY_GOAL: 3,
@@ -193,18 +193,20 @@ export function getRecommendations(answers: Answer[]): Product[] {
         )
       );
 
-      return {
+      const product: Product = {
         ...productDef,
         confidenceLevel,
         score: totalScore
       };
-    }).filter((product): product is Product & { score: number } => 
+
+      return product;
+    }).filter((product): product is Product => 
       product !== null && product.confidenceLevel >= WEIGHTS.MIN_CONFIDENCE
     );
 
     // Sort by score and ensure category diversity
     let recommendations = ensureCategoryDiversity(
-      scoredProducts.sort((a, b) => b.score - a.score)
+      scoredProducts.sort((a, b) => (b as any).score - (a as any).score)
     );
 
     // Add fallback products if needed
