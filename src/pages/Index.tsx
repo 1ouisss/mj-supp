@@ -13,45 +13,26 @@ const Index = () => {
         backgroundSize: '400% 400%'
       }}
     >
-      {/* Large smoke particles */}
+      {/* Animated yellow particles */}
       <div className="absolute inset-0 pointer-events-none">
-        {[...Array(20)].map((_, i) => (
-          <div
-            key={`smoke-large-${i}`}
-            className="absolute animate-smoke"
-            style={{
-              left: `${Math.random() * 100}%`,
-              top: '80%',
-              width: '250px',
-              height: '250px',
-              background: 'radial-gradient(circle, rgba(228,215,128,0.8) 0%, rgba(228,215,128,0) 70%)',
-              animationDelay: `${i * 0.3}s`,
-              filter: 'blur(12px)',
-              transform: 'scale(1.2)'
-            }}
-          />
-        ))}
-      </div>
-
-      {/* Small floating particles */}
-      <div className="absolute inset-0 pointer-events-none">
-        {[...Array(40)].map((_, i) => (
+        {[...Array(50)].map((_, i) => (
           <div
             key={`particle-${i}`}
             className="absolute animate-float"
             style={{
               left: `${Math.random() * 100}%`,
               top: `${Math.random() * 100}%`,
-              width: '12px',
-              height: '12px',
-              background: 'radial-gradient(circle, rgba(228,215,128,1) 0%, rgba(228,215,128,0) 100%)',
-              animationDelay: `${i * 0.2}s`,
-              filter: 'blur(2px)'
+              width: `${Math.random() * 8 + 4}px`,
+              height: `${Math.random() * 8 + 4}px`,
+              backgroundColor: `rgba(228, 215, 128, ${Math.random() * 0.5 + 0.2})`,
+              borderRadius: '50%',
+              animationDelay: `${Math.random() * 5}s`,
+              animationDuration: `${Math.random() * 10 + 5}s`
             }}
           />
         ))}
       </div>
-      
+
       <Card className="max-w-2xl w-full bg-white/80 backdrop-blur-sm p-8 space-y-8 relative z-10 shadow-xl hover:shadow-2xl transition-all duration-500">
         <div className="text-center space-y-6">
           <h1 className="text-6xl font-light tracking-wide text-gray-800 hover:scale-105 transition-transform duration-300">

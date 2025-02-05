@@ -108,14 +108,23 @@
   }
 }
 
-@keyframes gradient-shift {
+@keyframes float {
   0% {
-    background-position: 0% 50%;
+    transform: translateY(0) translateX(0) rotate(0deg);
+    opacity: 0;
   }
-  50% {
-    background-position: 100% 50%;
+  20% {
+    opacity: 1;
+  }
+  80% {
+    opacity: 1;
   }
   100% {
-    background-position: 0% 50%;
+    transform: translateY(-100vh) translateX(100px) rotate(360deg);
+    opacity: 0;
   }
+}
+
+.animate-float {
+  animation: float 15s linear infinite;
 }
