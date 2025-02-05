@@ -11,6 +11,7 @@ import { feedbackStorage } from "@/utils/feedback/feedbackStorage";
 import { toast } from "sonner";
 import { validateRecommendationSystem } from "@/utils/recommendation/testing/validationTests";
 import { supabase } from "@/integrations/supabase/client";
+import type { Json } from "@/integrations/supabase/types";
 
 const Results = () => {
   const location = useLocation();
@@ -23,10 +24,13 @@ const Results = () => {
 
   const saveUserResponses = async () => {
     try {
+      // Convert answers to a JSON-compatible format
+      const jsonResponses = JSON.parse(JSON.stringify(answers)) as Json;
+      
       const { data: userResponse, error: userResponseError } = await supabase
         .from('user_responses')
         .insert({
-          responses: answers
+          responses: jsonResponses
         })
         .select()
         .single();
@@ -45,7 +49,6 @@ const Results = () => {
 
   const saveRecommendations = async (userResponseId: string) => {
     try {
-      // Ensure we're only sending the IDs and scores
       const recommendationData = {
         user_response_id: userResponseId,
         product_ids: recommendations.map(r => r.id),
