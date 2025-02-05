@@ -161,31 +161,46 @@ export type Database = {
       recommendation_validations: {
         Row: {
           accuracy_score: number | null
+          category_diversity_score: number | null
           diversity_score: number | null
           id: string
           personalization_score: number | null
+          primary_goal_alignment: number | null
+          product_availability: boolean | null
           recommendation_id: string | null
+          response_time_ms: number | null
           test_case: string
+          url_validity: boolean | null
           validation_date: string | null
           validation_details: Json | null
         }
         Insert: {
           accuracy_score?: number | null
+          category_diversity_score?: number | null
           diversity_score?: number | null
           id?: string
           personalization_score?: number | null
+          primary_goal_alignment?: number | null
+          product_availability?: boolean | null
           recommendation_id?: string | null
+          response_time_ms?: number | null
           test_case: string
+          url_validity?: boolean | null
           validation_date?: string | null
           validation_details?: Json | null
         }
         Update: {
           accuracy_score?: number | null
+          category_diversity_score?: number | null
           diversity_score?: number | null
           id?: string
           personalization_score?: number | null
+          primary_goal_alignment?: number | null
+          product_availability?: boolean | null
           recommendation_id?: string | null
+          response_time_ms?: number | null
           test_case?: string
+          url_validity?: boolean | null
           validation_date?: string | null
           validation_details?: Json | null
         }

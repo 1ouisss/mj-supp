@@ -17,28 +17,64 @@ interface GenderTestScenario {
 
 export const CORE_TEST_SCENARIOS: TestScenario[] = [
   {
-    name: "Basic Health Profile",
+    name: "Sleep Improvement Focus",
     answers: [
-      { questionId: 1, answers: ["female"] },
+      { questionId: 1, answers: ["Femme"] },
       { questionId: 2, answers: ["25-34"] },
-      { questionId: 3, answers: ["general_health"] },
-      { questionId: 4, answers: ["stress", "sleep"] }
+      { questionId: 3, answers: ["Améliorer le sommeil"] },
+      { questionId: 4, answers: ["Difficulté à dormir", "Stress"] }
     ],
     minimumProducts: 3,
-    expectedProducts: ["product1", "product2"],
-    expectedCategories: ["general_health", "stress", "sleep"] as ProductCategory[]
+    expectedProducts: ["melatonine", "magnesium", "poudre-dodo"],
+    expectedCategories: ["sleep", "relaxation", "stress"]
   },
   {
-    name: "Stress Management Focus",
+    name: "Brain Health Focus",
     answers: [
-      { questionId: 1, answers: ["male"] },
+      { questionId: 1, answers: ["Homme"] },
       { questionId: 2, answers: ["35-44"] },
-      { questionId: 3, answers: ["stress"] },
-      { questionId: 4, answers: ["sleep", "concentration"] }
+      { questionId: 3, answers: ["Soutenir la santé cérébrale"] },
+      { questionId: 4, answers: ["Concentration", "Mémoire"] }
     ],
     minimumProducts: 2,
-    expectedProducts: ["product3", "product4"],
-    expectedCategories: ["stress", "sleep", "concentration"] as ProductCategory[]
+    expectedProducts: ["focus", "omega-3"],
+    expectedCategories: ["brain", "concentration"]
+  },
+  {
+    name: "Stress Management",
+    answers: [
+      { questionId: 1, answers: ["Femme"] },
+      { questionId: 2, answers: ["45-54"] },
+      { questionId: 3, answers: ["Gérer le stress"] },
+      { questionId: 4, answers: ["Stress", "Anxiété"] }
+    ],
+    minimumProducts: 3,
+    expectedProducts: ["magnesium", "energie-adaptogene"],
+    expectedCategories: ["stress", "relaxation"]
+  },
+  {
+    name: "General Health Maintenance",
+    answers: [
+      { questionId: 1, answers: ["Homme"] },
+      { questionId: 2, answers: ["25-34"] },
+      { questionId: 3, answers: ["Améliorer la santé générale"] },
+      { questionId: 4, answers: ["Aucune"] }
+    ],
+    minimumProducts: 2,
+    expectedProducts: ["multivitamines-la-totale", "soutien-sante"],
+    expectedCategories: ["general_health", "essential"]
+  },
+  {
+    name: "Energy Boost",
+    answers: [
+      { questionId: 1, answers: ["Femme"] },
+      { questionId: 2, answers: ["25-34"] },
+      { questionId: 3, answers: ["Améliorer l'énergie"] },
+      { questionId: 4, answers: ["Fatigue", "Concentration"] }
+    ],
+    minimumProducts: 3,
+    expectedProducts: ["energie-adaptogene", "force-botanique"],
+    expectedCategories: ["energy", "brain", "concentration"]
   }
 ];
 
@@ -46,18 +82,18 @@ export const GENDER_TEST_SCENARIOS: GenderTestScenario[] = [
   {
     name: "Female-Specific Products",
     answers: [
-      { questionId: 1, answers: ["female"] },
+      { questionId: 1, answers: ["Femme"] },
       { questionId: 2, answers: ["25-34"] },
-      { questionId: 3, answers: ["women_specific"] }
+      { questionId: 3, answers: ["Améliorer la santé hormonale"] }
     ],
     validateFn: (products) => products.some(p => p.categories.includes("women_specific"))
   },
   {
     name: "Male-Specific Products",
     answers: [
-      { questionId: 1, answers: ["male"] },
+      { questionId: 1, answers: ["Homme"] },
       { questionId: 2, answers: ["25-34"] },
-      { questionId: 3, answers: ["men_specific"] }
+      { questionId: 3, answers: ["Améliorer la santé hormonale"] }
     ],
     validateFn: (products) => products.some(p => p.categories.includes("men_specific"))
   }

@@ -12,10 +12,18 @@ export async function validateRecommendationSystem() {
   for (const scenario of CORE_TEST_SCENARIOS) {
     try {
       console.group(`Testing scenario: ${scenario.name}`);
+      const startTime = performance.now();
       const recommendations = getRecommendations(scenario.answers);
+      const endTime = performance.now();
+      const responseTime = endTime - startTime;
       
       // Validate recommendations
-      const validationResult = await validateScenario(scenario.name, recommendations, scenario);
+      const validationResult = await validateScenario(
+        scenario.name, 
+        recommendations, 
+        scenario,
+        responseTime
+      );
       
       if (!validationResult) {
         allTestsPassed = false;
@@ -44,7 +52,8 @@ async function validateScenario(
     minimumProducts: number;
     expectedProducts: string[];
     expectedCategories: string[];
-  }
+  },
+  responseTime: number
 ) {
   let isValid = true;
   const validationDetails: any = {};
@@ -74,10 +83,26 @@ async function validateScenario(
     validationDetails.diversityFailed = true;
   }
 
+  // Validate URLs
+  const invalidUrls = recommendations.filter(p => !p.productUrl.startsWith('https://'));
+  if (invalidUrls.length > 0) {
+    console.error("❌ Invalid product URLs found:", invalidUrls.map(p => p.name));
+    isValid = false;
+    validationDetails.invalidUrls = invalidUrls.map(p => p.productUrl);
+  }
+
   // Calculate scores
   const accuracyScore = calculateAccuracyScore(recommendations, scenario);
   const diversityScore = calculateDiversityScore(recommendations);
   const personalizationScore = calculatePersonalizationScore(recommendations, scenario);
+  const primaryGoalAlignment = calculatePrimaryGoalAlignment(recommendations, scenario);
+
+  // Performance check
+  const performancePassed = responseTime <= 50;
+  if (!performancePassed) {
+    console.error(`❌ Performance threshold exceeded: ${responseTime.toFixed(2)}ms`);
+    isValid = false;
+  }
 
   // Save validation results
   try {
@@ -88,7 +113,11 @@ async function validateScenario(
         accuracy_score: accuracyScore,
         diversity_score: diversityScore,
         personalization_score: personalizationScore,
-        validation_details: validationDetails
+        primary_goal_alignment: primaryGoalAlignment,
+        response_time_ms: Math.round(responseTime),
+        validation_details: validationDetails,
+        product_availability: recommendations.length >= scenario.minimumProducts,
+        url_validity: invalidUrls.length === 0
       });
 
     if (error) throw error;
@@ -119,4 +148,17 @@ function calculatePersonalizationScore(recommendations: Product[], scenario: any
   ).length;
   
   return (matchingCategories / recommendations.length) * 100;
+}
+
+function calculatePrimaryGoalAlignment(recommendations: Product[], scenario: any): number {
+  const primaryGoal = scenario.answers.find((a: Answer) => a.questionId === 3)?.answers[0];
+  if (!primaryGoal) return 0;
+
+  const alignedProducts = recommendations.filter(product => 
+    product.categories.some(category => 
+      category.toLowerCase().includes(primaryGoal.toLowerCase())
+    )
+  );
+
+  return (alignedProducts.length / recommendations.length) * 100;
 }
