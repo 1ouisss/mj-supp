@@ -161,10 +161,10 @@ const Results = () => {
             <Info className="w-5 h-5 text-amber-600 mt-1 flex-shrink-0" />
             <div>
               <h3 className="text-lg font-medium text-amber-900 mb-2">
-                Une approche complète pour votre bien-être
+                Votre bien-être, notre passion au quotidien
               </h3>
               <p className="text-amber-700 mb-4">
-                Nous avons choisi des produits qui se complètent pour prendre soin de vous de manière naturelle et équilibrée.
+                Avec amour et attention, nous avons sélectionné pour vous une gamme de produits naturels qui s'harmonisent parfaitement. Chaque produit a été choisi avec soin pour vous accompagner vers une santé rayonnante et équilibrée.
               </p>
               <div className="flex flex-wrap gap-2">
                 {uniqueCategories.map((category) => (
