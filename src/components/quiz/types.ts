@@ -32,7 +32,6 @@ export interface Answer {
 export interface LifestyleInfo {
   diet: string;
   sleepHours: number;
-  activityLevel: string;
   currentSupplements: string[];
 }
 

@@ -86,17 +86,6 @@ export const QUESTIONS: Question[] = [
     ]
   },
   {
-    id: 5,
-    question: "Quel est votre niveau d'activité physique ?",
-    type: "single",
-    options: [
-      "Sédentaire",
-      "Légèrement actif",
-      "Modérément actif",
-      "Très actif"
-    ]
-  },
-  {
     id: 6,
     question: "Comment décririez-vous votre alimentation ?",
     type: "single",
