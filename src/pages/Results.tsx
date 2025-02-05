@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { ProductCard } from "@/components/results/ProductCard";
@@ -12,15 +12,30 @@ import { toast } from "sonner";
 import { validateRecommendationSystem } from "@/utils/recommendation/testing/validationTests";
 import { supabase } from "@/integrations/supabase/client";
 import type { Json } from "@/integrations/supabase/types";
+import type { Product } from "@/components/results/ProductCard";
 
 const Results = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const answers = (location.state?.answers || []) as Answer[];
+  const [recommendations, setRecommendations] = useState<Product[]>([]);
+  const [uniqueCategories, setUniqueCategories] = useState<string[]>([]);
   
-  if (process.env.NODE_ENV === 'development') {
-    validateRecommendationSystem();
-  }
+  useEffect(() => {
+    const loadRecommendations = async () => {
+      if (process.env.NODE_ENV === 'development') {
+        await validateRecommendationSystem();
+      }
+
+      if (answers.length > 0) {
+        const recs = await getRecommendations(answers);
+        setRecommendations(recs);
+        setUniqueCategories([...new Set(recs.flatMap(p => p.categories))]);
+      }
+    };
+
+    loadRecommendations();
+  }, [answers]);
 
   const saveUserResponses = async () => {
     try {
@@ -42,9 +57,6 @@ const Results = () => {
       return null;
     }
   };
-  
-  const recommendations = getRecommendations(answers);
-  const uniqueCategories = [...new Set(recommendations.flatMap(p => p.categories))];
 
   // Function to get product UUID from database
   const getProductUuid = async (productName: string) => {
@@ -95,7 +107,8 @@ const Results = () => {
 
   const handleFeedbackSubmit = async (feedback: ProductFeedback) => {
     try {
-      const productUuid = await getProductUuid(recommendations.find(p => p.id === feedback.productId)?.name || '');
+      const product = recommendations.find(p => p.id === feedback.productId);
+      const productUuid = await getProductUuid(product?.name || '');
       
       if (!productUuid) {
         throw new Error('Product UUID not found');
@@ -117,7 +130,6 @@ const Results = () => {
         timestamp: Date.now()
       });
       
-      const product = recommendations.find(p => p.id === feedback.productId);
       toast.success(`Thank you for your feedback on ${product?.name}!`);
       
       console.log("Feedback saved:", {
@@ -132,7 +144,7 @@ const Results = () => {
     }
   };
 
-  React.useEffect(() => {
+  useEffect(() => {
     const saveData = async () => {
       if (answers.length > 0) {
         const userResponseId = await saveUserResponses();
