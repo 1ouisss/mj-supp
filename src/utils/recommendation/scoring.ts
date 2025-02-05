@@ -1,23 +1,66 @@
-import { ProductCategory, ProductDefinition } from "../products/productTypes";
+import { ProductCategory } from "../products/productTypes";
 import { WEIGHTS } from "./constants";
 
+export function normalizeAnswer(answer: string | number): string {
+  return String(answer).toLowerCase().trim();
+}
+
 export function calculateCategoryScore(productCategories: ProductCategory[], targetCategories: string[]): number {
-  return productCategories.reduce((score, category) => {
-    const isRelevant = targetCategories.includes(category);
-    return score + (isRelevant ? WEIGHTS.CATEGORY_MATCH : -WEIGHTS.MISMATCH_PENALTY);
-  }, 0);
+  let score = 0;
+  const normalizedTargets = targetCategories.map(cat => normalizeAnswer(cat));
+  
+  productCategories.forEach(category => {
+    const normalizedCategory = normalizeAnswer(category);
+    // Direct category match
+    if (normalizedTargets.includes(normalizedCategory)) {
+      score += WEIGHTS.CATEGORY_MATCH;
+    }
+    // Related category bonus (e.g., sleep related to stress)
+    else if (isRelatedCategory(normalizedCategory, normalizedTargets)) {
+      score += WEIGHTS.RELATED_CATEGORY;
+    }
+    // Small penalty for unrelated categories to favor more focused products
+    else {
+      score -= WEIGHTS.MISMATCH_PENALTY;
+    }
+  });
+  
+  return score;
 }
 
 export function calculateTherapeuticScore(claims: string[] | undefined, concerns: string[]): number {
   if (!claims) return 0;
-  return claims.reduce((score, claim) => {
-    const matchingConcerns = concerns.filter(concern => 
-      claim.toLowerCase().includes(normalizeAnswer(concern).toLowerCase())
+  
+  let score = 0;
+  const normalizedConcerns = concerns.map(c => normalizeAnswer(c));
+  
+  claims.forEach(claim => {
+    const normalizedClaim = normalizeAnswer(claim);
+    const matchingConcerns = normalizedConcerns.filter(concern => 
+      normalizedClaim.includes(concern) || 
+      concern.includes(normalizedClaim)
     );
-    return score + (matchingConcerns.length * WEIGHTS.THERAPEUTIC_CLAIM);
-  }, 0);
+    
+    if (matchingConcerns.length > 0) {
+      score += WEIGHTS.THERAPEUTIC_CLAIM * matchingConcerns.length;
+    }
+  });
+  
+  return score;
 }
 
-export function normalizeAnswer(answer: string | number): string {
-  return String(answer);
+function isRelatedCategory(category: string, targetCategories: string[]): boolean {
+  const relationMap: { [key: string]: string[] } = {
+    'sleep': ['stress', 'energy', 'brain'],
+    'stress': ['sleep', 'brain', 'energy'],
+    'energy': ['stress', 'brain', 'immunity'],
+    'brain': ['stress', 'sleep', 'energy', 'concentration'],
+    'immunity': ['energy', 'general_health'],
+    'digestive': ['general_health', 'immunity'],
+  };
+  
+  return targetCategories.some(target => 
+    relationMap[category]?.includes(target) || 
+    relationMap[target]?.includes(category)
+  );
 }
