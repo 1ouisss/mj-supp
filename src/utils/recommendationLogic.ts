@@ -9,8 +9,9 @@ import { ensureCategoryDiversity } from "./recommendation/diversity";
 import { applySynergyBoosts } from "./recommendation/synergy";
 import { adjustProductScores } from "./feedback/feedbackAdjustment";
 import { toast } from "sonner";
+import { ProductDefinition } from "./products/productTypes";
 
-function shouldExcludeProduct(product: Product, answers: Answer[]): boolean {
+function shouldExcludeProduct(product: ProductDefinition, answers: Answer[]): boolean {
   const healthConcerns = answers
     .find(a => a.questionId === 4)?.answers
     .map(String) || [];
@@ -93,7 +94,7 @@ export function getRecommendations(answers: Answer[]): Product[] {
     let scoredProducts = PRODUCTS
       .filter(productDef => {
         // Check basic eligibility
-        if (shouldExcludeProduct(productDef as Product, answers)) {
+        if (shouldExcludeProduct(productDef, answers)) {
           return false;
         }
 
@@ -152,20 +153,20 @@ export function getRecommendations(answers: Answer[]): Product[] {
 
         console.log(`Product ${productDef.name} - Final Score: ${totalScore}, Match Count: ${matchCount}`);
 
-        // Convert ProductDefinition to Product by adding confidenceLevel
-        const confidenceLevel = Math.min(
-          WEIGHTS.MAX_CONFIDENCE,
-          Math.max(
-            WEIGHTS.MIN_CONFIDENCE,
-            WEIGHTS.MIN_CONFIDENCE + (matchCount * 5)
-          )
-        );
-
-        return {
+        // Convert ProductDefinition to Product by adding confidenceLevel and score
+        const product: Product = {
           ...productDef,
-          confidenceLevel,
+          confidenceLevel: Math.min(
+            WEIGHTS.MAX_CONFIDENCE,
+            Math.max(
+              WEIGHTS.MIN_CONFIDENCE,
+              WEIGHTS.MIN_CONFIDENCE + (matchCount * 5)
+            )
+          ),
           score: totalScore
-        } as Product;
+        };
+
+        return product;
       })
       .filter(product => product.score > 0)
       .sort((a, b) => (b.score || 0) - (a.score || 0));
