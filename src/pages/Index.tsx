@@ -10,31 +10,25 @@ const Index = () => {
       className="min-h-screen flex flex-col items-center justify-center p-4 relative overflow-hidden"
       style={{
         background: 'linear-gradient(-45deg, #E4D780, #E8DB85, #E4D780, #EAE090)',
-        backgroundSize: '400% 400%'
+        backgroundSize: '400% 400%',
+        animation: 'gradient-shift 15s ease infinite'
       }}
     >
-      <div className="absolute inset-0 animate-gradient-shift" 
-        style={{
-          background: 'linear-gradient(-45deg, #E4D780, #E8DB85, #E4D780, #EAE090)',
-          backgroundSize: '400% 400%',
-          opacity: 0.95
-        }}
-      />
-      
       {/* Large smoke particles */}
       <div className="absolute inset-0 pointer-events-none">
-        {[...Array(15)].map((_, i) => (
+        {[...Array(20)].map((_, i) => (
           <div
             key={`smoke-large-${i}`}
             className="absolute animate-smoke"
             style={{
               left: `${Math.random() * 100}%`,
               top: '80%',
-              width: '200px',
-              height: '200px',
-              background: 'radial-gradient(circle, rgba(228,215,128,0.6) 0%, rgba(228,215,128,0) 70%)',
-              animationDelay: `${i * 0.4}s`,
-              filter: 'blur(8px)'
+              width: '250px',
+              height: '250px',
+              background: 'radial-gradient(circle, rgba(228,215,128,0.8) 0%, rgba(228,215,128,0) 70%)',
+              animationDelay: `${i * 0.3}s`,
+              filter: 'blur(12px)',
+              transform: 'scale(1.2)'
             }}
           />
         ))}
@@ -42,30 +36,30 @@ const Index = () => {
 
       {/* Small floating particles */}
       <div className="absolute inset-0 pointer-events-none">
-        {[...Array(30)].map((_, i) => (
+        {[...Array(40)].map((_, i) => (
           <div
             key={`particle-${i}`}
             className="absolute animate-float"
             style={{
               left: `${Math.random() * 100}%`,
               top: `${Math.random() * 100}%`,
-              width: '8px',
-              height: '8px',
+              width: '12px',
+              height: '12px',
               background: 'radial-gradient(circle, rgba(228,215,128,1) 0%, rgba(228,215,128,0) 100%)',
               animationDelay: `${i * 0.2}s`,
-              filter: 'blur(1px)'
+              filter: 'blur(2px)'
             }}
           />
         ))}
       </div>
       
-      <Card className="max-w-2xl w-full bg-white/80 backdrop-blur-sm p-8 space-y-8 relative z-10 shadow-xl">
+      <Card className="max-w-2xl w-full bg-white/80 backdrop-blur-sm p-8 space-y-8 relative z-10 shadow-xl hover:shadow-2xl transition-all duration-500">
         <div className="text-center space-y-6">
-          <h1 className="text-6xl font-light tracking-wide text-gray-800">
+          <h1 className="text-6xl font-light tracking-wide text-gray-800 hover:scale-105 transition-transform duration-300">
             Maison Jacynthe
           </h1>
           <div className="space-y-2">
-            <h2 className="text-3xl font-medium text-gray-700">
+            <h2 className="text-3xl font-medium text-gray-700 hover:scale-105 transition-transform duration-300">
               MJ Supp
             </h2>
             <p className="text-2xl text-gray-600 font-light">
@@ -78,7 +72,8 @@ const Index = () => {
           <Button 
             onClick={() => navigate("/quiz")}
             className="bg-black hover:bg-gray-800 text-white px-12 py-3 rounded-full text-xl
-              transform transition-all duration-300 hover:scale-110 hover:shadow-[0_0_25px_rgba(0,0,0,0.3)]"
+              transform transition-all duration-500 hover:scale-110 hover:shadow-[0_0_35px_rgba(228,215,128,0.5)]
+              animate-pulse"
           >
             ANALYSE
           </Button>

@@ -85,41 +85,48 @@ export default {
             transform: 'translateY(0) scale(1) rotate(0deg)'
           },
           '50%': { 
-            opacity: '0.8',
-            transform: 'translateY(-30px) scale(2.5) rotate(45deg)'
+            opacity: '0.9',
+            transform: 'translateY(-50px) scale(3) rotate(45deg)'
           },
           '100%': { 
             opacity: '0',
-            transform: 'translateY(-60px) scale(4) rotate(90deg)'
+            transform: 'translateY(-100px) scale(4) rotate(90deg)'
           }
         },
         'float': {
           '0%': { 
-            transform: 'translateY(0) translateX(0) rotate(0deg)',
+            transform: 'translateY(0) translateX(0) rotate(0deg) scale(1)',
             opacity: '0'
           },
           '25%': {
-            opacity: '1'
+            opacity: '1',
+            transform: 'translateY(-15px) translateX(15px) rotate(90deg) scale(1.2)'
           },
           '50%': { 
-            transform: 'translateY(-15px) translateX(15px) rotate(180deg)',
+            transform: 'translateY(-30px) translateX(-15px) rotate(180deg) scale(1)',
             opacity: '1'
           },
           '75%': {
-            opacity: '1'
+            opacity: '1',
+            transform: 'translateY(-15px) translateX(15px) rotate(270deg) scale(1.2)'
           },
           '100%': { 
-            transform: 'translateY(0) translateX(0) rotate(360deg)',
+            transform: 'translateY(0) translateX(0) rotate(360deg) scale(1)',
             opacity: '0'
           }
+        },
+        pulse: {
+          '0%, 100%': { opacity: '1' },
+          '50%': { opacity: '0.7' }
         }
       },
       animation: {
         'accordion-down': 'accordion-down 0.2s ease-out',
         'accordion-up': 'accordion-up 0.2s ease-out',
         'gradient-shift': 'gradient-shift 15s ease infinite',
-        'smoke': 'smoke-drift 6s ease-out infinite',
-        'float': 'float 8s ease-in-out infinite'
+        'smoke': 'smoke-drift 8s ease-out infinite',
+        'float': 'float 12s ease-in-out infinite',
+        'pulse': 'pulse 3s ease-in-out infinite'
       }
     }
   },
