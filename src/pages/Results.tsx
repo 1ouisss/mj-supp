@@ -17,24 +17,21 @@ const Results = () => {
   const navigate = useNavigate();
   const answers = (location.state?.answers || []) as Answer[];
   
-  // Run validation tests in development
   if (process.env.NODE_ENV === 'development') {
     validateRecommendationSystem();
   }
 
-  // Save user responses to Supabase
   const saveUserResponses = async () => {
     try {
       const { data: userResponse, error: userResponseError } = await supabase
         .from('user_responses')
         .insert({
-          responses: JSON.stringify(answers)
+          responses: answers
         })
         .select()
         .single();
 
       if (userResponseError) throw userResponseError;
-
       return userResponse.id;
     } catch (error) {
       console.error('Error saving user responses:', error);
@@ -46,16 +43,18 @@ const Results = () => {
   const recommendations = getRecommendations(answers);
   const uniqueCategories = [...new Set(recommendations.flatMap(p => p.categories))];
 
-  // Save recommendations to Supabase
   const saveRecommendations = async (userResponseId: string) => {
     try {
+      // Ensure we're only sending the IDs and scores
+      const recommendationData = {
+        user_response_id: userResponseId,
+        product_ids: recommendations.map(r => r.id),
+        confidence_scores: recommendations.map(r => r.confidenceLevel || 0)
+      };
+
       const { error: recommendationsError } = await supabase
         .from('recommendations')
-        .insert({
-          user_response_id: userResponseId,
-          product_ids: recommendations.map(r => r.id),
-          confidence_scores: recommendations.map(r => r.confidenceLevel)
-        });
+        .insert(recommendationData);
 
       if (recommendationsError) throw recommendationsError;
     } catch (error) {
@@ -97,7 +96,6 @@ const Results = () => {
     }
   };
 
-  // Save user responses and recommendations when component mounts
   React.useEffect(() => {
     const saveData = async () => {
       if (answers.length > 0) {

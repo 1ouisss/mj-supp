@@ -2,7 +2,7 @@ import { ProductDefinition } from '../productTypes';
 
 export const MENTAL_HEALTH_PRODUCTS: ProductDefinition[] = [
   {
-    id: "focus",
+    id: "550e8400-e29b-41d4-a716-446655440000", // Changed to UUID
     name: "Focus",
     description: "Formule avancée pour la concentration et la clarté mentale.",
     imageUrl: "/lovable-uploads/75ff84e8-c303-4908-9110-609c7e765eec.png",
@@ -21,7 +21,7 @@ export const MENTAL_HEALTH_PRODUCTS: ProductDefinition[] = [
       "Soutient les fonctions cognitives"
     ],
     relationships: {
-      complementaryProducts: ["omega-3"],
+      complementaryProducts: ["550e8400-e29b-41d4-a716-446655440001"],
       contraindications: ["Sensibilité à la caféine"]
     },
     usage: {
@@ -32,7 +32,7 @@ export const MENTAL_HEALTH_PRODUCTS: ProductDefinition[] = [
     timeFrame: "long_term"
   },
   {
-    id: "energie-adaptogene",
+    id: "550e8400-e29b-41d4-a716-446655440001", // Changed to UUID
     name: "Énergie & Adaptogènes",
     description: "Complexe énergisant avec adaptogènes pour le stress.",
     imageUrl: "/lovable-uploads/69fac7c4-db16-461e-bdbe-8322e037ddcb.png",
@@ -51,7 +51,7 @@ export const MENTAL_HEALTH_PRODUCTS: ProductDefinition[] = [
       "Soutien du système nerveux"
     ],
     relationships: {
-      complementaryProducts: ["magnesium"],
+      complementaryProducts: ["550e8400-e29b-41d4-a716-446655440000"],
       contraindications: ["Hypertension non contrôlée"]
     },
     usage: {
