@@ -3,6 +3,8 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Star } from "lucide-react";
+import { FeedbackForm, ProductFeedback } from "./FeedbackForm";
+import { useState } from "react";
 
 export interface Product {
   id: string;
@@ -16,10 +18,17 @@ export interface Product {
   productUrl: string;
   categories: ProductCategory[];
   therapeuticClaims?: string[];
-  score?: number; // Added score as an optional property
+  score?: number;
 }
 
-export const ProductCard = ({ product }: { product: Product }) => {
+interface ProductCardProps {
+  product: Product;
+  onFeedbackSubmit?: (feedback: ProductFeedback) => void;
+}
+
+export const ProductCard = ({ product, onFeedbackSubmit }: ProductCardProps) => {
+  const [showFeedback, setShowFeedback] = useState(false);
+
   return (
     <Card className="h-full flex flex-col bg-white overflow-hidden hover:shadow-lg transition-shadow border-amber-100">
       <CardHeader className="p-0">
@@ -35,6 +44,7 @@ export const ProductCard = ({ product }: { product: Product }) => {
           />
         </div>
       </CardHeader>
+
       <CardContent className="flex-grow p-6 space-y-4">
         <div className="flex items-start justify-between gap-4">
           <h2 className="text-xl font-semibold text-amber-900">{product.name}</h2>
@@ -89,7 +99,26 @@ export const ProductCard = ({ product }: { product: Product }) => {
             </Badge>
           ))}
         </div>
+
+        {showFeedback ? (
+          <FeedbackForm
+            product={product}
+            onFeedbackSubmit={(feedback) => {
+              onFeedbackSubmit?.(feedback);
+              setShowFeedback(false);
+            }}
+          />
+        ) : (
+          <Button
+            variant="outline"
+            onClick={() => setShowFeedback(true)}
+            className="w-full mt-4 border-amber-200 text-amber-800 hover:bg-amber-50"
+          >
+            Rate this recommendation
+          </Button>
+        )}
       </CardContent>
+
       <CardFooter className="p-6 pt-0">
         <Button 
           asChild

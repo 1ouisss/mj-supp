@@ -5,6 +5,7 @@ import { getRecommendations } from "@/utils/recommendationLogic";
 import type { Answer } from "@/components/quiz/types";
 import { Badge } from "@/components/ui/badge";
 import { Info } from "lucide-react";
+import type { ProductFeedback } from "@/components/results/FeedbackForm";
 
 const Results = () => {
   const location = useLocation();
@@ -13,6 +14,19 @@ const Results = () => {
   
   const recommendations = getRecommendations(answers);
   const uniqueCategories = [...new Set(recommendations.flatMap(p => p.categories))];
+
+  const handleFeedbackSubmit = (feedback: ProductFeedback) => {
+    // Here you would typically send this feedback to your backend
+    console.log("Feedback received:", feedback);
+    
+    // For now, we'll just log the feedback
+    const product = recommendations.find(p => p.id === feedback.productId);
+    console.log(`Feedback for ${product?.name}:`, {
+      rating: feedback.rating,
+      isHelpful: feedback.isHelpful,
+      additionalFeedback: feedback.additionalFeedback
+    });
+  };
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-amber-50 to-amber-100">
@@ -53,7 +67,11 @@ const Results = () => {
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {recommendations.map((product) => (
-            <ProductCard key={product.id} product={product} />
+            <ProductCard 
+              key={product.id} 
+              product={product}
+              onFeedbackSubmit={handleFeedbackSubmit}
+            />
           ))}
         </div>
 
