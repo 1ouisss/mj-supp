@@ -2,241 +2,211 @@ import { ProductDefinition } from '../productTypes';
 
 export const SPECIALIZED_HEALTH_PRODUCTS: ProductDefinition[] = [
   {
-    id: "omega-3",
-    name: "Oméga-3 & Astaxanthine",
-    description: "Supplément pour la santé cérébrale et cardiovasculaire.",
-    imageUrl: "/lovable-uploads/920207d8-51b1-428d-9a7f-8ccb55c5becf.png",
-    expectedResults: "Soutien cognitif et cardiovasculaire 🧠",
-    recommendationReason: "Santé cognitive et cardiaque",
-    dietaryInfo: "Sans gluten",
-    productUrl: "https://maisonjacynthe.ca/fr/omega-astaxanthine",
-    categories: ["brain", "heart_health", "joints"],
+    id: "focus",
+    name: "Focus",
+    description: "Formule avancée pour la concentration et la clarté mentale.",
+    imageUrl: "/lovable-uploads/a4cf23a3-0970-4fb3-be63-daa3935ae49c.png",
+    expectedResults: "Concentration améliorée, clarté mentale accrue 🧠",
+    recommendationReason: "Soutien cognitif optimal",
+    dietaryInfo: "Vegan, Sans gluten",
+    productUrl: "https://maisonjacynthe.ca/fr/focus",
+    categories: ["brain", "concentration", "long_term"],
     scores: [
       { condition: "Soutenir la santé cérébrale", score: 5 },
-      { condition: "Préoccupations cardiovasculaires", score: 5 }
+      { condition: "Améliorer la concentration", score: 5 }
     ],
     therapeuticClaims: [
-      "Supports brain, heart, and joint health 🐟",
-      "Améliore la santé cardiovasculaire",
+      "Enhances cognitive clarity and mental performance 🧠",
+      "Améliore la concentration et la mémoire",
       "Soutient les fonctions cognitives"
     ],
     relationships: {
-      complementaryProducts: ["zinc"],
-      contraindications: ["Troubles de la coagulation"]
-    },
-    usage: {
-      timing: "Prendre avec un repas",
-      duration: "Usage quotidien",
-      dosage: "1-2 gélules par jour",
-      seasonality: ["all_year"]
-    },
-    timeFrame: "long_term"
-  },
-  {
-    id: "zinc-cuivre",
-    name: "Zinc & Cuivre",
-    description: "Minéraux essentiels pour le système immunitaire.",
-    imageUrl: "/lovable-uploads/d4d5dd78-75fc-4f0d-bc94-18072b2a4115.png",
-    expectedResults: "Système immunitaire renforcé 🌟",
-    recommendationReason: "Soutien immunitaire",
-    dietaryInfo: "Vegan, Sans gluten",
-    productUrl: "https://maisonjacynthe.ca/fr/zinc-cuivre",
-    categories: ["immune", "essential"],
-    scores: [
-      { condition: "Renforcer l'immunité", score: 5 }
-    ],
-    therapeuticClaims: [
-      "Soutien du système immunitaire",
-      "Antioxydant"
-    ],
-    relationships: {
-      complementaryProducts: ["vitamine-d"],
-      contraindications: []
-    },
-    usage: {
-      timing: "Prendre avec un repas",
-      duration: "Usage quotidien",
-      dosage: "1 gélule par jour",
-      seasonality: ["all_year"]
-    },
-    timeFrame: "long_term"
-  },
-  {
-    id: "silice",
-    name: "Silice",
-    description: "Essentielle pour la santé des cheveux, de la peau et des ongles.",
-    imageUrl: "/lovable-uploads/2fb75906-9c07-4df4-b771-2358014101ea.png",
-    expectedResults: "Beauté et santé de la peau, des cheveux et des ongles 💆‍♀️",
-    recommendationReason: "Soutien beauté naturel",
-    dietaryInfo: "Vegan",
-    productUrl: "https://maisonjacynthe.ca/fr/silice",
-    categories: ["hair_health", "skin", "nails"],
-    scores: [
-      { condition: "Santé des cheveux", score: 5 },
-      { condition: "Santé de la peau", score: 5 },
-      { condition: "Santé des ongles", score: 5 }
-    ],
-    therapeuticClaims: [
-      "Renforce les cheveux et les ongles",
-      "Améliore l'élasticité de la peau",
-      "Soutient la production de collagène"
-    ],
-    relationships: {
-      complementaryProducts: ["selenium"],
-      contraindications: []
-    },
-    usage: {
-      timing: "Prendre avec un repas",
-      duration: "Usage quotidien",
-      dosage: "1 gélule par jour",
-      seasonality: ["all_year"]
-    },
-    timeFrame: "long_term"
-  },
-  {
-    id: "formule-menopause",
-    name: "Formule Ménopause",
-    description: "Support naturel pour la ménopause",
-    imageUrl: "/lovable-uploads/69fac7c4-db16-461e-bdbe-8322e037ddcb.png",
-    expectedResults: "Confort et équilibre hormonal 🌸",
-    recommendationReason: "Soutien hormonal naturel",
-    dietaryInfo: "Vegan, Sans gluten",
-    productUrl: "https://maisonjacynthe.ca/fr/formule-menopause",
-    categories: ["women_specific", "hormones"],
-    scores: [
-      { condition: "Symptômes ménopause", score: 5 },
-      { condition: "Équilibre hormonal", score: 5 }
-    ],
-    therapeuticClaims: [
-      "Soulage les symptômes de la ménopause",
-      "Équilibre hormonal"
-    ],
-    relationships: {
-      complementaryProducts: [],
-      contraindications: []
-    },
-    usage: {
-      timing: "Quotidien",
-      duration: "Usage régulier",
-      seasonality: ["all_year"]
-    },
-    timeFrame: "long_term"
-  },
-  {
-    id: "soutien-sante",
-    name: "Soutien Santé",
-    description: "Complexe multivitaminé ciblé",
-    imageUrl: "/lovable-uploads/4ccea2a6-43df-472a-8f3c-848d654e081f.png",
-    expectedResults: "Soutien immunitaire et vitalité 🌟",
-    recommendationReason: "Support nutritionnel complet",
-    dietaryInfo: "Vegan, Sans gluten",
-    productUrl: "https://maisonjacynthe.ca/fr/soutien-sante",
-    categories: ["immune", "essential"],
-    scores: [
-      { condition: "Immunité", score: 5 },
-      { condition: "Santé générale", score: 5 }
-    ],
-    therapeuticClaims: [
-      "Renforce l'immunité",
-      "Soutien nutritionnel global"
-    ],
-    relationships: {
-      complementaryProducts: [],
-      contraindications: []
-    },
-    usage: {
-      timing: "Quotidien",
-      duration: "Usage régulier",
-      seasonality: ["all_year"]
-    },
-    timeFrame: "long_term"
-  },
-  {
-    id: "multivitamines-la-totale",
-    name: "Multivitamines La Totale",
-    description: "Complexe multivitaminé complet",
-    imageUrl: "/lovable-uploads/7336c578-a712-4ec7-bf62-9be26f615a1f.png",
-    expectedResults: "Santé globale et vitalité 🌈",
-    recommendationReason: "Nutrition complète quotidienne",
-    dietaryInfo: "Vegan, Sans gluten",
-    productUrl: "https://maisonjacynthe.ca/fr/multivitamine-la-totale",
-    categories: ["essential", "general_health"],
-    scores: [
-      { condition: "Santé générale", score: 5 },
-      { condition: "Nutrition", score: 5 }
-    ],
-    therapeuticClaims: [
-      "Support nutritionnel complet",
-      "Maintien de la santé globale"
-    ],
-    relationships: {
-      complementaryProducts: [],
-      contraindications: []
-    },
-    usage: {
-      timing: "Quotidien",
-      duration: "Usage régulier",
-      seasonality: ["all_year"]
-    },
-    timeFrame: "long_term"
-  },
-  {
-    id: "extrait-the-vert",
-    name: "Extrait de Thé Vert",
-    description: "Concentré d'antioxydants naturels",
-    imageUrl: "/lovable-uploads/4ccea2a6-43df-472a-8f3c-848d654e081f.png",
-    expectedResults: "Protection antioxydante et métabolisme optimal 🍃",
-    recommendationReason: "Soutien antioxydant naturel",
-    dietaryInfo: "Vegan, Sans gluten",
-    productUrl: "https://maisonjacynthe.ca/fr/extrait-de-the-vert",
-    categories: ["skin", "metabolism"],
-    scores: [
-      { condition: "Antioxydants", score: 5 },
-      { condition: "Métabolisme", score: 4 }
-    ],
-    therapeuticClaims: [
-      "Riche en antioxydants",
-      "Soutient le métabolisme",
-      "Protège la peau"
-    ],
-    relationships: {
-      complementaryProducts: [],
+      complementaryProducts: ["energie-adaptogene"],
       contraindications: ["Sensibilité à la caféine"]
     },
     usage: {
-      timing: "Matin ou après-midi",
-      duration: "Usage quotidien",
+      timing: "Prendre le matin ou en début d'après-midi",
+      duration: "Utilisation quotidienne pour des résultats optimaux",
       seasonality: ["all_year"]
     },
     timeFrame: "long_term"
   },
   {
-    id: "mineral-drop",
-    name: "Mineral Drop",
-    description: "Solution d'électrolytes concentrée",
-    imageUrl: "/lovable-uploads/d4d5dd78-75fc-4f0d-bc94-18072b2a4115.png",
-    expectedResults: "Hydratation optimale et équilibre électrolytique ⚡",
-    recommendationReason: "Réhydratation naturelle",
+    id: "energie-adaptogene",
+    name: "Énergie & Adaptogènes",
+    description: "Complexe énergisant avec adaptogènes pour le stress.",
+    imageUrl: "/lovable-uploads/4ccea2a6-43df-472a-8f3c-848d654e081f.png",
+    expectedResults: "Énergie stable, meilleure résistance au stress ⚡",
+    recommendationReason: "Soutien énergétique et anti-stress",
     dietaryInfo: "Vegan, Sans gluten",
-    productUrl: "https://maisonjacynthe.ca/fr/electrolytes-mineral-drop-4-oz",
-    categories: ["energy", "muscle"],
+    productUrl: "https://maisonjacynthe.ca/fr/energie-adaptogene",
+    categories: ["energy", "stress", "long_term"],
     scores: [
-      { condition: "Hydratation", score: 5 },
-      { condition: "Récupération", score: 4 }
+      { condition: "Améliorer l'énergie", score: 5 },
+      { condition: "Gérer le stress", score: 4 }
     ],
     therapeuticClaims: [
-      "Rééquilibre les électrolytes",
-      "Soutient l'hydratation",
-      "Améliore la récupération"
+      "Boost d'énergie naturel et durable",
+      "Adaptation au stress chronique",
+      "Soutien du système nerveux"
+    ],
+    relationships: {
+      complementaryProducts: ["focus"],
+      contraindications: ["Hypertension non contrôlée"]
+    },
+    usage: {
+      timing: "Prendre le matin avec le petit-déjeuner",
+      duration: "Utilisation continue recommandée",
+      seasonality: ["all_year"]
+    },
+    timeFrame: "long_term"
+  },
+  {
+    id: "force-botanique",
+    name: "Force Botanique",
+    description: "Complexe énergisant naturel",
+    imageUrl: "/lovable-uploads/3d4695a5-4f00-4d50-8c0f-ba0fc614d742.png",
+    expectedResults: "Énergie naturelle et vitalité 🌱",
+    recommendationReason: "Boost d'énergie botanique",
+    dietaryInfo: "Vegan, Sans gluten",
+    productUrl: "https://maisonjacynthe.ca/fr/force-botanique",
+    categories: ["energy", "stress"],
+    scores: [
+      { condition: "Énergie", score: 5 },
+      { condition: "Vitalité", score: 5 }
+    ],
+    therapeuticClaims: [
+      "Boost d'énergie naturel",
+      "Soutient la vitalité"
     ],
     relationships: {
       complementaryProducts: [],
+      contraindications: []
+    },
+    usage: {
+      timing: "Quotidien",
+      duration: "Usage régulier",
+      seasonality: ["all_year"]
+    },
+    timeFrame: "long_term"
+  },
+  {
+    id: "creatine",
+    name: "Créatine",
+    description: "Supplément naturel pour la force musculaire",
+    imageUrl: "/lovable-uploads/4ccea2a6-43df-472a-8f3c-848d654e081f.png",
+    expectedResults: "Améliore la force musculaire et la récupération après l'effort",
+    recommendationReason: "Soutien optimal pour la performance musculaire",
+    dietaryInfo: "Vegan, Sans gluten",
+    productUrl: "https://maisonjacynthe.ca/fr/creatine",
+    categories: ["muscle", "energy"],
+    scores: [
+      { condition: "Performance physique", score: 5 },
+      { condition: "Récupération musculaire", score: 5 }
+    ],
+    therapeuticClaims: [
+      "Améliore la force musculaire",
+      "Favorise la récupération post-effort",
+      "Soutient la performance physique"
+    ],
+    relationships: {
+      complementaryProducts: ["glutamine"],
+      contraindications: []
+    },
+    usage: {
+      timing: "Avant ou après l'entraînement",
+      duration: "Usage régulier",
+      seasonality: ["all_year"]
+    },
+    timeFrame: "long_term"
+  },
+  {
+    id: "glutamine",
+    name: "Glutamine",
+    description: "Acide aminé essentiel pour la récupération musculaire",
+    imageUrl: "/lovable-uploads/4ccea2a6-43df-472a-8f3c-848d654e081f.png",
+    expectedResults: "Favorise la récupération musculaire et la santé intestinale",
+    recommendationReason: "Support pour la récupération et la santé digestive",
+    dietaryInfo: "Vegan, Sans gluten",
+    productUrl: "https://maisonjacynthe.ca/fr/glutamine",
+    categories: ["muscle", "digestive"],
+    scores: [
+      { condition: "Récupération musculaire", score: 5 },
+      { condition: "Santé digestive", score: 4 }
+    ],
+    therapeuticClaims: [
+      "Soutient la récupération musculaire",
+      "Améliore la santé intestinale",
+      "Renforce le système immunitaire"
+    ],
+    relationships: {
+      complementaryProducts: ["creatine"],
+      contraindications: []
+    },
+    usage: {
+      timing: "Après l'entraînement",
+      duration: "Usage régulier",
+      seasonality: ["all_year"]
+    },
+    timeFrame: "long_term"
+  },
+  {
+    id: "les-apothicaires",
+    name: "Les Apothicaires",
+    description: "Complexe immunitaire naturel",
+    imageUrl: "/lovable-uploads/4ccea2a6-43df-472a-8f3c-848d654e081f.png",
+    expectedResults: "Soutien immunitaire à base de plantes et de nutriments essentiels",
+    recommendationReason: "Protection immunitaire naturelle",
+    dietaryInfo: "Vegan, Sans gluten",
+    productUrl: "https://maisonjacynthe.ca/fr/les-apothicaires",
+    categories: ["immune", "seasonal"],
+    scores: [
+      { condition: "Renforcer l'immunité", score: 5 },
+      { condition: "Protection saisonnière", score: 4 }
+    ],
+    therapeuticClaims: [
+      "Renforce le système immunitaire",
+      "Protection naturelle",
+      "Soutien saisonnier"
+    ],
+    relationships: {
+      complementaryProducts: ["miel-protecteur"],
+      contraindications: []
+    },
+    usage: {
+      timing: "Quotidien",
+      duration: "Usage régulier ou saisonnier",
+      seasonality: ["fall", "winter"]
+    },
+    timeFrame: "short_term"
+  },
+  {
+    id: "miel-protecteur",
+    name: "Miel Protecteur",
+    description: "Formule naturelle pour la gorge et l'immunité",
+    imageUrl: "/lovable-uploads/4ccea2a6-43df-472a-8f3c-848d654e081f.png",
+    expectedResults: "Protège la gorge et soutient l'immunité naturelle",
+    recommendationReason: "Protection naturelle de la gorge",
+    dietaryInfo: "Sans gluten",
+    productUrl: "https://maisonjacynthe.ca/fr/miel-protecteur",
+    categories: ["immune", "seasonal", "throat"],
+    scores: [
+      { condition: "Protection de la gorge", score: 5 },
+      { condition: "Renforcer l'immunité", score: 4 }
+    ],
+    therapeuticClaims: [
+      "Apaise la gorge",
+      "Soutient l'immunité",
+      "Protection saisonnière"
+    ],
+    relationships: {
+      complementaryProducts: ["les-apothicaires"],
       contraindications: []
     },
     usage: {
       timing: "Selon les besoins",
-      duration: "Usage régulier ou ponctuel",
-      seasonality: ["all_year"]
+      duration: "Usage ponctuel ou saisonnier",
+      seasonality: ["fall", "winter"]
     },
     timeFrame: "short_term"
   }
