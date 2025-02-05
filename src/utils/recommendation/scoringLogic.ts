@@ -12,6 +12,10 @@ const WEIGHTS = {
   MAX_CONFIDENCE: 95
 };
 
+function normalizeAnswer(answer: string | number): string {
+  return String(answer);
+}
+
 export function calculateProductScores(product: ProductDefinition, answers: Answer[]): number {
   let totalScore = 0;
   let matchCount = 0;
@@ -19,7 +23,8 @@ export function calculateProductScores(product: ProductDefinition, answers: Answ
   // Score pour l'objectif principal
   const primaryGoalAnswer = answers.find(a => a.questionId === 2)?.answers[0];
   if (primaryGoalAnswer) {
-    const primaryGoalScore = product.scores.find(s => s.condition === primaryGoalAnswer)?.score || 0;
+    const primaryGoalScore = product.scores.find(s => 
+      s.condition === normalizeAnswer(primaryGoalAnswer))?.score || 0;
     if (primaryGoalScore > 0) {
       totalScore += primaryGoalScore * WEIGHTS.PRIMARY_GOAL;
       matchCount++;
@@ -29,7 +34,8 @@ export function calculateProductScores(product: ProductDefinition, answers: Answ
   // Score pour les préoccupations de santé
   const healthConcerns = answers.find(a => a.questionId === 3)?.answers || [];
   healthConcerns.forEach(concern => {
-    const concernScore = product.scores.find(s => s.condition === concern)?.score || 0;
+    const concernScore = product.scores.find(s => 
+      s.condition === normalizeAnswer(concern))?.score || 0;
     if (concernScore > 0) {
       totalScore += concernScore * WEIGHTS.HEALTH_CONCERN;
       matchCount++;
@@ -37,7 +43,7 @@ export function calculateProductScores(product: ProductDefinition, answers: Answ
 
     // Bonus pour les allégations thérapeutiques correspondantes
     if (product.therapeuticClaims?.some(claim => 
-      claim.toLowerCase().includes(concern.toLowerCase())
+      claim.toLowerCase().includes(normalizeAnswer(concern).toLowerCase())
     )) {
       totalScore += WEIGHTS.THERAPEUTIC_CLAIM;
       matchCount++;
@@ -55,30 +61,4 @@ export function calculateProductScores(product: ProductDefinition, answers: Answ
   }
 
   return Math.min(totalScore, WEIGHTS.MAX_CONFIDENCE);
-}
-
-export function diversifyRecommendations(scoredProducts: (ProductDefinition & { totalScore: number })[]): Product[] {
-  const recommendations: Product[] = [];
-  const usedCategories = new Set<string>();
-
-  // Trier par score décroissant
-  const sortedProducts = [...scoredProducts]
-    .sort((a, b) => b.totalScore - a.totalScore)
-    .filter(p => p.totalScore >= WEIGHTS.MIN_CONFIDENCE);
-
-  for (const product of sortedProducts) {
-    if (recommendations.length >= 3) break;
-
-    const productRecommendation: Product = {
-      ...product,
-      confidenceLevel: Math.round(product.totalScore),
-      recommendationReason: product.recommendationReason || "Produit recommandé selon vos besoins",
-      dietaryInfo: product.dietaryInfo || "Information nutritionnelle non disponible"
-    };
-
-    recommendations.push(productRecommendation);
-    product.categories.forEach(cat => usedCategories.add(cat));
-  }
-
-  return recommendations;
 }

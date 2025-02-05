@@ -28,31 +28,21 @@ function calculateTherapeuticScore(claims: string[] | undefined, concerns: strin
   }, 0);
 }
 
-function isProductGenderAppropriate(product: Product, gender: string): boolean {
-  if (gender === "Homme" && product.categories.includes("women_specific")) {
-    return false;
-  }
-  if (gender === "Femme" && product.categories.includes("men_specific")) {
-    return false;
-  }
-  if (gender === "Je préfère ne pas répondre" && 
-      (product.categories.includes("women_specific") || product.categories.includes("men_specific"))) {
-    return false;
-  }
-  return true;
+function normalizeAnswer(answer: string | number): string {
+  return String(answer);
 }
 
 export function getRecommendations(answers: Answer[]): Product[] {
   console.group("Generating Recommendations");
   
   try {
-    const gender = answers.find(a => a.questionId === 1)?.answers[0] || "Je préfère ne pas répondre";
+    const gender = answers.find(a => a.questionId === 1)?.answers[0];
     const primaryGoal = answers.find(a => a.questionId === 2)?.answers[0];
     const healthConcerns = answers.find(a => a.questionId === 3)?.answers || [];
     
     // Calculate scores for all products and transform them into Product type
     const scoredProducts = PRODUCTS.map(productDef => {
-      if (!isProductGenderAppropriate({ ...productDef, confidenceLevel: 0 }, gender)) {
+      if (!gender || !isProductGenderAppropriate({ ...productDef, confidenceLevel: 0 }, normalizeAnswer(gender))) {
         return null;
       }
 
@@ -60,22 +50,26 @@ export function getRecommendations(answers: Answer[]): Product[] {
       
       // Primary goal scoring
       if (primaryGoal) {
-        const goalScore = productDef.scores.find(s => s.condition === primaryGoal)?.score || 0;
+        const goalScore = productDef.scores.find(s => s.condition === normalizeAnswer(primaryGoal))?.score || 0;
         totalScore += goalScore * WEIGHTS.PRIMARY_GOAL;
       }
       
       // Health concerns scoring
-      healthConcerns.forEach(concern => {
+      const normalizedHealthConcerns = healthConcerns.map(normalizeAnswer);
+      normalizedHealthConcerns.forEach(concern => {
         const concernScore = productDef.scores.find(s => s.condition === concern)?.score || 0;
         totalScore += concernScore * WEIGHTS.HEALTH_CONCERN;
       });
       
       // Category matching
-      const relevantCategories = [...(primaryGoal ? [primaryGoal] : []), ...healthConcerns];
+      const relevantCategories = [
+        ...(primaryGoal ? [normalizeAnswer(primaryGoal)] : []), 
+        ...normalizedHealthConcerns
+      ];
       totalScore += calculateCategoryScore(productDef.categories, relevantCategories);
       
       // Therapeutic claims scoring
-      totalScore += calculateTherapeuticScore(productDef.therapeuticClaims, healthConcerns);
+      totalScore += calculateTherapeuticScore(productDef.therapeuticClaims, normalizedHealthConcerns);
 
       // Calculate confidence level (80-95% range)
       const confidenceLevel = Math.min(
@@ -86,13 +80,10 @@ export function getRecommendations(answers: Answer[]): Product[] {
         )
       );
 
-      // Transform ProductDefinition into Product
-      const product: Product = {
+      return {
         ...productDef,
         confidenceLevel
       };
-
-      return product;
     }).filter((product): product is Product => product !== null);
 
     // Filter and sort products
@@ -106,7 +97,6 @@ export function getRecommendations(answers: Answer[]): Product[] {
     const usedCategories = new Set<string>();
 
     for (const product of recommendations) {
-      // Check if this product's categories are too similar to what we already have
       const wouldAddNewCategory = product.categories.some(cat => !usedCategories.has(cat));
       
       if (wouldAddNewCategory || finalRecommendations.length < 2) {
@@ -115,21 +105,6 @@ export function getRecommendations(answers: Answer[]): Product[] {
       }
 
       if (finalRecommendations.length >= 3) break;
-    }
-
-    // If we don't have enough recommendations, add fallback products
-    while (finalRecommendations.length < 3) {
-      const fallbackProduct = scoredProducts
-        .find(p => 
-          !finalRecommendations.includes(p) && 
-          p.categories.includes("general_health")
-        );
-      
-      if (fallbackProduct) {
-        finalRecommendations.push(fallbackProduct);
-      } else {
-        break;
-      }
     }
 
     console.log("Final recommendations:", finalRecommendations);
@@ -141,4 +116,18 @@ export function getRecommendations(answers: Answer[]): Product[] {
     console.groupEnd();
     throw error;
   }
+}
+
+function isProductGenderAppropriate(product: Product, gender: string): boolean {
+  if (gender === "Homme" && product.categories.includes("women_specific")) {
+    return false;
+  }
+  if (gender === "Femme" && product.categories.includes("men_specific")) {
+    return false;
+  }
+  if (gender === "Je préfère ne pas répondre" && 
+      (product.categories.includes("women_specific") || product.categories.includes("men_specific"))) {
+    return false;
+  }
+  return true;
 }
