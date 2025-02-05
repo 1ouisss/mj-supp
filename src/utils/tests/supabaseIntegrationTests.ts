@@ -1,7 +1,6 @@
 import { supabase } from "@/integrations/supabase/client";
 import { Answer } from "@/components/quiz/types";
-import { Product } from "@/components/results/ProductCard";
-import { ProductFeedback } from "@/components/results/FeedbackForm";
+import type { Json } from "@/integrations/supabase/types";
 
 interface TestResult {
   success: boolean;
@@ -23,7 +22,7 @@ export async function testSupabaseIntegration() {
   try {
     const { data: userResponse, error } = await supabase
       .from('user_responses')
-      .insert([{ responses: testAnswers }])
+      .insert({ responses: JSON.stringify(testAnswers) as Json })
       .select()
       .single();
 

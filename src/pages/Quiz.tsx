@@ -10,6 +10,7 @@ import { QUESTIONS } from "@/data/quizQuestions";
 import type { Question, Answer } from "@/components/quiz/types";
 import { supabase } from "@/integrations/supabase/client";
 import { testSupabaseIntegration } from "@/utils/tests/supabaseIntegrationTests";
+import type { Json } from "@/integrations/supabase/types";
 
 const Quiz = () => {
   const navigate = useNavigate();
@@ -57,9 +58,12 @@ const Quiz = () => {
 
   const saveUserResponses = async (answers: Answer[]) => {
     try {
+      // Convert answers to JSON-compatible format
+      const jsonResponses = JSON.stringify(answers) as Json;
+      
       const { data: userResponse, error } = await supabase
         .from('user_responses')
-        .insert([{ responses: answers }])
+        .insert({ responses: jsonResponses })
         .select()
         .single();
 
@@ -72,54 +76,39 @@ const Quiz = () => {
   };
 
   const handleSingleAnswer = (answer: string | number) => {
-    try {
-      PerformanceMonitor.startMeasure('answerSubmission');
-      
-      const newAnswers = [...answers];
-      const existingAnswerIndex = newAnswers.findIndex(
-        a => a.questionId === QUESTIONS[currentQuestion].id
-      );
+    const newAnswers = [...answers];
+    const existingAnswerIndex = newAnswers.findIndex(
+      a => a.questionId === QUESTIONS[currentQuestion].id
+    );
 
-      if (existingAnswerIndex !== -1) {
-        newAnswers[existingAnswerIndex] = {
-          questionId: QUESTIONS[currentQuestion].id,
-          answers: [answer]
-        };
-      } else {
-        newAnswers.push({
-          questionId: QUESTIONS[currentQuestion].id,
-          answers: [answer]
-        });
-      }
-
-      setAnswers(newAnswers);
-
-      if (currentQuestion === QUESTIONS.length - 1) {
-        navigate("/results", { 
-          state: { 
-            answers: newAnswers,
-            recommendationData: newAnswers.filter(a => a.questionId <= 2)
-          } 
-        });
-      } else {
-        setCurrentQuestion(prev => prev + 1);
-      }
-
-      PerformanceMonitor.endMeasure('answerSubmission');
-    } catch (error) {
-      console.error('Error handling single answer:', error);
-      toast({
-        variant: "destructive",
-        title: "Erreur",
-        description: "Une erreur est survenue lors de l'enregistrement de votre réponse.",
+    if (existingAnswerIndex !== -1) {
+      newAnswers[existingAnswerIndex] = {
+        questionId: QUESTIONS[currentQuestion].id,
+        answers: [answer]
+      };
+    } else {
+      newAnswers.push({
+        questionId: QUESTIONS[currentQuestion].id,
+        answers: [answer]
       });
+    }
+
+    setAnswers(newAnswers);
+
+    if (currentQuestion === QUESTIONS.length - 1) {
+      navigate("/results", { 
+        state: { 
+          answers: newAnswers,
+          recommendationData: newAnswers.filter(a => a.questionId <= 2)
+        } 
+      });
+    } else {
+      setCurrentQuestion(prev => prev + 1);
     }
   };
 
   const handleMultipleAnswers = (answer: string, checked: boolean) => {
     try {
-      PerformanceMonitor.startMeasure('multipleAnswerUpdate');
-      
       const newAnswers = [...answers];
       const existingAnswerIndex = newAnswers.findIndex(
         a => a.questionId === QUESTIONS[currentQuestion].id
@@ -167,7 +156,6 @@ const Quiz = () => {
       }
 
       setAnswers(newAnswers);
-      PerformanceMonitor.endMeasure('multipleAnswerUpdate');
     } catch (error) {
       console.error('Error handling multiple answers:', error);
       toast({
@@ -180,8 +168,6 @@ const Quiz = () => {
 
   const handleNext = () => {
     try {
-      PerformanceMonitor.startMeasure('navigation');
-      
       if (currentQuestion === QUESTIONS.length - 1) {
         navigate("/results", { 
           state: { 
@@ -192,8 +178,6 @@ const Quiz = () => {
       } else {
         setCurrentQuestion(prev => prev + 1);
       }
-
-      PerformanceMonitor.endMeasure('navigation');
     } catch (error) {
       console.error('Navigation error:', error);
       toast({
@@ -206,15 +190,11 @@ const Quiz = () => {
 
   const handleBack = () => {
     try {
-      PerformanceMonitor.startMeasure('navigation');
-      
       if (currentQuestion > 0) {
         setCurrentQuestion(prev => prev - 1);
       } else {
         navigate("/");
       }
-
-      PerformanceMonitor.endMeasure('navigation');
     } catch (error) {
       console.error('Navigation error:', error);
       toast({
