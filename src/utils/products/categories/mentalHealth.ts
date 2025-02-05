@@ -12,8 +12,8 @@ export const MENTAL_HEALTH_PRODUCTS: ProductDefinition[] = [
     productUrl: "https://maisonjacynthe.ca/fr/focus",
     categories: ["brain", "concentration"],
     scores: [
-      { condition: "Améliorer la concentration", score: 5 },
-      { condition: "Soutenir la santé cérébrale", score: 5 }
+      { condition: "Soutenir la santé cérébrale", score: 5 },
+      { condition: "Améliorer la concentration", score: 5 }
     ],
     therapeuticClaims: [
       "Amélioration de la concentration",
@@ -30,7 +30,7 @@ export const MENTAL_HEALTH_PRODUCTS: ProductDefinition[] = [
     recommendationReason: "Soutien énergétique et anti-stress",
     dietaryInfo: "Vegan, Sans gluten",
     productUrl: "https://maisonjacynthe.ca/fr/energie-adaptogene",
-    categories: ["stress", "energy"],
+    categories: ["energy", "stress"],
     scores: [
       { condition: "Améliorer l'énergie", score: 5 },
       { condition: "Gérer le stress", score: 4 }
@@ -38,6 +38,25 @@ export const MENTAL_HEALTH_PRODUCTS: ProductDefinition[] = [
     therapeuticClaims: [
       "Boost d'énergie naturel",
       "Adaptation au stress"
+    ]
+  },
+  {
+    id: "formule-menopause",
+    name: "Formule Ménopause",
+    description: "Support naturel pour les symptômes de la ménopause.",
+    imageUrl: "/lovable-uploads/3e65bec2-4941-441a-89ed-a79bc8965a02.png",
+    expectedResults: "Équilibre hormonal, confort accru 🌸",
+    recommendationReason: "Soutien hormonal naturel",
+    dietaryInfo: "Vegan, Sans gluten",
+    productUrl: "https://maisonjacynthe.ca/fr/formule-menopause",
+    categories: ["hormones", "women_specific"],
+    scores: [
+      { condition: "Équilibre hormonal", score: 5 },
+      { condition: "Symptômes de la ménopause", score: 5 }
+    ],
+    therapeuticClaims: [
+      "Soulagement des symptômes de la ménopause",
+      "Équilibre hormonal naturel"
     ]
   }
 ];

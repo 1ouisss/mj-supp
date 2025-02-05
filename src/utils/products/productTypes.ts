@@ -22,6 +22,12 @@ export type ProductCategory =
   | "healing"
   | "topical"
   | "immunity"
+  | "seasonal"
+  | "throat"
+  | "essential"
+  | "bone_health"
+  | "children"
+  | "metabolism"
   | "heart_health";
 
 export interface ProductScore {

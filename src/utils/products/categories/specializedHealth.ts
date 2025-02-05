@@ -37,5 +37,24 @@ export const SPECIALIZED_HEALTH_PRODUCTS: ProductDefinition[] = [
       "Soutien de la fonction thyroïdienne",
       "Antioxydant"
     ]
+  },
+  {
+    id: "vitamine-d",
+    name: "Vitamine D",
+    description: "Essentielle pour la santé osseuse et l'immunité.",
+    imageUrl: "/lovable-uploads/7336c578-a712-4ec7-bf62-9be26f615a1f.png",
+    expectedResults: "Renforcement osseux et immunitaire 🦴",
+    recommendationReason: "Soutien essentiel pour la santé",
+    dietaryInfo: "Vegan",
+    productUrl: "https://maisonjacynthe.ca/fr/vitamine-d",
+    categories: ["essential", "bone_health", "immunity"],
+    scores: [
+      { condition: "Renforcer l'immunité", score: 4 },
+      { condition: "Santé osseuse", score: 5 }
+    ],
+    therapeuticClaims: [
+      "Soutien du système immunitaire",
+      "Santé osseuse"
+    ]
   }
 ];
