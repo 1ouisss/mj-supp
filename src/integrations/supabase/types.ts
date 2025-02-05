@@ -158,26 +158,79 @@ export type Database = {
         }
         Relationships: []
       }
+      recommendation_validations: {
+        Row: {
+          accuracy_score: number | null
+          diversity_score: number | null
+          id: string
+          personalization_score: number | null
+          recommendation_id: string | null
+          test_case: string
+          validation_date: string | null
+          validation_details: Json | null
+        }
+        Insert: {
+          accuracy_score?: number | null
+          diversity_score?: number | null
+          id?: string
+          personalization_score?: number | null
+          recommendation_id?: string | null
+          test_case: string
+          validation_date?: string | null
+          validation_details?: Json | null
+        }
+        Update: {
+          accuracy_score?: number | null
+          diversity_score?: number | null
+          id?: string
+          personalization_score?: number | null
+          recommendation_id?: string | null
+          test_case?: string
+          validation_date?: string | null
+          validation_details?: Json | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "recommendation_validations_recommendation_id_fkey"
+            columns: ["recommendation_id"]
+            isOneToOne: false
+            referencedRelation: "recommendations"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       recommendations: {
         Row: {
+          category_distribution: Json | null
           confidence_scores: number[]
           created_at: string | null
+          health_concerns: string[] | null
           id: string
+          primary_goal: string | null
           product_ids: string[]
+          relevance_score: number | null
           user_response_id: string | null
         }
         Insert: {
+          category_distribution?: Json | null
           confidence_scores: number[]
           created_at?: string | null
+          health_concerns?: string[] | null
           id?: string
+          primary_goal?: string | null
           product_ids: string[]
+          relevance_score?: number | null
           user_response_id?: string | null
         }
         Update: {
+          category_distribution?: Json | null
           confidence_scores?: number[]
           created_at?: string | null
+          health_concerns?: string[] | null
           id?: string
+          primary_goal?: string | null
           product_ids?: string[]
+          relevance_score?: number | null
           user_response_id?: string | null
         }
         Relationships: [
