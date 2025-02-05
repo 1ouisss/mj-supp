@@ -26,7 +26,7 @@ export const CORE_TEST_SCENARIOS: TestScenario[] = [
     ],
     minimumProducts: 3,
     expectedProducts: ["melatonine", "magnesium", "poudre-dodo"],
-    expectedCategories: ["sleep", "relaxation", "stress"]
+    expectedCategories: ["sommeil", "relaxation", "stress"]
   },
   {
     name: "Brain Health Focus",
@@ -38,7 +38,7 @@ export const CORE_TEST_SCENARIOS: TestScenario[] = [
     ],
     minimumProducts: 2,
     expectedProducts: ["focus", "omega-3"],
-    expectedCategories: ["brain", "concentration"]
+    expectedCategories: ["cerveau", "concentration"]
   },
   {
     name: "Stress Management",
@@ -62,7 +62,7 @@ export const CORE_TEST_SCENARIOS: TestScenario[] = [
     ],
     minimumProducts: 2,
     expectedProducts: ["multivitamines-la-totale", "soutien-sante"],
-    expectedCategories: ["general_health", "essential"]
+    expectedCategories: ["santé_générale", "essentiel"]
   },
   {
     name: "Energy Boost",
@@ -74,7 +74,7 @@ export const CORE_TEST_SCENARIOS: TestScenario[] = [
     ],
     minimumProducts: 3,
     expectedProducts: ["energie-adaptogene", "force-botanique"],
-    expectedCategories: ["energy", "brain", "concentration"]
+    expectedCategories: ["énergie", "cerveau", "concentration"]
   }
 ];
 
@@ -86,7 +86,7 @@ export const GENDER_TEST_SCENARIOS: GenderTestScenario[] = [
       { questionId: 2, answers: ["25-34"] },
       { questionId: 3, answers: ["Améliorer la santé hormonale"] }
     ],
-    validateFn: (products) => products.some(p => p.categories.includes("women_specific"))
+    validateFn: (products) => products.some(p => p.categories.includes("santé_femme"))
   },
   {
     name: "Male-Specific Products",
@@ -95,6 +95,6 @@ export const GENDER_TEST_SCENARIOS: GenderTestScenario[] = [
       { questionId: 2, answers: ["25-34"] },
       { questionId: 3, answers: ["Améliorer la santé hormonale"] }
     ],
-    validateFn: (products) => products.some(p => p.categories.includes("men_specific"))
+    validateFn: (products) => products.some(p => p.categories.includes("santé_homme"))
   }
 ];
