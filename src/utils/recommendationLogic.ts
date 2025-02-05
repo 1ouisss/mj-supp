@@ -70,11 +70,11 @@ export function getRecommendations(answers: Answer[]): Product[] {
       return [];
     }
 
-    const gender = genderAnswer.answers[0];
-    const age = ageAnswer.answers[0];
+    const gender = String(genderAnswer.answers[0]);
+    const age = String(ageAnswer.answers[0]);
     
     const primaryGoal = answers.find(a => a.questionId === 3)?.answers[0];
-    const healthConcerns = answers.find(a => a.questionId === 4)?.answers || [];
+    const healthConcerns = (answers.find(a => a.questionId === 4)?.answers || []).map(String);
     const severityMultipliers = calculateSeverityMultiplier(answers);
 
     console.log("Primary goal:", primaryGoal);
@@ -90,8 +90,8 @@ export function getRecommendations(answers: Answer[]): Product[] {
         return null;
       }
 
-      if (!isProductGenderAppropriate(productDef, normalizeAnswer(gender)) ||
-          !isAgeAppropriate(productDef, normalizeAnswer(age))) {
+      if (!isProductGenderAppropriate(productDef, gender) ||
+          !isAgeAppropriate(productDef, age)) {
         return null;
       }
 
@@ -104,15 +104,14 @@ export function getRecommendations(answers: Answer[]): Product[] {
       // Score pour l'objectif principal
       if (primaryGoal) {
         const goalScore = productDef.scores.find(s => 
-          s.condition === normalizeAnswer(primaryGoal))?.score || 0;
+          s.condition === normalizeAnswer(String(primaryGoal)))?.score || 0;
         totalScore += goalScore * WEIGHTS.PRIMARY_GOAL;
         if (goalScore > 0) matchCount++;
       }
       
       // Score pour les préoccupations de santé
-      const normalizedHealthConcerns = healthConcerns.map(normalizeAnswer);
-      normalizedHealthConcerns.forEach(concern => {
-        const concernScore = productDef.scores.find(s => s.condition === concern)?.score || 0;
+      healthConcerns.forEach(concern => {
+        const concernScore = productDef.scores.find(s => s.condition === normalizeAnswer(concern))?.score || 0;
         const severityMultiplier = severityMultipliers[concern] || 1;
         totalScore += concernScore * WEIGHTS.HEALTH_CONCERN * severityMultiplier;
         if (concernScore > 0) matchCount++;
@@ -120,19 +119,19 @@ export function getRecommendations(answers: Answer[]): Product[] {
       
       // Score pour les catégories
       const categoryScore = calculateCategoryScore(productDef.categories, [
-        ...(primaryGoal ? [normalizeAnswer(primaryGoal)] : []), 
-        ...normalizedHealthConcerns
+        ...(primaryGoal ? [String(primaryGoal)] : []), 
+        ...healthConcerns
       ]);
       totalScore += categoryScore;
       if (categoryScore > 0) matchCount++;
 
       // Score pour les allégations thérapeutiques
-      const therapeuticScore = calculateTherapeuticScore(productDef.therapeuticClaims, normalizedHealthConcerns);
+      const therapeuticScore = calculateTherapeuticScore(productDef.therapeuticClaims, healthConcerns);
       totalScore += therapeuticScore;
       if (therapeuticScore > 0) matchCount++;
       
       // Boost de synergie
-      totalScore = applySynergyBoosts(productDef.id, normalizedHealthConcerns, totalScore);
+      totalScore = applySynergyBoosts(productDef.id, healthConcerns, totalScore);
 
       console.log(`Product ${productDef.name} - Total Score: ${totalScore}, Match Count: ${matchCount}`);
 
@@ -177,10 +176,7 @@ export function getRecommendations(answers: Answer[]): Product[] {
 
     // Si pas assez de recommandations, ajouter des produits de fallback
     if (recommendations.length < WEIGHTS.MIN_RECOMMENDATIONS) {
-      const fallbackProducts = getFallbackProducts(
-        normalizeAnswer(gender),
-        normalizeAnswer(age)
-      );
+      const fallbackProducts = getFallbackProducts(gender, age);
       recommendations = [...recommendations, ...fallbackProducts]
         .slice(0, WEIGHTS.MIN_RECOMMENDATIONS);
     }
