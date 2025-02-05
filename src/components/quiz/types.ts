@@ -25,7 +25,7 @@ export interface Question {
 
 export interface Answer {
   questionId: number;
-  answers: (string | number)[];
+  answers: Array<string | number>;
   followUpAnswers?: Answer[];
 }
 

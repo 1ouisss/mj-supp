@@ -40,9 +40,9 @@ export function getRecommendations(answers: Answer[]): Product[] {
     const primaryGoal = answers.find(a => a.questionId === 2)?.answers[0];
     const healthConcerns = answers.find(a => a.questionId === 3)?.answers || [];
     
-    // Calculate scores for all products and transform them into Product type
+    // Calculate scores for all products
     const scoredProducts = PRODUCTS.map(productDef => {
-      if (!gender || !isProductGenderAppropriate({ ...productDef, confidenceLevel: 0 }, normalizeAnswer(gender))) {
+      if (!gender || !isProductGenderAppropriate(productDef, normalizeAnswer(gender))) {
         return null;
       }
 
@@ -80,37 +80,25 @@ export function getRecommendations(answers: Answer[]): Product[] {
         )
       );
 
-      return {
+      const product: Product = {
         ...productDef,
-        confidenceLevel
+        confidenceLevel,
       };
-    }).filter((product): product is Product => product !== null);
 
-    // Filter and sort products
-    let recommendations = scoredProducts
-      .filter(p => p.confidenceLevel >= WEIGHTS.MIN_CONFIDENCE)
+      return product;
+    }).filter((product): product is Product => 
+      product !== null && product.confidenceLevel >= WEIGHTS.MIN_CONFIDENCE
+    );
+
+    // Sort by confidence level and take top recommendations
+    const recommendations = scoredProducts
       .sort((a, b) => b.confidenceLevel - a.confidenceLevel)
       .slice(0, 5);
 
-    // Ensure category diversity
-    const finalRecommendations: Product[] = [];
-    const usedCategories = new Set<string>();
-
-    for (const product of recommendations) {
-      const wouldAddNewCategory = product.categories.some(cat => !usedCategories.has(cat));
-      
-      if (wouldAddNewCategory || finalRecommendations.length < 2) {
-        finalRecommendations.push(product);
-        product.categories.forEach(cat => usedCategories.add(cat));
-      }
-
-      if (finalRecommendations.length >= 3) break;
-    }
-
-    console.log("Final recommendations:", finalRecommendations);
+    console.log("Final recommendations:", recommendations);
     console.groupEnd();
 
-    return finalRecommendations;
+    return recommendations;
   } catch (error) {
     console.error("Error generating recommendations:", error);
     console.groupEnd();

@@ -4,91 +4,12 @@ import { QuizLayout } from "@/components/quiz/QuizLayout";
 import { QuizProgress } from "@/components/quiz/QuizProgress";
 import { SingleChoiceQuestion } from "@/components/quiz/questions/SingleChoiceQuestion";
 import { MultipleChoiceQuestion } from "@/components/quiz/questions/MultipleChoiceQuestion";
+import { SliderQuestion } from "@/components/quiz/questions/SliderQuestion";
 import { runRecommendationTests } from "@/utils/recommendationTesting";
 import { useToast } from "@/components/ui/use-toast";
 import PerformanceMonitor from "@/utils/performanceMonitor";
+import { QUESTIONS } from "@/data/quizQuestions";
 import type { Question, Answer } from "@/components/quiz/types";
-
-const QUESTIONS: Question[] = [
-  {
-    id: 1,
-    question: "Quel est votre sexe ou genre ?",
-    type: "single",
-    options: [
-      "Femme",
-      "Homme",
-      "Autre",
-      "Je préfère ne pas répondre"
-    ]
-  },
-  {
-    id: 2,
-    question: "Quel est votre objectif principal de bien-être ?",
-    type: "single",
-    options: [
-      "Renforcer l'immunité",
-      "Améliorer l'énergie",
-      "Soutenir la santé cérébrale",
-      "Gérer le stress",
-      "Améliorer le sommeil",
-      "Améliorer la digestion"
-    ]
-  },
-  {
-    id: 3,
-    question: "Avez-vous des préoccupations de santé spécifiques ?",
-    type: "multiple",
-    options: [
-      "Stress, anxiété ou sautes d'humeur",
-      "Problèmes digestifs",
-      "Préoccupations cardiovasculaires",
-      "Problèmes de peau",
-      "Déséquilibres hormonaux",
-      "Aucune"
-    ]
-  },
-  {
-    id: 4,
-    question: "Êtes-vous physiquement actif ou avez-vous des objectifs de fitness ?",
-    type: "single",
-    options: [
-      "Améliorer l'endurance et la performance",
-      "Aide à la récupération et réparation musculaire",
-      "Pas très actif"
-    ]
-  },
-  {
-    id: 5,
-    question: "Comment gérez-vous habituellement le stress ?",
-    type: "single",
-    options: [
-      "Constamment stressé et dépassé",
-      "Stress léger occasionnel",
-      "Difficulté à se détendre ou à dormir"
-    ]
-  },
-  {
-    id: 6,
-    question: "Quels sont vos objectifs ou préoccupations concernant la peau ?",
-    type: "multiple",
-    options: [
-      "Réduire la sécheresse ou le teint terne",
-      "Gérer l'acné ou l'inflammation",
-      "Traiter les ridules, rides ou le vieillissement",
-      "Aucune préoccupation particulière"
-    ]
-  },
-  {
-    id: 7,
-    question: "Avez-vous des objectifs spécifiques pour la santé hormonale ou thyroïdienne ?",
-    type: "single",
-    options: [
-      "Gestion des symptômes de la ménopause ou du SPM",
-      "Soutien de la fonction thyroïdienne",
-      "Aucune préoccupation hormonale spécifique"
-    ]
-  }
-];
 
 const Quiz = () => {
   const navigate = useNavigate();
@@ -126,7 +47,7 @@ const Quiz = () => {
     };
   }, [toast]);
 
-  const handleSingleAnswer = (answer: string) => {
+  const handleSingleAnswer = (answer: string | number) => {
     try {
       PerformanceMonitor.startMeasure('answerSubmission');
       
@@ -305,17 +226,27 @@ const Quiz = () => {
         currentQuestion={currentQuestion} 
         totalQuestions={QUESTIONS.length}
       />
-      {currentQuestionData.type === "single" ? (
+      {currentQuestionData.type === "slider" ? (
+        <SliderQuestion
+          question={currentQuestionData.question}
+          min={currentQuestionData.sliderConfig!.min}
+          max={currentQuestionData.sliderConfig!.max}
+          step={currentQuestionData.sliderConfig!.step}
+          value={Number(getCurrentAnswers()[0] || currentQuestionData.sliderConfig!.min)}
+          labels={currentQuestionData.sliderConfig!.labels}
+          onChange={handleSingleAnswer}
+        />
+      ) : currentQuestionData.type === "single" ? (
         <SingleChoiceQuestion
           question={currentQuestionData.question}
-          options={currentQuestionData.options}
+          options={currentQuestionData.options!}
           onAnswer={handleSingleAnswer}
         />
       ) : (
         <MultipleChoiceQuestion
           question={currentQuestionData.question}
-          options={currentQuestionData.options}
-          selectedAnswers={getCurrentAnswers()}
+          options={currentQuestionData.options!}
+          selectedAnswers={getCurrentAnswers().map(String)}
           onAnswerChange={handleMultipleAnswers}
           onNext={handleNext}
           onBack={handleBack}
