@@ -1,4 +1,3 @@
-
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
@@ -10,13 +9,13 @@ const Index = () => {
     <div 
       className="min-h-screen flex flex-col items-center justify-center p-4 relative overflow-hidden"
       style={{
-        background: 'linear-gradient(-45deg, #FFD700, #FFA500, #FFB700, #FFDB58)',
+        background: 'linear-gradient(-45deg, #E4D780, #E8DB85, #E4D780, #EAE090)',
         backgroundSize: '300% 300%'
       }}
     >
       <div className="absolute inset-0 animate-gradient-shift" 
         style={{
-          background: 'linear-gradient(-45deg, #FFD700, #FFA500, #FFB700, #FFDB58)',
+          background: 'linear-gradient(-45deg, #E4D780, #E8DB85, #E4D780, #EAE090)',
           backgroundSize: '300% 300%',
           opacity: 0.95
         }}
@@ -33,7 +32,7 @@ const Index = () => {
               top: '60%',
               width: '300px',
               height: '300px',
-              background: 'radial-gradient(circle, rgba(255,215,0,0.8) 0%, rgba(255,215,0,0) 70%)',
+              background: 'radial-gradient(circle, rgba(228,215,128,0.8) 0%, rgba(228,215,128,0) 70%)',
               animationDelay: `${i * 0.8}s`,
               animationDuration: '8s'
             }}
@@ -52,7 +51,7 @@ const Index = () => {
               top: `${Math.random() * 100}%`,
               width: '10px',
               height: '10px',
-              background: 'radial-gradient(circle, rgba(255,223,0,0.9) 0%, rgba(255,223,0,0) 100%)',
+              background: 'radial-gradient(circle, rgba(228,215,128,0.9) 0%, rgba(228,215,128,0) 100%)',
               animationDelay: `${i * 0.3}s`,
               animationDuration: '4s'
             }}
