@@ -3,8 +3,8 @@ import { DIGESTIVE_HEALTH_PRODUCTS } from './categories/digestiveHealth';
 import { MENTAL_HEALTH_PRODUCTS } from './categories/mentalHealth';
 import { SPECIALIZED_HEALTH_PRODUCTS } from './categories/specializedHealth';
 import { GENERAL_HEALTH_PRODUCTS } from './categories/generalHealth';
-import { METABOLIC_HEALTH_PRODUCTS } from './categories/metabolicHealth';
 import { MUSCLE_HEALTH_PRODUCTS } from './categories/muscleHealth';
+import { IMMUNITY_HEALTH_PRODUCTS } from './categories/immunityHealth';
 import { ProductDefinition } from './productTypes';
 
 export const PRODUCTS: ProductDefinition[] = [
@@ -13,6 +13,6 @@ export const PRODUCTS: ProductDefinition[] = [
   ...MENTAL_HEALTH_PRODUCTS,
   ...SPECIALIZED_HEALTH_PRODUCTS,
   ...GENERAL_HEALTH_PRODUCTS,
-  ...METABOLIC_HEALTH_PRODUCTS,
-  ...MUSCLE_HEALTH_PRODUCTS
+  ...MUSCLE_HEALTH_PRODUCTS,
+  ...IMMUNITY_HEALTH_PRODUCTS
 ];

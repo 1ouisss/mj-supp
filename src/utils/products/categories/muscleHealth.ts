@@ -2,63 +2,63 @@ import { ProductDefinition } from '../productTypes';
 
 export const MUSCLE_HEALTH_PRODUCTS: ProductDefinition[] = [
   {
-    id: "mineraux",
-    name: "Minéraux",
-    description: "Complexe complet de minéraux essentiels",
-    imageUrl: "/lovable-uploads/4ccea2a6-43df-472a-8f3c-848d654e081f.png",
-    expectedResults: "Meilleure santé osseuse et fonction musculaire",
-    recommendationReason: "Apport équilibré en minéraux essentiels",
+    id: "creatine",
+    name: "Créatine",
+    description: "Supplément pour la performance musculaire",
+    imageUrl: "/lovable-uploads/1d810f06-0339-45be-99be-d0dbab2ddc53.png",
+    expectedResults: "Amélioration de la force et de la récupération musculaire",
+    recommendationReason: "Support optimal pour la performance musculaire",
     dietaryInfo: "Vegan, Sans gluten",
-    productUrl: "https://maisonjacynthe.ca/fr/mineraux",
-    categories: ["essentiel", "muscles", "santé_osseuse"],
+    productUrl: "https://maisonjacynthe.ca/fr/creatine",
+    categories: ["muscles", "performance"],
     scores: [
-      { condition: "Santé osseuse", score: 5 },
-      { condition: "Fonction musculaire", score: 5 }
+      { condition: "Performance musculaire", score: 5 },
+      { condition: "Récupération", score: 4 }
     ],
     therapeuticClaims: [
-      "Soutient la santé osseuse",
-      "Favorise la fonction musculaire",
-      "Équilibre électrolytique"
+      "Améliore la force musculaire",
+      "Favorise la récupération",
+      "Soutient la performance"
     ],
     relationships: {
-      complementaryProducts: ["mineral-drop", "vitamine-d-k"],
+      complementaryProducts: ["glutamine"],
       contraindications: []
     },
     usage: {
-      timing: "Quotidien",
+      timing: "Avant ou après l'entraînement",
       duration: "Usage régulier",
       seasonality: ["toute_année"]
     },
     timeFrame: "long_terme"
   },
   {
-    id: "mineral-drop",
-    name: "Mineral Drop",
-    description: "Solution d'électrolytes concentrée",
-    imageUrl: "/lovable-uploads/4ccea2a6-43df-472a-8f3c-848d654e081f.png",
-    expectedResults: "Meilleure hydratation et récupération",
-    recommendationReason: "Hydratation optimale et équilibre électrolytique",
+    id: "glutamine",
+    name: "Glutamine",
+    description: "Acide aminé essentiel pour la récupération musculaire",
+    imageUrl: "/lovable-uploads/ebabf56c-a23d-4352-abb0-330d981d4400.png",
+    expectedResults: "Meilleure récupération et santé intestinale",
+    recommendationReason: "Support pour la récupération et l'immunité",
     dietaryInfo: "Vegan, Sans gluten",
-    productUrl: "https://maisonjacynthe.ca/fr/mineral-drop",
-    categories: ["essentiel", "muscles", "énergie"],
+    productUrl: "https://maisonjacynthe.ca/fr/glutamine",
+    categories: ["muscles", "immunité"],
     scores: [
-      { condition: "Hydratation", score: 5 },
-      { condition: "Récupération", score: 4 }
+      { condition: "Récupération musculaire", score: 5 },
+      { condition: "Santé intestinale", score: 4 }
     ],
     therapeuticClaims: [
-      "Maintient l'équilibre électrolytique",
-      "Favorise l'hydratation",
-      "Soutient la récupération"
+      "Favorise la récupération musculaire",
+      "Soutient la santé intestinale",
+      "Renforce le système immunitaire"
     ],
     relationships: {
-      complementaryProducts: ["mineraux"],
+      complementaryProducts: ["creatine"],
       contraindications: []
     },
     usage: {
-      timing: "Selon les besoins",
-      duration: "Usage ponctuel ou régulier",
+      timing: "Post-entraînement",
+      duration: "Usage régulier",
       seasonality: ["toute_année"]
     },
-    timeFrame: "court_terme"
+    timeFrame: "long_terme"
   }
 ];
