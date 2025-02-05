@@ -22,47 +22,59 @@ export const CORE_TEST_SCENARIOS: TestScenario[] = [
       { questionId: 1, answers: ["Femme"] },
       { questionId: 2, answers: ["25-34"] },
       { questionId: 3, answers: ["Améliorer le sommeil"] },
-      { questionId: 4, answers: ["Difficulté à dormir", "Stress"] }
+      { questionId: 4, answers: ["Troubles du sommeil", "Stress"] }
     ],
     minimumProducts: 3,
-    expectedProducts: ["melatonine", "magnesium", "poudre-dodo"],
-    expectedCategories: ["sommeil", "relaxation", "stress"]
+    expectedProducts: ["Mélatonine", "Magnésium", "Poudre Dodo", "Respire Bien"],
+    expectedCategories: ["sommeil", "relaxation"]
   },
   {
-    name: "Brain Health Focus",
+    name: "Immunity Focus",
     answers: [
       { questionId: 1, answers: ["Homme"] },
       { questionId: 2, answers: ["35-44"] },
-      { questionId: 3, answers: ["Soutenir la santé cérébrale"] },
-      { questionId: 4, answers: ["Concentration", "Mémoire"] }
+      { questionId: 3, answers: ["Renforcer l'immunité"] },
+      { questionId: 4, answers: ["Système immunitaire affaibli"] }
     ],
-    minimumProducts: 2,
-    expectedProducts: ["focus", "omega-3"],
-    expectedCategories: ["cerveau", "concentration"]
+    minimumProducts: 3,
+    expectedProducts: ["Les Apothicaires", "Miel Protecteur", "Vitamine D & K", "Multivitamines La Totale"],
+    expectedCategories: ["immunité", "santé_générale"]
+  },
+  {
+    name: "Digestive Health Focus",
+    answers: [
+      { questionId: 1, answers: ["Femme"] },
+      { questionId: 2, answers: ["45-54"] },
+      { questionId: 3, answers: ["Améliorer la digestion"] },
+      { questionId: 4, answers: ["Problèmes digestifs"] }
+    ],
+    minimumProducts: 3,
+    expectedProducts: ["Jus d'Aloès", "Probiotiques", "Fibres & l'Ami", "Fontaine de Jouvence Complet"],
+    expectedCategories: ["digestif"]
   },
   {
     name: "Stress Management",
     answers: [
       { questionId: 1, answers: ["Femme"] },
-      { questionId: 2, answers: ["45-54"] },
+      { questionId: 2, answers: ["25-34"] },
       { questionId: 3, answers: ["Gérer le stress"] },
-      { questionId: 4, answers: ["Stress", "Anxiété"] }
+      { questionId: 4, answers: ["Stress ou anxiété"] }
     ],
     minimumProducts: 3,
-    expectedProducts: ["magnesium", "energie-adaptogene"],
+    expectedProducts: ["Énergie & Adaptogènes", "Champignons & Adaptogènes", "Magnésium", "Force Botanique"],
     expectedCategories: ["stress", "relaxation"]
   },
   {
-    name: "General Health Maintenance",
+    name: "Brain Health Focus",
     answers: [
       { questionId: 1, answers: ["Homme"] },
       { questionId: 2, answers: ["25-34"] },
-      { questionId: 3, answers: ["Améliorer la santé générale"] },
-      { questionId: 4, answers: ["Aucune"] }
+      { questionId: 3, answers: ["Soutenir la santé cérébrale"] },
+      { questionId: 4, answers: ["Concentration"] }
     ],
-    minimumProducts: 2,
-    expectedProducts: ["multivitamines-la-totale", "soutien-sante"],
-    expectedCategories: ["santé_générale", "essentiel"]
+    minimumProducts: 3,
+    expectedProducts: ["Focus", "Oméga-3", "Énergie & Adaptogènes", "Champignons & Adaptogènes"],
+    expectedCategories: ["cerveau", "concentration"]
   },
   {
     name: "Energy Boost",
@@ -70,11 +82,11 @@ export const CORE_TEST_SCENARIOS: TestScenario[] = [
       { questionId: 1, answers: ["Femme"] },
       { questionId: 2, answers: ["25-34"] },
       { questionId: 3, answers: ["Améliorer l'énergie"] },
-      { questionId: 4, answers: ["Fatigue", "Concentration"] }
+      { questionId: 4, answers: ["Fatigue chronique"] }
     ],
     minimumProducts: 3,
-    expectedProducts: ["energie-adaptogene", "force-botanique"],
-    expectedCategories: ["énergie", "cerveau", "concentration"]
+    expectedProducts: ["Énergie & Adaptogènes", "Champignons & Adaptogènes", "Minéraux", "Multivitamines La Totale"],
+    expectedCategories: ["énergie", "vitalité"]
   }
 ];
 

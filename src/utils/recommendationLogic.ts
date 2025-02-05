@@ -13,11 +13,11 @@ import { syncValidationCheck } from "./products/syncValidation";
 
 const RECOMMENDATION_MAPPING: Record<string, string[]> = {
   "Améliorer le sommeil": ["Mélatonine", "Magnésium", "Poudre Dodo", "Respire Bien"],
-  "Renforcer l'immunité": ["Les Apothicaires", "Miel Protecteur", "Vitamine C", "Vitamine D & K", "Défense Super Poudre"],
-  "Améliorer la digestion": ["Jus d'Aloès", "Probiotiques", "Fibres & l'Ami", "Fontaine de Jouvence Complet", "Détox Foie"],
-  "Gérer le stress": ["Magnésium", "Énergie & Adaptogènes", "Champignons & Adaptogènes", "Force Botanique"],
-  "Soutenir la santé cérébrale": ["Focus", "Oméga-3", "Énergie & Adaptogènes", "Extrait de Thé Vert"],
-  "Améliorer l'énergie": ["Énergie & Adaptogènes", "Force Botanique", "Champignons & Adaptogènes", "Extrait de Thé Vert"]
+  "Renforcer l'immunité": ["Les Apothicaires", "Miel Protecteur", "Vitamine D & K", "Multivitamines La Totale"],
+  "Améliorer la digestion": ["Jus d'Aloès", "Probiotiques", "Fibres & l'Ami", "Fontaine de Jouvence Complet"],
+  "Gérer le stress": ["Énergie & Adaptogènes", "Champignons & Adaptogènes", "Magnésium", "Force Botanique"],
+  "Soutenir la santé cérébrale": ["Focus", "Oméga-3", "Énergie & Adaptogènes", "Champignons & Adaptogènes"],
+  "Améliorer l'énergie": ["Énergie & Adaptogènes", "Champignons & Adaptogènes", "Minéraux", "Multivitamines La Totale"]
 };
 
 const PRIMARY_GOAL_CATEGORY_MAP: Record<string, ProductCategory[]> = {
