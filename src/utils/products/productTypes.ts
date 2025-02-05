@@ -29,7 +29,8 @@ export type ProductCategory =
   | "métabolisme" 
   | "santé_cardiaque" 
   | "court_terme" 
-  | "long_terme";
+  | "long_terme"
+  | "vitalité";
 
 export type TimeFrame = "court_terme" | "long_terme";
 export type Season = "hiver" | "printemps" | "été" | "automne" | "toute_année";
