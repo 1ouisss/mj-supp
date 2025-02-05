@@ -1,70 +1,36 @@
 export type ProductCategory = 
   | "relaxation" 
-  | "sleep" 
+  | "sommeil" 
   | "stress" 
-  | "digestive" 
-  | "general_health" 
-  | "brain" 
+  | "digestif" 
+  | "santé_générale" 
+  | "cerveau" 
   | "concentration" 
-  | "energy" 
-  | "hair_health" 
-  | "skin"
-  | "immune"
-  | "muscle"
-  | "joints"
-  | "nails"
+  | "énergie" 
+  | "santé_cheveux" 
+  | "peau" 
+  | "immunité" 
+  | "muscles" 
+  | "articulations" 
+  | "ongles" 
   | "hormones"
-  | "thyroid"
-  | "women_specific"
-  | "men_specific"
+  | "thyroïde" 
+  | "santé_femme" 
+  | "santé_homme" 
   | "migraine"
-  | "pain"
-  | "healing"
-  | "topical"
-  | "immunity"
-  | "seasonal"
-  | "throat"
-  | "essential"
-  | "bone_health"
-  | "children"
-  | "metabolism"
-  | "heart_health"
-  | "short_term"
-  | "long_term";
+  | "douleur" 
+  | "guérison" 
+  | "topique" 
+  | "immunité" 
+  | "saisonnier" 
+  | "gorge" 
+  | "essentiel" 
+  | "santé_osseuse" 
+  | "enfants" 
+  | "métabolisme" 
+  | "santé_cardiaque" 
+  | "court_terme" 
+  | "long_terme";
 
-export type TimeFrame = "short_term" | "long_term";
-export type Season = "winter" | "spring" | "summer" | "fall" | "all_year";
-
-export interface ProductScore {
-  condition: string;
-  score: number;
-}
-
-export interface ProductRelationship {
-  complementaryProducts: string[];
-  contraindications?: string[];
-}
-
-export interface UsageGuidelines {
-  timing?: string;
-  duration?: string;
-  dosage?: string;
-  seasonality?: Season[];
-}
-
-export interface ProductDefinition {
-  id: string;
-  name: string;
-  description: string;
-  imageUrl: string;
-  expectedResults: string;
-  recommendationReason: string;
-  dietaryInfo: string;
-  productUrl: string;
-  categories: ProductCategory[];
-  scores: ProductScore[];
-  therapeuticClaims: string[];
-  relationships: ProductRelationship;
-  usage: UsageGuidelines;
-  timeFrame: TimeFrame;
-}
+export type TimeFrame = "court_terme" | "long_terme";
+export type Season = "hiver" | "printemps" | "été" | "automne" | "toute_année";

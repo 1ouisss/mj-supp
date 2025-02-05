@@ -26,6 +26,43 @@ interface ProductCardProps {
   onFeedbackSubmit?: (feedback: ProductFeedback) => void;
 }
 
+const translateCategory = (category: ProductCategory): string => {
+  const translations: Record<ProductCategory, string> = {
+    relaxation: "Relaxation",
+    sommeil: "Sommeil",
+    stress: "Stress",
+    digestif: "Digestif",
+    santé_générale: "Santé générale",
+    cerveau: "Cerveau",
+    concentration: "Concentration",
+    énergie: "Énergie",
+    santé_cheveux: "Santé des cheveux",
+    peau: "Peau",
+    immunité: "Immunité",
+    muscles: "Muscles",
+    articulations: "Articulations",
+    ongles: "Ongles",
+    hormones: "Hormones",
+    thyroïde: "Thyroïde",
+    santé_femme: "Santé des femmes",
+    santé_homme: "Santé des hommes",
+    migraine: "Migraine",
+    douleur: "Douleur",
+    guérison: "Guérison",
+    topique: "Topique",
+    saisonnier: "Saisonnier",
+    gorge: "Gorge",
+    essentiel: "Essentiel",
+    santé_osseuse: "Santé osseuse",
+    enfants: "Enfants",
+    métabolisme: "Métabolisme",
+    santé_cardiaque: "Santé cardiaque",
+    court_terme: "Court terme",
+    long_terme: "Long terme"
+  };
+  return translations[category] || category;
+};
+
 export const ProductCard = ({ product, onFeedbackSubmit }: ProductCardProps) => {
   const [showFeedback, setShowFeedback] = useState(false);
 
@@ -95,7 +132,7 @@ export const ProductCard = ({ product, onFeedbackSubmit }: ProductCardProps) => 
               variant="secondary"
               className="bg-amber-100 text-amber-800 hover:bg-amber-200"
             >
-              {category}
+              {translateCategory(category)}
             </Badge>
           ))}
         </div>
