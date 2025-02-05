@@ -8,6 +8,7 @@ import { getFallbackProducts } from "./recommendation/fallback";
 import { ensureCategoryDiversity } from "./recommendation/diversity";
 import { applySynergyBoosts } from "./recommendation/synergy";
 import { ProductDefinition } from "./products/productTypes";
+import { adjustProductScores } from "./feedback/feedbackAdjustment";
 
 function calculateSeverityMultiplier(answers: Answer[]): { [key: string]: number } {
   const severityMultipliers: { [key: string]: number } = {};
@@ -36,7 +37,7 @@ export function getRecommendations(answers: Answer[]): Product[] {
     const healthConcerns = answers.find(a => a.questionId === 4)?.answers || [];
     const severityMultipliers = calculateSeverityMultiplier(answers);
     
-    const scoredProducts = PRODUCTS.map(productDef => {
+    let scoredProducts = PRODUCTS.map(productDef => {
       if (!gender || 
           !isProductGenderAppropriate(productDef, normalizeAnswer(gender)) ||
           !isAgeAppropriate(productDef, normalizeAnswer(age))) {
@@ -110,6 +111,9 @@ export function getRecommendations(answers: Answer[]): Product[] {
       recommendations = [...recommendations, ...fallbackProducts]
         .slice(0, WEIGHTS.MIN_RECOMMENDATIONS);
     }
+
+    // Apply feedback adjustments
+    recommendations = adjustProductScores(recommendations);
 
     console.log("Final recommendations:", recommendations);
     console.groupEnd();

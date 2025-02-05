@@ -6,6 +6,8 @@ import type { Answer } from "@/components/quiz/types";
 import { Badge } from "@/components/ui/badge";
 import { Info } from "lucide-react";
 import type { ProductFeedback } from "@/components/results/FeedbackForm";
+import { feedbackStorage } from "@/utils/feedback/feedbackStorage";
+import { toast } from "sonner";
 
 const Results = () => {
   const location = useLocation();
@@ -16,12 +18,16 @@ const Results = () => {
   const uniqueCategories = [...new Set(recommendations.flatMap(p => p.categories))];
 
   const handleFeedbackSubmit = (feedback: ProductFeedback) => {
-    // Here you would typically send this feedback to your backend
-    console.log("Feedback received:", feedback);
+    feedbackStorage.saveFeedback({
+      ...feedback,
+      timestamp: Date.now()
+    });
     
-    // For now, we'll just log the feedback
     const product = recommendations.find(p => p.id === feedback.productId);
-    console.log(`Feedback for ${product?.name}:`, {
+    toast.success(`Thank you for your feedback on ${product?.name}!`);
+    
+    console.log("Feedback saved:", {
+      product: product?.name,
       rating: feedback.rating,
       isHelpful: feedback.isHelpful,
       additionalFeedback: feedback.additionalFeedback
