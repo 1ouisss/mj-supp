@@ -12,12 +12,42 @@ import { ProductCategory } from "./products/productTypes";
 import { syncValidationCheck } from "./products/syncValidation";
 
 const RECOMMENDATION_MAPPING: Record<string, string[]> = {
-  "Améliorer le sommeil": ["Mélatonine", "Magnésium", "Poudre Dodo", "Respire Bien"],
-  "Renforcer l'immunité": ["Les Apothicaires", "Miel Protecteur", "Vitamine D & K", "Multivitamines La Totale"],
-  "Améliorer la digestion": ["Jus d'Aloès", "Probiotiques", "Fibres & l'Ami", "Fontaine de Jouvence Complet"],
-  "Gérer le stress": ["Énergie & Adaptogènes", "Champignons & Adaptogènes", "Magnésium", "Force Botanique"],
-  "Soutenir la santé cérébrale": ["Focus", "Oméga-3", "Énergie & Adaptogènes", "Champignons & Adaptogènes"],
-  "Améliorer l'énergie": ["Énergie & Adaptogènes", "Champignons & Adaptogènes", "Minéraux", "Multivitamines La Totale"]
+  "Améliorer le sommeil": [
+    "Mélatonine",
+    "Magnésium", 
+    "Poudre Dodo",
+    "Respire Bien"
+  ],
+  "Renforcer l'immunité": [
+    "Immunitaire",
+    "Les Apothicaires",
+    "Miel Protecteur",
+    "Multivitamines La Totale"
+  ],
+  "Améliorer la digestion": [
+    "Jus d'Aloès",
+    "Probiotiques",
+    "Fibres & l'Ami",
+    "Fontaine de Jouvence Complet"
+  ],
+  "Gérer le stress": [
+    "Énergie & Adaptogènes",
+    "Force Botanique",
+    "Champignons & Adaptogènes",
+    "Magnésium"
+  ],
+  "Soutenir la santé cérébrale": [
+    "Focus",
+    "Oméga-3",
+    "Complexe B",
+    "Champignons & Adaptogènes"
+  ],
+  "Améliorer l'énergie": [
+    "Énergie & Adaptogènes",
+    "Force Botanique",
+    "Huile TCM",
+    "Multivitamines La Totale"
+  ]
 };
 
 const PRIMARY_GOAL_CATEGORY_MAP: Record<string, ProductCategory[]> = {
@@ -30,13 +60,13 @@ const PRIMARY_GOAL_CATEGORY_MAP: Record<string, ProductCategory[]> = {
 };
 
 const MIN_CONFIDENCE_THRESHOLD = 80;
+const MIN_RECOMMENDATIONS = 4;
 
 export async function getRecommendations(answers: Answer[]): Promise<Product[]> {
   console.group("Generating Recommendations");
   console.log("Input answers:", answers);
   
   try {
-    // Validate sync in development
     if (process.env.NODE_ENV === 'development') {
       const isSynced = await syncValidationCheck();
       if (!isSynced) {
@@ -78,10 +108,12 @@ export async function getRecommendations(answers: Answer[]): Promise<Product[]> 
       .map(productDef => {
         const product = calculateProductScore(productDef, answers);
         
+        // Boost scores for specifically recommended products
         if (recommendedProductNames.includes(product.name)) {
-          product.score = (product.score || 0) * WEIGHTS.PRIMARY_GOAL_BOOST * 1.2;
-          product.confidenceLevel = Math.min(95, (product.confidenceLevel || 0) + 15);
+          product.score = (product.score || 0) * WEIGHTS.PRIMARY_GOAL_BOOST * 1.5;
+          product.confidenceLevel = Math.min(95, (product.confidenceLevel || 0) + 20);
         }
+        // Smaller boost for products in target categories
         else if (product.categories.some(cat => targetCategories.includes(cat as ProductCategory))) {
           product.score = (product.score || 0) * WEIGHTS.PRIMARY_GOAL_BOOST;
           product.confidenceLevel = Math.min(95, (product.confidenceLevel || 0) + 10);
@@ -93,17 +125,20 @@ export async function getRecommendations(answers: Answer[]): Promise<Product[]> 
 
     console.log("Scored products before filtering:", scoredProducts);
 
-    let recommendations = ensureCategoryDiversity(scoredProducts);
+    // Ensure we have the minimum required recommendations
+    let recommendations = scoredProducts.slice(0, Math.max(MIN_RECOMMENDATIONS, recommendedProductNames.length));
 
-    if (recommendations.length < WEIGHTS.MIN_RECOMMENDATIONS) {
+    // If we don't have enough recommendations, add fallback products
+    if (recommendations.length < MIN_RECOMMENDATIONS) {
       const fallbackProducts = getFallbackProducts(
         String(answers.find(a => a.questionId === 1)?.answers[0]),
         String(answers.find(a => a.questionId === 2)?.answers[0])
       );
       recommendations = [...recommendations, ...fallbackProducts]
-        .slice(0, WEIGHTS.MIN_RECOMMENDATIONS);
+        .slice(0, MIN_RECOMMENDATIONS);
     }
 
+    // Apply feedback adjustments
     recommendations = adjustProductScores(recommendations);
 
     console.log("Final recommendations:", recommendations);
