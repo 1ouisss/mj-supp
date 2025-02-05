@@ -10,7 +10,7 @@ export const MUSCLE_HEALTH_PRODUCTS: ProductDefinition[] = [
     recommendationReason: "Support optimal pour la performance musculaire",
     dietaryInfo: "Vegan, Sans gluten",
     productUrl: "https://maisonjacynthe.ca/fr/creatine",
-    categories: ["muscles", "performance"],
+    categories: ["muscles", "énergie", "santé_générale"],
     scores: [
       { condition: "Performance musculaire", score: 5 },
       { condition: "Récupération", score: 4 }
