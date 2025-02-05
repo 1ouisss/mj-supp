@@ -21,7 +21,7 @@ export const METABOLIC_HEALTH_PRODUCTS: ProductDefinition[] = [
       "Favorise la vitalité"
     ],
     relationships: {
-      complementaryProducts: ["gluconig"],
+      complementaryProducts: ["gluconig", "extrait-the-vert"],
       contraindications: []
     },
     usage: {
@@ -51,11 +51,42 @@ export const METABOLIC_HEALTH_PRODUCTS: ProductDefinition[] = [
       "Favorise l'équilibre énergétique"
     ],
     relationships: {
-      complementaryProducts: ["metabzen"],
+      complementaryProducts: ["metabzen", "extrait-the-vert"],
       contraindications: []
     },
     usage: {
       timing: "Avec les repas",
+      duration: "Usage régulier",
+      seasonality: ["all_year"]
+    },
+    timeFrame: "long_term"
+  },
+  {
+    id: "extrait-the-vert",
+    name: "Extrait de Thé Vert",
+    description: "Powerful antioxidant for metabolism support & cellular protection",
+    imageUrl: "/lovable-uploads/421e934e-f697-4756-be20-ad290290efb3.png",
+    expectedResults: "Soutien du métabolisme et protection cellulaire antioxydante",
+    recommendationReason: "Extrait naturel de thé vert riche en antioxydants pour soutenir le métabolisme",
+    dietaryInfo: "Vegan, Sans gluten",
+    productUrl: "https://maisonjacynthe.ca/fr/extrait-the-vert",
+    categories: ["metabolism", "energy"],
+    scores: [
+      { condition: "Métabolisme", score: 5 },
+      { condition: "Énergie", score: 4 },
+      { condition: "Antioxydants", score: 5 }
+    ],
+    therapeuticClaims: [
+      "Supports fat metabolism",
+      "Promotes cellular health",
+      "Provides antioxidant protection"
+    ],
+    relationships: {
+      complementaryProducts: ["metabzen", "gluconig"],
+      contraindications: []
+    },
+    usage: {
+      timing: "Quotidien",
       duration: "Usage régulier",
       seasonality: ["all_year"]
     },
