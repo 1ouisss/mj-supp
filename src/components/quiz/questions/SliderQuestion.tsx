@@ -38,10 +38,10 @@ export const SliderQuestion = ({
         </div>
         <div className="px-4 py-4">
           <Slider
-            defaultValue={[value]}
             min={min}
             max={max}
             step={step}
+            value={[value]}
             onValueChange={([newValue]) => onChange(newValue)}
             className="w-full"
           />
