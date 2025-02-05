@@ -55,29 +55,34 @@ export const SliderQuestion = ({
             </>
           )}
         </div>
-        <div className="flex items-center justify-center space-x-4">
-          <Button
-            variant="outline"
-            size="lg"
-            onClick={handleDecrease}
-            disabled={localValue <= min}
-            className="h-12 w-12 rounded-full text-xl font-semibold hover:scale-105 transition-transform"
-          >
-            -
-          </Button>
-          <div className="text-center">
-            <span className="text-3xl font-semibold">{localValue}</span>
-            <span className="text-lg ml-2">heures</span>
+        <div className="flex flex-col items-center justify-center space-y-4">
+          <div className="flex items-center justify-center space-x-6">
+            <Button
+              variant="outline"
+              size="lg"
+              onClick={handleDecrease}
+              disabled={localValue <= min}
+              className="h-14 w-14 rounded-full text-2xl font-semibold hover:scale-105 transition-transform"
+            >
+              -
+            </Button>
+            <div className="text-center min-w-[100px]">
+              <span className="text-4xl font-semibold">{localValue}</span>
+              <span className="text-lg ml-2">heures</span>
+            </div>
+            <Button
+              variant="outline"
+              size="lg"
+              onClick={handleIncrease}
+              disabled={localValue >= max}
+              className="h-14 w-14 rounded-full text-2xl font-semibold hover:scale-105 transition-transform"
+            >
+              +
+            </Button>
           </div>
-          <Button
-            variant="outline"
-            size="lg"
-            onClick={handleIncrease}
-            disabled={localValue >= max}
-            className="h-12 w-12 rounded-full text-xl font-semibold hover:scale-105 transition-transform"
-          >
-            +
-          </Button>
+          <div className="text-sm text-gray-500">
+            Cliquez sur + ou - pour ajuster
+          </div>
         </div>
       </div>
     </div>
