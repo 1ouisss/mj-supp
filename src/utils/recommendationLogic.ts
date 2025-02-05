@@ -10,6 +10,15 @@ import { adjustProductScores } from "./feedback/feedbackAdjustment";
 import { toast } from "sonner";
 import { ProductCategory } from "./products/productTypes";
 
+const RECOMMENDATION_MAPPING: Record<string, string[]> = {
+  "Améliorer le sommeil": ["Mélatonine", "Magnésium", "Poudre Dodo", "Respire Bien"],
+  "Renforcer l'immunité": ["Les Apothicaires", "Miel Protecteur", "Vitamine C", "Vitamine D & K", "Défense Super Poudre"],
+  "Améliorer la digestion": ["Jus d'Aloès", "Probiotiques", "Fibres & l'Ami", "Fontaine de Jouvence Complet", "Détox Foie"],
+  "Gérer le stress": ["Magnésium", "Énergie & Adaptogènes", "Champignons & Adaptogènes", "Force Botanique"],
+  "Soutenir la santé cérébrale": ["Focus", "Oméga-3", "Énergie & Adaptogènes", "Extrait de Thé Vert"],
+  "Améliorer l'énergie": ["Énergie & Adaptogènes", "Force Botanique", "Champignons & Adaptogènes", "Extrait de Thé Vert"]
+};
+
 const PRIMARY_GOAL_CATEGORY_MAP: Record<string, ProductCategory[]> = {
   "Améliorer le sommeil": ["sommeil", "relaxation"],
   "Renforcer l'immunité": ["immunité", "santé_générale"],
@@ -18,6 +27,8 @@ const PRIMARY_GOAL_CATEGORY_MAP: Record<string, ProductCategory[]> = {
   "Soutenir la santé cérébrale": ["cerveau", "concentration"],
   "Améliorer l'énergie": ["énergie", "vitalité"]
 };
+
+const MIN_CONFIDENCE_THRESHOLD = 80;
 
 export function getRecommendations(answers: Answer[]): Product[] {
   console.group("Generating Recommendations");
@@ -39,26 +50,39 @@ export function getRecommendations(answers: Answer[]): Product[] {
       return [];
     }
 
+    // Get recommended product names for the primary goal
+    const recommendedProductNames = RECOMMENDATION_MAPPING[primaryGoalAnswer] || [];
+    console.log("Recommended product names:", recommendedProductNames);
+
     const targetCategories = PRIMARY_GOAL_CATEGORY_MAP[primaryGoalAnswer] || [];
     console.log("Target categories based on primary goal:", targetCategories);
 
     let scoredProducts = PRODUCTS
       .filter(productDef => {
+        // Include products that are either in the recommended names list or have relevant categories
+        const isRecommended = recommendedProductNames.includes(productDef.name);
         const hasRelevantCategory = productDef.categories.some(cat => 
           targetCategories.includes(cat as ProductCategory)
         );
         
-        return hasRelevantCategory && !shouldExcludeProduct(productDef, answers);
+        return (isRecommended || hasRelevantCategory) && !shouldExcludeProduct(productDef, answers);
       })
       .map(productDef => {
         const product = calculateProductScore(productDef, answers);
-        if (product.categories.some(cat => targetCategories.includes(cat as ProductCategory))) {
+        
+        // Boost score for specifically recommended products
+        if (recommendedProductNames.includes(product.name)) {
+          product.score = (product.score || 0) * WEIGHTS.PRIMARY_GOAL_BOOST * 1.2;
+          product.confidenceLevel = Math.min(95, (product.confidenceLevel || 0) + 15);
+        }
+        // Boost score for category matches
+        else if (product.categories.some(cat => targetCategories.includes(cat as ProductCategory))) {
           product.score = (product.score || 0) * WEIGHTS.PRIMARY_GOAL_BOOST;
           product.confidenceLevel = Math.min(95, (product.confidenceLevel || 0) + 10);
         }
         return product;
       })
-      .filter(product => product.score > 0)
+      .filter(product => (product.score || 0) > 0 && (product.confidenceLevel || 0) >= MIN_CONFIDENCE_THRESHOLD)
       .sort((a, b) => (b.score || 0) - (a.score || 0));
 
     console.log("Scored products before filtering:", scoredProducts);
