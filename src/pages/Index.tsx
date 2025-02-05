@@ -31,14 +31,14 @@ const Index = () => {
 
       <Card className="max-w-2xl w-full bg-white/80 backdrop-blur-sm p-8 space-y-8 relative z-10 shadow-xl hover:shadow-2xl transition-all duration-500">
         <div className="text-center space-y-6">
-          <h1 className="text-6xl font-light tracking-wide text-gray-800 hover:scale-105 transition-transform duration-300">
+          <h1 className="text-4xl font-bold text-gray-800 hover:scale-105 transition-transform duration-300">
             Maison Jacynthe
           </h1>
-          <p className="text-xl text-gray-600 font-serif">
+          <p className="text-xl text-gray-600">
             Découvrez les produits naturels adaptés à vos besoins
           </p>
           <p className="text-gray-500">
-            Répondez à quelques questions pour obtenir des recommandations personnalisées
+            Complétez notre questionnaire pour des recommandations sur mesure
           </p>
           <Button 
             onClick={() => navigate("/quiz")}
