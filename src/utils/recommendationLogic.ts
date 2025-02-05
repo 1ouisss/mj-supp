@@ -27,6 +27,26 @@ function calculateSeverityMultiplier(answers: Answer[]): { [key: string]: number
   return severityMultipliers;
 }
 
+function shouldExcludeProduct(productDef: any, healthConcerns: string[]): boolean {
+  // Exclure la mélatonine si pas de problème de sommeil
+  if (productDef.name.toLowerCase().includes('mélatonine') && 
+      !healthConcerns.some(concern => 
+        concern.toLowerCase().includes('sommeil') || 
+        concern.toLowerCase().includes('dormir'))) {
+    return true;
+  }
+  return false;
+}
+
+function shuffleArray<T>(array: T[]): T[] {
+  const shuffled = [...array];
+  for (let i = shuffled.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+  }
+  return shuffled;
+}
+
 export function getRecommendations(answers: Answer[]): Product[] {
   console.group("Generating Recommendations");
   console.log("Input answers:", answers);
@@ -61,7 +81,15 @@ export function getRecommendations(answers: Answer[]): Product[] {
     console.log("Health concerns:", healthConcerns);
     console.log("Severity multipliers:", severityMultipliers);
     
-    let scoredProducts = PRODUCTS.map(productDef => {
+    // Mélanger les produits pour la rotation
+    let shuffledProducts = shuffleArray(PRODUCTS);
+    
+    let scoredProducts = shuffledProducts.map(productDef => {
+      // Vérifier les exclusions spécifiques
+      if (shouldExcludeProduct(productDef, healthConcerns)) {
+        return null;
+      }
+
       if (!isProductGenderAppropriate(productDef, normalizeAnswer(gender)) ||
           !isAgeAppropriate(productDef, normalizeAnswer(age))) {
         return null;
@@ -70,8 +98,8 @@ export function getRecommendations(answers: Answer[]): Product[] {
       let totalScore = 0;
       let matchCount = 0;
       
-      // Base score pour tous les produits
-      totalScore += 1;
+      // Score de base pour tous les produits
+      totalScore += WEIGHTS.BASE_SCORE;
       
       // Score pour l'objectif principal
       if (primaryGoal) {
@@ -138,13 +166,16 @@ export function getRecommendations(answers: Answer[]): Product[] {
 
     console.log("Scored products before filtering:", scoredProducts);
 
-    // Trier par score décroissant et prendre les meilleurs produits
-    let recommendations = scoredProducts
-      .sort((a, b) => (b.score || 0) - (a.score || 0))
-      .slice(0, 6);
+    // Trier par score décroissant
+    scoredProducts.sort((a, b) => (b.score || 0) - (a.score || 0));
 
-    recommendations = ensureCategoryDiversity(recommendations);
+    // Assurer la diversité des catégories
+    let recommendations = ensureCategoryDiversity(scoredProducts);
 
+    // Limiter à 6 produits
+    recommendations = recommendations.slice(0, 6);
+
+    // Si pas assez de recommandations, ajouter des produits de fallback
     if (recommendations.length < WEIGHTS.MIN_RECOMMENDATIONS) {
       const fallbackProducts = getFallbackProducts(
         normalizeAnswer(gender),
