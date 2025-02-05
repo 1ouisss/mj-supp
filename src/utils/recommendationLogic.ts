@@ -9,6 +9,15 @@ import { getFallbackProducts } from "./recommendation/fallback";
 import { adjustProductScores } from "./feedback/feedbackAdjustment";
 import { toast } from "sonner";
 
+const PRIMARY_GOAL_CATEGORY_MAP = {
+  "Améliorer le sommeil": ["sommeil", "relaxation"],
+  "Renforcer l'immunité": ["immunité", "santé_générale"],
+  "Améliorer la digestion": ["digestif"],
+  "Gérer le stress": ["stress", "relaxation"],
+  "Soutenir la santé cérébrale": ["cerveau", "concentration"],
+  "Améliorer l'énergie": ["énergie", "vitalité"]
+} as const;
+
 export function getRecommendations(answers: Answer[]): Product[] {
   console.group("Generating Recommendations");
   console.log("Input answers:", answers);
@@ -20,38 +29,52 @@ export function getRecommendations(answers: Answer[]): Product[] {
       return [];
     }
 
-    const genderAnswer = answers.find(a => a.questionId === 1);
-    const ageAnswer = answers.find(a => a.questionId === 2);
-    
-    console.log("Gender answer:", genderAnswer);
-    console.log("Age answer:", ageAnswer);
+    const primaryGoalAnswer = answers.find(a => a.questionId === 3)?.answers[0];
+    console.log("Primary goal:", primaryGoalAnswer);
 
-    if (!genderAnswer?.answers[0] || !ageAnswer?.answers[0]) {
-      console.warn("Missing required answers for gender or age");
-      toast.error("Veuillez indiquer votre genre et votre âge");
+    if (!primaryGoalAnswer) {
+      console.warn("Missing primary goal answer");
+      toast.error("Veuillez indiquer votre objectif principal");
       return [];
     }
 
+    // Get relevant categories based on primary goal
+    const targetCategories = PRIMARY_GOAL_CATEGORY_MAP[primaryGoalAnswer as keyof typeof PRIMARY_GOAL_CATEGORY_MAP] || [];
+    console.log("Target categories based on primary goal:", targetCategories);
+
     // Filter and score products
     let scoredProducts = PRODUCTS
-      .filter(productDef => !shouldExcludeProduct(productDef, answers))
-      .map(productDef => calculateProductScore(productDef, answers))
+      .filter(productDef => {
+        // Check if product categories match the primary goal
+        const hasRelevantCategory = productDef.categories.some(cat => 
+          targetCategories.includes(cat as any)
+        );
+        
+        // Only include products that match the primary goal or aren't excluded
+        return hasRelevantCategory && !shouldExcludeProduct(productDef, answers);
+      })
+      .map(productDef => {
+        const product = calculateProductScore(productDef, answers);
+        // Boost score for products that directly match the primary goal
+        if (product.categories.some(cat => targetCategories.includes(cat as any))) {
+          product.score = (product.score || 0) * WEIGHTS.PRIMARY_GOAL_BOOST;
+          product.confidenceLevel = Math.min(95, (product.confidenceLevel || 0) + 10);
+        }
+        return product;
+      })
       .filter(product => product.score > 0)
       .sort((a, b) => (b.score || 0) - (a.score || 0));
 
     console.log("Scored products before filtering:", scoredProducts);
 
-    // Ensure category diversity
+    // Ensure category diversity while maintaining primary goal focus
     let recommendations = ensureCategoryDiversity(scoredProducts);
 
-    // Limit to maximum recommendations
-    recommendations = recommendations.slice(0, WEIGHTS.MIN_RECOMMENDATIONS);
-
-    // Add fallback products if needed
+    // Ensure we have enough recommendations
     if (recommendations.length < WEIGHTS.MIN_RECOMMENDATIONS) {
       const fallbackProducts = getFallbackProducts(
-        String(genderAnswer.answers[0]), 
-        String(ageAnswer.answers[0])
+        String(answers.find(a => a.questionId === 1)?.answers[0]), // gender
+        String(answers.find(a => a.questionId === 2)?.answers[0])  // age
       );
       recommendations = [...recommendations, ...fallbackProducts]
         .slice(0, WEIGHTS.MIN_RECOMMENDATIONS);
