@@ -18,7 +18,18 @@ export const SPECIALIZED_HEALTH_PRODUCTS: ProductDefinition[] = [
     therapeuticClaims: [
       "Réduction des migraines",
       "Soutien énergétique cellulaire"
-    ]
+    ],
+    relationships: {
+      complementaryProducts: ["omega-3"],
+      contraindications: ["Anticoagulants"]
+    },
+    usage: {
+      timing: "Prendre avec un repas",
+      duration: "Usage quotidien",
+      dosage: "1-2 gélules par jour",
+      seasonality: ["all_year"]
+    },
+    timeFrame: "long_term"
   },
   {
     id: "selenium",
@@ -36,7 +47,18 @@ export const SPECIALIZED_HEALTH_PRODUCTS: ProductDefinition[] = [
     therapeuticClaims: [
       "Soutien de la fonction thyroïdienne",
       "Antioxydant"
-    ]
+    ],
+    relationships: {
+      complementaryProducts: ["zinc"],
+      contraindications: []
+    },
+    usage: {
+      timing: "Prendre avec un repas",
+      duration: "Usage quotidien",
+      dosage: "1 gélule par jour",
+      seasonality: ["all_year"]
+    },
+    timeFrame: "long_term"
   },
   {
     id: "vitamine-d",
@@ -55,6 +77,17 @@ export const SPECIALIZED_HEALTH_PRODUCTS: ProductDefinition[] = [
     therapeuticClaims: [
       "Soutien du système immunitaire",
       "Santé osseuse"
-    ]
+    ],
+    relationships: {
+      complementaryProducts: ["calcium"],
+      contraindications: []
+    },
+    usage: {
+      timing: "Prendre avec un repas gras",
+      duration: "Usage quotidien",
+      dosage: "1 gélule par jour",
+      seasonality: ["fall", "winter"]
+    },
+    timeFrame: "long_term"
   }
 ];
