@@ -8,15 +8,16 @@ import { ensureCategoryDiversity } from "./recommendation/diversity";
 import { getFallbackProducts } from "./recommendation/fallback";
 import { adjustProductScores } from "./feedback/feedbackAdjustment";
 import { toast } from "sonner";
+import { ProductCategory } from "./products/productTypes";
 
-const PRIMARY_GOAL_CATEGORY_MAP = {
+const PRIMARY_GOAL_CATEGORY_MAP: Record<string, ProductCategory[]> = {
   "Améliorer le sommeil": ["sommeil", "relaxation"],
   "Renforcer l'immunité": ["immunité", "santé_générale"],
   "Améliorer la digestion": ["digestif"],
   "Gérer le stress": ["stress", "relaxation"],
   "Soutenir la santé cérébrale": ["cerveau", "concentration"],
   "Améliorer l'énergie": ["énergie", "vitalité"]
-} as const;
+};
 
 export function getRecommendations(answers: Answer[]): Product[] {
   console.group("Generating Recommendations");
@@ -29,7 +30,7 @@ export function getRecommendations(answers: Answer[]): Product[] {
       return [];
     }
 
-    const primaryGoalAnswer = answers.find(a => a.questionId === 3)?.answers[0];
+    const primaryGoalAnswer = answers.find(a => a.questionId === 3)?.answers[0] as string;
     console.log("Primary goal:", primaryGoalAnswer);
 
     if (!primaryGoalAnswer) {
@@ -38,25 +39,20 @@ export function getRecommendations(answers: Answer[]): Product[] {
       return [];
     }
 
-    // Get relevant categories based on primary goal
-    const targetCategories = PRIMARY_GOAL_CATEGORY_MAP[primaryGoalAnswer as keyof typeof PRIMARY_GOAL_CATEGORY_MAP] || [];
+    const targetCategories = PRIMARY_GOAL_CATEGORY_MAP[primaryGoalAnswer] || [];
     console.log("Target categories based on primary goal:", targetCategories);
 
-    // Filter and score products
     let scoredProducts = PRODUCTS
       .filter(productDef => {
-        // Check if product categories match the primary goal
         const hasRelevantCategory = productDef.categories.some(cat => 
-          targetCategories.includes(cat as any)
+          targetCategories.includes(cat as ProductCategory)
         );
         
-        // Only include products that match the primary goal or aren't excluded
         return hasRelevantCategory && !shouldExcludeProduct(productDef, answers);
       })
       .map(productDef => {
         const product = calculateProductScore(productDef, answers);
-        // Boost score for products that directly match the primary goal
-        if (product.categories.some(cat => targetCategories.includes(cat as any))) {
+        if (product.categories.some(cat => targetCategories.includes(cat as ProductCategory))) {
           product.score = (product.score || 0) * WEIGHTS.PRIMARY_GOAL_BOOST;
           product.confidenceLevel = Math.min(95, (product.confidenceLevel || 0) + 10);
         }
@@ -67,20 +63,17 @@ export function getRecommendations(answers: Answer[]): Product[] {
 
     console.log("Scored products before filtering:", scoredProducts);
 
-    // Ensure category diversity while maintaining primary goal focus
     let recommendations = ensureCategoryDiversity(scoredProducts);
 
-    // Ensure we have enough recommendations
     if (recommendations.length < WEIGHTS.MIN_RECOMMENDATIONS) {
       const fallbackProducts = getFallbackProducts(
-        String(answers.find(a => a.questionId === 1)?.answers[0]), // gender
-        String(answers.find(a => a.questionId === 2)?.answers[0])  // age
+        String(answers.find(a => a.questionId === 1)?.answers[0]),
+        String(answers.find(a => a.questionId === 2)?.answers[0])
       );
       recommendations = [...recommendations, ...fallbackProducts]
         .slice(0, WEIGHTS.MIN_RECOMMENDATIONS);
     }
 
-    // Adjust final scores based on feedback
     recommendations = adjustProductScores(recommendations);
 
     console.log("Final recommendations:", recommendations);

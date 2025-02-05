@@ -7,7 +7,15 @@ export const WEIGHTS = {
   RELATED_CATEGORY: 1,
   MIN_CONFIDENCE: 80,
   MAX_CONFIDENCE: 95,
-  MIN_RECOMMENDATIONS: 3
+  MIN_RECOMMENDATIONS: 3,
+  MAX_PRODUCTS_PER_CATEGORY: 2,
+  MIN_CATEGORIES: 2,
+  SYNERGY_BOOST: 1.2
+};
+
+export const PRODUCT_SYNERGIES = {
+  BRAIN_HEALTH: ['focus-plus', 'omega-3', 'b-complex'],
+  SLEEP_STRESS: ['melatonin', 'magnesium', 'relaxation-blend']
 };
 
 export const CATEGORY_RELATIONSHIPS = {
