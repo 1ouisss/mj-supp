@@ -21,11 +21,6 @@ export function calculateCategoryScore(productCategories: ProductCategory[], tar
       score += WEIGHTS.RELATED_CATEGORY;
       console.log(`Related category match for ${category}: +${WEIGHTS.RELATED_CATEGORY}`);
     }
-    // Small penalty for unrelated categories
-    else {
-      score -= WEIGHTS.MISMATCH_PENALTY;
-      console.log(`Unrelated category penalty for ${category}: -${WEIGHTS.MISMATCH_PENALTY}`);
-    }
   });
   
   return score;
@@ -56,16 +51,14 @@ export function calculateTherapeuticScore(claims: string[] | undefined, concerns
 
 function isRelatedCategory(category: string, targetCategories: string[]): boolean {
   const relationMap: { [key: string]: string[] } = {
-    'sleep': ['stress', 'energy', 'brain'],
-    'stress': ['sleep', 'brain', 'energy'],
-    'energy': ['stress', 'brain', 'immunity'],
-    'brain': ['stress', 'sleep', 'energy', 'concentration'],
-    'immunity': ['energy', 'general_health'],
-    'digestive': ['general_health', 'immunity'],
-    'pain': ['muscle', 'joints', 'topical'],
-    'skin': ['topical', 'healing'],
-    'bone_health': ['essential', 'women_specific'],
-    'seasonal': ['immune', 'throat']
+    'sleep': ['stress', 'relaxation'],
+    'stress': ['sleep', 'relaxation'],
+    'digestive': ['immune', 'general_health'],
+    'immune': ['digestive', 'general_health'],
+    'relaxation': ['sleep', 'stress'],
+    'energy': ['immune', 'general_health'],
+    'brain': ['stress', 'energy'],
+    'general_health': ['immune', 'digestive', 'energy']
   };
   
   return targetCategories.some(target => 

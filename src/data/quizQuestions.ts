@@ -18,12 +18,12 @@ export const QUESTIONS: Question[] = [
     question: "Quel est votre objectif principal de bien-être ?",
     type: "single",
     options: [
-      "Renforcer l'immunité",
-      "Améliorer l'énergie",
-      "Soutenir la santé cérébrale",
-      "Gérer le stress",
       "Améliorer le sommeil",
-      "Améliorer la digestion"
+      "Renforcer l'immunité",
+      "Améliorer la digestion",
+      "Gérer le stress",
+      "Soutenir la santé cérébrale",
+      "Améliorer l'énergie"
     ]
   },
   {
@@ -31,37 +31,22 @@ export const QUESTIONS: Question[] = [
     question: "Avez-vous des préoccupations de santé spécifiques ?",
     type: "multiple",
     options: [
-      "Stress, anxiété ou sautes d'humeur",
+      "Troubles du sommeil",
       "Problèmes digestifs",
-      "Préoccupations cardiovasculaires",
-      "Problèmes de peau",
-      "Déséquilibres hormonaux",
+      "Stress ou anxiété",
+      "Fatigue chronique",
+      "Système immunitaire affaibli",
       "Aucune"
     ],
     followUpQuestions: [
       {
-        triggerAnswer: "Stress, anxiété ou sautes d'humeur",
+        triggerAnswer: "Troubles du sommeil",
         questions: [
           {
             id: 401,
-            question: "À quelle fréquence ressentez-vous du stress ?",
+            question: "À quelle fréquence avez-vous des difficultés à dormir ?",
             type: "single",
-            options: ["Occasionnellement", "Fréquemment", "Constamment"],
-            parentQuestionId: 4
-          },
-          {
-            id: 402,
-            question: "Évaluez l'intensité de votre stress",
-            type: "slider",
-            sliderConfig: {
-              min: 1,
-              max: 10,
-              step: 1,
-              labels: {
-                min: "Léger",
-                max: "Sévère"
-              }
-            },
+            options: ["Occasionnellement", "Fréquemment", "Presque toutes les nuits"],
             parentQuestionId: 4
           }
         ]
@@ -70,14 +55,14 @@ export const QUESTIONS: Question[] = [
         triggerAnswer: "Problèmes digestifs",
         questions: [
           {
-            id: 403,
+            id: 402,
             question: "Quels symptômes digestifs ressentez-vous ?",
             type: "multiple",
             options: [
               "Ballonnements",
-              "Indigestion",
+              "Digestion difficile",
               "Transit irrégulier",
-              "Brûlures d'estomac"
+              "Inconfort intestinal"
             ],
             parentQuestionId: 4
           }
@@ -86,19 +71,19 @@ export const QUESTIONS: Question[] = [
     ]
   },
   {
-    id: 6,
+    id: 5,
     question: "Comment décririez-vous votre alimentation ?",
     type: "single",
     options: [
       "Équilibrée",
       "Végétarienne/Végétalienne",
-      "Riche en sucres",
-      "Pauvre en légumes",
+      "Riche en produits transformés",
+      "Pauvre en fibres",
       "Régime spécifique"
     ]
   },
   {
-    id: 7,
+    id: 6,
     question: "Combien d'heures dormez-vous en moyenne par nuit ?",
     type: "slider",
     sliderConfig: {
@@ -112,8 +97,8 @@ export const QUESTIONS: Question[] = [
     }
   },
   {
-    id: 8,
-    question: "Prenez-vous actuellement des compléments alimentaires ?",
+    id: 7,
+    question: "Prenez-vous actuellement des compléments naturels ?",
     type: "single",
     options: ["Oui", "Non"],
     followUpQuestions: [
@@ -121,18 +106,17 @@ export const QUESTIONS: Question[] = [
         triggerAnswer: "Oui",
         questions: [
           {
-            id: 801,
+            id: 701,
             question: "Lesquels prenez-vous actuellement ?",
             type: "multiple",
             options: [
-              "Vitamines",
-              "Minéraux",
-              "Oméga-3",
-              "Probiotiques",
-              "Protéines",
+              "Produits pour le sommeil",
+              "Produits digestifs",
+              "Produits relaxants",
+              "Produits énergisants",
               "Autres"
             ],
-            parentQuestionId: 8
+            parentQuestionId: 7
           }
         ]
       }
