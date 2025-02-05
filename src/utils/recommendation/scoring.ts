@@ -54,11 +54,13 @@ function isRelatedCategory(category: string, targetCategories: string[]): boolea
     'sleep': ['stress', 'relaxation'],
     'stress': ['sleep', 'relaxation'],
     'digestive': ['immune', 'general_health'],
-    'immune': ['digestive', 'general_health'],
+    'immune': ['digestive', 'general_health', 'skin'],  // Added skin as related to immune
     'relaxation': ['sleep', 'stress'],
     'energy': ['immune', 'general_health'],
     'brain': ['stress', 'energy'],
-    'general_health': ['immune', 'digestive', 'energy']
+    'general_health': ['immune', 'digestive', 'energy'],
+    'skin': ['immune', 'essential'],  // Added new relationships for skin
+    'essential': ['skin', 'immune']   // Added essential minerals category relationships
   };
   
   return targetCategories.some(target => 
