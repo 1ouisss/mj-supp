@@ -10,13 +10,13 @@ export const MENTAL_HEALTH_PRODUCTS: ProductDefinition[] = [
     recommendationReason: "Soutien cognitif optimal",
     dietaryInfo: "Vegan, Sans gluten",
     productUrl: "https://maisonjacynthe.ca/fr/focus",
-    categories: ["brain", "concentration", "long_term"],
+    categories: ["cerveau", "concentration", "long_terme"],
     scores: [
       { condition: "Soutenir la santé cérébrale", score: 5 },
       { condition: "Améliorer la concentration", score: 5 }
     ],
     therapeuticClaims: [
-      "Enhances cognitive clarity and mental performance 🧠",
+      "Améliore la clarté mentale et la performance cognitive 🧠",
       "Améliore la concentration et la mémoire",
       "Soutient les fonctions cognitives"
     ],
@@ -27,9 +27,9 @@ export const MENTAL_HEALTH_PRODUCTS: ProductDefinition[] = [
     usage: {
       timing: "Prendre le matin ou en début d'après-midi",
       duration: "Utilisation quotidienne pour des résultats optimaux",
-      seasonality: ["all_year"]
+      seasonality: ["toute_année"]
     },
-    timeFrame: "long_term"
+    timeFrame: "long_terme"
   },
   {
     id: "energie-adaptogene",
@@ -40,7 +40,7 @@ export const MENTAL_HEALTH_PRODUCTS: ProductDefinition[] = [
     recommendationReason: "Soutien énergétique et anti-stress",
     dietaryInfo: "Vegan, Sans gluten",
     productUrl: "https://maisonjacynthe.ca/fr/energie-adaptogene",
-    categories: ["energy", "stress", "long_term"],
+    categories: ["énergie", "stress", "long_terme"],
     scores: [
       { condition: "Améliorer l'énergie", score: 5 },
       { condition: "Gérer le stress", score: 4 }
@@ -57,9 +57,9 @@ export const MENTAL_HEALTH_PRODUCTS: ProductDefinition[] = [
     usage: {
       timing: "Prendre le matin avec le petit-déjeuner",
       duration: "Utilisation continue recommandée",
-      seasonality: ["all_year"]
+      seasonality: ["toute_année"]
     },
-    timeFrame: "long_term"
+    timeFrame: "long_terme"
   },
   {
     id: "force-botanique",
@@ -70,7 +70,7 @@ export const MENTAL_HEALTH_PRODUCTS: ProductDefinition[] = [
     recommendationReason: "Boost d'énergie botanique",
     dietaryInfo: "Vegan, Sans gluten",
     productUrl: "https://maisonjacynthe.ca/fr/force-botanique",
-    categories: ["energy", "stress"],
+    categories: ["énergie", "stress"],
     scores: [
       { condition: "Énergie", score: 5 },
       { condition: "Vitalité", score: 5 }
@@ -86,8 +86,8 @@ export const MENTAL_HEALTH_PRODUCTS: ProductDefinition[] = [
     usage: {
       timing: "Quotidien",
       duration: "Usage régulier",
-      seasonality: ["all_year"]
+      seasonality: ["toute_année"]
     },
-    timeFrame: "long_term"
+    timeFrame: "long_terme"
   }
 ];

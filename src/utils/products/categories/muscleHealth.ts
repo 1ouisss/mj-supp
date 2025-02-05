@@ -10,7 +10,7 @@ export const MUSCLE_HEALTH_PRODUCTS: ProductDefinition[] = [
     recommendationReason: "Apport équilibré en minéraux essentiels",
     dietaryInfo: "Vegan, Sans gluten",
     productUrl: "https://maisonjacynthe.ca/fr/mineraux",
-    categories: ["essential", "muscle", "bone_health"],
+    categories: ["essentiel", "muscles", "santé_osseuse"],
     scores: [
       { condition: "Santé osseuse", score: 5 },
       { condition: "Fonction musculaire", score: 5 }
@@ -27,9 +27,9 @@ export const MUSCLE_HEALTH_PRODUCTS: ProductDefinition[] = [
     usage: {
       timing: "Quotidien",
       duration: "Usage régulier",
-      seasonality: ["all_year"]
+      seasonality: ["toute_année"]
     },
-    timeFrame: "long_term"
+    timeFrame: "long_terme"
   },
   {
     id: "mineral-drop",
@@ -40,7 +40,7 @@ export const MUSCLE_HEALTH_PRODUCTS: ProductDefinition[] = [
     recommendationReason: "Hydratation optimale et équilibre électrolytique",
     dietaryInfo: "Vegan, Sans gluten",
     productUrl: "https://maisonjacynthe.ca/fr/mineral-drop",
-    categories: ["essential", "muscle", "energy"],
+    categories: ["essentiel", "muscles", "énergie"],
     scores: [
       { condition: "Hydratation", score: 5 },
       { condition: "Récupération", score: 4 }
@@ -57,8 +57,8 @@ export const MUSCLE_HEALTH_PRODUCTS: ProductDefinition[] = [
     usage: {
       timing: "Selon les besoins",
       duration: "Usage ponctuel ou régulier",
-      seasonality: ["all_year"]
+      seasonality: ["toute_année"]
     },
-    timeFrame: "short_term"
+    timeFrame: "court_terme"
   }
 ];

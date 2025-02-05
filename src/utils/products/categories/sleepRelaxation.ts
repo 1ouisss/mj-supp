@@ -10,7 +10,7 @@ export const SLEEP_RELAXATION_PRODUCTS: ProductDefinition[] = [
     recommendationReason: "Solution naturelle pour le sommeil",
     dietaryInfo: "Vegan, Sans gluten",
     productUrl: "https://maisonjacynthe.ca/fr/melatonine-cerise",
-    categories: ["sleep", "relaxation", "short_term"],
+    categories: ["sommeil", "relaxation"],
     scores: [
       { condition: "Améliorer le sommeil", score: 5 },
       { condition: "Difficulté à se détendre ou à dormir", score: 5 }
@@ -28,9 +28,9 @@ export const SLEEP_RELAXATION_PRODUCTS: ProductDefinition[] = [
       timing: "Prendre 30 minutes avant le coucher",
       duration: "Utilisation ponctuelle recommandée",
       dosage: "1-3mg selon les besoins",
-      seasonality: ["all_year"]
+      seasonality: ["toute_année"]
     },
-    timeFrame: "short_term"
+    timeFrame: "court_terme"
   },
   {
     id: "magnesium",
@@ -41,7 +41,7 @@ export const SLEEP_RELAXATION_PRODUCTS: ProductDefinition[] = [
     recommendationReason: "Soutien pour la relaxation",
     dietaryInfo: "Vegan, Sans gluten",
     productUrl: "https://maisonjacynthe.ca/fr/magnesium",
-    categories: ["relaxation", "stress", "muscle", "long_term"],
+    categories: ["relaxation", "stress", "muscles"],
     scores: [
       { condition: "Gérer le stress", score: 5 },
       { condition: "Améliorer le sommeil", score: 4 },
@@ -59,9 +59,9 @@ export const SLEEP_RELAXATION_PRODUCTS: ProductDefinition[] = [
     usage: {
       timing: "Prendre le soir pour la relaxation",
       duration: "Utilisation quotidienne recommandée",
-      seasonality: ["all_year"]
+      seasonality: ["toute_année"]
     },
-    timeFrame: "long_term"
+    timeFrame: "long_terme"
   },
   {
     id: "poudre-dodo",
@@ -72,7 +72,7 @@ export const SLEEP_RELAXATION_PRODUCTS: ProductDefinition[] = [
     recommendationReason: "Solution naturelle pour le sommeil",
     dietaryInfo: "Vegan, Sans gluten",
     productUrl: "https://maisonjacynthe.ca/fr/poudre-dodo",
-    categories: ["sleep", "relaxation", "short_term"],
+    categories: ["sommeil", "relaxation"],
     scores: [
       { condition: "Améliorer le sommeil", score: 5 },
       { condition: "Stress nocturne", score: 4 }
@@ -89,9 +89,9 @@ export const SLEEP_RELAXATION_PRODUCTS: ProductDefinition[] = [
     usage: {
       timing: "Prendre 30 minutes avant le coucher",
       duration: "Utilisation quotidienne possible",
-      seasonality: ["all_year"]
+      seasonality: ["toute_année"]
     },
-    timeFrame: "short_term"
+    timeFrame: "court_terme"
   },
   {
     id: "respire-bien",
@@ -102,7 +102,7 @@ export const SLEEP_RELAXATION_PRODUCTS: ProductDefinition[] = [
     recommendationReason: "Soutien respiratoire naturel",
     dietaryInfo: "Vegan, Sans gluten",
     productUrl: "https://maisonjacynthe.ca/fr/respire-bien",
-    categories: ["seasonal", "throat"],
+    categories: ["saisonnier", "gorge"],
     scores: [
       { condition: "Problèmes respiratoires", score: 5 },
       { condition: "Congestion", score: 4 }
@@ -118,8 +118,8 @@ export const SLEEP_RELAXATION_PRODUCTS: ProductDefinition[] = [
     usage: {
       timing: "Selon les besoins",
       duration: "Usage ponctuel ou régulier",
-      seasonality: ["winter", "spring"]
+      seasonality: ["hiver", "printemps"]
     },
-    timeFrame: "short_term"
+    timeFrame: "court_terme"
   }
 ];

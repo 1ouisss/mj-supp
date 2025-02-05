@@ -10,7 +10,7 @@ export const METABOLIC_HEALTH_PRODUCTS: ProductDefinition[] = [
     recommendationReason: "Support naturel pour le métabolisme",
     dietaryInfo: "Vegan, Sans gluten",
     productUrl: "https://maisonjacynthe.ca/fr/metabzen",
-    categories: ["metabolism", "general_health"],
+    categories: ["métabolisme", "santé_générale"],
     scores: [
       { condition: "Équilibre métabolique", score: 5 },
       { condition: "Énergie", score: 4 }
@@ -27,9 +27,9 @@ export const METABOLIC_HEALTH_PRODUCTS: ProductDefinition[] = [
     usage: {
       timing: "Quotidien",
       duration: "Usage régulier",
-      seasonality: ["all_year"]
+      seasonality: ["toute_année"]
     },
-    timeFrame: "long_term"
+    timeFrame: "long_terme"
   },
   {
     id: "gluconig",
@@ -40,7 +40,7 @@ export const METABOLIC_HEALTH_PRODUCTS: ProductDefinition[] = [
     recommendationReason: "Support naturel pour la glycémie",
     dietaryInfo: "Vegan, Sans gluten",
     productUrl: "https://maisonjacynthe.ca/fr/gluconig",
-    categories: ["metabolism", "general_health"],
+    categories: ["métabolisme", "santé_générale"],
     scores: [
       { condition: "Équilibre glycémique", score: 5 },
       { condition: "Énergie", score: 4 }
@@ -57,9 +57,9 @@ export const METABOLIC_HEALTH_PRODUCTS: ProductDefinition[] = [
     usage: {
       timing: "Avec les repas",
       duration: "Usage régulier",
-      seasonality: ["all_year"]
+      seasonality: ["toute_année"]
     },
-    timeFrame: "long_term"
+    timeFrame: "long_terme"
   },
   {
     id: "extrait-the-vert",
@@ -70,7 +70,7 @@ export const METABOLIC_HEALTH_PRODUCTS: ProductDefinition[] = [
     recommendationReason: "Extrait naturel de thé vert riche en antioxydants pour soutenir le métabolisme",
     dietaryInfo: "Vegan, Sans gluten",
     productUrl: "https://maisonjacynthe.ca/fr/extrait-the-vert",
-    categories: ["metabolism", "energy"],
+    categories: ["métabolisme", "énergie"],
     scores: [
       { condition: "Métabolisme", score: 5 },
       { condition: "Énergie", score: 4 },
@@ -88,8 +88,8 @@ export const METABOLIC_HEALTH_PRODUCTS: ProductDefinition[] = [
     usage: {
       timing: "Quotidien",
       duration: "Usage régulier",
-      seasonality: ["all_year"]
+      seasonality: ["toute_année"]
     },
-    timeFrame: "long_term"
+    timeFrame: "long_terme"
   }
 ];

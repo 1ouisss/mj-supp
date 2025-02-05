@@ -10,7 +10,7 @@ export const GENERAL_HEALTH_PRODUCTS: ProductDefinition[] = [
     recommendationReason: "Soutien complet pour la santé générale",
     dietaryInfo: "Vegan, Sans gluten",
     productUrl: "https://maisonjacynthe.ca/fr/soutien-sante",
-    categories: ["general_health", "immune", "essential"],
+    categories: ["santé_générale", "immunité", "essentiel"],
     scores: [
       { condition: "Renforcer l'immunité", score: 5 },
       { condition: "Améliorer l'énergie", score: 4 }
@@ -27,9 +27,9 @@ export const GENERAL_HEALTH_PRODUCTS: ProductDefinition[] = [
     usage: {
       timing: "Quotidien",
       duration: "Usage régulier",
-      seasonality: ["all_year"]
+      seasonality: ["toute_année"]
     },
-    timeFrame: "long_term"
+    timeFrame: "long_terme"
   },
   {
     id: "multivitamines-la-totale",
@@ -40,7 +40,7 @@ export const GENERAL_HEALTH_PRODUCTS: ProductDefinition[] = [
     recommendationReason: "Formule complète pour une santé optimale",
     dietaryInfo: "Vegan, Sans gluten",
     productUrl: "https://maisonjacynthe.ca/fr/multivitamines-la-totale",
-    categories: ["essential", "general_health"],
+    categories: ["essentiel", "santé_générale"],
     scores: [
       { condition: "Soutien nutritionnel", score: 5 },
       { condition: "Santé générale", score: 5 }
@@ -57,8 +57,8 @@ export const GENERAL_HEALTH_PRODUCTS: ProductDefinition[] = [
     usage: {
       timing: "Avec un repas",
       duration: "Usage quotidien",
-      seasonality: ["all_year"]
+      seasonality: ["toute_année"]
     },
-    timeFrame: "long_term"
+    timeFrame: "long_terme"
   }
 ];

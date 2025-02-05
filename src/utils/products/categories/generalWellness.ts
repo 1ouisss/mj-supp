@@ -10,7 +10,7 @@ export const GENERAL_WELLNESS_PRODUCTS: ProductDefinition[] = [
     recommendationReason: "Base nutritionnelle essentielle",
     dietaryInfo: "Vegan, Sans gluten",
     productUrl: "https://maisonjacynthe.ca/fr/multivitamines",
-    categories: ["general_health", "essential", "long_term"],
+    categories: ["santé_générale", "essentiel", "long_terme"],
     scores: [
       { condition: "Soutien nutritionnel", score: 5 },
       { condition: "Santé générale", score: 5 }
@@ -27,8 +27,8 @@ export const GENERAL_WELLNESS_PRODUCTS: ProductDefinition[] = [
     usage: {
       timing: "Prendre avec un repas",
       duration: "Utilisation quotidienne recommandée",
-      seasonality: ["all_year"]
+      seasonality: ["toute_année"]
     },
-    timeFrame: "long_term"
+    timeFrame: "long_terme"
   }
 ];
