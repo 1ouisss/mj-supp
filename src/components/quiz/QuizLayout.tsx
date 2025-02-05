@@ -37,13 +37,14 @@ export const QuizLayout = ({ children, currentQuestion }: QuizLayoutProps) => {
     <div 
       className="min-h-screen flex flex-col items-center justify-center p-4 sm:p-6 lg:p-8 transition-all duration-500 ease-in-out"
       style={{
-        backgroundImage: `url('${currentBackground}')`,
+        backgroundColor: '#E4D780',
+        backgroundImage: `linear-gradient(to bottom, rgba(228, 215, 128, 0.95), rgba(228, 215, 128, 0.95)), url('${currentBackground}')`,
         backgroundSize: 'cover',
         backgroundPosition: 'center',
         backgroundRepeat: 'no-repeat',
       }}
     >
-      <div className="absolute inset-0 bg-gradient-to-b from-yellow-400/30 to-yellow-500/30 transition-opacity duration-500" />
+      <div className="absolute inset-0 bg-gradient-to-b from-[#E4D780]/30 to-[#E4D780]/30 transition-opacity duration-500" />
       <Card className="max-w-2xl w-full bg-white/90 backdrop-blur-sm p-4 sm:p-6 lg:p-8 space-y-6 sm:space-y-8 relative z-10 animate-fade-in">
         {children}
       </Card>
