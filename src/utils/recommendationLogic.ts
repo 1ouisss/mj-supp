@@ -18,7 +18,7 @@ function calculateSeverityMultiplier(answers: Answer[]): { [key: string]: number
       answer.followUpAnswers.forEach(followUp => {
         if (followUp.questionId === 402) {
           const severity = Number(followUp.answers[0]);
-          severityMultipliers["Stress"] = severity / 5;
+          severityMultipliers["Stress"] = Math.max(1, severity / 3);
         }
       });
     }
@@ -33,7 +33,7 @@ export function getRecommendations(answers: Answer[]): Product[] {
   try {
     if (!Array.isArray(answers) || answers.length === 0) {
       console.warn("No answers provided");
-      toast.error("Please complete the questionnaire first");
+      toast.error("Veuillez compléter le questionnaire");
       return [];
     }
 
@@ -42,7 +42,7 @@ export function getRecommendations(answers: Answer[]): Product[] {
     
     if (!genderAnswer?.answers[0] || !ageAnswer?.answers[0]) {
       console.warn("Missing required answers for gender or age");
-      toast.error("Please provide your gender and age");
+      toast.error("Veuillez indiquer votre genre et votre âge");
       return [];
     }
 
@@ -62,6 +62,7 @@ export function getRecommendations(answers: Answer[]): Product[] {
       let totalScore = 0;
       let matchCount = 0;
       
+      // Score pour l'objectif principal
       if (primaryGoal) {
         const goalScore = productDef.scores.find(s => 
           s.condition === normalizeAnswer(primaryGoal))?.score || 0;
@@ -69,6 +70,7 @@ export function getRecommendations(answers: Answer[]): Product[] {
         if (goalScore > 0) matchCount++;
       }
       
+      // Score pour les préoccupations de santé
       const normalizedHealthConcerns = healthConcerns.map(normalizeAnswer);
       normalizedHealthConcerns.forEach(concern => {
         const concernScore = productDef.scores.find(s => s.condition === concern)?.score || 0;
@@ -77,14 +79,22 @@ export function getRecommendations(answers: Answer[]): Product[] {
         if (concernScore > 0) matchCount++;
       });
       
-      const relevantCategories = [
+      // Score pour les catégories
+      totalScore += calculateCategoryScore(productDef.categories, [
         ...(primaryGoal ? [normalizeAnswer(primaryGoal)] : []), 
         ...normalizedHealthConcerns
-      ];
-      totalScore += calculateCategoryScore(productDef.categories, relevantCategories);
+      ]);
+
+      // Score pour les allégations thérapeutiques
       totalScore += calculateTherapeuticScore(productDef.therapeuticClaims, normalizedHealthConcerns);
       
+      // Boost de synergie
       totalScore = applySynergyBoosts(productDef.id, normalizedHealthConcerns, totalScore);
+
+      // Assurer un score minimum positif pour les produits pertinents
+      if (matchCount > 0) {
+        totalScore = Math.max(1, totalScore);
+      }
 
       const confidenceLevel = Math.min(
         WEIGHTS.MAX_CONFIDENCE,
@@ -111,7 +121,7 @@ export function getRecommendations(answers: Answer[]): Product[] {
 
       return product;
     }).filter((product): product is Product => 
-      product !== null && product.confidenceLevel >= WEIGHTS.MIN_CONFIDENCE
+      product !== null && product.score > 0
     );
 
     let recommendations = ensureCategoryDiversity(
@@ -132,11 +142,15 @@ export function getRecommendations(answers: Answer[]): Product[] {
     console.log("Final recommendations:", recommendations);
     console.groupEnd();
 
+    if (recommendations.length === 0) {
+      toast.error("Aucune recommandation trouvée pour vos critères");
+    }
+
     return recommendations;
   } catch (error) {
     console.error("Error generating recommendations:", error);
     console.groupEnd();
-    toast.error("An error occurred while generating recommendations");
+    toast.error("Une erreur est survenue lors de la génération des recommandations");
     throw error;
   }
 }
