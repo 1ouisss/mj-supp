@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 interface SliderQuestionProps {
   question: string;
@@ -25,20 +25,18 @@ export const SliderQuestion = ({
 }: SliderQuestionProps) => {
   const [localValue, setLocalValue] = useState(value);
 
+  useEffect(() => {
+    onChange(localValue);
+  }, [localValue, onChange]);
+
   const handleDecrease = () => {
-    if (localValue > min) {
-      const newValue = Math.max(min, localValue - step);
-      setLocalValue(newValue);
-      onChange(newValue);
-    }
+    const newValue = Math.max(min, localValue - step);
+    setLocalValue(newValue);
   };
 
   const handleIncrease = () => {
-    if (localValue < max) {
-      const newValue = Math.min(max, localValue + step);
-      setLocalValue(newValue);
-      onChange(newValue);
-    }
+    const newValue = Math.min(max, localValue + step);
+    setLocalValue(newValue);
   };
 
   return (
@@ -55,33 +53,35 @@ export const SliderQuestion = ({
             </>
           )}
         </div>
-        <div className="flex flex-col items-center justify-center space-y-4">
-          <div className="flex items-center justify-center space-x-6">
+        <div className="flex flex-col items-center justify-center space-y-6">
+          <div className="flex items-center justify-center space-x-8">
             <Button
+              type="button"
               variant="outline"
               size="lg"
               onClick={handleDecrease}
               disabled={localValue <= min}
-              className="h-14 w-14 rounded-full text-2xl font-semibold hover:scale-105 transition-transform"
+              className="h-16 w-16 rounded-full text-3xl font-bold hover:bg-primary hover:text-white transition-all"
             >
               -
             </Button>
-            <div className="text-center min-w-[100px]">
-              <span className="text-4xl font-semibold">{localValue}</span>
-              <span className="text-lg ml-2">heures</span>
+            <div className="text-center bg-gray-50 px-8 py-4 rounded-lg min-w-[160px]">
+              <span className="text-5xl font-bold text-primary">{localValue}</span>
+              <span className="text-xl ml-3 text-gray-600">heures</span>
             </div>
             <Button
+              type="button"
               variant="outline"
               size="lg"
               onClick={handleIncrease}
               disabled={localValue >= max}
-              className="h-14 w-14 rounded-full text-2xl font-semibold hover:scale-105 transition-transform"
+              className="h-16 w-16 rounded-full text-3xl font-bold hover:bg-primary hover:text-white transition-all"
             >
               +
             </Button>
           </div>
-          <div className="text-sm text-gray-500">
-            Cliquez sur + ou - pour ajuster
+          <div className="text-sm text-gray-500 text-center">
+            Cliquez sur les boutons + ou - pour ajuster le nombre d'heures
           </div>
         </div>
       </div>
