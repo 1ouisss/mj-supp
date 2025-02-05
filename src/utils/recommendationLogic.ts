@@ -7,6 +7,7 @@ import { isAgeAppropriate, isProductGenderAppropriate } from "./recommendation/f
 import { getFallbackProducts } from "./recommendation/fallback";
 import { ensureCategoryDiversity } from "./recommendation/diversity";
 import { applySynergyBoosts } from "./recommendation/synergy";
+import { ProductDefinition } from "./products/productTypes";
 
 function calculateSeverityMultiplier(answers: Answer[]): { [key: string]: number } {
   const severityMultipliers: { [key: string]: number } = {};
@@ -77,11 +78,22 @@ export function getRecommendations(answers: Answer[]): Product[] {
         )
       );
 
-      return {
-        ...productDef,
+      const product: Product = {
+        id: productDef.id,
+        name: productDef.name,
+        description: productDef.description,
+        imageUrl: productDef.imageUrl,
+        expectedResults: productDef.expectedResults,
+        recommendationReason: productDef.recommendationReason,
+        dietaryInfo: productDef.dietaryInfo,
+        productUrl: productDef.productUrl,
+        categories: productDef.categories,
+        therapeuticClaims: productDef.therapeuticClaims,
         confidenceLevel,
         score: totalScore
       };
+
+      return product;
     }).filter((product): product is Product => 
       product !== null && product.confidenceLevel >= WEIGHTS.MIN_CONFIDENCE
     );
