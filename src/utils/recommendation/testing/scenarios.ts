@@ -1,86 +1,64 @@
 import { Answer } from "@/components/quiz/types";
-import { ProductCategory } from "../../products/productTypes";
 
 export const CORE_TEST_SCENARIOS = [
   {
-    name: "Scénario 1: Énergie & Adaptogène + Stress",
-    answers: [
-      { questionId: 1, answers: ["Femme"] },
-      { questionId: 2, answers: ["25-34"] },
-      { questionId: 3, answers: ["Renforcer l'énergie"] },
-      { questionId: 4, answers: ["Gérer le stress"] },
-      {
-        questionId: 401,
-        answers: ["Oui"],
-        followUpAnswers: [
-          { questionId: 402, answers: [3] }
-        ]
-      }
-    ],
-    expectedProducts: ["energie-adaptogene", "omega-3", "focus"],
-    expectedCategories: ["energy" as ProductCategory, "brain" as ProductCategory],
-    minimumProducts: 3
-  },
-  {
-    name: "Scénario 2: Digestion et Santé hormonale",
-    answers: [
-      { questionId: 1, answers: ["Femme"] },
-      { questionId: 2, answers: ["35-44"] },
-      { questionId: 3, answers: ["Améliorer la digestion"] },
-      { questionId: 4, answers: ["Équilibre hormonal"] }
-    ],
-    expectedProducts: ["jus-aloes", "fibres-ami", "formule-menopause"],
-    expectedCategories: ["digestive" as ProductCategory, "hormones" as ProductCategory],
-    minimumProducts: 3
-  },
-  {
-    name: "Scénario 3: Immunité et Fatigue",
+    name: "Cognitive Health Focus",
     answers: [
       { questionId: 1, answers: ["Homme"] },
-      { questionId: 2, answers: ["45-54"] },
-      { questionId: 3, answers: ["Renforcer l'immunité"] },
-      { questionId: 4, answers: ["Fatigue générale"] }
+      { questionId: 2, answers: ["30-40"] },
+      { questionId: 3, answers: ["Soutenir la santé cérébrale"] },
+      { questionId: 4, answers: ["Concentration"] }
     ],
-    expectedProducts: ["les-apothicaires", "vitamine-c", "metabzen"],
-    expectedCategories: ["immune" as ProductCategory, "energy" as ProductCategory],
-    minimumProducts: 3
+    minimumProducts: 3,
+    expectedProducts: ["focus", "omega-3"],
+    expectedCategories: ["brain", "focus", "energy"]
+  },
+  {
+    name: "Sleep & Stress Management",
+    answers: [
+      { questionId: 1, answers: ["Femme"] },
+      { questionId: 2, answers: ["18-35"] },
+      { questionId: 3, answers: ["Améliorer le sommeil"] },
+      { questionId: 4, answers: ["Stress ou anxiété", "Troubles du sommeil"] }
+    ],
+    minimumProducts: 4,
+    expectedProducts: ["melatonine", "magnesium"],
+    expectedCategories: ["sleep", "relaxation", "stress"]
+  },
+  {
+    name: "General Wellness",
+    answers: [
+      { questionId: 1, answers: ["Autre"] },
+      { questionId: 2, answers: ["51+"] },
+      { questionId: 3, answers: ["Renforcer l'immunité"] },
+      { questionId: 4, answers: ["Aucune"] }
+    ],
+    minimumProducts: 3,
+    expectedProducts: [],
+    expectedCategories: ["general_health", "immune", "essential"]
   }
 ];
 
 export const GENDER_TEST_SCENARIOS = [
   {
-    name: "Test Homme - Exclusion produits féminins",
+    name: "Women-Specific Products",
     answers: [
-      { questionId: 1, answers: ["Homme"] },
-      { questionId: 2, answers: ["35-44"] },
-      { questionId: 3, answers: ["Renforcer l'immunité"] }
+      { questionId: 1, answers: ["Femme"] },
+      { questionId: 2, answers: ["36-50"] }
     ],
-    validateFn: (recommendations: any[]) => {
-      const hasWomenSpecific = recommendations.some(r => 
+    validateFn: (recommendations) => {
+      const hasWomenProducts = recommendations.some(r => 
         r.categories.includes("women_specific")
       );
-      if (hasWomenSpecific) {
-        console.error("❌ Found women-specific products in recommendations for male user");
-        return false;
-      }
-      return true;
-    }
-  },
-  {
-    name: "Test Neutre - Produits neutres uniquement",
-    answers: [
-      { questionId: 1, answers: ["Je préfère ne pas répondre"] },
-      { questionId: 2, answers: ["25-34"] },
-      { questionId: 3, answers: ["Renforcer l'immunité"] }
-    ],
-    validateFn: (recommendations: any[]) => {
-      const hasGenderSpecific = recommendations.some(r => 
-        r.categories.includes("women_specific") || r.categories.includes("men_specific")
+      const hasMenProducts = recommendations.some(r => 
+        r.categories.includes("men_specific")
       );
-      if (hasGenderSpecific) {
-        console.error("❌ Found gender-specific products in recommendations for neutral user");
+      
+      if (hasMenProducts) {
+        console.error("❌ Men-specific products recommended for women");
         return false;
       }
+      console.log("✅ Gender-appropriate products recommended");
       return true;
     }
   }

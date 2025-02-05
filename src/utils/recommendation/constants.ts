@@ -21,3 +21,16 @@ export const PRODUCT_SYNERGIES = {
   DIGESTIVE_HEALTH: ['probiotics', 'fiber'],
   HORMONAL_HEALTH: ['menopause', 'thyroid']
 };
+
+export const CATEGORY_RELATIONSHIPS = {
+  sleep: ['stress', 'relaxation'],
+  stress: ['sleep', 'relaxation', 'brain'],
+  digestive: ['immune', 'general_health'],
+  immune: ['digestive', 'general_health', 'skin'],
+  relaxation: ['sleep', 'stress'],
+  energy: ['immune', 'general_health', 'brain'],
+  brain: ['stress', 'energy', 'focus'],
+  general_health: ['immune', 'digestive', 'energy'],
+  skin: ['immune', 'essential'],
+  essential: ['skin', 'immune']
+};

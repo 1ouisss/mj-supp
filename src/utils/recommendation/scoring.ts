@@ -1,5 +1,5 @@
 import { ProductCategory } from "../products/productTypes";
-import { WEIGHTS } from "./constants";
+import { WEIGHTS, CATEGORY_RELATIONSHIPS } from "./constants";
 
 export function normalizeAnswer(answer: string | number): string {
   return String(answer).toLowerCase().trim();
@@ -50,21 +50,8 @@ export function calculateTherapeuticScore(claims: string[] | undefined, concerns
 }
 
 function isRelatedCategory(category: string, targetCategories: string[]): boolean {
-  const relationMap: { [key: string]: string[] } = {
-    'sleep': ['stress', 'relaxation'],
-    'stress': ['sleep', 'relaxation'],
-    'digestive': ['immune', 'general_health'],
-    'immune': ['digestive', 'general_health', 'skin'],  // Added skin as related to immune
-    'relaxation': ['sleep', 'stress'],
-    'energy': ['immune', 'general_health'],
-    'brain': ['stress', 'energy'],
-    'general_health': ['immune', 'digestive', 'energy'],
-    'skin': ['immune', 'essential'],  // Added new relationships for skin
-    'essential': ['skin', 'immune']   // Added essential minerals category relationships
-  };
-  
   return targetCategories.some(target => 
-    relationMap[category]?.includes(target) || 
-    relationMap[target]?.includes(category)
+    CATEGORY_RELATIONSHIPS[category]?.includes(target) || 
+    CATEGORY_RELATIONSHIPS[target]?.includes(category)
   );
 }

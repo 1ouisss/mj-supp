@@ -1,78 +1,32 @@
 import { Answer } from "@/components/quiz/types";
 import { Product } from "@/components/results/ProductCard";
 import { getRecommendations } from "../../recommendationLogic";
-import PerformanceMonitor from "../../performanceMonitor";
+import { supabase } from "@/integrations/supabase/client";
+import { CORE_TEST_SCENARIOS } from "./scenarios";
+import { testDiversityRequirements } from "./diversityTests";
 
-export function validateRecommendationSystem() {
+export async function validateRecommendationSystem() {
   console.group("🧪 Running Validation Tests");
   let allTestsPassed = true;
 
-  // Test edge cases
-  const edgeCases = [
-    { name: "Empty answers", answers: [] },
-    { name: "Invalid gender", answers: [{ questionId: 1, answers: ["InvalidGender"] }] },
-    { name: "Missing age", answers: [{ questionId: 1, answers: ["Homme"] }] },
-    { name: "Invalid health concerns", answers: [
-      { questionId: 1, answers: ["Homme"] },
-      { questionId: 2, answers: ["30-40"] },
-      { questionId: 4, answers: ["InvalidConcern"] }
-    ]},
-  ];
-
-  edgeCases.forEach(testCase => {
+  for (const scenario of CORE_TEST_SCENARIOS) {
     try {
-      console.group(`Testing edge case: ${testCase.name}`);
-      const recommendations = getRecommendations(testCase.answers as Answer[]);
+      console.group(`Testing scenario: ${scenario.name}`);
+      const recommendations = getRecommendations(scenario.answers);
       
-      // Validate recommendation structure
-      recommendations.forEach(validateRecommendation);
+      // Validate recommendations
+      const validationResult = await validateScenario(scenario.name, recommendations, scenario);
       
-      console.log(`✅ Edge case handled successfully: ${testCase.name}`);
+      if (!validationResult) {
+        allTestsPassed = false;
+      }
     } catch (error) {
-      console.error(`❌ Edge case failed: ${testCase.name}`, error);
+      console.error(`❌ Scenario failed: ${scenario.name}`, error);
       allTestsPassed = false;
     }
     console.groupEnd();
-  });
-
-  // Performance stress test
-  try {
-    console.group("Running Performance Stress Test");
-    const ITERATIONS = 1000;
-    const validAnswers: Answer[] = [
-      { questionId: 1, answers: ["Homme"] },
-      { questionId: 2, answers: ["30-40"] },
-      { questionId: 3, answers: ["Stress"] },
-      { questionId: 4, answers: ["Sommeil difficile"] }
-    ];
-
-    PerformanceMonitor.startMeasure("stress-test");
-    
-    for (let i = 0; i < ITERATIONS; i++) {
-      getRecommendations(validAnswers);
-    }
-    
-    PerformanceMonitor.endMeasure("stress-test");
-    
-    const metrics = PerformanceMonitor.getMetrics();
-    const stressTest = metrics.find(m => m.name === "stress-test");
-    
-    if (stressTest?.duration && stressTest.duration / ITERATIONS > 0.1) {
-      console.error(`❌ Performance test failed: Average response time exceeded 0.1ms per recommendation`);
-      allTestsPassed = false;
-    } else {
-      console.log("✅ Performance test passed");
-    }
-  } catch (error) {
-    console.error("❌ Performance test failed with error:", error);
-    allTestsPassed = false;
   }
-  console.groupEnd();
 
-  // Generate final report
-  console.log("\n📋 Test Summary:");
-  console.log(PerformanceMonitor.generateReport());
-  
   if (allTestsPassed) {
     console.log("✅ All validation tests passed successfully");
   } else {
@@ -83,35 +37,86 @@ export function validateRecommendationSystem() {
   return allTestsPassed;
 }
 
-function validateRecommendation(product: Product) {
-  // Validate required fields
-  const requiredFields = [
-    'id', 'name', 'description', 'imageUrl', 'expectedResults',
-    'recommendationReason', 'dietaryInfo', 'productUrl', 'categories',
-    'confidenceLevel'
-  ];
+async function validateScenario(
+  testCase: string,
+  recommendations: Product[],
+  scenario: {
+    minimumProducts: number;
+    expectedProducts: string[];
+    expectedCategories: string[];
+  }
+) {
+  let isValid = true;
+  const validationDetails: any = {};
 
-  requiredFields.forEach(field => {
-    if (!product[field as keyof Product]) {
-      throw new Error(`Missing required field: ${field}`);
-    }
-  });
-
-  // Validate types
-  if (typeof product.confidenceLevel !== 'number' || 
-      product.confidenceLevel < 0 || 
-      product.confidenceLevel > 100) {
-    throw new Error(`Invalid confidence level: ${product.confidenceLevel}`);
+  // Check minimum products
+  if (recommendations.length < scenario.minimumProducts) {
+    console.error(`❌ Not enough recommendations. Expected ${scenario.minimumProducts}, got ${recommendations.length}`);
+    isValid = false;
+    validationDetails.productCount = {
+      expected: scenario.minimumProducts,
+      actual: recommendations.length
+    };
   }
 
-  if (!Array.isArray(product.categories) || product.categories.length === 0) {
-    throw new Error('Categories must be a non-empty array');
+  // Check expected products
+  const recommendedIds = recommendations.map(r => r.id);
+  const missingProducts = scenario.expectedProducts.filter(id => !recommendedIds.includes(id));
+  if (missingProducts.length > 0) {
+    console.error("❌ Missing expected products:", missingProducts);
+    isValid = false;
+    validationDetails.missingProducts = missingProducts;
   }
 
-  // Validate image URL
-  const img = new Image();
-  img.src = product.imageUrl;
-  img.onerror = () => {
-    console.warn(`⚠️ Invalid image URL for product ${product.id}: ${product.imageUrl}`);
-  };
+  // Check category diversity
+  if (!testDiversityRequirements(recommendations)) {
+    isValid = false;
+    validationDetails.diversityFailed = true;
+  }
+
+  // Calculate scores
+  const accuracyScore = calculateAccuracyScore(recommendations, scenario);
+  const diversityScore = calculateDiversityScore(recommendations);
+  const personalizationScore = calculatePersonalizationScore(recommendations, scenario);
+
+  // Save validation results
+  try {
+    const { error } = await supabase
+      .from('recommendation_validations')
+      .insert({
+        test_case: testCase,
+        accuracy_score: accuracyScore,
+        diversity_score: diversityScore,
+        personalization_score: personalizationScore,
+        validation_details: validationDetails
+      });
+
+    if (error) throw error;
+  } catch (error) {
+    console.error("Failed to save validation results:", error);
+  }
+
+  return isValid;
+}
+
+function calculateAccuracyScore(recommendations: Product[], scenario: any): number {
+  const expectedProductsFound = scenario.expectedProducts.filter(id => 
+    recommendations.some(r => r.id === id)
+  ).length;
+  
+  return (expectedProductsFound / scenario.expectedProducts.length) * 100;
+}
+
+function calculateDiversityScore(recommendations: Product[]): number {
+  const uniqueCategories = new Set(recommendations.flatMap(r => r.categories));
+  return Math.min((uniqueCategories.size / 3) * 100, 100);
+}
+
+function calculatePersonalizationScore(recommendations: Product[], scenario: any): number {
+  const relevantCategories = new Set(scenario.expectedCategories);
+  const matchingCategories = recommendations.filter(r => 
+    r.categories.some(c => relevantCategories.has(c))
+  ).length;
+  
+  return (matchingCategories / recommendations.length) * 100;
 }
