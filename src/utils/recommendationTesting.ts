@@ -11,49 +11,47 @@ const CORE_TEST_SCENARIOS = [
     name: "Scénario 1: Santé cérébrale et problèmes digestifs",
     answers: [
       { questionId: 1, answers: ["Femme"] },
-      { questionId: 2, answers: ["Soutenir la santé cérébrale"] },
-      { questionId: 3, answers: ["Problèmes digestifs"] }
+      { questionId: 2, answers: ["25-34"] },
+      { questionId: 3, answers: ["Soutenir la santé cérébrale"] },
+      { questionId: 4, answers: ["Problèmes digestifs"] }
     ],
     expectedProducts: ["focus", "omega-3", "jus-aloes"],
     expectedCategories: ["brain" as ProductCategory, "digestive" as ProductCategory],
     minimumProducts: 3
   },
   {
-    name: "Scénario 2: Énergie",
-    answers: [
-      { questionId: 1, answers: ["Homme"] },
-      { questionId: 2, answers: ["Améliorer l'énergie"] },
-      { questionId: 3, answers: ["Aucune"] }
-    ],
-    expectedProducts: ["energie-adaptogene"],
-    expectedCategories: ["energy" as ProductCategory],
-    minimumProducts: 1
-  },
-  {
-    name: "Scénario 3: Sommeil",
+    name: "Scénario 2: Sommeil et stress",
     answers: [
       { questionId: 1, answers: ["Femme"] },
-      { questionId: 2, answers: ["Améliorer le sommeil"] },
-      { questionId: 3, answers: ["Difficulté à se détendre ou à dormir"] }
+      { questionId: 2, answers: ["35-44"] },
+      { questionId: 3, answers: ["Améliorer le sommeil"] },
+      { questionId: 4, answers: ["Gérer le stress"] },
+      {
+        questionId: 401,
+        answers: ["Oui"],
+        followUpAnswers: [
+          { questionId: 402, answers: [4] } // Stress severity
+        ]
+      }
     ],
     expectedProducts: ["melatonine", "magnesium", "poudre-dodo"],
     expectedCategories: ["sleep" as ProductCategory, "relaxation" as ProductCategory],
-    minimumProducts: 2
+    minimumProducts: 3
   },
   {
-    name: "Scénario 4: Migraine",
+    name: "Scénario 3: Équilibre hormonal féminin",
     answers: [
       { questionId: 1, answers: ["Femme"] },
-      { questionId: 2, answers: ["Soutenir la santé cérébrale"] },
-      { questionId: 3, answers: ["Migraines"] }
+      { questionId: 2, answers: ["45-54"] },
+      { questionId: 3, answers: ["Équilibre hormonal"] },
+      { questionId: 4, answers: ["Symptômes de la ménopause"] }
     ],
-    expectedProducts: ["coenzyme-q10"],
-    expectedCategories: ["migraine" as ProductCategory, "brain" as ProductCategory],
-    minimumProducts: 1
+    expectedProducts: ["formule-menopause", "selenium"],
+    expectedCategories: ["hormones" as ProductCategory, "women_specific" as ProductCategory],
+    minimumProducts: 2
   }
 ];
 
-// Test for gender-specific recommendations
 const GENDER_TEST_SCENARIOS = [
   {
     name: "Test Homme - Exclusion produits féminins",
@@ -91,7 +89,53 @@ const GENDER_TEST_SCENARIOS = [
   }
 ];
 
-// Performance testing
+function testDiversityRequirements(recommendations: Product[]): boolean {
+  console.group("Testing Diversity Requirements");
+  
+  // Check minimum number of categories
+  const uniqueCategories = new Set<ProductCategory>();
+  recommendations.forEach(product => {
+    product.categories.forEach(category => uniqueCategories.add(category));
+  });
+  
+  if (uniqueCategories.size < 2) {
+    console.error("❌ Not enough category diversity. Found:", Array.from(uniqueCategories));
+    console.groupEnd();
+    return false;
+  }
+  
+  // Check for duplicates
+  const productIds = recommendations.map(p => p.id);
+  const uniqueProductIds = new Set(productIds);
+  if (uniqueProductIds.size !== productIds.length) {
+    console.error("❌ Duplicate products found in recommendations");
+    console.groupEnd();
+    return false;
+  }
+  
+  // Check category distribution
+  const categoryCount: { [key: string]: number } = {};
+  recommendations.forEach(product => {
+    product.categories.forEach(category => {
+      categoryCount[category] = (categoryCount[category] || 0) + 1;
+    });
+  });
+  
+  const maxProductsPerCategory = Math.ceil(recommendations.length / 2);
+  const overrepresentedCategories = Object.entries(categoryCount)
+    .filter(([_, count]) => count > maxProductsPerCategory);
+  
+  if (overrepresentedCategories.length > 0) {
+    console.error("❌ Some categories are overrepresented:", overrepresentedCategories);
+    console.groupEnd();
+    return false;
+  }
+
+  console.log("✅ Diversity requirements met");
+  console.groupEnd();
+  return true;
+}
+
 function testPerformance(): boolean {
   console.group("Testing Performance");
   
@@ -129,37 +173,6 @@ function testPerformance(): boolean {
   return true;
 }
 
-// Test product diversity
-function testDiversityRequirements(recommendations: Product[]): boolean {
-  const uniqueCategories = new Set<ProductCategory>(recommendations.flatMap(r => r.categories));
-  if (uniqueCategories.size < 2) {
-    console.error("❌ Not enough diversity in recommendations");
-    console.log("Found categories:", Array.from(uniqueCategories));
-    return false;
-  }
-
-  const categoryCount: { [key in ProductCategory]?: number } = {};
-  recommendations.forEach(product => {
-    product.categories.forEach(category => {
-      categoryCount[category] = (categoryCount[category] || 0) + 1;
-    });
-  });
-
-  const maxProductsPerCategory = Math.ceil(recommendations.length / 2);
-  const overrepresentedCategories = Object.entries(categoryCount)
-    .filter(([_, count]) => count > maxProductsPerCategory);
-
-  if (overrepresentedCategories.length > 0) {
-    console.error("❌ Some categories are overrepresented in recommendations");
-    console.log("Category distribution:", categoryCount);
-    return false;
-  }
-
-  console.log("✅ Recommendations meet diversity requirements");
-  return true;
-}
-
-// Main test runner
 export function runRecommendationTests() {
   console.group("Running Recommendation System Tests");
   let allTestsPassed = true;
