@@ -5,11 +5,11 @@ import { QuizProgress } from "@/components/quiz/QuizProgress";
 import { SingleChoiceQuestion } from "@/components/quiz/questions/SingleChoiceQuestion";
 import { MultipleChoiceQuestion } from "@/components/quiz/questions/MultipleChoiceQuestion";
 import { SliderQuestion } from "@/components/quiz/questions/SliderQuestion";
-import { runRecommendationTests } from "@/utils/recommendationTesting";
 import { useToast } from "@/components/ui/use-toast";
-import PerformanceMonitor from "@/utils/performanceMonitor";
 import { QUESTIONS } from "@/data/quizQuestions";
 import type { Question, Answer } from "@/components/quiz/types";
+import { supabase } from "@/integrations/supabase/client";
+import { testSupabaseIntegration } from "@/utils/tests/supabaseIntegrationTests";
 
 const Quiz = () => {
   const navigate = useNavigate();
@@ -21,31 +21,55 @@ const Quiz = () => {
   useEffect(() => {
     const initQuiz = async () => {
       try {
-        PerformanceMonitor.startMeasure('quizInit');
         setIsLoading(true);
 
         if (process.env.NODE_ENV === 'development') {
-          await runRecommendationTests();
+          const testResults = await testSupabaseIntegration();
+          const allPassed = testResults.every(r => r.success);
+          
+          if (!allPassed) {
+            toast({
+              variant: "destructive",
+              title: "Supabase Integration Test Failed",
+              description: "Check the console for details.",
+            });
+          } else {
+            toast({
+              title: "Supabase Integration Test Passed",
+              description: "All connections verified successfully.",
+            });
+          }
         }
 
         setIsLoading(false);
-        PerformanceMonitor.endMeasure('quizInit');
       } catch (error) {
         console.error('Quiz initialization error:', error);
         toast({
           variant: "destructive",
-          title: "Erreur",
+          title: "Error",
           description: "Une erreur est survenue lors du chargement du quiz. Veuillez réessayer.",
         });
       }
     };
 
     initQuiz();
-
-    return () => {
-      PerformanceMonitor.clearMetrics();
-    };
   }, [toast]);
+
+  const saveUserResponses = async (answers: Answer[]) => {
+    try {
+      const { data: userResponse, error } = await supabase
+        .from('user_responses')
+        .insert([{ responses: answers }])
+        .select()
+        .single();
+
+      if (error) throw error;
+      return userResponse;
+    } catch (error) {
+      console.error('Error saving user responses:', error);
+      throw error;
+    }
+  };
 
   const handleSingleAnswer = (answer: string | number) => {
     try {

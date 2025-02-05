@@ -9,7 +9,181 @@ export type Json =
 export type Database = {
   public: {
     Tables: {
-      [_ in never]: never
+      analytics: {
+        Row: {
+          average_rating: number | null
+          helpful_count: number | null
+          last_updated: string | null
+          product_id: string
+          recommendation_count: number | null
+        }
+        Insert: {
+          average_rating?: number | null
+          helpful_count?: number | null
+          last_updated?: string | null
+          product_id: string
+          recommendation_count?: number | null
+        }
+        Update: {
+          average_rating?: number | null
+          helpful_count?: number | null
+          last_updated?: string | null
+          product_id?: string
+          recommendation_count?: number | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "analytics_product_id_fkey"
+            columns: ["product_id"]
+            isOneToOne: true
+            referencedRelation: "products"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      feedback: {
+        Row: {
+          created_at: string | null
+          id: string
+          is_helpful: boolean | null
+          product_id: string | null
+          rating: number | null
+          recommendation_id: string | null
+          suggestion: string | null
+        }
+        Insert: {
+          created_at?: string | null
+          id?: string
+          is_helpful?: boolean | null
+          product_id?: string | null
+          rating?: number | null
+          recommendation_id?: string | null
+          suggestion?: string | null
+        }
+        Update: {
+          created_at?: string | null
+          id?: string
+          is_helpful?: boolean | null
+          product_id?: string | null
+          rating?: number | null
+          recommendation_id?: string | null
+          suggestion?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "feedback_product_id_fkey"
+            columns: ["product_id"]
+            isOneToOne: false
+            referencedRelation: "products"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "feedback_recommendation_id_fkey"
+            columns: ["recommendation_id"]
+            isOneToOne: false
+            referencedRelation: "recommendations"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      products: {
+        Row: {
+          categories: string[]
+          confidence_level: number | null
+          created_at: string | null
+          description: string | null
+          dietary_info: string | null
+          expected_results: string | null
+          id: string
+          image_url: string | null
+          name: string
+          product_url: string
+          recommendation_reason: string | null
+          therapeutic_claims: string[] | null
+          updated_at: string | null
+        }
+        Insert: {
+          categories?: string[]
+          confidence_level?: number | null
+          created_at?: string | null
+          description?: string | null
+          dietary_info?: string | null
+          expected_results?: string | null
+          id?: string
+          image_url?: string | null
+          name: string
+          product_url: string
+          recommendation_reason?: string | null
+          therapeutic_claims?: string[] | null
+          updated_at?: string | null
+        }
+        Update: {
+          categories?: string[]
+          confidence_level?: number | null
+          created_at?: string | null
+          description?: string | null
+          dietary_info?: string | null
+          expected_results?: string | null
+          id?: string
+          image_url?: string | null
+          name?: string
+          product_url?: string
+          recommendation_reason?: string | null
+          therapeutic_claims?: string[] | null
+          updated_at?: string | null
+        }
+        Relationships: []
+      }
+      recommendations: {
+        Row: {
+          confidence_scores: number[]
+          created_at: string | null
+          id: string
+          product_ids: string[]
+          user_response_id: string | null
+        }
+        Insert: {
+          confidence_scores: number[]
+          created_at?: string | null
+          id?: string
+          product_ids: string[]
+          user_response_id?: string | null
+        }
+        Update: {
+          confidence_scores?: number[]
+          created_at?: string | null
+          id?: string
+          product_ids?: string[]
+          user_response_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "recommendations_user_response_id_fkey"
+            columns: ["user_response_id"]
+            isOneToOne: false
+            referencedRelation: "user_responses"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      user_responses: {
+        Row: {
+          created_at: string | null
+          id: string
+          responses: Json
+        }
+        Insert: {
+          created_at?: string | null
+          id?: string
+          responses: Json
+        }
+        Update: {
+          created_at?: string | null
+          id?: string
+          responses?: Json
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
