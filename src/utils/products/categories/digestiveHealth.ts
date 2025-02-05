@@ -91,6 +91,35 @@ export const DIGESTIVE_HEALTH_PRODUCTS: ProductDefinition[] = [
     timeFrame: "long_term"
   },
   {
+    id: "fontaine-de-jouvence",
+    name: "Fontaine de Jouvence Complet",
+    description: "Complexe complet pour la santé digestive et le bien-être",
+    imageUrl: "/lovable-uploads/2acb2995-f372-4919-aa20-6b2c88e080ae.png",
+    expectedResults: "Santé digestive optimale et bien-être général 🌟",
+    recommendationReason: "Solution complète pour la digestion",
+    dietaryInfo: "Vegan, Sans gluten",
+    productUrl: "https://maisonjacynthe.ca/fr/fontaine-de-jouvence-complet",
+    categories: ["digestive", "general_health"],
+    scores: [
+      { condition: "Santé digestive", score: 5 },
+      { condition: "Bien-être général", score: 4 }
+    ],
+    therapeuticClaims: [
+      "Soutient la santé digestive",
+      "Favorise le bien-être général"
+    ],
+    relationships: {
+      complementaryProducts: ["probiotiques", "fibres-et-ami"],
+      contraindications: []
+    },
+    usage: {
+      timing: "Quotidien",
+      duration: "Usage régulier",
+      seasonality: ["all_year"]
+    },
+    timeFrame: "long_term"
+  },
+  {
     id: "detox-foie",
     name: "Détox Foie",
     description: "Soutien pour la détoxification hépatique",

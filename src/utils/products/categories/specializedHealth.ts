@@ -2,7 +2,7 @@ import { ProductDefinition } from '../productTypes';
 
 export const SPECIALIZED_HEALTH_PRODUCTS: ProductDefinition[] = [
   {
-    id: "coenzyme-q10",
+    id: "omega-3",
     name: "Oméga-3 & Astaxanthine",
     description: "Supplément pour la santé cérébrale et cardiovasculaire.",
     imageUrl: "/lovable-uploads/920207d8-51b1-428d-9a7f-8ccb55c5becf.png",
@@ -33,7 +33,7 @@ export const SPECIALIZED_HEALTH_PRODUCTS: ProductDefinition[] = [
     timeFrame: "long_term"
   },
   {
-    id: "selenium",
+    id: "zinc-cuivre",
     name: "Zinc & Cuivre",
     description: "Minéraux essentiels pour le système immunitaire.",
     imageUrl: "/lovable-uploads/d4d5dd78-75fc-4f0d-bc94-18072b2a4115.png",
@@ -62,7 +62,7 @@ export const SPECIALIZED_HEALTH_PRODUCTS: ProductDefinition[] = [
     timeFrame: "long_term"
   },
   {
-    id: "vitamine-d",
+    id: "silice",
     name: "Silice",
     description: "Essentielle pour la santé des cheveux, de la peau et des ongles.",
     imageUrl: "/lovable-uploads/2fb75906-9c07-4df4-b771-2358014101ea.png",
@@ -179,5 +179,65 @@ export const SPECIALIZED_HEALTH_PRODUCTS: ProductDefinition[] = [
       seasonality: ["all_year"]
     },
     timeFrame: "long_term"
+  },
+  {
+    id: "extrait-the-vert",
+    name: "Extrait de Thé Vert",
+    description: "Concentré d'antioxydants naturels",
+    imageUrl: "/lovable-uploads/4ccea2a6-43df-472a-8f3c-848d654e081f.png",
+    expectedResults: "Protection antioxydante et métabolisme optimal 🍃",
+    recommendationReason: "Soutien antioxydant naturel",
+    dietaryInfo: "Vegan, Sans gluten",
+    productUrl: "https://maisonjacynthe.ca/fr/extrait-de-the-vert",
+    categories: ["skin", "metabolism"],
+    scores: [
+      { condition: "Antioxydants", score: 5 },
+      { condition: "Métabolisme", score: 4 }
+    ],
+    therapeuticClaims: [
+      "Riche en antioxydants",
+      "Soutient le métabolisme",
+      "Protège la peau"
+    ],
+    relationships: {
+      complementaryProducts: [],
+      contraindications: ["Sensibilité à la caféine"]
+    },
+    usage: {
+      timing: "Matin ou après-midi",
+      duration: "Usage quotidien",
+      seasonality: ["all_year"]
+    },
+    timeFrame: "long_term"
+  },
+  {
+    id: "mineral-drop",
+    name: "Mineral Drop",
+    description: "Solution d'électrolytes concentrée",
+    imageUrl: "/lovable-uploads/d4d5dd78-75fc-4f0d-bc94-18072b2a4115.png",
+    expectedResults: "Hydratation optimale et équilibre électrolytique ⚡",
+    recommendationReason: "Réhydratation naturelle",
+    dietaryInfo: "Vegan, Sans gluten",
+    productUrl: "https://maisonjacynthe.ca/fr/electrolytes-mineral-drop-4-oz",
+    categories: ["energy", "muscle"],
+    scores: [
+      { condition: "Hydratation", score: 5 },
+      { condition: "Récupération", score: 4 }
+    ],
+    therapeuticClaims: [
+      "Rééquilibre les électrolytes",
+      "Soutient l'hydratation",
+      "Améliore la récupération"
+    ],
+    relationships: {
+      complementaryProducts: [],
+      contraindications: []
+    },
+    usage: {
+      timing: "Selon les besoins",
+      duration: "Usage régulier ou ponctuel",
+      seasonality: ["all_year"]
+    },
+    timeFrame: "short_term"
   }
 ];
