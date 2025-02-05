@@ -9,6 +9,7 @@ import { ensureCategoryDiversity } from "./recommendation/diversity";
 import { applySynergyBoosts } from "./recommendation/synergy";
 import { ProductDefinition } from "./products/productTypes";
 import { adjustProductScores } from "./feedback/feedbackAdjustment";
+import PerformanceMonitor from "./performanceMonitor";
 
 function calculateSeverityMultiplier(answers: Answer[]): { [key: string]: number } {
   const severityMultipliers: { [key: string]: number } = {};
@@ -28,18 +29,28 @@ function calculateSeverityMultiplier(answers: Answer[]): { [key: string]: number
 }
 
 export function getRecommendations(answers: Answer[]): Product[] {
+  PerformanceMonitor.startMeasure("getRecommendations");
   console.group("Generating Recommendations");
   
   try {
+    if (!Array.isArray(answers)) {
+      throw new Error("Invalid answers format: expected array");
+    }
+
     const gender = answers.find(a => a.questionId === 1)?.answers[0];
     const age = answers.find(a => a.questionId === 2)?.answers[0];
+    
+    if (!gender || !age) {
+      console.warn("Missing required answers for gender or age");
+      return [];
+    }
+
     const primaryGoal = answers.find(a => a.questionId === 3)?.answers[0];
     const healthConcerns = answers.find(a => a.questionId === 4)?.answers || [];
     const severityMultipliers = calculateSeverityMultiplier(answers);
     
     let scoredProducts = PRODUCTS.map(productDef => {
-      if (!gender || 
-          !isProductGenderAppropriate(productDef, normalizeAnswer(gender)) ||
+      if (!isProductGenderAppropriate(productDef, normalizeAnswer(gender)) ||
           !isAgeAppropriate(productDef, normalizeAnswer(age))) {
         return null;
       }
@@ -103,7 +114,7 @@ export function getRecommendations(answers: Answer[]): Product[] {
       scoredProducts.sort((a, b) => (b.score || 0) - (a.score || 0))
     );
 
-    if (recommendations.length < WEIGHTS.MIN_RECOMMENDATIONS && gender && age) {
+    if (recommendations.length < WEIGHTS.MIN_RECOMMENDATIONS) {
       const fallbackProducts = getFallbackProducts(
         normalizeAnswer(gender),
         normalizeAnswer(age)
@@ -112,9 +123,9 @@ export function getRecommendations(answers: Answer[]): Product[] {
         .slice(0, WEIGHTS.MIN_RECOMMENDATIONS);
     }
 
-    // Apply feedback adjustments
     recommendations = adjustProductScores(recommendations);
 
+    PerformanceMonitor.endMeasure("getRecommendations");
     console.log("Final recommendations:", recommendations);
     console.groupEnd();
 
@@ -122,6 +133,7 @@ export function getRecommendations(answers: Answer[]): Product[] {
   } catch (error) {
     console.error("Error generating recommendations:", error);
     console.groupEnd();
+    PerformanceMonitor.endMeasure("getRecommendations");
     throw error;
   }
 }

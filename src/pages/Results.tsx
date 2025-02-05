@@ -8,11 +8,17 @@ import { Info } from "lucide-react";
 import type { ProductFeedback } from "@/components/results/FeedbackForm";
 import { feedbackStorage } from "@/utils/feedback/feedbackStorage";
 import { toast } from "sonner";
+import { validateRecommendationSystem } from "@/utils/recommendation/testing/validationTests";
 
 const Results = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const answers = (location.state?.answers || []) as Answer[];
+  
+  // Run validation tests in development
+  if (process.env.NODE_ENV === 'development') {
+    validateRecommendationSystem();
+  }
   
   const recommendations = getRecommendations(answers);
   const uniqueCategories = [...new Set(recommendations.flatMap(p => p.categories))];

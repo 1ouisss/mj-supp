@@ -2,16 +2,23 @@ type PerformanceMetric = {
   name: string;
   startTime: number;
   duration?: number;
+  memoryUsage?: number;
 };
 
 class PerformanceMonitor {
   private static metrics: PerformanceMetric[] = [];
+  private static readonly PERFORMANCE_THRESHOLD = 100; // 100ms
 
   static startMeasure(name: string) {
+    const startTime = performance.now();
+    const memoryUsage = (window.performance as any).memory?.usedJSHeapSize;
+    
     this.metrics.push({
       name,
-      startTime: performance.now()
+      startTime,
+      memoryUsage
     });
+    
     console.log(`📊 Starting measurement: ${name}`);
   }
 
@@ -20,15 +27,29 @@ class PerformanceMonitor {
     if (metric) {
       metric.duration = performance.now() - metric.startTime;
       console.log(`📊 ${name} took ${metric.duration.toFixed(2)}ms`);
+      
+      if (metric.duration > this.PERFORMANCE_THRESHOLD) {
+        console.warn(`⚠️ Performance warning: ${name} exceeded ${this.PERFORMANCE_THRESHOLD}ms threshold`);
+      }
     }
   }
 
-  static getMetric(name: string): PerformanceMetric | undefined {
-    return this.metrics.find(m => m.name === name);
+  static getMetrics(): PerformanceMetric[] {
+    return this.metrics;
   }
 
   static clearMetrics() {
     this.metrics = [];
+  }
+
+  static generateReport(): string {
+    const report = this.metrics.map(metric => ({
+      name: metric.name,
+      duration: metric.duration?.toFixed(2) + 'ms',
+      memory: metric.memoryUsage ? (metric.memoryUsage / 1024 / 1024).toFixed(2) + 'MB' : 'N/A'
+    }));
+
+    return JSON.stringify(report, null, 2);
   }
 }
 
