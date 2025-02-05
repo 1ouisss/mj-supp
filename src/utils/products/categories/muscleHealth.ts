@@ -4,13 +4,13 @@ export const MUSCLE_HEALTH_PRODUCTS: ProductDefinition[] = [
   {
     id: "creatine",
     name: "Créatine",
-    description: "Supplément pour la performance musculaire",
-    imageUrl: "/lovable-uploads/1d810f06-0339-45be-99be-d0dbab2ddc53.png",
+    description: "Supplément de créatine pure pour la performance musculaire",
+    imageUrl: "/lovable-uploads/f2d4ffb2-0e13-424f-bc29-2acaa73c0a00.png",
     expectedResults: "Amélioration de la force et de la récupération musculaire",
     recommendationReason: "Support optimal pour la performance musculaire",
     dietaryInfo: "Vegan, Sans gluten",
     productUrl: "https://maisonjacynthe.ca/fr/creatine",
-    categories: ["muscles", "énergie", "santé_générale"],
+    categories: ["muscles", "énergie"],
     scores: [
       { condition: "Performance musculaire", score: 5 },
       { condition: "Récupération", score: 4 }
@@ -26,7 +26,7 @@ export const MUSCLE_HEALTH_PRODUCTS: ProductDefinition[] = [
     },
     usage: {
       timing: "Avant ou après l'entraînement",
-      duration: "Usage régulier",
+      duration: "Utilisation régulière recommandée",
       seasonality: ["toute_année"]
     },
     timeFrame: "long_terme"
@@ -35,28 +35,28 @@ export const MUSCLE_HEALTH_PRODUCTS: ProductDefinition[] = [
     id: "glutamine",
     name: "Glutamine",
     description: "Acide aminé essentiel pour la récupération musculaire",
-    imageUrl: "/lovable-uploads/ebabf56c-a23d-4352-abb0-330d981d4400.png",
-    expectedResults: "Meilleure récupération et santé intestinale",
-    recommendationReason: "Support pour la récupération et l'immunité",
+    imageUrl: "/lovable-uploads/ace7b125-c27e-49d9-88c0-0a87e53b96a2.png",
+    expectedResults: "Meilleure récupération et soutien immunitaire",
+    recommendationReason: "Support pour la récupération musculaire",
     dietaryInfo: "Vegan, Sans gluten",
     productUrl: "https://maisonjacynthe.ca/fr/glutamine",
     categories: ["muscles", "immunité"],
     scores: [
       { condition: "Récupération musculaire", score: 5 },
-      { condition: "Santé intestinale", score: 4 }
+      { condition: "Système immunitaire", score: 4 }
     ],
     therapeuticClaims: [
       "Favorise la récupération musculaire",
-      "Soutient la santé intestinale",
-      "Renforce le système immunitaire"
+      "Soutient le système immunitaire",
+      "Aide à maintenir l'intégrité intestinale"
     ],
     relationships: {
       complementaryProducts: ["creatine"],
       contraindications: []
     },
     usage: {
-      timing: "Post-entraînement",
-      duration: "Usage régulier",
+      timing: "Après l'entraînement ou avant le coucher",
+      duration: "Utilisation régulière recommandée",
       seasonality: ["toute_année"]
     },
     timeFrame: "long_terme"
