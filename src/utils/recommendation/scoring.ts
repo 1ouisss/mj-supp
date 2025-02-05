@@ -14,14 +14,17 @@ export function calculateCategoryScore(productCategories: ProductCategory[], tar
     // Direct category match
     if (normalizedTargets.includes(normalizedCategory)) {
       score += WEIGHTS.CATEGORY_MATCH;
+      console.log(`Category match for ${category}: +${WEIGHTS.CATEGORY_MATCH}`);
     }
-    // Related category bonus (e.g., sleep related to stress)
+    // Related category bonus
     else if (isRelatedCategory(normalizedCategory, normalizedTargets)) {
       score += WEIGHTS.RELATED_CATEGORY;
+      console.log(`Related category match for ${category}: +${WEIGHTS.RELATED_CATEGORY}`);
     }
-    // Small penalty for unrelated categories to favor more focused products
+    // Small penalty for unrelated categories
     else {
       score -= WEIGHTS.MISMATCH_PENALTY;
+      console.log(`Unrelated category penalty for ${category}: -${WEIGHTS.MISMATCH_PENALTY}`);
     }
   });
   
@@ -42,7 +45,9 @@ export function calculateTherapeuticScore(claims: string[] | undefined, concerns
     );
     
     if (matchingConcerns.length > 0) {
-      score += WEIGHTS.THERAPEUTIC_CLAIM * matchingConcerns.length;
+      const claimScore = WEIGHTS.THERAPEUTIC_CLAIM * matchingConcerns.length;
+      score += claimScore;
+      console.log(`Therapeutic claim match: +${claimScore}`);
     }
   });
   
@@ -57,6 +62,10 @@ function isRelatedCategory(category: string, targetCategories: string[]): boolea
     'brain': ['stress', 'sleep', 'energy', 'concentration'],
     'immunity': ['energy', 'general_health'],
     'digestive': ['general_health', 'immunity'],
+    'pain': ['muscle', 'joints', 'topical'],
+    'skin': ['topical', 'healing'],
+    'bone_health': ['essential', 'women_specific'],
+    'seasonal': ['immune', 'throat']
   };
   
   return targetCategories.some(target => 

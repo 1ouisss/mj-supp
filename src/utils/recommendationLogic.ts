@@ -10,13 +10,42 @@ import { applySynergyBoosts } from "./recommendation/synergy";
 import { adjustProductScores } from "./feedback/feedbackAdjustment";
 import { toast } from "sonner";
 
+function shouldExcludeProduct(product: Product, answers: Answer[]): boolean {
+  const healthConcerns = answers
+    .find(a => a.questionId === 4)?.answers
+    .map(String) || [];
+  
+  const primaryGoal = answers.find(a => a.questionId === 3)?.answers[0];
+
+  // Exclude melatonin if no sleep-related concerns
+  if (product.name.toLowerCase().includes('mélatonine') && 
+      !healthConcerns.some(concern => 
+        concern.toLowerCase().includes('sommeil') || 
+        concern.toLowerCase().includes('dormir')) &&
+      primaryGoal !== "Améliorer le sommeil") {
+    console.log('Excluding melatonin - no sleep concerns');
+    return true;
+  }
+
+  // Exclude focus products if no concentration/brain concerns
+  if (product.name.toLowerCase().includes('focus') && 
+      !healthConcerns.some(concern => 
+        concern.toLowerCase().includes('concentration')) &&
+      primaryGoal !== "Soutenir la santé cérébrale") {
+    console.log('Excluding focus product - no concentration concerns');
+    return true;
+  }
+
+  return false;
+}
+
 function calculateSeverityMultiplier(answers: Answer[]): { [key: string]: number } {
   const severityMultipliers: { [key: string]: number } = {};
   
   answers.forEach(answer => {
     if (answer.followUpAnswers) {
       answer.followUpAnswers.forEach(followUp => {
-        if (followUp.questionId === 402) {
+        if (followUp.questionId === 402) { // Stress severity question
           const severity = Number(followUp.answers[0]);
           severityMultipliers["Stress"] = Math.max(1, severity / 3);
         }
@@ -25,26 +54,6 @@ function calculateSeverityMultiplier(answers: Answer[]): { [key: string]: number
   });
 
   return severityMultipliers;
-}
-
-function shouldExcludeProduct(productDef: any, healthConcerns: string[]): boolean {
-  // Exclure la mélatonine si pas de problème de sommeil
-  if (productDef.name.toLowerCase().includes('mélatonine') && 
-      !healthConcerns.some(concern => 
-        concern.toLowerCase().includes('sommeil') || 
-        concern.toLowerCase().includes('dormir'))) {
-    return true;
-  }
-  return false;
-}
-
-function shuffleArray<T>(array: T[]): T[] {
-  const shuffled = [...array];
-  for (let i = shuffled.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
-  }
-  return shuffled;
 }
 
 export function getRecommendations(answers: Answer[]): Product[] {
@@ -81,106 +90,101 @@ export function getRecommendations(answers: Answer[]): Product[] {
     console.log("Health concerns:", healthConcerns);
     console.log("Severity multipliers:", severityMultipliers);
     
-    // Mélanger les produits pour la rotation
-    let shuffledProducts = shuffleArray(PRODUCTS);
-    
-    let scoredProducts = shuffledProducts.map(productDef => {
-      // Vérifier les exclusions spécifiques
-      if (shouldExcludeProduct(productDef, healthConcerns)) {
-        return null;
-      }
+    let scoredProducts = PRODUCTS
+      .filter(productDef => {
+        // Check basic eligibility
+        if (shouldExcludeProduct(productDef, answers)) {
+          return false;
+        }
 
-      if (!isProductGenderAppropriate(productDef, gender) ||
-          !isAgeAppropriate(productDef, age)) {
-        return null;
-      }
+        return isProductGenderAppropriate(productDef, gender) &&
+               isAgeAppropriate(productDef, age);
+      })
+      .map(productDef => {
+        let totalScore = 0;
+        let matchCount = 0;
+        
+        // Score for primary goal
+        if (primaryGoal) {
+          const goalScore = productDef.scores.find(s => 
+            s.condition === normalizeAnswer(String(primaryGoal)))?.score || 0;
+          totalScore += goalScore * WEIGHTS.PRIMARY_GOAL;
+          if (goalScore > 0) {
+            matchCount++;
+            console.log(`${productDef.name} matches primary goal: +${goalScore * WEIGHTS.PRIMARY_GOAL}`);
+          }
+        }
+        
+        // Score for health concerns
+        healthConcerns.forEach(concern => {
+          const concernScore = productDef.scores.find(s => 
+            s.condition === normalizeAnswer(concern))?.score || 0;
+          const severityMultiplier = severityMultipliers[concern] || 1;
+          const weightedScore = concernScore * WEIGHTS.HEALTH_CONCERN * severityMultiplier;
+          totalScore += weightedScore;
+          if (concernScore > 0) {
+            matchCount++;
+            console.log(`${productDef.name} matches health concern ${concern}: +${weightedScore}`);
+          }
+        });
+        
+        // Category score
+        const categoryScore = calculateCategoryScore(productDef.categories, [
+          ...(primaryGoal ? [String(primaryGoal)] : []), 
+          ...healthConcerns
+        ]);
+        totalScore += categoryScore;
+        if (categoryScore > 0) {
+          matchCount++;
+          console.log(`${productDef.name} category score: +${categoryScore}`);
+        }
 
-      let totalScore = 0;
-      let matchCount = 0;
-      
-      // Score de base pour tous les produits
-      totalScore += WEIGHTS.BASE_SCORE;
-      
-      // Score pour l'objectif principal
-      if (primaryGoal) {
-        const goalScore = productDef.scores.find(s => 
-          s.condition === normalizeAnswer(String(primaryGoal)))?.score || 0;
-        totalScore += goalScore * WEIGHTS.PRIMARY_GOAL;
-        if (goalScore > 0) matchCount++;
-      }
-      
-      // Score pour les préoccupations de santé
-      healthConcerns.forEach(concern => {
-        const concernScore = productDef.scores.find(s => s.condition === normalizeAnswer(concern))?.score || 0;
-        const severityMultiplier = severityMultipliers[concern] || 1;
-        totalScore += concernScore * WEIGHTS.HEALTH_CONCERN * severityMultiplier;
-        if (concernScore > 0) matchCount++;
-      });
-      
-      // Score pour les catégories
-      const categoryScore = calculateCategoryScore(productDef.categories, [
-        ...(primaryGoal ? [String(primaryGoal)] : []), 
-        ...healthConcerns
-      ]);
-      totalScore += categoryScore;
-      if (categoryScore > 0) matchCount++;
+        // Therapeutic claims score
+        const therapeuticScore = calculateTherapeuticScore(productDef.therapeuticClaims, healthConcerns);
+        totalScore += therapeuticScore;
+        if (therapeuticScore > 0) {
+          matchCount++;
+          console.log(`${productDef.name} therapeutic score: +${therapeuticScore}`);
+        }
+        
+        // Apply synergy boosts
+        totalScore = applySynergyBoosts(productDef.id, healthConcerns, totalScore);
 
-      // Score pour les allégations thérapeutiques
-      const therapeuticScore = calculateTherapeuticScore(productDef.therapeuticClaims, healthConcerns);
-      totalScore += therapeuticScore;
-      if (therapeuticScore > 0) matchCount++;
-      
-      // Boost de synergie
-      totalScore = applySynergyBoosts(productDef.id, healthConcerns, totalScore);
+        console.log(`Product ${productDef.name} - Final Score: ${totalScore}, Match Count: ${matchCount}`);
 
-      console.log(`Product ${productDef.name} - Total Score: ${totalScore}, Match Count: ${matchCount}`);
+        const confidenceLevel = Math.min(
+          WEIGHTS.MAX_CONFIDENCE,
+          Math.max(
+            WEIGHTS.MIN_CONFIDENCE,
+            WEIGHTS.MIN_CONFIDENCE + (matchCount * 5)
+          )
+        );
 
-      const confidenceLevel = Math.min(
-        WEIGHTS.MAX_CONFIDENCE,
-        Math.max(
-          WEIGHTS.MIN_CONFIDENCE,
-          WEIGHTS.MIN_CONFIDENCE + (matchCount * 5)
-        )
-      );
-
-      const product: Product = {
-        id: productDef.id,
-        name: productDef.name,
-        description: productDef.description,
-        imageUrl: productDef.imageUrl,
-        expectedResults: productDef.expectedResults,
-        recommendationReason: productDef.recommendationReason,
-        dietaryInfo: productDef.dietaryInfo,
-        productUrl: productDef.productUrl,
-        categories: productDef.categories,
-        therapeuticClaims: productDef.therapeuticClaims,
-        confidenceLevel,
-        score: totalScore
-      };
-
-      return product;
-    }).filter((product): product is Product => 
-      product !== null
-    );
+        return {
+          ...productDef,
+          confidenceLevel,
+          score: totalScore
+        };
+      })
+      .filter(product => product.score > 0)
+      .sort((a, b) => (b.score || 0) - (a.score || 0));
 
     console.log("Scored products before filtering:", scoredProducts);
 
-    // Trier par score décroissant
-    scoredProducts.sort((a, b) => (b.score || 0) - (a.score || 0));
-
-    // Assurer la diversité des catégories
+    // Ensure category diversity
     let recommendations = ensureCategoryDiversity(scoredProducts);
 
-    // Limiter à 6 produits
-    recommendations = recommendations.slice(0, 6);
+    // Limit to maximum recommendations
+    recommendations = recommendations.slice(0, WEIGHTS.MIN_RECOMMENDATIONS);
 
-    // Si pas assez de recommandations, ajouter des produits de fallback
+    // Add fallback products if needed
     if (recommendations.length < WEIGHTS.MIN_RECOMMENDATIONS) {
       const fallbackProducts = getFallbackProducts(gender, age);
       recommendations = [...recommendations, ...fallbackProducts]
         .slice(0, WEIGHTS.MIN_RECOMMENDATIONS);
     }
 
+    // Adjust final scores based on feedback
     recommendations = adjustProductScores(recommendations);
 
     console.log("Final recommendations:", recommendations);

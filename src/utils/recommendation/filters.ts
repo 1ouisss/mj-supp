@@ -1,15 +1,18 @@
 import { ProductDefinition } from "../products/productTypes";
+import { Answer } from "@/components/quiz/types";
 
 export function isProductGenderAppropriate(product: ProductDefinition, gender: string): boolean {
   // Exclude menopause products for men
   if (gender === "Homme" && 
       (product.categories.includes("women_specific") || 
        product.name.toLowerCase().includes('ménopause'))) {
+    console.log(`Excluding ${product.name} - women-specific product for male user`);
     return false;
   }
   
-  // For women, allow women-specific products
+  // For women, exclude men-specific products
   if (gender === "Femme" && product.categories.includes("men_specific")) {
+    console.log(`Excluding ${product.name} - men-specific product for female user`);
     return false;
   }
   
@@ -17,6 +20,7 @@ export function isProductGenderAppropriate(product: ProductDefinition, gender: s
   if (gender === "Autre" || gender === "Je préfère ne pas répondre") {
     if (product.categories.includes("women_specific") || 
         product.categories.includes("men_specific")) {
+      console.log(`Excluding ${product.name} - gender-specific product for non-binary/undisclosed user`);
       return false;
     }
   }
@@ -27,26 +31,18 @@ export function isProductGenderAppropriate(product: ProductDefinition, gender: s
 export function isAgeAppropriate(product: ProductDefinition, age: string): boolean {
   // For children, only recommend children-specific products
   if (age === "<18") {
-    return product.categories.includes("children");
+    const isAppropriate = product.categories.includes("children");
+    if (!isAppropriate) {
+      console.log(`Excluding ${product.name} - not suitable for children`);
+    }
+    return isAppropriate;
   }
   
   // For adults, exclude children-specific products
   if (age !== "<18" && product.categories.includes("children")) {
+    console.log(`Excluding ${product.name} - children-specific product for adult user`);
     return false;
   }
   
   return true;
-}
-
-export function shouldExcludeProduct(product: ProductDefinition, healthConcerns: string[]): boolean {
-  // Exclude melatonin if no sleep-related concerns
-  if (product.name.toLowerCase().includes('mélatonine') && 
-      !healthConcerns.some(concern => 
-        concern.toLowerCase().includes('sommeil') || 
-        concern.toLowerCase().includes('dormir'))) {
-    return true;
-  }
-  
-  // Add other specific exclusion rules here
-  return false;
 }
