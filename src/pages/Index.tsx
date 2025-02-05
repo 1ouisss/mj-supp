@@ -38,7 +38,7 @@ const Index = () => {
             Découvrez les produits naturels adaptés à vos besoins
           </p>
           <p className="text-gray-500">
-            Complétez notre questionnaire pour des recommandations sur mesure
+            Découvrez le véritable potentiel de votre santé
           </p>
           <Button 
             onClick={() => navigate("/quiz")}
