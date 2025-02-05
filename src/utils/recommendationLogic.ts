@@ -9,6 +9,7 @@ import { getFallbackProducts } from "./recommendation/fallback";
 import { adjustProductScores } from "./feedback/feedbackAdjustment";
 import { toast } from "sonner";
 import { ProductCategory } from "./products/productTypes";
+import { syncValidationCheck } from "./products/syncValidation";
 
 const RECOMMENDATION_MAPPING: Record<string, string[]> = {
   "Améliorer le sommeil": ["Mélatonine", "Magnésium", "Poudre Dodo", "Respire Bien"],
@@ -30,11 +31,19 @@ const PRIMARY_GOAL_CATEGORY_MAP: Record<string, ProductCategory[]> = {
 
 const MIN_CONFIDENCE_THRESHOLD = 80;
 
-export function getRecommendations(answers: Answer[]): Product[] {
+export async function getRecommendations(answers: Answer[]): Promise<Product[]> {
   console.group("Generating Recommendations");
   console.log("Input answers:", answers);
   
   try {
+    // Validate sync in development
+    if (process.env.NODE_ENV === 'development') {
+      const isSynced = await syncValidationCheck();
+      if (!isSynced) {
+        console.warn("Product sync validation failed");
+      }
+    }
+
     if (!Array.isArray(answers) || answers.length === 0) {
       console.warn("No answers provided");
       toast.error("Veuillez compléter le questionnaire");
@@ -59,7 +68,6 @@ export function getRecommendations(answers: Answer[]): Product[] {
 
     let scoredProducts = PRODUCTS
       .filter(productDef => {
-        // Include products that are either in the recommended names list or have relevant categories
         const isRecommended = recommendedProductNames.includes(productDef.name);
         const hasRelevantCategory = productDef.categories.some(cat => 
           targetCategories.includes(cat as ProductCategory)
@@ -70,12 +78,10 @@ export function getRecommendations(answers: Answer[]): Product[] {
       .map(productDef => {
         const product = calculateProductScore(productDef, answers);
         
-        // Boost score for specifically recommended products
         if (recommendedProductNames.includes(product.name)) {
           product.score = (product.score || 0) * WEIGHTS.PRIMARY_GOAL_BOOST * 1.2;
           product.confidenceLevel = Math.min(95, (product.confidenceLevel || 0) + 15);
         }
-        // Boost score for category matches
         else if (product.categories.some(cat => targetCategories.includes(cat as ProductCategory))) {
           product.score = (product.score || 0) * WEIGHTS.PRIMARY_GOAL_BOOST;
           product.confidenceLevel = Math.min(95, (product.confidenceLevel || 0) + 10);
