@@ -36,14 +36,14 @@ export const SliderQuestion = ({
             </>
           )}
         </div>
-        <div className="px-2">
+        <div className="px-4 py-4">
           <Slider
+            defaultValue={[value]}
             min={min}
             max={max}
             step={step}
-            value={[value]}
             onValueChange={([newValue]) => onChange(newValue)}
-            className="w-full cursor-pointer"
+            className="w-full"
           />
         </div>
         <div className="text-center text-lg font-medium">
