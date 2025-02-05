@@ -7,7 +7,7 @@ type PerformanceMetric = {
 
 class PerformanceMonitor {
   private static metrics: PerformanceMetric[] = [];
-  private static readonly PERFORMANCE_THRESHOLD = 100; // 100ms
+  private static readonly PERFORMANCE_THRESHOLD = 50; // 50ms threshold
 
   static startMeasure(name: string) {
     const startTime = performance.now();
