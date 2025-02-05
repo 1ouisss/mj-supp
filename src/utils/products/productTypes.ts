@@ -28,11 +28,28 @@ export type ProductCategory =
   | "bone_health"
   | "children"
   | "metabolism"
-  | "heart_health";
+  | "heart_health"
+  | "short_term"
+  | "long_term";
+
+export type TimeFrame = "short_term" | "long_term";
+export type Season = "winter" | "spring" | "summer" | "fall" | "all_year";
 
 export interface ProductScore {
   condition: string;
   score: number;
+}
+
+export interface ProductRelationship {
+  complementaryProducts: string[];
+  contraindications?: string[];
+}
+
+export interface UsageGuidelines {
+  timing?: string;
+  duration?: string;
+  dosage?: string;
+  seasonality?: Season[];
 }
 
 export interface ProductDefinition {
@@ -46,5 +63,8 @@ export interface ProductDefinition {
   productUrl: string;
   categories: ProductCategory[];
   scores: ProductScore[];
-  therapeuticClaims?: string[];
+  therapeuticClaims: string[];
+  relationships: ProductRelationship;
+  usage: UsageGuidelines;
+  timeFrame: TimeFrame;
 }

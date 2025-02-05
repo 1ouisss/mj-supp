@@ -10,11 +10,26 @@ export const GENERAL_WELLNESS_PRODUCTS: ProductDefinition[] = [
     recommendationReason: "Santé cognitive et cardiaque",
     dietaryInfo: "Sans gluten",
     productUrl: "https://maisonjacynthe.ca/fr/omega-astaxanthine",
-    categories: ["brain", "heart_health"],
+    categories: ["brain", "heart_health", "joints", "long_term"],
     scores: [
       { condition: "Soutenir la santé cérébrale", score: 3 },
       { condition: "Préoccupations cardiovasculaires", score: 3 }
     ],
-    therapeuticClaims: ["Santé cardiovasculaire", "Fonction cognitive"]
+    therapeuticClaims: [
+      "Supports brain, heart, and joint health 🐟",
+      "Améliore la santé cardiovasculaire",
+      "Soutient les fonctions cognitives",
+      "Réduit l'inflammation articulaire"
+    ],
+    relationships: {
+      complementaryProducts: ["focus"],
+      contraindications: ["Troubles de la coagulation"]
+    },
+    usage: {
+      timing: "Prendre avec un repas pour une meilleure absorption",
+      duration: "Utilisation quotidienne recommandée",
+      seasonality: ["all_year"]
+    },
+    timeFrame: "long_term"
   }
 ];

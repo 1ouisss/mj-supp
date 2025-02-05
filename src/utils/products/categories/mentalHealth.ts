@@ -10,16 +10,26 @@ export const MENTAL_HEALTH_PRODUCTS: ProductDefinition[] = [
     recommendationReason: "Soutien cognitif optimal",
     dietaryInfo: "Vegan, Sans gluten",
     productUrl: "https://maisonjacynthe.ca/fr/focus",
-    categories: ["brain", "concentration"],
+    categories: ["brain", "concentration", "long_term"],
     scores: [
       { condition: "Soutenir la santé cérébrale", score: 5 },
       { condition: "Améliorer la concentration", score: 5 }
     ],
     therapeuticClaims: [
-      "Amélioration de la concentration",
-      "Soutien de la mémoire",
-      "Clarté mentale"
-    ]
+      "Enhances cognitive clarity and mental performance 🧠",
+      "Améliore la concentration et la mémoire",
+      "Soutient les fonctions cognitives"
+    ],
+    relationships: {
+      complementaryProducts: ["omega-3"],
+      contraindications: ["Sensibilité à la caféine"]
+    },
+    usage: {
+      timing: "Prendre le matin ou en début d'après-midi",
+      duration: "Utilisation quotidienne pour des résultats optimaux",
+      seasonality: ["all_year"]
+    },
+    timeFrame: "long_term"
   },
   {
     id: "energie-adaptogene",
@@ -30,33 +40,25 @@ export const MENTAL_HEALTH_PRODUCTS: ProductDefinition[] = [
     recommendationReason: "Soutien énergétique et anti-stress",
     dietaryInfo: "Vegan, Sans gluten",
     productUrl: "https://maisonjacynthe.ca/fr/energie-adaptogene",
-    categories: ["energy", "stress"],
+    categories: ["energy", "stress", "long_term"],
     scores: [
       { condition: "Améliorer l'énergie", score: 5 },
       { condition: "Gérer le stress", score: 4 }
     ],
     therapeuticClaims: [
-      "Boost d'énergie naturel",
-      "Adaptation au stress"
-    ]
-  },
-  {
-    id: "formule-menopause",
-    name: "Formule Ménopause",
-    description: "Support naturel pour les symptômes de la ménopause.",
-    imageUrl: "/lovable-uploads/3e65bec2-4941-441a-89ed-a79bc8965a02.png",
-    expectedResults: "Équilibre hormonal, confort accru 🌸",
-    recommendationReason: "Soutien hormonal naturel",
-    dietaryInfo: "Vegan, Sans gluten",
-    productUrl: "https://maisonjacynthe.ca/fr/formule-menopause",
-    categories: ["hormones", "women_specific"],
-    scores: [
-      { condition: "Équilibre hormonal", score: 5 },
-      { condition: "Symptômes de la ménopause", score: 5 }
+      "Boost d'énergie naturel et durable",
+      "Adaptation au stress chronique",
+      "Soutien du système nerveux"
     ],
-    therapeuticClaims: [
-      "Soulagement des symptômes de la ménopause",
-      "Équilibre hormonal naturel"
-    ]
+    relationships: {
+      complementaryProducts: ["magnesium"],
+      contraindications: ["Hypertension non contrôlée"]
+    },
+    usage: {
+      timing: "Prendre le matin avec le petit-déjeuner",
+      duration: "Utilisation continue recommandée",
+      seasonality: ["all_year"]
+    },
+    timeFrame: "long_term"
   }
 ];

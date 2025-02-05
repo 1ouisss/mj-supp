@@ -10,53 +10,26 @@ export const DIGESTIVE_HEALTH_PRODUCTS: ProductDefinition[] = [
     recommendationReason: "Soutien digestif naturel",
     dietaryInfo: "100% Naturel, Vegan",
     productUrl: "https://maisonjacynthe.ca/fr/jus-aloes",
-    categories: ["digestive"],
+    categories: ["digestive", "short_term"],
     scores: [
       { condition: "Améliorer la digestion", score: 5 },
       { condition: "Problèmes digestifs", score: 5 }
     ],
     therapeuticClaims: [
-      "Soulagement des troubles digestifs",
-      "Anti-inflammatoire naturel"
-    ]
-  },
-  {
-    id: "fibres-ami",
-    name: "Fibres & l'Ami",
-    description: "Complexe de fibres pour une santé intestinale optimale.",
-    imageUrl: "/lovable-uploads/20a35551-6b6b-4876-8c89-8bc7c88782cc.png",
-    expectedResults: "Transit régulier, équilibre intestinal 🌱",
-    recommendationReason: "Soutien pour la santé digestive",
-    dietaryInfo: "Vegan, Sans gluten",
-    productUrl: "https://maisonjacynthe.ca/fr/fibres-ami",
-    categories: ["digestive"],
-    scores: [
-      { condition: "Améliorer la digestion", score: 5 },
-      { condition: "Transit intestinal", score: 5 }
+      "Soulagement rapide des troubles digestifs",
+      "Action anti-inflammatoire naturelle",
+      "Amélioration du transit intestinal"
     ],
-    therapeuticClaims: [
-      "Régulation du transit",
-      "Soutien de la flore intestinale"
-    ]
-  },
-  {
-    id: "fontaine-jouvence",
-    name: "Fontaine de Jouvence Complet",
-    description: "Complexe nutritif complet pour la santé digestive et générale.",
-    imageUrl: "/lovable-uploads/83811a8d-7d09-452e-9991-a4f4ef7c4c71.png",
-    expectedResults: "Vitalité accrue, digestion optimisée ✨",
-    recommendationReason: "Solution complète pour la santé",
-    dietaryInfo: "Naturel, Sans gluten",
-    productUrl: "https://maisonjacynthe.ca/fr/fontaine-jouvence",
-    categories: ["general_health", "digestive"],
-    scores: [
-      { condition: "Santé générale", score: 5 },
-      { condition: "Améliorer la digestion", score: 4 }
-    ],
-    therapeuticClaims: [
-      "Soutien digestif",
-      "Vitalité générale"
-    ]
+    relationships: {
+      complementaryProducts: ["probiotiques"],
+      contraindications: ["Grossesse"]
+    },
+    usage: {
+      timing: "Prendre à jeun le matin",
+      duration: "Cure de 1-3 mois",
+      seasonality: ["all_year"]
+    },
+    timeFrame: "short_term"
   },
   {
     id: "probiotiques",
@@ -67,14 +40,25 @@ export const DIGESTIVE_HEALTH_PRODUCTS: ProductDefinition[] = [
     recommendationReason: "Soutien pour la santé intestinale",
     dietaryInfo: "Vegan, Sans gluten",
     productUrl: "https://maisonjacynthe.ca/fr/probiotiques",
-    categories: ["digestive"],
+    categories: ["digestive", "immune", "long_term"],
     scores: [
       { condition: "Améliorer la digestion", score: 5 },
       { condition: "Renforcer l'immunité", score: 4 }
     ],
     therapeuticClaims: [
-      "Équilibre de la flore intestinale",
-      "Soutien immunitaire"
-    ]
+      "Restauration de la flore intestinale",
+      "Renforcement du système immunitaire",
+      "Amélioration de la digestion"
+    ],
+    relationships: {
+      complementaryProducts: ["jus-aloes"],
+      contraindications: ["Immunodépression sévère"]
+    },
+    usage: {
+      timing: "Prendre à jeun le matin",
+      duration: "Utilisation continue recommandée",
+      seasonality: ["all_year"]
+    },
+    timeFrame: "long_term"
   }
 ];
