@@ -7,10 +7,11 @@ const Index = () => {
 
   return (
     <div 
-      className="min-h-screen flex flex-col items-center justify-center p-4 relative overflow-hidden animate-gradient-shift"
+      className="min-h-screen flex flex-col items-center justify-center p-4 relative overflow-hidden"
       style={{
         background: 'linear-gradient(-45deg, #E4D780, #E8DB85, #E4D780, #EAE090)',
-        backgroundSize: '400% 400%'
+        backgroundSize: '400% 400%',
+        animation: 'gradient-shift 15s ease infinite'
       }}
     >
       {/* Large smoke particles */}
@@ -71,8 +72,7 @@ const Index = () => {
           <Button 
             onClick={() => navigate("/quiz")}
             className="bg-black hover:bg-gray-800 text-white px-12 py-3 rounded-full text-xl
-              transform transition-all duration-500 hover:scale-110 hover:shadow-[0_0_35px_rgba(228,215,128,0.5)]
-              animate-pulse"
+              transform transition-all duration-500 hover:scale-110 hover:shadow-[0_0_35px_rgba(228,215,128,0.5)]"
           >
             ANALYSE
           </Button>
