@@ -58,7 +58,8 @@ const translateCategory = (category: ProductCategory): string => {
     métabolisme: "Métabolisme",
     santé_cardiaque: "Santé cardiaque",
     court_terme: "Court terme",
-    long_terme: "Long terme"
+    long_terme: "Long terme",
+    vitalité: "Vitalité"
   };
   return translations[category] || category;
 };
