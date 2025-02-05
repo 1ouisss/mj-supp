@@ -9,6 +9,7 @@ import type { ProductFeedback } from "@/components/results/FeedbackForm";
 import { feedbackStorage } from "@/utils/feedback/feedbackStorage";
 import { toast } from "sonner";
 import { validateRecommendationSystem } from "@/utils/recommendation/testing/validationTests";
+import { supabase } from "@/integrations/supabase/client";
 
 const Results = () => {
   const location = useLocation();
@@ -19,26 +20,94 @@ const Results = () => {
   if (process.env.NODE_ENV === 'development') {
     validateRecommendationSystem();
   }
+
+  // Save user responses to Supabase
+  const saveUserResponses = async () => {
+    try {
+      const { data: userResponse, error: userResponseError } = await supabase
+        .from('user_responses')
+        .insert({
+          responses: JSON.stringify(answers)
+        })
+        .select()
+        .single();
+
+      if (userResponseError) throw userResponseError;
+
+      return userResponse.id;
+    } catch (error) {
+      console.error('Error saving user responses:', error);
+      toast.error('Failed to save your responses');
+      return null;
+    }
+  };
   
   const recommendations = getRecommendations(answers);
   const uniqueCategories = [...new Set(recommendations.flatMap(p => p.categories))];
 
-  const handleFeedbackSubmit = (feedback: ProductFeedback) => {
-    feedbackStorage.saveFeedback({
-      ...feedback,
-      timestamp: Date.now()
-    });
-    
-    const product = recommendations.find(p => p.id === feedback.productId);
-    toast.success(`Thank you for your feedback on ${product?.name}!`);
-    
-    console.log("Feedback saved:", {
-      product: product?.name,
-      rating: feedback.rating,
-      isHelpful: feedback.isHelpful,
-      additionalFeedback: feedback.additionalFeedback
-    });
+  // Save recommendations to Supabase
+  const saveRecommendations = async (userResponseId: string) => {
+    try {
+      const { error: recommendationsError } = await supabase
+        .from('recommendations')
+        .insert({
+          user_response_id: userResponseId,
+          product_ids: recommendations.map(r => r.id),
+          confidence_scores: recommendations.map(r => r.confidenceLevel)
+        });
+
+      if (recommendationsError) throw recommendationsError;
+    } catch (error) {
+      console.error('Error saving recommendations:', error);
+      toast.error('Failed to save recommendations');
+    }
   };
+
+  const handleFeedbackSubmit = async (feedback: ProductFeedback) => {
+    try {
+      const { error: feedbackError } = await supabase
+        .from('feedback')
+        .insert({
+          product_id: feedback.productId,
+          rating: feedback.rating,
+          is_helpful: feedback.isHelpful,
+          suggestion: feedback.additionalFeedback
+        });
+
+      if (feedbackError) throw feedbackError;
+
+      feedbackStorage.saveFeedback({
+        ...feedback,
+        timestamp: Date.now()
+      });
+      
+      const product = recommendations.find(p => p.id === feedback.productId);
+      toast.success(`Thank you for your feedback on ${product?.name}!`);
+      
+      console.log("Feedback saved:", {
+        product: product?.name,
+        rating: feedback.rating,
+        isHelpful: feedback.isHelpful,
+        additionalFeedback: feedback.additionalFeedback
+      });
+    } catch (error) {
+      console.error('Error saving feedback:', error);
+      toast.error('Failed to save your feedback');
+    }
+  };
+
+  // Save user responses and recommendations when component mounts
+  React.useEffect(() => {
+    const saveData = async () => {
+      if (answers.length > 0) {
+        const userResponseId = await saveUserResponses();
+        if (userResponseId && recommendations.length > 0) {
+          await saveRecommendations(userResponseId);
+        }
+      }
+    };
+    saveData();
+  }, [answers, recommendations]);
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-amber-50 to-amber-100">

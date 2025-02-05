@@ -7,9 +7,8 @@ import { isAgeAppropriate, isProductGenderAppropriate } from "./recommendation/f
 import { getFallbackProducts } from "./recommendation/fallback";
 import { ensureCategoryDiversity } from "./recommendation/diversity";
 import { applySynergyBoosts } from "./recommendation/synergy";
-import { ProductDefinition } from "./products/productTypes";
 import { adjustProductScores } from "./feedback/feedbackAdjustment";
-import PerformanceMonitor from "./performanceMonitor";
+import { toast } from "sonner";
 
 function calculateSeverityMultiplier(answers: Answer[]): { [key: string]: number } {
   const severityMultipliers: { [key: string]: number } = {};
@@ -29,22 +28,27 @@ function calculateSeverityMultiplier(answers: Answer[]): { [key: string]: number
 }
 
 export function getRecommendations(answers: Answer[]): Product[] {
-  PerformanceMonitor.startMeasure("getRecommendations");
   console.group("Generating Recommendations");
   
   try {
-    if (!Array.isArray(answers)) {
-      throw new Error("Invalid answers format: expected array");
-    }
-
-    const gender = answers.find(a => a.questionId === 1)?.answers[0];
-    const age = answers.find(a => a.questionId === 2)?.answers[0];
-    
-    if (!gender || !age) {
-      console.warn("Missing required answers for gender or age");
+    if (!Array.isArray(answers) || answers.length === 0) {
+      console.warn("No answers provided");
+      toast.error("Please complete the questionnaire first");
       return [];
     }
 
+    const genderAnswer = answers.find(a => a.questionId === 1);
+    const ageAnswer = answers.find(a => a.questionId === 2);
+    
+    if (!genderAnswer?.answers[0] || !ageAnswer?.answers[0]) {
+      console.warn("Missing required answers for gender or age");
+      toast.error("Please provide your gender and age");
+      return [];
+    }
+
+    const gender = genderAnswer.answers[0];
+    const age = ageAnswer.answers[0];
+    
     const primaryGoal = answers.find(a => a.questionId === 3)?.answers[0];
     const healthConcerns = answers.find(a => a.questionId === 4)?.answers || [];
     const severityMultipliers = calculateSeverityMultiplier(answers);
@@ -125,7 +129,6 @@ export function getRecommendations(answers: Answer[]): Product[] {
 
     recommendations = adjustProductScores(recommendations);
 
-    PerformanceMonitor.endMeasure("getRecommendations");
     console.log("Final recommendations:", recommendations);
     console.groupEnd();
 
@@ -133,7 +136,7 @@ export function getRecommendations(answers: Answer[]): Product[] {
   } catch (error) {
     console.error("Error generating recommendations:", error);
     console.groupEnd();
-    PerformanceMonitor.endMeasure("getRecommendations");
+    toast.error("An error occurred while generating recommendations");
     throw error;
   }
 }
