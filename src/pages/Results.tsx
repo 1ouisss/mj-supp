@@ -24,7 +24,6 @@ const Results = () => {
 
   const saveUserResponses = async () => {
     try {
-      // Convert answers to a JSON-compatible format
       const jsonResponses = JSON.parse(JSON.stringify(answers)) as Json;
       
       const { data: userResponse, error: userResponseError } = await supabase
@@ -47,11 +46,39 @@ const Results = () => {
   const recommendations = getRecommendations(answers);
   const uniqueCategories = [...new Set(recommendations.flatMap(p => p.categories))];
 
+  // Function to get product UUID from database
+  const getProductUuid = async (productName: string) => {
+    try {
+      const { data, error } = await supabase
+        .from('products')
+        .select('id')
+        .eq('name', productName)
+        .maybeSingle();
+
+      if (error) throw error;
+      return data?.id;
+    } catch (error) {
+      console.error(`Error getting UUID for product ${productName}:`, error);
+      return null;
+    }
+  };
+
   const saveRecommendations = async (userResponseId: string) => {
     try {
+      // Get UUIDs for all recommended products
+      const productUuidPromises = recommendations.map(r => getProductUuid(r.name));
+      const productUuids = await Promise.all(productUuidPromises);
+      
+      // Filter out any null values from failed UUID lookups
+      const validProductUuids = productUuids.filter((id): id is string => id !== null);
+      
+      if (validProductUuids.length === 0) {
+        throw new Error('No valid product UUIDs found');
+      }
+
       const recommendationData = {
         user_response_id: userResponseId,
-        product_ids: recommendations.map(r => r.id),
+        product_ids: validProductUuids,
         confidence_scores: recommendations.map(r => r.confidenceLevel || 0)
       };
 
@@ -68,10 +95,16 @@ const Results = () => {
 
   const handleFeedbackSubmit = async (feedback: ProductFeedback) => {
     try {
+      const productUuid = await getProductUuid(recommendations.find(p => p.id === feedback.productId)?.name || '');
+      
+      if (!productUuid) {
+        throw new Error('Product UUID not found');
+      }
+
       const { error: feedbackError } = await supabase
         .from('feedback')
         .insert({
-          product_id: feedback.productId,
+          product_id: productUuid,
           rating: feedback.rating,
           is_helpful: feedback.isHelpful,
           suggestion: feedback.additionalFeedback
