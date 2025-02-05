@@ -93,7 +93,7 @@ export function getRecommendations(answers: Answer[]): Product[] {
     let scoredProducts = PRODUCTS
       .filter(productDef => {
         // Check basic eligibility
-        if (shouldExcludeProduct(productDef, answers)) {
+        if (shouldExcludeProduct(productDef as Product, answers)) {
           return false;
         }
 
@@ -152,6 +152,7 @@ export function getRecommendations(answers: Answer[]): Product[] {
 
         console.log(`Product ${productDef.name} - Final Score: ${totalScore}, Match Count: ${matchCount}`);
 
+        // Convert ProductDefinition to Product by adding confidenceLevel
         const confidenceLevel = Math.min(
           WEIGHTS.MAX_CONFIDENCE,
           Math.max(
@@ -164,7 +165,7 @@ export function getRecommendations(answers: Answer[]): Product[] {
           ...productDef,
           confidenceLevel,
           score: totalScore
-        };
+        } as Product;
       })
       .filter(product => product.score > 0)
       .sort((a, b) => (b.score || 0) - (a.score || 0));
