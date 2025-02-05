@@ -7,11 +7,10 @@ const Index = () => {
 
   return (
     <div 
-      className="min-h-screen flex flex-col items-center justify-center p-4 relative overflow-hidden"
+      className="min-h-screen flex flex-col items-center justify-center p-4 relative overflow-hidden bg-gradient-to-br animate-gradient-shift"
       style={{
-        background: 'linear-gradient(-45deg, #E4D780, #E8DB85, #E4D780, #EAE090)',
-        backgroundSize: '400% 400%',
-        animation: 'gradient-shift 15s ease infinite'
+        backgroundImage: 'linear-gradient(-45deg, #E4D780, #E8DB85, #E4D780, #EAE090)',
+        backgroundSize: '400% 400%'
       }}
     >
       {/* Large smoke particles */}

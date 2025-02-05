@@ -73,9 +73,12 @@ export default {
       },
       keyframes: {
         'gradient-shift': {
-          '0%': { 'background-position': '0% 50%' },
-          '50%': { 'background-position': '100% 50%' },
-          '100%': { 'background-position': '0% 50%' }
+          '0%, 100%': { 
+            'background-position': '0% 50%'
+          },
+          '50%': { 
+            'background-position': '100% 50%'
+          }
         },
         'smoke-drift': {
           '0%': { 
@@ -109,8 +112,7 @@ export default {
       animation: {
         'gradient-shift': 'gradient-shift 15s ease infinite',
         'smoke': 'smoke-drift 8s ease-out infinite',
-        'float': 'float 12s ease-in-out infinite',
-        'pulse': 'pulse 2s ease-in-out infinite'
+        'float': 'float 12s ease-in-out infinite'
       }
     }
   },
