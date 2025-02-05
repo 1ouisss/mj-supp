@@ -3,47 +3,47 @@ import { ProductCategory } from "../../products/productTypes";
 
 export const CORE_TEST_SCENARIOS = [
   {
-    name: "Scénario 1: Santé cérébrale et problèmes digestifs",
+    name: "Scénario 1: Énergie & Adaptogène + Stress",
     answers: [
       { questionId: 1, answers: ["Femme"] },
       { questionId: 2, answers: ["25-34"] },
-      { questionId: 3, answers: ["Soutenir la santé cérébrale"] },
-      { questionId: 4, answers: ["Problèmes digestifs"] }
-    ],
-    expectedProducts: ["focus", "omega-3", "jus-aloes"],
-    expectedCategories: ["brain" as ProductCategory, "digestive" as ProductCategory],
-    minimumProducts: 3
-  },
-  {
-    name: "Scénario 2: Sommeil et stress",
-    answers: [
-      { questionId: 1, answers: ["Femme"] },
-      { questionId: 2, answers: ["35-44"] },
-      { questionId: 3, answers: ["Améliorer le sommeil"] },
+      { questionId: 3, answers: ["Renforcer l'énergie"] },
       { questionId: 4, answers: ["Gérer le stress"] },
       {
         questionId: 401,
         answers: ["Oui"],
         followUpAnswers: [
-          { questionId: 402, answers: [4] }
+          { questionId: 402, answers: [3] }
         ]
       }
     ],
-    expectedProducts: ["melatonine", "magnesium", "poudre-dodo"],
-    expectedCategories: ["sleep" as ProductCategory, "relaxation" as ProductCategory],
+    expectedProducts: ["energie-adaptogene", "omega-3", "focus"],
+    expectedCategories: ["energy" as ProductCategory, "brain" as ProductCategory],
     minimumProducts: 3
   },
   {
-    name: "Scénario 3: Équilibre hormonal féminin",
+    name: "Scénario 2: Digestion et Santé hormonale",
     answers: [
       { questionId: 1, answers: ["Femme"] },
-      { questionId: 2, answers: ["45-54"] },
-      { questionId: 3, answers: ["Équilibre hormonal"] },
-      { questionId: 4, answers: ["Symptômes de la ménopause"] }
+      { questionId: 2, answers: ["35-44"] },
+      { questionId: 3, answers: ["Améliorer la digestion"] },
+      { questionId: 4, answers: ["Équilibre hormonal"] }
     ],
-    expectedProducts: ["formule-menopause", "selenium"],
-    expectedCategories: ["hormones" as ProductCategory, "women_specific" as ProductCategory],
-    minimumProducts: 2
+    expectedProducts: ["jus-aloes", "fibres-ami", "formule-menopause"],
+    expectedCategories: ["digestive" as ProductCategory, "hormones" as ProductCategory],
+    minimumProducts: 3
+  },
+  {
+    name: "Scénario 3: Immunité et Fatigue",
+    answers: [
+      { questionId: 1, answers: ["Homme"] },
+      { questionId: 2, answers: ["45-54"] },
+      { questionId: 3, answers: ["Renforcer l'immunité"] },
+      { questionId: 4, answers: ["Fatigue générale"] }
+    ],
+    expectedProducts: ["les-apothicaires", "vitamine-c", "metabzen"],
+    expectedCategories: ["immune" as ProductCategory, "energy" as ProductCategory],
+    minimumProducts: 3
   }
 ];
 
@@ -52,7 +52,8 @@ export const GENDER_TEST_SCENARIOS = [
     name: "Test Homme - Exclusion produits féminins",
     answers: [
       { questionId: 1, answers: ["Homme"] },
-      { questionId: 2, answers: ["Renforcer l'immunité"] }
+      { questionId: 2, answers: ["35-44"] },
+      { questionId: 3, answers: ["Renforcer l'immunité"] }
     ],
     validateFn: (recommendations: any[]) => {
       const hasWomenSpecific = recommendations.some(r => 
@@ -69,7 +70,8 @@ export const GENDER_TEST_SCENARIOS = [
     name: "Test Neutre - Produits neutres uniquement",
     answers: [
       { questionId: 1, answers: ["Je préfère ne pas répondre"] },
-      { questionId: 2, answers: ["Renforcer l'immunité"] }
+      { questionId: 2, answers: ["25-34"] },
+      { questionId: 3, answers: ["Renforcer l'immunité"] }
     ],
     validateFn: (recommendations: any[]) => {
       const hasGenderSpecific = recommendations.some(r => 

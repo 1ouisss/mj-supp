@@ -4,17 +4,19 @@ import { ProductCategory } from "../../products/productTypes";
 export function testDiversityRequirements(recommendations: Product[]): boolean {
   console.group("Testing Diversity Requirements");
   
+  // Vérifier la diversité des catégories
   const uniqueCategories = new Set<ProductCategory>();
   recommendations.forEach(product => {
     product.categories.forEach(category => uniqueCategories.add(category));
   });
   
-  if (uniqueCategories.size < 2) {
+  if (uniqueCategories.size < 3) {
     console.error("❌ Not enough category diversity. Found:", Array.from(uniqueCategories));
     console.groupEnd();
     return false;
   }
   
+  // Vérifier qu'il n'y a pas de doublons
   const productIds = recommendations.map(p => p.id);
   const uniqueProductIds = new Set(productIds);
   if (uniqueProductIds.size !== productIds.length) {
@@ -23,6 +25,7 @@ export function testDiversityRequirements(recommendations: Product[]): boolean {
     return false;
   }
   
+  // Vérifier la distribution des catégories
   const categoryCount: { [key: string]: number } = {};
   recommendations.forEach(product => {
     product.categories.forEach(category => {
@@ -30,9 +33,9 @@ export function testDiversityRequirements(recommendations: Product[]): boolean {
     });
   });
   
-  const maxProductsPerCategory = Math.ceil(recommendations.length / 2);
+  // Pas plus de 2 produits par catégorie
   const overrepresentedCategories = Object.entries(categoryCount)
-    .filter(([_, count]) => count > maxProductsPerCategory);
+    .filter(([_, count]) => count > 2);
   
   if (overrepresentedCategories.length > 0) {
     console.error("❌ Some categories are overrepresented:", overrepresentedCategories);
