@@ -1,7 +1,7 @@
 import { Answer } from "@/components/quiz/types";
 import { Product } from "@/components/results/ProductCard";
 import { PRODUCTS } from "./products/productDatabase";
-import { ProductCategory } from "./products/productTypes";
+import { ProductCategory, ProductDefinition } from "./products/productTypes";
 
 const WEIGHTS = {
   PRIMARY_GOAL: 3,
@@ -30,6 +30,20 @@ function calculateTherapeuticScore(claims: string[] | undefined, concerns: strin
 
 function normalizeAnswer(answer: string | number): string {
   return String(answer);
+}
+
+function isProductGenderAppropriate(product: ProductDefinition, gender: string): boolean {
+  if (gender === "Homme" && product.categories.includes("women_specific")) {
+    return false;
+  }
+  if (gender === "Femme" && product.categories.includes("men_specific")) {
+    return false;
+  }
+  if (gender === "Je préfère ne pas répondre" && 
+      (product.categories.includes("women_specific") || product.categories.includes("men_specific"))) {
+    return false;
+  }
+  return true;
 }
 
 export function getRecommendations(answers: Answer[]): Product[] {
@@ -80,6 +94,7 @@ export function getRecommendations(answers: Answer[]): Product[] {
         )
       );
 
+      // Convert ProductDefinition to Product by adding confidenceLevel
       const product: Product = {
         ...productDef,
         confidenceLevel,
@@ -104,18 +119,4 @@ export function getRecommendations(answers: Answer[]): Product[] {
     console.groupEnd();
     throw error;
   }
-}
-
-function isProductGenderAppropriate(product: Product, gender: string): boolean {
-  if (gender === "Homme" && product.categories.includes("women_specific")) {
-    return false;
-  }
-  if (gender === "Femme" && product.categories.includes("men_specific")) {
-    return false;
-  }
-  if (gender === "Je préfère ne pas répondre" && 
-      (product.categories.includes("women_specific") || product.categories.includes("men_specific"))) {
-    return false;
-  }
-  return true;
 }
