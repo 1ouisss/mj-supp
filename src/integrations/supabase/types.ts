@@ -86,6 +86,30 @@ export type Database = {
           },
         ]
       }
+      newsletter_subscriptions: {
+        Row: {
+          email: string
+          id: string
+          quiz_completed: boolean | null
+          source: string | null
+          subscribed_at: string | null
+        }
+        Insert: {
+          email: string
+          id?: string
+          quiz_completed?: boolean | null
+          source?: string | null
+          subscribed_at?: string | null
+        }
+        Update: {
+          email?: string
+          id?: string
+          quiz_completed?: boolean | null
+          source?: string | null
+          subscribed_at?: string | null
+        }
+        Relationships: []
+      }
       products: {
         Row: {
           categories: string[]
