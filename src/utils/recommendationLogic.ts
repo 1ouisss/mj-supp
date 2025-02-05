@@ -13,7 +13,8 @@ const WEIGHTS = {
   MIN_CONFIDENCE: 80,
   MAX_CONFIDENCE: 100,
   MIN_CATEGORIES: 2,
-  MAX_PRODUCTS_PER_CATEGORY: 2
+  MAX_PRODUCTS_PER_CATEGORY: 2,
+  MIN_RECOMMENDATIONS: 3
 };
 
 const PRODUCT_SYNERGIES = {
@@ -54,6 +55,30 @@ function isProductGenderAppropriate(product: ProductDefinition, gender: string):
     return false;
   }
   return true;
+}
+
+function isAgeAppropriate(product: ProductDefinition, age: string): boolean {
+  if (age === "<18" && !product.categories.includes("children")) {
+    return false;
+  }
+  if (age !== "<18" && product.categories.includes("children")) {
+    return false;
+  }
+  return true;
+}
+
+function getFallbackProducts(gender: string, age: string): Product[] {
+  return PRODUCTS
+    .filter(product => 
+      product.categories.includes("general_health") &&
+      isProductGenderAppropriate(product, gender) &&
+      isAgeAppropriate(product, age)
+    )
+    .map(product => ({
+      ...product,
+      confidenceLevel: WEIGHTS.MIN_CONFIDENCE
+    }))
+    .slice(0, 2);
 }
 
 function applySynergyBoosts(productId: string, concerns: string[], baseScore: number): number {
@@ -115,13 +140,16 @@ export function getRecommendations(answers: Answer[]): Product[] {
   
   try {
     const gender = answers.find(a => a.questionId === 1)?.answers[0];
-    const primaryGoal = answers.find(a => a.questionId === 2)?.answers[0];
-    const healthConcerns = answers.find(a => a.questionId === 3)?.answers || [];
+    const age = answers.find(a => a.questionId === 2)?.answers[0];
+    const primaryGoal = answers.find(a => a.questionId === 3)?.answers[0];
+    const healthConcerns = answers.find(a => a.questionId === 4)?.answers || [];
     const severityMultipliers = calculateSeverityMultiplier(answers);
     
     // Calculate scores for all products
     const scoredProducts = PRODUCTS.map(productDef => {
-      if (!gender || !isProductGenderAppropriate(productDef, normalizeAnswer(gender))) {
+      if (!gender || 
+          !isProductGenderAppropriate(productDef, normalizeAnswer(gender)) ||
+          !isAgeAppropriate(productDef, normalizeAnswer(age))) {
         return null;
       }
 
@@ -145,7 +173,7 @@ export function getRecommendations(answers: Answer[]): Product[] {
         if (concernScore > 0) matchCount++;
       });
       
-      // Category matching and therapeutic claims
+      // Category and therapeutic claims scoring
       const relevantCategories = [
         ...(primaryGoal ? [normalizeAnswer(primaryGoal)] : []), 
         ...normalizedHealthConcerns
@@ -165,21 +193,29 @@ export function getRecommendations(answers: Answer[]): Product[] {
         )
       );
 
-      // Convert ProductDefinition to Product by adding confidenceLevel
-      const product: Product = {
+      return {
         ...productDef,
         confidenceLevel,
+        score: totalScore
       };
-
-      return product;
-    }).filter((product): product is Product => 
+    }).filter((product): product is Product & { score: number } => 
       product !== null && product.confidenceLevel >= WEIGHTS.MIN_CONFIDENCE
     );
 
-    // Sort by confidence level and ensure category diversity
-    const recommendations = ensureCategoryDiversity(
-      scoredProducts.sort((a, b) => b.confidenceLevel - a.confidenceLevel)
-    ).slice(0, 5);
+    // Sort by score and ensure category diversity
+    let recommendations = ensureCategoryDiversity(
+      scoredProducts.sort((a, b) => b.score - a.score)
+    );
+
+    // Add fallback products if needed
+    if (recommendations.length < WEIGHTS.MIN_RECOMMENDATIONS && gender && age) {
+      const fallbackProducts = getFallbackProducts(
+        normalizeAnswer(gender),
+        normalizeAnswer(age)
+      );
+      recommendations = [...recommendations, ...fallbackProducts]
+        .slice(0, WEIGHTS.MIN_RECOMMENDATIONS);
+    }
 
     console.log("Final recommendations:", recommendations);
     console.groupEnd();
