@@ -10,7 +10,7 @@ export const DIGESTIVE_HEALTH_PRODUCTS: ProductDefinition[] = [
     recommendationReason: "Soutien digestif naturel",
     dietaryInfo: "100% Naturel, Vegan",
     productUrl: "https://maisonjacynthe.ca/fr/jus-aloes",
-    categories: ["digestive", "short_term"],
+    categories: ["digestif", "court_terme"],
     scores: [
       { condition: "Améliorer la digestion", score: 5 },
       { condition: "Problèmes digestifs", score: 5 }
@@ -27,9 +27,9 @@ export const DIGESTIVE_HEALTH_PRODUCTS: ProductDefinition[] = [
     usage: {
       timing: "Prendre à jeun le matin",
       duration: "Cure de 1-3 mois",
-      seasonality: ["all_year"]
+      seasonality: ["toute_année"]
     },
-    timeFrame: "short_term"
+    timeFrame: "court_terme"
   },
   {
     id: "probiotiques",
@@ -40,7 +40,7 @@ export const DIGESTIVE_HEALTH_PRODUCTS: ProductDefinition[] = [
     recommendationReason: "Soutien pour la santé intestinale",
     dietaryInfo: "Vegan, Sans gluten",
     productUrl: "https://maisonjacynthe.ca/fr/probiotiques",
-    categories: ["digestive", "immune", "long_term"],
+    categories: ["digestif", "immunité", "long_terme"],
     scores: [
       { condition: "Améliorer la digestion", score: 5 },
       { condition: "Renforcer l'immunité", score: 4 }
@@ -57,9 +57,9 @@ export const DIGESTIVE_HEALTH_PRODUCTS: ProductDefinition[] = [
     usage: {
       timing: "Prendre à jeun le matin",
       duration: "Utilisation continue recommandée",
-      seasonality: ["all_year"]
+      seasonality: ["toute_année"]
     },
-    timeFrame: "long_term"
+    timeFrame: "long_terme"
   },
   {
     id: "fibres-et-ami",
@@ -70,7 +70,7 @@ export const DIGESTIVE_HEALTH_PRODUCTS: ProductDefinition[] = [
     recommendationReason: "Soutien digestif quotidien",
     dietaryInfo: "Vegan, Sans gluten",
     productUrl: "https://maisonjacynthe.ca/fr/fibres-et-l-ami",
-    categories: ["digestive"],
+    categories: ["digestif"],
     scores: [
       { condition: "Transit intestinal", score: 5 },
       { condition: "Santé digestive", score: 5 }
@@ -86,9 +86,9 @@ export const DIGESTIVE_HEALTH_PRODUCTS: ProductDefinition[] = [
     usage: {
       timing: "Quotidien",
       duration: "Usage régulier",
-      seasonality: ["all_year"]
+      seasonality: ["toute_année"]
     },
-    timeFrame: "long_term"
+    timeFrame: "long_terme"
   },
   {
     id: "fontaine-de-jouvence",
@@ -99,7 +99,7 @@ export const DIGESTIVE_HEALTH_PRODUCTS: ProductDefinition[] = [
     recommendationReason: "Solution complète pour la digestion",
     dietaryInfo: "Vegan, Sans gluten",
     productUrl: "https://maisonjacynthe.ca/fr/fontaine-de-jouvence-complet",
-    categories: ["digestive", "general_health"],
+    categories: ["digestif", "santé_générale"],
     scores: [
       { condition: "Santé digestive", score: 5 },
       { condition: "Bien-être général", score: 4 }
@@ -115,9 +115,9 @@ export const DIGESTIVE_HEALTH_PRODUCTS: ProductDefinition[] = [
     usage: {
       timing: "Quotidien",
       duration: "Usage régulier",
-      seasonality: ["all_year"]
+      seasonality: ["toute_année"]
     },
-    timeFrame: "long_term"
+    timeFrame: "long_terme"
   },
   {
     id: "detox-foie",
@@ -128,7 +128,7 @@ export const DIGESTIVE_HEALTH_PRODUCTS: ProductDefinition[] = [
     recommendationReason: "Support détoxifiant naturel",
     dietaryInfo: "Vegan, Sans gluten",
     productUrl: "https://maisonjacynthe.ca/fr/detox-foie-90-capsules",
-    categories: ["digestive"],
+    categories: ["digestif"],
     scores: [
       { condition: "Santé hépatique", score: 5 },
       { condition: "Détoxification", score: 5 }
@@ -144,8 +144,8 @@ export const DIGESTIVE_HEALTH_PRODUCTS: ProductDefinition[] = [
     usage: {
       timing: "Selon les besoins",
       duration: "Cure périodique",
-      seasonality: ["all_year"]
+      seasonality: ["toute_année"]
     },
-    timeFrame: "short_term"
+    timeFrame: "court_terme"
   }
 ];

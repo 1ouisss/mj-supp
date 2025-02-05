@@ -21,7 +21,6 @@ export type ProductCategory =
   | "douleur" 
   | "guérison" 
   | "topique" 
-  | "immunité" 
   | "saisonnier" 
   | "gorge" 
   | "essentiel" 

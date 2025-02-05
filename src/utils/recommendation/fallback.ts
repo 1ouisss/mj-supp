@@ -6,7 +6,7 @@ import { isAgeAppropriate, isProductGenderAppropriate } from "./filters";
 export function getFallbackProducts(gender: string, age: string): Product[] {
   return PRODUCTS
     .filter(product => 
-      product.categories.includes("general_health") &&
+      product.categories.includes("santé_générale") &&
       isProductGenderAppropriate(product, gender) &&
       isAgeAppropriate(product, age)
     )
