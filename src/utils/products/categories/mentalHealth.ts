@@ -60,5 +60,34 @@ export const MENTAL_HEALTH_PRODUCTS: ProductDefinition[] = [
       seasonality: ["all_year"]
     },
     timeFrame: "long_term"
+  },
+  {
+    id: "force-botanique",
+    name: "Force Botanique",
+    description: "Complexe énergisant naturel",
+    imageUrl: "/lovable-uploads/3d4695a5-4f00-4d50-8c0f-ba0fc614d742.png",
+    expectedResults: "Énergie naturelle et vitalité 🌱",
+    recommendationReason: "Boost d'énergie botanique",
+    dietaryInfo: "Vegan, Sans gluten",
+    productUrl: "https://maisonjacynthe.ca/fr/force-botanique",
+    categories: ["energy", "stress"],
+    scores: [
+      { condition: "Énergie", score: 5 },
+      { condition: "Vitalité", score: 5 }
+    ],
+    therapeuticClaims: [
+      "Boost d'énergie naturel",
+      "Soutient la vitalité"
+    ],
+    relationships: {
+      complementaryProducts: [],
+      contraindications: []
+    },
+    usage: {
+      timing: "Quotidien",
+      duration: "Usage régulier",
+      seasonality: ["all_year"]
+    },
+    timeFrame: "long_term"
   }
 ];

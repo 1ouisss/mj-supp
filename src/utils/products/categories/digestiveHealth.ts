@@ -60,5 +60,63 @@ export const DIGESTIVE_HEALTH_PRODUCTS: ProductDefinition[] = [
       seasonality: ["all_year"]
     },
     timeFrame: "long_term"
+  },
+  {
+    id: "fibres-et-ami",
+    name: "Fibres & l'Ami",
+    description: "Complexe de fibres pour la santé digestive",
+    imageUrl: "/lovable-uploads/13e46990-e5e0-4bd3-8238-5682ce7a6045.png",
+    expectedResults: "Transit intestinal régulier et confort digestif 🌿",
+    recommendationReason: "Soutien digestif quotidien",
+    dietaryInfo: "Vegan, Sans gluten",
+    productUrl: "https://maisonjacynthe.ca/fr/fibres-et-l-ami",
+    categories: ["digestive"],
+    scores: [
+      { condition: "Transit intestinal", score: 5 },
+      { condition: "Santé digestive", score: 5 }
+    ],
+    therapeuticClaims: [
+      "Favorise la régularité",
+      "Soutient la santé digestive"
+    ],
+    relationships: {
+      complementaryProducts: ["probiotiques"],
+      contraindications: []
+    },
+    usage: {
+      timing: "Quotidien",
+      duration: "Usage régulier",
+      seasonality: ["all_year"]
+    },
+    timeFrame: "long_term"
+  },
+  {
+    id: "detox-foie",
+    name: "Détox Foie",
+    description: "Soutien pour la détoxification hépatique",
+    imageUrl: "/lovable-uploads/2acb2995-f372-4919-aa20-6b2c88e080ae.png",
+    expectedResults: "Fonction hépatique optimale 🌿",
+    recommendationReason: "Support détoxifiant naturel",
+    dietaryInfo: "Vegan, Sans gluten",
+    productUrl: "https://maisonjacynthe.ca/fr/detox-foie-90-capsules",
+    categories: ["digestive"],
+    scores: [
+      { condition: "Santé hépatique", score: 5 },
+      { condition: "Détoxification", score: 5 }
+    ],
+    therapeuticClaims: [
+      "Soutient la fonction hépatique",
+      "Aide à la détoxification"
+    ],
+    relationships: {
+      complementaryProducts: [],
+      contraindications: []
+    },
+    usage: {
+      timing: "Selon les besoins",
+      duration: "Cure périodique",
+      seasonality: ["all_year"]
+    },
+    timeFrame: "short_term"
   }
 ];

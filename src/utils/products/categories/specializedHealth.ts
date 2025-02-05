@@ -92,5 +92,92 @@ export const SPECIALIZED_HEALTH_PRODUCTS: ProductDefinition[] = [
       seasonality: ["all_year"]
     },
     timeFrame: "long_term"
+  },
+  {
+    id: "formule-menopause",
+    name: "Formule Ménopause",
+    description: "Support naturel pour la ménopause",
+    imageUrl: "/lovable-uploads/69fac7c4-db16-461e-bdbe-8322e037ddcb.png",
+    expectedResults: "Confort et équilibre hormonal 🌸",
+    recommendationReason: "Soutien hormonal naturel",
+    dietaryInfo: "Vegan, Sans gluten",
+    productUrl: "https://maisonjacynthe.ca/fr/formule-menopause",
+    categories: ["women_specific", "hormones"],
+    scores: [
+      { condition: "Symptômes ménopause", score: 5 },
+      { condition: "Équilibre hormonal", score: 5 }
+    ],
+    therapeuticClaims: [
+      "Soulage les symptômes de la ménopause",
+      "Équilibre hormonal"
+    ],
+    relationships: {
+      complementaryProducts: [],
+      contraindications: []
+    },
+    usage: {
+      timing: "Quotidien",
+      duration: "Usage régulier",
+      seasonality: ["all_year"]
+    },
+    timeFrame: "long_term"
+  },
+  {
+    id: "soutien-sante",
+    name: "Soutien Santé",
+    description: "Complexe multivitaminé ciblé",
+    imageUrl: "/lovable-uploads/4ccea2a6-43df-472a-8f3c-848d654e081f.png",
+    expectedResults: "Soutien immunitaire et vitalité 🌟",
+    recommendationReason: "Support nutritionnel complet",
+    dietaryInfo: "Vegan, Sans gluten",
+    productUrl: "https://maisonjacynthe.ca/fr/soutien-sante",
+    categories: ["immune", "essential"],
+    scores: [
+      { condition: "Immunité", score: 5 },
+      { condition: "Santé générale", score: 5 }
+    ],
+    therapeuticClaims: [
+      "Renforce l'immunité",
+      "Soutien nutritionnel global"
+    ],
+    relationships: {
+      complementaryProducts: [],
+      contraindications: []
+    },
+    usage: {
+      timing: "Quotidien",
+      duration: "Usage régulier",
+      seasonality: ["all_year"]
+    },
+    timeFrame: "long_term"
+  },
+  {
+    id: "multivitamines-la-totale",
+    name: "Multivitamines La Totale",
+    description: "Complexe multivitaminé complet",
+    imageUrl: "/lovable-uploads/7336c578-a712-4ec7-bf62-9be26f615a1f.png",
+    expectedResults: "Santé globale et vitalité 🌈",
+    recommendationReason: "Nutrition complète quotidienne",
+    dietaryInfo: "Vegan, Sans gluten",
+    productUrl: "https://maisonjacynthe.ca/fr/multivitamine-la-totale",
+    categories: ["essential", "general_health"],
+    scores: [
+      { condition: "Santé générale", score: 5 },
+      { condition: "Nutrition", score: 5 }
+    ],
+    therapeuticClaims: [
+      "Support nutritionnel complet",
+      "Maintien de la santé globale"
+    ],
+    relationships: {
+      complementaryProducts: [],
+      contraindications: []
+    },
+    usage: {
+      timing: "Quotidien",
+      duration: "Usage régulier",
+      seasonality: ["all_year"]
+    },
+    timeFrame: "long_term"
   }
 ];

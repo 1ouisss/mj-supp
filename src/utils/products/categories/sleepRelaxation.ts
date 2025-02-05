@@ -62,5 +62,64 @@ export const SLEEP_RELAXATION_PRODUCTS: ProductDefinition[] = [
       seasonality: ["all_year"]
     },
     timeFrame: "long_term"
+  },
+  {
+    id: "poudre-dodo",
+    name: "Poudre Dodo",
+    description: "Mélange apaisant pour un sommeil naturel et réparateur.",
+    imageUrl: "/lovable-uploads/7b075e38-a724-4460-9c61-0636c56e64ac.png",
+    expectedResults: "Sommeil profond et relaxation naturelle 😴",
+    recommendationReason: "Solution naturelle pour le sommeil",
+    dietaryInfo: "Vegan, Sans gluten",
+    productUrl: "https://maisonjacynthe.ca/fr/poudre-dodo",
+    categories: ["sleep", "relaxation", "short_term"],
+    scores: [
+      { condition: "Améliorer le sommeil", score: 5 },
+      { condition: "Stress nocturne", score: 4 }
+    ],
+    therapeuticClaims: [
+      "Favorise un sommeil naturel",
+      "Aide à la relaxation",
+      "Soutient la qualité du sommeil"
+    ],
+    relationships: {
+      complementaryProducts: ["magnesium", "melatonine"],
+      contraindications: []
+    },
+    usage: {
+      timing: "Prendre 30 minutes avant le coucher",
+      duration: "Utilisation quotidienne possible",
+      seasonality: ["all_year"]
+    },
+    timeFrame: "short_term"
+  },
+  {
+    id: "respire-bien",
+    name: "Respire Bien",
+    description: "Support naturel pour la respiration",
+    imageUrl: "/lovable-uploads/22027cf2-d007-47d3-9546-46d34b1ea955.png",
+    expectedResults: "Respiration facilitée et voies respiratoires dégagées 🌬️",
+    recommendationReason: "Soutien respiratoire naturel",
+    dietaryInfo: "Vegan, Sans gluten",
+    productUrl: "https://maisonjacynthe.ca/fr/respire-bien",
+    categories: ["seasonal", "throat"],
+    scores: [
+      { condition: "Problèmes respiratoires", score: 5 },
+      { condition: "Congestion", score: 4 }
+    ],
+    therapeuticClaims: [
+      "Soutient la santé respiratoire",
+      "Aide à dégager les voies respiratoires"
+    ],
+    relationships: {
+      complementaryProducts: [],
+      contraindications: []
+    },
+    usage: {
+      timing: "Selon les besoins",
+      duration: "Usage ponctuel ou régulier",
+      seasonality: ["winter", "spring"]
+    },
+    timeFrame: "short_term"
   }
 ];
