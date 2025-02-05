@@ -2,10 +2,10 @@ import { ProductDefinition } from '../productTypes';
 
 export const MENTAL_HEALTH_PRODUCTS: ProductDefinition[] = [
   {
-    id: "550e8400-e29b-41d4-a716-446655440000", // Changed to UUID
+    id: "550e8400-e29b-41d4-a716-446655440000",
     name: "Focus",
     description: "Formule avancée pour la concentration et la clarté mentale.",
-    imageUrl: "/lovable-uploads/75ff84e8-c303-4908-9110-609c7e765eec.png",
+    imageUrl: "/lovable-uploads/a4cf23a3-0970-4fb3-be63-daa3935ae49c.png",
     expectedResults: "Concentration améliorée, clarté mentale accrue 🧠",
     recommendationReason: "Soutien cognitif optimal",
     dietaryInfo: "Vegan, Sans gluten",
@@ -32,10 +32,10 @@ export const MENTAL_HEALTH_PRODUCTS: ProductDefinition[] = [
     timeFrame: "long_term"
   },
   {
-    id: "550e8400-e29b-41d4-a716-446655440001", // Changed to UUID
+    id: "550e8400-e29b-41d4-a716-446655440001",
     name: "Énergie & Adaptogènes",
     description: "Complexe énergisant avec adaptogènes pour le stress.",
-    imageUrl: "/lovable-uploads/69fac7c4-db16-461e-bdbe-8322e037ddcb.png",
+    imageUrl: "/lovable-uploads/4ccea2a6-43df-472a-8f3c-848d654e081f.png",
     expectedResults: "Énergie stable, meilleure résistance au stress ⚡",
     recommendationReason: "Soutien énergétique et anti-stress",
     dietaryInfo: "Vegan, Sans gluten",

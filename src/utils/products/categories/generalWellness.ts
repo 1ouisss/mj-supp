@@ -3,30 +3,29 @@ import { ProductDefinition } from '../productTypes';
 export const GENERAL_WELLNESS_PRODUCTS: ProductDefinition[] = [
   {
     id: "omega-3",
-    name: "Oméga-3",
-    description: "Soutient la santé cardiovasculaire et cérébrale.",
-    imageUrl: "/lovable-uploads/9b2bbab2-451b-4cae-993b-bbe8ddd50663.png",
-    expectedResults: "Soutien cognitif et cardiovasculaire 🧠",
-    recommendationReason: "Santé cognitive et cardiaque",
-    dietaryInfo: "Sans gluten",
-    productUrl: "https://maisonjacynthe.ca/fr/omega-astaxanthine",
-    categories: ["brain", "heart_health", "joints", "long_term"],
+    name: "Multivitamines La Totale",
+    description: "Complexe complet de vitamines et minéraux essentiels.",
+    imageUrl: "/lovable-uploads/9fe3dcb7-455a-4684-af23-43bb9a63de07.png",
+    expectedResults: "Soutien nutritionnel complet 🌟",
+    recommendationReason: "Base nutritionnelle essentielle",
+    dietaryInfo: "Vegan, Sans gluten",
+    productUrl: "https://maisonjacynthe.ca/fr/multivitamines",
+    categories: ["general_health", "essential", "long_term"],
     scores: [
-      { condition: "Soutenir la santé cérébrale", score: 3 },
-      { condition: "Préoccupations cardiovasculaires", score: 3 }
+      { condition: "Soutien nutritionnel", score: 5 },
+      { condition: "Santé générale", score: 5 }
     ],
     therapeuticClaims: [
-      "Supports brain, heart, and joint health 🐟",
-      "Améliore la santé cardiovasculaire",
-      "Soutient les fonctions cognitives",
-      "Réduit l'inflammation articulaire"
+      "Apport quotidien en vitamines et minéraux",
+      "Soutien du système immunitaire",
+      "Énergie et vitalité"
     ],
     relationships: {
-      complementaryProducts: ["focus"],
-      contraindications: ["Troubles de la coagulation"]
+      complementaryProducts: ["magnesium"],
+      contraindications: []
     },
     usage: {
-      timing: "Prendre avec un repas pour une meilleure absorption",
+      timing: "Prendre avec un repas",
       duration: "Utilisation quotidienne recommandée",
       seasonality: ["all_year"]
     },

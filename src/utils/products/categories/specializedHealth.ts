@@ -3,25 +3,26 @@ import { ProductDefinition } from '../productTypes';
 export const SPECIALIZED_HEALTH_PRODUCTS: ProductDefinition[] = [
   {
     id: "coenzyme-q10",
-    name: "Coenzyme Q10",
-    description: "Supplément pour la santé cérébrale et la gestion des migraines.",
-    imageUrl: "/lovable-uploads/ce08bdaa-0440-4064-9cd7-04bd6a5ed979.png",
-    expectedResults: "Réduction des migraines, meilleure santé cérébrale 🧠",
-    recommendationReason: "Solution naturelle pour les migraines",
-    dietaryInfo: "Vegan, Sans gluten",
-    productUrl: "https://maisonjacynthe.ca/fr/coenzyme-q10",
-    categories: ["migraine", "brain"],
+    name: "Oméga-3 & Astaxanthine",
+    description: "Supplément pour la santé cérébrale et cardiovasculaire.",
+    imageUrl: "/lovable-uploads/920207d8-51b1-428d-9a7f-8ccb55c5becf.png",
+    expectedResults: "Soutien cognitif et cardiovasculaire 🧠",
+    recommendationReason: "Santé cognitive et cardiaque",
+    dietaryInfo: "Sans gluten",
+    productUrl: "https://maisonjacynthe.ca/fr/omega-astaxanthine",
+    categories: ["brain", "heart_health", "joints"],
     scores: [
-      { condition: "Migraines", score: 5 },
-      { condition: "Soutenir la santé cérébrale", score: 4 }
+      { condition: "Soutenir la santé cérébrale", score: 5 },
+      { condition: "Préoccupations cardiovasculaires", score: 5 }
     ],
     therapeuticClaims: [
-      "Réduction des migraines",
-      "Soutien énergétique cellulaire"
+      "Supports brain, heart, and joint health 🐟",
+      "Améliore la santé cardiovasculaire",
+      "Soutient les fonctions cognitives"
     ],
     relationships: {
-      complementaryProducts: ["omega-3"],
-      contraindications: ["Anticoagulants"]
+      complementaryProducts: ["zinc"],
+      contraindications: ["Troubles de la coagulation"]
     },
     usage: {
       timing: "Prendre avec un repas",
@@ -33,23 +34,23 @@ export const SPECIALIZED_HEALTH_PRODUCTS: ProductDefinition[] = [
   },
   {
     id: "selenium",
-    name: "Sélénium",
-    description: "Minéral essentiel pour la santé thyroïdienne.",
-    imageUrl: "/lovable-uploads/d5909b03-6e45-4800-9745-c277e084faf9.png",
-    expectedResults: "Fonction thyroïdienne optimisée 🌟",
-    recommendationReason: "Soutien pour la thyroïde",
+    name: "Zinc & Cuivre",
+    description: "Minéraux essentiels pour le système immunitaire.",
+    imageUrl: "/lovable-uploads/d4d5dd78-75fc-4f0d-bc94-18072b2a4115.png",
+    expectedResults: "Système immunitaire renforcé 🌟",
+    recommendationReason: "Soutien immunitaire",
     dietaryInfo: "Vegan, Sans gluten",
-    productUrl: "https://maisonjacynthe.ca/fr/selenium",
-    categories: ["thyroid"],
+    productUrl: "https://maisonjacynthe.ca/fr/zinc-cuivre",
+    categories: ["immune", "essential"],
     scores: [
-      { condition: "Santé thyroïdienne", score: 5 }
+      { condition: "Renforcer l'immunité", score: 5 }
     ],
     therapeuticClaims: [
-      "Soutien de la fonction thyroïdienne",
+      "Soutien du système immunitaire",
       "Antioxydant"
     ],
     relationships: {
-      complementaryProducts: ["zinc"],
+      complementaryProducts: ["vitamine-d"],
       contraindications: []
     },
     usage: {
@@ -62,31 +63,33 @@ export const SPECIALIZED_HEALTH_PRODUCTS: ProductDefinition[] = [
   },
   {
     id: "vitamine-d",
-    name: "Vitamine D",
-    description: "Essentielle pour la santé osseuse et l'immunité.",
-    imageUrl: "/lovable-uploads/7336c578-a712-4ec7-bf62-9be26f615a1f.png",
-    expectedResults: "Renforcement osseux et immunitaire 🦴",
-    recommendationReason: "Soutien essentiel pour la santé",
+    name: "Silice",
+    description: "Essentielle pour la santé des cheveux, de la peau et des ongles.",
+    imageUrl: "/lovable-uploads/2fb75906-9c07-4df4-b771-2358014101ea.png",
+    expectedResults: "Beauté et santé de la peau, des cheveux et des ongles 💆‍♀️",
+    recommendationReason: "Soutien beauté naturel",
     dietaryInfo: "Vegan",
-    productUrl: "https://maisonjacynthe.ca/fr/vitamine-d",
-    categories: ["essential", "bone_health", "immunity"],
+    productUrl: "https://maisonjacynthe.ca/fr/silice",
+    categories: ["hair_health", "skin", "nails"],
     scores: [
-      { condition: "Renforcer l'immunité", score: 4 },
-      { condition: "Santé osseuse", score: 5 }
+      { condition: "Santé des cheveux", score: 5 },
+      { condition: "Santé de la peau", score: 5 },
+      { condition: "Santé des ongles", score: 5 }
     ],
     therapeuticClaims: [
-      "Soutien du système immunitaire",
-      "Santé osseuse"
+      "Renforce les cheveux et les ongles",
+      "Améliore l'élasticité de la peau",
+      "Soutient la production de collagène"
     ],
     relationships: {
-      complementaryProducts: ["calcium"],
+      complementaryProducts: ["selenium"],
       contraindications: []
     },
     usage: {
-      timing: "Prendre avec un repas gras",
+      timing: "Prendre avec un repas",
       duration: "Usage quotidien",
       dosage: "1 gélule par jour",
-      seasonality: ["fall", "winter"]
+      seasonality: ["all_year"]
     },
     timeFrame: "long_term"
   }
