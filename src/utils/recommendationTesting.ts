@@ -4,15 +4,15 @@ import { testDiversityRequirements } from "./recommendation/testing/diversityTes
 import { testPerformance } from "./recommendation/testing/performanceTests";
 import { ProductCategory } from "./products/productTypes";
 
-export function runRecommendationTests() {
+export async function runRecommendationTests() {
   console.group("Running Recommendation System Tests");
   let allTestsPassed = true;
 
   // Test core scenarios
-  CORE_TEST_SCENARIOS.forEach(scenario => {
+  for (const scenario of CORE_TEST_SCENARIOS) {
     console.group(`Test: ${scenario.name}`);
     try {
-      const recommendations = getRecommendations(scenario.answers);
+      const recommendations = await getRecommendations(scenario.answers);
       
       if (recommendations.length < scenario.minimumProducts) {
         console.error(`❌ Not enough recommendations. Expected at least ${scenario.minimumProducts}, got ${recommendations.length}`);
@@ -52,13 +52,13 @@ export function runRecommendationTests() {
       allTestsPassed = false;
     }
     console.groupEnd();
-  });
+  }
 
   // Test gender-specific scenarios
-  GENDER_TEST_SCENARIOS.forEach(scenario => {
+  for (const scenario of GENDER_TEST_SCENARIOS) {
     console.group(`Test: ${scenario.name}`);
     try {
-      const recommendations = getRecommendations(scenario.answers);
+      const recommendations = await getRecommendations(scenario.answers);
       if (scenario.validateFn && !scenario.validateFn(recommendations)) {
         allTestsPassed = false;
       }
@@ -67,7 +67,7 @@ export function runRecommendationTests() {
       allTestsPassed = false;
     }
     console.groupEnd();
-  });
+  }
 
   // Performance testing
   if (!testPerformance()) {

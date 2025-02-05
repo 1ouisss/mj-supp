@@ -1,6 +1,6 @@
 import { supabase } from "@/integrations/supabase/client";
 import { PRODUCTS } from "./productDatabase";
-import { ProductDefinition } from "./productTypes";
+import { ProductDefinition, ProductCategory } from "./productTypes";
 import { toast } from "sonner";
 
 interface ValidationResult {
@@ -49,7 +49,9 @@ export async function validateProductSync(): Promise<ValidationResult> {
       const localCategories = new Set(localProduct.categories);
       
       if (supabaseCategories.size !== localCategories.size || 
-          ![...supabaseCategories].every(cat => localCategories.has(cat))) {
+          ![...supabaseCategories].every(cat => 
+            localCategories.has(cat as ProductCategory)
+          )) {
         result.categoryMismatches.push({
           name: supabaseProduct.name,
           supabaseCategories: Array.from(supabaseCategories),
@@ -76,22 +78,7 @@ export async function validateProductSync(): Promise<ValidationResult> {
     }
   });
 
-  // Log validation results
   console.log("Validation Results:", result);
-  
-  if (result.missingInLocal.length > 0) {
-    console.warn("Products missing in local database:", result.missingInLocal);
-  }
-  if (result.missingInSupabase.length > 0) {
-    console.warn("Products missing in Supabase:", result.missingInSupabase);
-  }
-  if (result.categoryMismatches.length > 0) {
-    console.warn("Category mismatches:", result.categoryMismatches);
-  }
-  if (result.urlMismatches.length > 0) {
-    console.warn("URL mismatches:", result.urlMismatches);
-  }
-
   console.groupEnd();
   return result;
 }
