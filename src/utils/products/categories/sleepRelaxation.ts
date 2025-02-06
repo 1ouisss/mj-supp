@@ -66,11 +66,11 @@ export const SLEEP_RELAXATION_PRODUCTS: ProductDefinition[] = [
   {
     id: "poudre-dodo",
     name: "Poudre Dodo",
-    description: "Mélange apaisant pour un sommeil naturel et réparateur.",
-    imageUrl: "/lovable-uploads/7b075e38-a724-4460-9c61-0636c56e64ac.png",
-    expectedResults: "Sommeil profond et relaxation naturelle 😴",
+    description: "Super poudre apaisante pour un sommeil naturel et réparateur",
+    imageUrl: "/lovable-uploads/ef8d4c63-b573-46d0-9be3-4033e7cca34b.png",
+    expectedResults: "Sommeil profond et relaxation naturelle",
     recommendationReason: "Solution naturelle pour le sommeil",
-    dietaryInfo: "Vegan, Sans gluten",
+    dietaryInfo: "Vegan, Sans gluten, Orale/Oral 90g",
     productUrl: "https://maisonjacynthe.ca/fr/poudre-dodo",
     categories: ["sommeil", "relaxation"],
     scores: [
