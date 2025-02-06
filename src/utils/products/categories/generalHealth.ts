@@ -54,6 +54,50 @@ export const GENERAL_HEALTH_PRODUCTS: ProductDefinition[] = [
     timeFrame: "long_terme"
   },
   {
+    id: "multivitamines-enfants",
+    name: "Multivitamines à Croquer",
+    description: "Les multivitamines à croquer offrent bien plus qu'une délicieuse saveur d'orange : elles aident à combler les manques nutritifs ! Chaque comprimé à croquer est soigneusement formulé pour contribuer au développement et le maintien des os, soutenir la formation du tissu conjonctif, aider la fonction immunitaire, et bien plus encore.",
+    imageUrl: "/lovable-uploads/e69c1f29-620f-42c3-a3d7-e9aaa2931adb.png",
+    expectedResults: "Soutien nutritionnel complet pour les enfants, développement des os et du cartilage, renforcement du système immunitaire.",
+    recommendationReason: "Formule complète adaptée aux enfants avec une délicieuse saveur d'orange, idéale pour le développement et la croissance.",
+    dietaryInfo: "Format: 90 comprimés à croquer. NPN: 80108368. Saveur orange.",
+    productUrl: "https://maisonjacynthe.ca/fr/multivitamines-croquer",
+    categories: [
+      "santé_générale",
+      "enfants",
+      "santé_osseuse",
+      "immunité",
+      "essentiel",
+      "long_terme"
+    ],
+    scores: [
+      { condition: "Santé des enfants", score: 5 },
+      { condition: "Développement osseux", score: 4 },
+      { condition: "Immunité", score: 4 },
+      { condition: "Santé générale", score: 5 }
+    ],
+    therapeuticClaims: [
+      "Aide au développement et au maintien des os, du cartilage, des dents et des gencives",
+      "Aide à soutenir la fonction immunitaire",
+      "Aide à la cicatrisation des plaies",
+      "Aide à former des globules rouges",
+      "Aide à maintenir la vue et la vision nocturne",
+      "Aide à maintenir une glycémie normale",
+      "Source d'antioxydants pour une bonne santé"
+    ],
+    relationships: {
+      complementaryProducts: [],
+      contraindications: []
+    },
+    usage: {
+      timing: "Prendre avec de la nourriture",
+      dosage: "Enfants 4 à 8 ans: 1 comprimé par jour. Adultes: 1 à 3 comprimés par jour",
+      duration: "Usage quotidien",
+      seasonality: ["toute_année"]
+    },
+    timeFrame: "long_terme"
+  },
+  {
     id: "mineral-drop",
     name: "Minéral Drop",
     description: "Ce produit contient des traces de 70 minéraux et oligo-éléments naturels présents dans le Grand Lac Salé, une mer intérieure.",
