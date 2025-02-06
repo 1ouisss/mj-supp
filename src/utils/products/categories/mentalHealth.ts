@@ -2,6 +2,48 @@ import { ProductDefinition } from '../productTypes';
 
 export const MENTAL_HEALTH_PRODUCTS: ProductDefinition[] = [
   {
+    id: "champignons-adaptogenes",
+    name: "Champignons et Adaptogènes",
+    description: "Formule unique combinant champignons médicinaux et adaptogènes pour soutenir l'énergie, la résistance au stress et le système immunitaire. NPN: 80129449.",
+    imageUrl: "/lovable-uploads/90c113ee-375b-4074-89bd-aae98ccc9cc6.png",
+    expectedResults: "Soulagement de la fatigue, amélioration du rendement mental et physique, soutien immunitaire",
+    recommendationReason: "Combinaison puissante d'adaptogènes et de champignons médicinaux pour une approche holistique de la santé",
+    dietaryInfo: "Contient: Goji, maltodextrine, amidon de sorgho, épices naturelles (curcuma, cannelle, cardamome, girofle)",
+    productUrl: "https://maisonjacynthe.ca/fr/champignons-adaptogenes",
+    categories: ["stress", "énergie", "immunité", "cerveau"],
+    scores: [
+      { condition: "Stress ou anxiété", score: 5 },
+      { condition: "Fatigue chronique", score: 5 },
+      { condition: "Système immunitaire", score: 4 },
+      { condition: "Concentration", score: 4 }
+    ],
+    therapeuticClaims: [
+      "Aide à soulager l'affaiblissement généralisé et la fatigue",
+      "Améliore le rendement mental et physique",
+      "Source de polysaccharides fongiques immunomodulateurs",
+      "Aide à maintenir un système immunitaire sain",
+      "Adaptogène pour l'énergie et la résistance au stress",
+      "Source d'antioxydants"
+    ],
+    relationships: {
+      complementaryProducts: ["energie-adaptogenes", "force-botanique"],
+      contraindications: [
+        "Hypertension artérielle",
+        "Trouble bipolaire",
+        "Grossesse ou allaitement sans avis médical",
+        "Prise d'antidépresseurs ou d'anticoagulants",
+        "Maladies auto-immunes"
+      ]
+    },
+    usage: {
+      timing: "1 mesure 1 fois par jour avec de la nourriture. Éviter avant le coucher",
+      duration: "Consulter un praticien si utilisation > 1 mois",
+      dosage: "1 mesure dans 1-2 tasses de liquide",
+      seasonality: ["toute_année"]
+    },
+    timeFrame: "long_terme"
+  },
+  {
     id: "focus",
     name: "Focus",
     description: "Formule avancée pour la concentration et la clarté mentale",
