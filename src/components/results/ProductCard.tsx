@@ -30,7 +30,8 @@ interface ProductCardProps {
 const LOCAL_PRODUCT_IMAGES: Record<string, string> = {
   "Focus": "/lovable-uploads/08b3afe7-d173-4bc6-b68b-575f171df2ff.png",
   "La Totale": "/lovable-uploads/81fe24a0-70fe-4718-b8e3-db356eb4cd93.png",
-  "Complexe B": "/lovable-uploads/9e2a27a2-80a8-45c6-a120-57d6f9250958.png"
+  "Complexe B": "/lovable-uploads/9e2a27a2-80a8-45c6-a120-57d6f9250958.png",
+  "Mineral Drop": "/lovable-uploads/32c160a9-abc3-47bd-b0ad-507c4dec3c50.png"
 };
 
 const PLACEHOLDER_IMAGES = [
