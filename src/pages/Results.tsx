@@ -5,7 +5,7 @@ import { ProductCard } from "@/components/results/ProductCard";
 import { getRecommendations } from "@/utils/recommendationLogic";
 import type { Answer } from "@/components/quiz/types";
 import { Badge } from "@/components/ui/badge";
-import { Info } from "lucide-react";
+import { Info, Loader2 } from "lucide-react";
 import type { ProductFeedback } from "@/components/results/FeedbackForm";
 import { feedbackStorage } from "@/utils/feedback/feedbackStorage";
 import { toast } from "sonner";
@@ -20,17 +20,42 @@ const Results = () => {
   const answers = (location.state?.answers || []) as Answer[];
   const [recommendations, setRecommendations] = useState<Product[]>([]);
   const [uniqueCategories, setUniqueCategories] = useState<string[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
   
   useEffect(() => {
     const loadRecommendations = async () => {
-      if (process.env.NODE_ENV === 'development') {
-        await validateRecommendationSystem();
-      }
+      try {
+        setIsLoading(true);
+        setError(null);
 
-      if (answers.length > 0) {
+        if (process.env.NODE_ENV === 'development') {
+          await validateRecommendationSystem();
+        }
+
+        if (answers.length === 0) {
+          throw new Error("Aucune réponse trouvée. Veuillez refaire le questionnaire.");
+        }
+
         const recs = await getRecommendations(answers);
+        
+        if (recs.length === 0) {
+          throw new Error("Aucune recommandation trouvée pour vos critères.");
+        }
+
+        if (recs.length < 4) {
+          console.warn("Moins de 4 recommandations trouvées:", recs.length);
+          toast.warning("Certaines recommandations peuvent être manquantes.");
+        }
+
         setRecommendations(recs);
         setUniqueCategories([...new Set(recs.flatMap(p => p.categories))]);
+      } catch (error) {
+        console.error("Erreur lors du chargement des recommandations:", error);
+        setError(error instanceof Error ? error.message : "Une erreur est survenue");
+        toast.error("Erreur lors du chargement des recommandations");
+      } finally {
+        setIsLoading(false);
       }
     };
 
@@ -53,12 +78,11 @@ const Results = () => {
       return userResponse.id;
     } catch (error) {
       console.error('Error saving user responses:', error);
-      toast.error('Failed to save your responses');
+      toast.error('Impossible de sauvegarder vos réponses');
       return null;
     }
   };
 
-  // Function to get product UUID from database
   const getProductUuid = async (productName: string) => {
     try {
       const { data, error } = await supabase
@@ -70,28 +94,27 @@ const Results = () => {
       if (error) throw error;
       return data?.id;
     } catch (error) {
-      console.error(`Error getting UUID for product ${productName}:`, error);
+      console.error(`Erreur lors de la récupération de l'UUID pour ${productName}:`, error);
       return null;
     }
   };
 
   const saveRecommendations = async (userResponseId: string) => {
     try {
-      // Get UUIDs for all recommended products
       const productUuidPromises = recommendations.map(r => getProductUuid(r.name));
       const productUuids = await Promise.all(productUuidPromises);
-      
-      // Filter out any null values from failed UUID lookups
       const validProductUuids = productUuids.filter((id): id is string => id !== null);
       
       if (validProductUuids.length === 0) {
-        throw new Error('No valid product UUIDs found');
+        throw new Error('Aucun UUID de produit valide trouvé');
       }
 
       const recommendationData = {
         user_response_id: userResponseId,
         product_ids: validProductUuids,
-        confidence_scores: recommendations.map(r => r.confidenceLevel || 0)
+        confidence_scores: recommendations.map(r => r.confidenceLevel || 0),
+        primary_goal: answers.find(a => a.questionId === 3)?.answers[0],
+        health_concerns: answers.find(a => a.questionId === 4)?.answers || []
       };
 
       const { error: recommendationsError } = await supabase
@@ -100,8 +123,8 @@ const Results = () => {
 
       if (recommendationsError) throw recommendationsError;
     } catch (error) {
-      console.error('Error saving recommendations:', error);
-      toast.error('Failed to save recommendations');
+      console.error('Erreur lors de la sauvegarde des recommandations:', error);
+      toast.error('Impossible de sauvegarder les recommandations');
     }
   };
 
@@ -111,7 +134,7 @@ const Results = () => {
       const productUuid = await getProductUuid(product?.name || '');
       
       if (!productUuid) {
-        throw new Error('Product UUID not found');
+        throw new Error('UUID du produit non trouvé');
       }
 
       const { error: feedbackError } = await supabase
@@ -130,31 +153,51 @@ const Results = () => {
         timestamp: Date.now()
       });
       
-      toast.success(`Thank you for your feedback on ${product?.name}!`);
-      
-      console.log("Feedback saved:", {
-        product: product?.name,
-        rating: feedback.rating,
-        isHelpful: feedback.isHelpful,
-        additionalFeedback: feedback.additionalFeedback
-      });
+      toast.success(`Merci pour votre avis sur ${product?.name}!`);
     } catch (error) {
-      console.error('Error saving feedback:', error);
-      toast.error('Failed to save your feedback');
+      console.error('Erreur lors de la sauvegarde du feedback:', error);
+      toast.error('Impossible de sauvegarder votre avis');
     }
   };
 
   useEffect(() => {
     const saveData = async () => {
-      if (answers.length > 0) {
+      if (answers.length > 0 && recommendations.length > 0) {
         const userResponseId = await saveUserResponses();
-        if (userResponseId && recommendations.length > 0) {
+        if (userResponseId) {
           await saveRecommendations(userResponseId);
         }
       }
     };
     saveData();
   }, [answers, recommendations]);
+
+  if (isLoading) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-amber-50 to-amber-100 flex items-center justify-center">
+        <div className="text-center space-y-4">
+          <Loader2 className="w-8 h-8 animate-spin text-amber-600 mx-auto" />
+          <p className="text-amber-800">Chargement de vos recommandations...</p>
+        </div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-amber-50 to-amber-100 flex items-center justify-center">
+        <div className="max-w-md mx-auto text-center space-y-4 p-6">
+          <p className="text-red-600">{error}</p>
+          <Button
+            onClick={() => navigate("/")}
+            className="bg-amber-900 text-white hover:bg-amber-800"
+          >
+            Retour au questionnaire
+          </Button>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-amber-50 to-amber-100">
