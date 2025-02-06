@@ -141,11 +141,11 @@ export async function getRecommendations(answers: Answer[]): Promise<Product[]> 
       toast.error("Aucune recommandation trouvée pour vos critères");
     }
 
-    return recommendations;
+    return Promise.resolve(recommendations); // Changed to return a resolved promise
   } catch (error) {
     console.error("Error generating recommendations:", error);
     console.groupEnd();
     toast.error("Une erreur est survenue lors de la génération des recommandations");
-    throw error;
+    return Promise.reject(error);
   }
 }
