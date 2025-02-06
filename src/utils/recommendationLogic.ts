@@ -4,76 +4,83 @@ import { PRODUCTS } from "./products/productDatabase";
 import { WEIGHTS } from "./recommendation/constants";
 import { shouldExcludeProduct } from "./recommendation/productFiltering";
 import { calculateProductScore } from "./recommendation/scoreCalculation";
-import { ensureCategoryDiversity } from "./recommendation/diversity";
-import { getFallbackProducts } from "./recommendation/fallback";
-import { adjustProductScores } from "./feedback/feedbackAdjustment";
 import { toast } from "sonner";
 import { ProductCategory } from "./products/productTypes";
-import { syncValidationCheck } from "./products/syncValidation";
 
 const RECOMMENDATION_MAPPING: Record<string, string[]> = {
   "Améliorer le sommeil": [
     "Mélatonine",
-    "Magnésium", 
     "Poudre Dodo",
-    "Respire Bien"
+    "Magnésium",
+    "Respire Bien",
+    "Complexe B",
+    "Huile TCM",
+    "Soutien Santé"
   ],
   "Renforcer l'immunité": [
     "Immunitaire",
+    "Vitamine D & K",
+    "Vitamine C",
     "Les Apothicaires",
     "Miel Protecteur",
-    "Multivitamines La Totale"
+    "Défense Super Poudre",
+    "Soutien Santé",
+    "D3",
+    "Zinc",
+    "Minéraux"
   ],
   "Améliorer la digestion": [
-    "Jus d'Aloès",
     "Probiotiques",
+    "Jus d'Aloès",
     "Fibres & l'Ami",
-    "Fontaine de Jouvence Complet"
+    "Fontaine de Jouvence Complet",
+    "Détox",
+    "Soutien Santé",
+    "Magnésium",
+    "Minéraux"
   ],
   "Gérer le stress": [
-    "Énergie & Adaptogènes",
-    "Force Botanique",
+    "Magnésium",
+    "Énergie & Adaptogène",
     "Champignons & Adaptogènes",
-    "Magnésium"
+    "Focus",
+    "Force",
+    "Complexe B",
+    "Oméga-3",
+    "Soutien Santé"
   ],
   "Soutenir la santé cérébrale": [
     "Focus",
     "Oméga-3",
     "Complexe B",
-    "Champignons & Adaptogènes"
+    "Champignons & Adaptogènes",
+    "Énergie & Adaptogène",
+    "Magnésium",
+    "Minéraux",
+    "La Totale"
   ],
   "Améliorer l'énergie": [
-    "Énergie & Adaptogènes",
-    "Force Botanique",
+    "Énergie & Adaptogène",
+    "Complexe B",
     "Huile TCM",
-    "Multivitamines La Totale"
+    "Champignons & Adaptogènes",
+    "Focus",
+    "Minéraux",
+    "Créatine",
+    "Mineral Drop",
+    "La Totale",
+    "Soutien Santé"
   ]
 };
 
-const PRIMARY_GOAL_CATEGORY_MAP: Record<string, ProductCategory[]> = {
-  "Améliorer le sommeil": ["sommeil", "relaxation"],
-  "Renforcer l'immunité": ["immunité", "santé_générale"],
-  "Améliorer la digestion": ["digestif"],
-  "Gérer le stress": ["stress", "relaxation"],
-  "Soutenir la santé cérébrale": ["cerveau", "concentration"],
-  "Améliorer l'énergie": ["énergie", "vitalité"]
-};
-
-const MIN_CONFIDENCE_THRESHOLD = 80;
 const MIN_RECOMMENDATIONS = 4;
+const MIN_CONFIDENCE_THRESHOLD = 80;
 
 export async function getRecommendations(answers: Answer[]): Promise<Product[]> {
   console.group("Generating Recommendations");
   console.log("Input answers:", answers);
   
   try {
-    if (process.env.NODE_ENV === 'development') {
-      const isSynced = await syncValidationCheck();
-      if (!isSynced) {
-        console.warn("Product sync validation failed");
-      }
-    }
-
     if (!Array.isArray(answers) || answers.length === 0) {
       console.warn("No answers provided");
       toast.error("Veuillez compléter le questionnaire");
@@ -93,53 +100,39 @@ export async function getRecommendations(answers: Answer[]): Promise<Product[]> 
     const recommendedProductNames = RECOMMENDATION_MAPPING[primaryGoalAnswer] || [];
     console.log("Recommended product names:", recommendedProductNames);
 
-    const targetCategories = PRIMARY_GOAL_CATEGORY_MAP[primaryGoalAnswer] || [];
-    console.log("Target categories based on primary goal:", targetCategories);
+    // Filter and sort products based on the recommendation order
+    let recommendations = PRODUCTS
+      .filter(product => recommendedProductNames.includes(product.name))
+      .map(product => ({
+        ...product,
+        score: recommendedProductNames.indexOf(product.name),
+        confidenceLevel: MIN_CONFIDENCE_THRESHOLD + 
+          (recommendedProductNames.length - recommendedProductNames.indexOf(product.name)) * 2
+      }))
+      .sort((a, b) => (a.score || 0) - (b.score || 0));
 
-    let scoredProducts = PRODUCTS
-      .filter(productDef => {
-        const isRecommended = recommendedProductNames.includes(productDef.name);
-        const hasRelevantCategory = productDef.categories.some(cat => 
-          targetCategories.includes(cat as ProductCategory)
-        );
-        
-        return (isRecommended || hasRelevantCategory) && !shouldExcludeProduct(productDef, answers);
-      })
-      .map(productDef => {
-        const product = calculateProductScore(productDef, answers);
-        
-        // Boost scores for specifically recommended products
-        if (recommendedProductNames.includes(product.name)) {
-          product.score = (product.score || 0) * WEIGHTS.PRIMARY_GOAL_BOOST * 1.5;
-          product.confidenceLevel = Math.min(95, (product.confidenceLevel || 0) + 20);
-        }
-        // Smaller boost for products in target categories
-        else if (product.categories.some(cat => targetCategories.includes(cat as ProductCategory))) {
-          product.score = (product.score || 0) * WEIGHTS.PRIMARY_GOAL_BOOST;
-          product.confidenceLevel = Math.min(95, (product.confidenceLevel || 0) + 10);
-        }
-        return product;
-      })
-      .filter(product => (product.score || 0) > 0 && (product.confidenceLevel || 0) >= MIN_CONFIDENCE_THRESHOLD)
-      .sort((a, b) => (b.score || 0) - (a.score || 0));
-
-    console.log("Scored products before filtering:", scoredProducts);
-
-    // Ensure we have the minimum required recommendations
-    let recommendations = scoredProducts.slice(0, Math.max(MIN_RECOMMENDATIONS, recommendedProductNames.length));
-
-    // If we don't have enough recommendations, add fallback products
+    // Ensure minimum number of recommendations
     if (recommendations.length < MIN_RECOMMENDATIONS) {
-      const fallbackProducts = getFallbackProducts(
-        String(answers.find(a => a.questionId === 1)?.answers[0]),
-        String(answers.find(a => a.questionId === 2)?.answers[0])
-      );
-      recommendations = [...recommendations, ...fallbackProducts]
+      console.warn(`Not enough recommendations found (${recommendations.length}), adding fallback products`);
+      
+      // Add other products from the same category as fallbacks
+      const additionalProducts = PRODUCTS
+        .filter(product => 
+          !recommendedProductNames.includes(product.name) &&
+          !recommendations.some(r => r.name === product.name) &&
+          product.categories.some(cat => 
+            recommendations[0]?.categories.includes(cat)
+          )
+        )
+        .map(product => ({
+          ...product,
+          score: 1000 + recommendations.length,
+          confidenceLevel: MIN_CONFIDENCE_THRESHOLD
+        }));
+
+      recommendations = [...recommendations, ...additionalProducts]
         .slice(0, MIN_RECOMMENDATIONS);
     }
-
-    // Apply feedback adjustments
-    recommendations = adjustProductScores(recommendations);
 
     console.log("Final recommendations:", recommendations);
     console.groupEnd();
