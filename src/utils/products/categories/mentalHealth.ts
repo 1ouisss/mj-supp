@@ -47,7 +47,7 @@ export const MENTAL_HEALTH_PRODUCTS: ProductDefinition[] = [
     recommendationReason: "Reason for recommending existing product 1.",
     dietaryInfo: "Dietary info for existing product 1.",
     productUrl: "https://example.com/existing-product-1",
-    categories: ["mental_health"],
+    categories: ["stress", "cerveau", "concentration"],
     scores: [
       { condition: "Condition 1", score: 4 },
       { condition: "Condition 2", score: 3 }
@@ -74,7 +74,7 @@ export const MENTAL_HEALTH_PRODUCTS: ProductDefinition[] = [
     recommendationReason: "Reason for recommending existing product 2.",
     dietaryInfo: "Dietary info for existing product 2.",
     productUrl: "https://example.com/existing-product-2",
-    categories: ["mental_health"],
+    categories: ["stress", "cerveau", "concentration"],
     scores: [
       { condition: "Condition 1", score: 5 },
       { condition: "Condition 2", score: 4 }
