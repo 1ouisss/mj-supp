@@ -60,5 +60,38 @@ export const SPECIALIZED_HEALTH_PRODUCTS: ProductDefinition[] = [
       seasonality: ["toute_année"]
     },
     timeFrame: "court_terme"
+  },
+  {
+    id: "quest-ce-que-cest",
+    name: "Qu'est-ce que c'est?",
+    description: "Supplément de silicium pour la santé et la beauté des cheveux, ongles et peau. Contient 25 mg de silicium (acide orthosilicique stabilisé par de la choline) par capsule.",
+    imageUrl: "/lovable-uploads/cf2a70e5-72c3-43e4-b261-cd5d17373860.png",
+    expectedResults: "Amélioration de la santé et de la beauté de la peau, des cheveux et des ongles",
+    recommendationReason: "Source naturelle de silicium pour la santé des tissus",
+    dietaryInfo: "Sans produits laitiers, blé, gluten, levure ou maïs",
+    productUrl: "https://maisonjacynthe.ca/fr/quest-ce-que-cest",
+    categories: ["santé_cheveux", "peau", "ongles"],
+    scores: [
+      { condition: "Santé des cheveux", score: 5 },
+      { condition: "Santé de la peau", score: 5 },
+      { condition: "Santé des ongles", score: 5 }
+    ],
+    therapeuticClaims: [
+      "Soutient la santé et la beauté de la peau",
+      "Favorise la croissance des cheveux",
+      "Renforce les ongles",
+      "NPN: 80106437"
+    ],
+    relationships: {
+      complementaryProducts: ["collagene-marin"],
+      contraindications: []
+    },
+    usage: {
+      timing: "1 capsule, 1 fois par jour",
+      duration: "Usage régulier",
+      dosage: "1 capsule par jour pour les adultes",
+      seasonality: ["toute_année"]
+    },
+    timeFrame: "long_terme"
   }
 ];
