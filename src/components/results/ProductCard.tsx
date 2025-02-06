@@ -71,7 +71,9 @@ const translateCategory = (category: ProductCategory): string => {
     court_terme: "Court terme",
     long_terme: "Long terme",
     vitalité: "Vitalité",
-    récupération: "Récupération"
+    récupération: "Récupération",
+    minéraux: "Minéraux",
+    antioxydant: "Antioxydant"
   };
   return translations[category] || category;
 };
