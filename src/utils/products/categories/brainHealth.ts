@@ -5,7 +5,7 @@ export const BRAIN_HEALTH_PRODUCTS: ProductDefinition[] = [
     id: "focus",
     name: "Focus",
     description: "Formule avancée pour la concentration et la clarté mentale",
-    imageUrl: "/lovable-uploads/ce08bdaa-0440-4064-9cd7-04bd6a5ed979.png",
+    imageUrl: "/lovable-uploads/3a632e75-b5ae-4c52-ac4e-1f7fde0d4c2c.png",
     expectedResults: "Amélioration de la concentration et des performances cognitives",
     recommendationReason: "Support optimal pour la fonction cognitive",
     dietaryInfo: "Vegan, Sans gluten",
