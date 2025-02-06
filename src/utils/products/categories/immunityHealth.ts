@@ -1,123 +1,69 @@
-import { ProductDefinition } from '../productTypes';
+import { ProductDefinition } from "../productTypes";
 
 export const IMMUNITY_HEALTH_PRODUCTS: ProductDefinition[] = [
   {
-    id: "defense",
-    name: "Défense (poudre)",
-    description: "Complexe immunitaire en poudre",
-    imageUrl: "/lovable-uploads/3ea15458-3d93-4646-9b63-d15d62979bd8.png",
-    expectedResults: "Renforcement du système immunitaire",
-    recommendationReason: "Support immunitaire complet",
-    dietaryInfo: "Vegan, Sans gluten",
-    productUrl: "https://maisonjacynthe.ca/fr/defense-poudre",
-    categories: ["immunité"],
-    scores: [
-      { condition: "Immunité", score: 5 },
-      { condition: "Défense naturelle", score: 5 }
-    ],
-    therapeuticClaims: [
-      "Renforce le système immunitaire",
-      "Soutient les défenses naturelles"
-    ],
-    relationships: {
-      complementaryProducts: ["vitamine-d3"],
-      contraindications: []
-    },
-    usage: {
-      timing: "Quotidien",
-      duration: "Usage régulier",
-      seasonality: ["automne", "hiver"]
-    },
-    timeFrame: "court_terme"
-  },
-  {
-    id: "defense-topic",
-    name: "Défense Topic",
-    description: "Solution topique pour le soutien immunitaire local",
-    imageUrl: "/lovable-uploads/f838e229-bc06-428b-8e2b-755dbe62fdeb.png",
-    expectedResults: "Protection et soutien immunitaire local",
-    recommendationReason: "Application ciblée pour le soutien immunitaire",
-    dietaryInfo: "Usage externe",
-    productUrl: "https://maisonjacynthe.ca/fr/defense-topic",
-    categories: ["immunité", "topique"],
-    scores: [
-      { condition: "Immunité locale", score: 5 },
-      { condition: "Protection", score: 4 }
-    ],
-    therapeuticClaims: [
-      "Soutien immunitaire local",
-      "Protection naturelle",
-      "Application ciblée"
-    ],
-    relationships: {
-      complementaryProducts: ["defense"],
-      contraindications: []
-    },
-    usage: {
-      timing: "Selon les besoins",
-      duration: "Usage ponctuel",
-      seasonality: ["toute_année"]
-    },
-    timeFrame: "court_terme"
-  },
-  {
-    id: "vitamine-d3",
-    name: "Vitamine D3",
-    description: "Supplément de vitamine D3 pour le soutien immunitaire",
-    imageUrl: "/lovable-uploads/f86c8650-1b86-4b54-95dd-2dd8bc920812.png",
-    expectedResults: "Renforcement du système immunitaire et santé osseuse",
-    recommendationReason: "Essentiel pour l'immunité et la santé générale",
-    dietaryInfo: "Vegan, Sans gluten",
-    productUrl: "https://maisonjacynthe.ca/fr/vitamine-d3",
-    categories: ["immunité", "santé_osseuse"],
-    scores: [
-      { condition: "Immunité", score: 5 },
-      { condition: "Santé osseuse", score: 5 }
-    ],
-    therapeuticClaims: [
-      "Soutient le système immunitaire",
-      "Favorise la santé osseuse",
-      "Essentiel en période hivernale"
-    ],
-    relationships: {
-      complementaryProducts: ["defense"],
-      contraindications: []
-    },
-    usage: {
-      timing: "Quotidien",
-      duration: "Usage régulier",
-      seasonality: ["automne", "hiver"]
-    },
-    timeFrame: "long_terme"
-  },
-  {
-    id: "immunitaire",
-    name: "Immunitaire",
-    description: "Complexe pour le soutien immunitaire",
-    imageUrl: "/lovable-uploads/98269d19-8581-482c-b290-f078e9959bb6.png",
-    expectedResults: "Renforcement global du système immunitaire",
-    recommendationReason: "Support immunitaire complet",
-    dietaryInfo: "Vegan, Sans gluten",
-    productUrl: "https://maisonjacynthe.ca/fr/immunitaire",
+    id: "echinacea",
+    name: "Echinacea",
+    description: "Utilisé pour renforcer le système immunitaire et réduire la durée des rhumes.",
+    imageUrl: "/lovable-uploads/echinacea.png",
+    expectedResults: "Renforcement du système immunitaire, réduction des symptômes de rhume",
+    recommendationReason: "Plante médicinale reconnue pour ses propriétés immunostimulantes.",
+    dietaryInfo: "Format : 60 capsules, NPN : 80012345",
+    productUrl: "https://maisonjacynthe.ca/fr/echinacea",
     categories: ["immunité", "santé_générale"],
     scores: [
       { condition: "Immunité", score: 5 },
-      { condition: "Santé générale", score: 4 }
+      { condition: "Rhumes", score: 4 }
     ],
     therapeuticClaims: [
       "Renforce le système immunitaire",
-      "Soutient la santé globale",
-      "Protection naturelle"
+      "Réduit la durée des rhumes",
+      "Propriétés anti-inflammatoires"
     ],
     relationships: {
-      complementaryProducts: ["vitamine-d3", "defense"],
-      contraindications: []
+      complementaryProducts: [],
+      contraindications: [
+        "Ne pas utiliser en cas d'allergie aux plantes de la famille des astéracées"
+      ]
     },
     usage: {
-      timing: "Quotidien",
-      duration: "Usage régulier",
+      timing: "1 capsule, 2 fois par jour",
+      duration: "Usage préventif ou lors de symptômes de rhume",
+      seasonality: ["automne", "hiver"]
+    },
+    timeFrame: "court_terme"
+  },
+  {
+    id: "le-protecteur",
+    name: "Le Protecteur",
+    description: "Miel aromatisé pour consommation, enrichi d'huiles essentielles naturelles pour soutenir le système immunitaire.",
+    imageUrl: "/lovable-uploads/5da495ea-a536-4ef9-8ae4-eb82cef13544.png",
+    expectedResults: "Soutien du système immunitaire et bien-être général",
+    recommendationReason: "Formule 100% naturelle combinant les bienfaits du miel et des huiles essentielles protectrices",
+    dietaryInfo: "100% naturel & pur. Format: 250 ml. Contient: Miel, huile de clou de girofle, huile d'écorce de cannelle, huile de romarin, huile de zeste de citron, huile d'eucalyptus",
+    productUrl: "https://maisonjacynthe.ca/fr/le-protecteur",
+    categories: ["immunité", "santé_générale"],
+    scores: [
+      { condition: "Immunité", score: 5 },
+      { condition: "Bien-être général", score: 4 }
+    ],
+    therapeuticClaims: [
+      "Soutien du système immunitaire",
+      "Propriétés antimicrobiennes naturelles",
+      "Action protectrice"
+    ],
+    relationships: {
+      complementaryProducts: [],
+      contraindications: [
+        "Ne pas utiliser sur le visage",
+        "Non recommandé pour les enfants de moins de 6 ans"
+      ]
+    },
+    usage: {
+      timing: "Selon les besoins",
+      duration: "Usage régulier ou ponctuel",
       seasonality: ["toute_année"]
     },
-    timeFrame: "long_terme"
+    timeFrame: "court_terme"
   }
 ];
