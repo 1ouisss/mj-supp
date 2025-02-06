@@ -96,11 +96,11 @@ export const SLEEP_RELAXATION_PRODUCTS: ProductDefinition[] = [
   {
     id: "respire-bien",
     name: "Respire Bien",
-    description: "Support naturel pour la respiration",
-    imageUrl: "/lovable-uploads/22027cf2-d007-47d3-9546-46d34b1ea955.png",
-    expectedResults: "Respiration facilitée et voies respiratoires dégagées 🌬️",
+    description: "Support naturel pour la respiration, à vaporiser (2 ans et plus)",
+    imageUrl: "/lovable-uploads/4ad65483-777a-46cb-9ec8-2728ee8022e3.png",
+    expectedResults: "Respiration facilitée et voies respiratoires dégagées",
     recommendationReason: "Soutien respiratoire naturel",
-    dietaryInfo: "Vegan, Sans gluten",
+    dietaryInfo: "Vaporisateur 30ml, NPN 80131370",
     productUrl: "https://maisonjacynthe.ca/fr/respire-bien",
     categories: ["saisonnier", "gorge"],
     scores: [
