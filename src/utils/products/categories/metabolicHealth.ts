@@ -94,5 +94,42 @@ export const METABOLIC_HEALTH_PRODUCTS: ProductDefinition[] = [
       seasonality: ["toute_année"]
     },
     timeFrame: "long_terme"
+  },
+  {
+    id: "huile-tcm",
+    name: "Huile TCM",
+    description: "L'huile TCM est une huile issue de la noix de coco, mais contenant une plus forte concentration de triglycérides à chaîne moyenne (appelés TCM). Ce type spécifique de gras saturé constitue plus de 50 % d'huile de coco. Dans ce cas, les matières grasses deviennent plus faciles à assimiler par l'organisme.",
+    imageUrl: "/lovable-uploads/ebff1105-1e71-482e-b5cb-f9896355b718.png",
+    expectedResults: "Augmentation de la combustion des graisses et de l'énergie, soutien à la gestion du poids",
+    recommendationReason: "Riche en triglycérides à chaîne moyenne qui soutiennent la production d'énergie dans le corps",
+    dietaryInfo: "Format: 450 ml, NPN: 80115119. Ingrédients médicinaux (par 1 cuillère à table): Triglycérides à chaîne moyenne (40% Acide caprique, 60% Acide octanoïque) (Cocos nucifera Chair)",
+    productUrl: "https://maisonjacynthe.ca/fr/huile-tcm",
+    categories: ["métabolisme", "énergie", "digestif"],
+    scores: [
+      { condition: "Métabolisme", score: 5 },
+      { condition: "Énergie", score: 4 },
+      { condition: "Digestion", score: 3 }
+    ],
+    therapeuticClaims: [
+      "Soutient la production d'énergie dans le corps",
+      "Aide à la gestion du poids avec un programme de réduction calorique",
+      "Compatible avec une alimentation cétogène",
+      "Plus digeste et assimilable que l'huile de coco standard"
+    ],
+    relationships: {
+      complementaryProducts: ["metabzen", "gluconig"],
+      contraindications: [
+        "Ne pas utiliser pendant la grossesse",
+        "Consulter un professionnel de santé si vous allaitez",
+        "Consulter avant utilisation si vous souffrez d'hypertension, diabète ou hyperlipidémie"
+      ]
+    },
+    usage: {
+      timing: "1 cuillère à table, 1 fois par jour",
+      duration: "Usage régulier",
+      dosage: "Adultes 18 ans & plus: 1 cuillère à table avec de la nourriture",
+      seasonality: ["toute_année"]
+    },
+    timeFrame: "long_terme"
   }
 ];
