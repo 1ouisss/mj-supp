@@ -34,31 +34,37 @@ export const MUSCLE_HEALTH_PRODUCTS: ProductDefinition[] = [
   {
     id: "glutamine",
     name: "Glutamine",
-    description: "Acide aminé essentiel pour la récupération musculaire",
-    imageUrl: "/lovable-uploads/ace7b125-c27e-49d9-88c0-0a87e53b96a2.png",
-    expectedResults: "Meilleure récupération et soutien immunitaire",
-    recommendationReason: "Support pour la récupération musculaire",
-    dietaryInfo: "Vegan, Sans gluten",
+    description: "Supplément à l'entraînement. Aide à la réparation de cellules musculaires suite à de l'exercice physique.",
+    imageUrl: "/lovable-uploads/7f55b09b-4e4c-4306-887e-aedfd0b52129.png",
+    expectedResults: "Meilleure récupération musculaire et restauration des niveaux de glutamine après l'exercice",
+    recommendationReason: "Support pour la récupération musculaire et la synthèse des protéines",
+    dietaryInfo: "Format: 300 g. NPN: 80124034. Ingrédient médicinal: L-Glutamine 9 g par portion.",
     productUrl: "https://maisonjacynthe.ca/fr/glutamine",
-    categories: ["muscles", "immunité"],
+    categories: [
+      "muscles",
+      "récupération",
+      "court_terme"
+    ],
     scores: [
       { condition: "Récupération musculaire", score: 5 },
-      { condition: "Système immunitaire", score: 4 }
+      { condition: "Performance sportive", score: 4 },
+      { condition: "Stress physique", score: 4 }
     ],
     therapeuticClaims: [
-      "Favorise la récupération musculaire",
-      "Soutient le système immunitaire",
-      "Aide à maintenir l'intégrité intestinale"
+      "Aide à la réparation de cellules musculaires suite à de l'exercice physique",
+      "Aide à restaurer les niveaux sanguins de glutamine appauvris suite à des périodes de stress physique",
+      "Source d'un acide aminé non essentiel jouant un rôle dans la synthèse des protéines musculaires"
     ],
     relationships: {
       complementaryProducts: ["creatine"],
       contraindications: []
     },
     usage: {
-      timing: "Après l'entraînement ou avant le coucher",
-      duration: "Utilisation régulière recommandée",
+      timing: "Prendre dans les 90 minutes après un exercice",
+      dosage: "1 mesure 1 fois par jour",
+      duration: "Selon les besoins d'entraînement",
       seasonality: ["toute_année"]
     },
-    timeFrame: "long_terme"
+    timeFrame: "court_terme"
   }
 ];
