@@ -2,33 +2,36 @@ import { ProductDefinition } from '../productTypes';
 
 export const DIGESTIVE_HEALTH_PRODUCTS: ProductDefinition[] = [
   {
-    id: "bobome",
-    name: "Bobôme",
-    description: "Solution naturelle pour le confort digestif",
-    imageUrl: "/lovable-uploads/ace7b125-c27e-49d9-88c0-0a87e53b96a2.png",
-    expectedResults: "Soulagement des inconforts digestifs",
-    recommendationReason: "Support naturel pour la digestion",
+    id: "fontaine-jouvence",
+    name: "Fontaine de Jouvence Complet",
+    description: "Complexe nutritif complet pour la santé digestive et l'énergie",
+    imageUrl: "/lovable-uploads/2e0bb200-ebeb-42d1-9631-c0fd9eb9d463.png",
+    expectedResults: "Amélioration de la digestion et augmentation de l'énergie",
+    recommendationReason: "Soutien digestif complet et boost d'énergie naturel",
     dietaryInfo: "Vegan, Sans gluten",
-    productUrl: "https://maisonjacynthe.ca/fr/bobome",
-    categories: ["digestif"],
+    productUrl: "https://maisonjacynthe.ca/fr/fontaine-jouvence-complet",
+    categories: ["digestif", "énergie", "immunité", "santé_générale"],
     scores: [
-      { condition: "Confort digestif", score: 5 },
-      { condition: "Digestion", score: 5 }
+      { condition: "Améliorer la digestion", score: 5 },
+      { condition: "Améliorer l'énergie", score: 4 },
+      { condition: "Renforcer l'immunité", score: 4 }
     ],
     therapeuticClaims: [
-      "Soulage les inconforts digestifs",
-      "Favorise une bonne digestion"
+      "Soutient la santé digestive",
+      "Boost d'énergie naturel",
+      "Renforce le système immunitaire",
+      "Améliore l'absorption des nutriments"
     ],
     relationships: {
-      complementaryProducts: [],
+      complementaryProducts: ["probiotiques", "mineraux"],
       contraindications: []
     },
     usage: {
-      timing: "Selon les besoins",
-      duration: "Usage ponctuel",
+      timing: "Quotidien",
+      duration: "Usage régulier",
       seasonality: ["toute_année"]
     },
-    timeFrame: "court_terme"
+    timeFrame: "long_terme"
   },
   {
     id: "formule-apaisante",
