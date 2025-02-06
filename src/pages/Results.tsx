@@ -109,12 +109,16 @@ const Results = () => {
         throw new Error('Aucun UUID de produit valide trouvé');
       }
 
+      // Convert primary goal and health concerns to proper types
+      const primaryGoal = String(answers.find(a => a.questionId === 3)?.answers[0] || '');
+      const healthConcerns = (answers.find(a => a.questionId === 4)?.answers || []).map(String);
+
       const recommendationData = {
         user_response_id: userResponseId,
         product_ids: validProductUuids,
         confidence_scores: recommendations.map(r => r.confidenceLevel || 0),
-        primary_goal: answers.find(a => a.questionId === 3)?.answers[0],
-        health_concerns: answers.find(a => a.questionId === 4)?.answers || []
+        primary_goal: primaryGoal,
+        health_concerns: healthConcerns
       };
 
       const { error: recommendationsError } = await supabase
