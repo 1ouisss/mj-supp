@@ -2,33 +2,37 @@ import { ProductDefinition } from "../productTypes";
 
 export const IMMUNITY_HEALTH_PRODUCTS: ProductDefinition[] = [
   {
-    id: "echinacea",
-    name: "Echinacea",
-    description: "Utilisé pour renforcer le système immunitaire et réduire la durée des rhumes.",
-    imageUrl: "/lovable-uploads/echinacea.png",
-    expectedResults: "Renforcement du système immunitaire, réduction des symptômes de rhume",
-    recommendationReason: "Plante médicinale reconnue pour ses propriétés immunostimulantes.",
-    dietaryInfo: "Format : 60 capsules, NPN : 80012345",
-    productUrl: "https://maisonjacynthe.ca/fr/echinacea",
-    categories: ["immunité", "santé_générale"],
+    id: "immunitaire",
+    name: "Immunitaire",
+    description: "Teinture mère botanique pour soutenir le système immunitaire et soulager les symptômes des infections respiratoires.",
+    imageUrl: "/lovable-uploads/594a340a-cc3c-4504-92df-cc5a54d7482a.png",
+    expectedResults: "Aide à soulager les symptômes et réduire la durée des infections des voies respiratoires supérieures. Soutient le système immunitaire.",
+    recommendationReason: "Formule traditionnelle combinant l'échinacée, l'astragale et d'autres plantes médicinales pour renforcer l'immunité.",
+    dietaryInfo: "Format : 150 ml, NPN : 80105353",
+    productUrl: "https://maisonjacynthe.ca/fr/immunitaire",
+    categories: ["immunité", "santé_générale", "gorge"],
     scores: [
       { condition: "Immunité", score: 5 },
-      { condition: "Rhumes", score: 4 }
+      { condition: "Rhumes", score: 4 },
+      { condition: "Gorge", score: 4 }
     ],
     therapeuticClaims: [
-      "Renforce le système immunitaire",
-      "Réduit la durée des rhumes",
-      "Propriétés anti-inflammatoires"
+      "Soulage les maux de gorge et les symptômes d'infections respiratoires",
+      "Réduit la durée des infections des voies respiratoires supérieures",
+      "Aide au maintien d'un système immunitaire sain",
+      "Soutient la circulation périphérique"
     ],
     relationships: {
       complementaryProducts: [],
       contraindications: [
-        "Ne pas utiliser en cas d'allergie aux plantes de la famille des astéracées"
+        "Ne pas utiliser si vous prenez des immunosuppresseurs",
+        "Ne pas utiliser si vous souffrez de maladies auto-immunes",
+        "Consulter un professionnel si enceinte ou allaitante"
       ]
     },
     usage: {
-      timing: "1 capsule, 2 fois par jour",
-      duration: "Usage préventif ou lors de symptômes de rhume",
+      timing: "1 cuillère à thé, 3 fois par jour",
+      duration: "Utiliser dès les premiers signes d'un rhume. Ne pas utiliser plus de 8 semaines sans avis médical",
       seasonality: ["automne", "hiver"]
     },
     timeFrame: "court_terme"
