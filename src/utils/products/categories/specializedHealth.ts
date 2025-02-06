@@ -65,7 +65,7 @@ export const SPECIALIZED_HEALTH_PRODUCTS: ProductDefinition[] = [
     id: "quest-ce-que-cest",
     name: "Qu'est-ce que c'est?",
     description: "Supplément de silicium pour la santé et la beauté des cheveux, ongles et peau. Contient 25 mg de silicium (acide orthosilicique stabilisé par de la choline) par capsule.",
-    imageUrl: "/lovable-uploads/cf2a70e5-72c3-43e4-b261-cd5d17373860.png",
+    imageUrl: "/lovable-uploads/879ae760-3137-401f-9c03-e8988df142e5.png",
     expectedResults: "Amélioration de la santé et de la beauté de la peau, des cheveux et des ongles",
     recommendationReason: "Source naturelle de silicium pour la santé des tissus",
     dietaryInfo: "Sans produits laitiers, blé, gluten, levure ou maïs",
