@@ -4,10 +4,10 @@ export const MENTAL_HEALTH_PRODUCTS: ProductDefinition[] = [
   {
     id: "focus",
     name: "Focus",
-    description: "Formule avancée pour la concentration et la clarté mentale.",
-    imageUrl: "/lovable-uploads/a4cf23a3-0970-4fb3-be63-daa3935ae49c.png",
-    expectedResults: "Concentration améliorée, clarté mentale accrue 🧠",
-    recommendationReason: "Soutien cognitif optimal",
+    description: "Formule avancée pour la concentration et la clarté mentale",
+    imageUrl: "/lovable-uploads/0b9112e3-186c-444b-aada-1333656178cf.png",
+    expectedResults: "Amélioration des fonctions cognitives, de la mémoire et du rendement",
+    recommendationReason: "Soutien cognitif optimal et amélioration de la concentration",
     dietaryInfo: "Vegan, Sans gluten",
     productUrl: "https://maisonjacynthe.ca/fr/focus",
     categories: ["cerveau", "concentration", "long_terme"],
@@ -16,7 +16,7 @@ export const MENTAL_HEALTH_PRODUCTS: ProductDefinition[] = [
       { condition: "Améliorer la concentration", score: 5 }
     ],
     therapeuticClaims: [
-      "Améliore la clarté mentale et la performance cognitive 🧠",
+      "Améliore la clarté mentale et la performance cognitive",
       "Améliore la concentration et la mémoire",
       "Soutient les fonctions cognitives"
     ],
