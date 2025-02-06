@@ -46,7 +46,7 @@ export const SPECIALIZED_HEALTH_PRODUCTS: ProductDefinition[] = [
     id: "bobome",
     name: "Bobôme",
     description: "Notre baume qui calme les irritations causées par les piqûres de moustiques grâce aux belles propriétés comprises dans ces ingrédients de qualité.",
-    imageUrl: "/lovable-uploads/914b81f6-ea1e-4b1a-b3ee-c6dea3898711.png",
+    imageUrl: "/lovable-uploads/b44d19fb-631d-40bb-acba-aa274dc40fd8.png",
     expectedResults: "Soulagement des irritations cutanées et piqûres d'insectes",
     recommendationReason: "Formule naturelle avec des ingrédients apaisants et anti-inflammatoires",
     dietaryInfo: "100% naturel, sans agent de conservation. Contient: beurre de karité, calendule CO2, lavande, camomille matricaire, menthe poivrée, géranium",
