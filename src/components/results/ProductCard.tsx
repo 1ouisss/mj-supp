@@ -70,7 +70,8 @@ const translateCategory = (category: ProductCategory): string => {
     santé_cardiaque: "Santé cardiaque",
     court_terme: "Court terme",
     long_terme: "Long terme",
-    vitalité: "Vitalité"
+    vitalité: "Vitalité",
+    récupération: "Récupération"
   };
   return translations[category] || category;
 };
