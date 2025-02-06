@@ -2,31 +2,53 @@ import { ProductDefinition } from '../productTypes';
 
 export const GENERAL_HEALTH_PRODUCTS: ProductDefinition[] = [
   {
-    id: "omega-3",
+    id: "multivitamines-la-totale",
     name: "Multivitamines La Totale",
-    description: "Complexe complet de vitamines et minéraux essentiels.",
-    imageUrl: "/lovable-uploads/9fe3dcb7-455a-4684-af23-43bb9a63de07.png",
-    expectedResults: "Soutien nutritionnel complet 🌟",
-    recommendationReason: "Base nutritionnelle essentielle",
-    dietaryInfo: "Vegan, Sans gluten",
-    productUrl: "https://maisonjacynthe.ca/fr/multivitamines",
-    categories: ["santé_générale", "essentiel", "long_terme"],
+    description: "Complexe complet de vitamines et minéraux essentiels. Ce supplément fournit plus de 40 vitamines, minéraux et antioxydants essentiels pour le maintien d'une bonne santé.",
+    imageUrl: "/lovable-uploads/e4f212e6-cdf3-49b2-9ca9-d07da61b3d4c.png",
+    expectedResults: "Soutien nutritionnel complet pour la santé générale, incluant la santé des os, des cheveux, de la peau, des ongles et du système immunitaire.",
+    recommendationReason: "Formule complète offrant une multitude de bienfaits pour votre corps avec plus de 40 nutriments essentiels.",
+    dietaryInfo: "Format: 100 comprimés à croquer. NPN: 80117096. Contient des bioflavonoïdes d'agrumes et des antioxydants naturels.",
+    productUrl: "https://maisonjacynthe.ca/fr/multivitamines-la-totale",
+    categories: [
+      "santé_générale",
+      "essentiel",
+      "long_terme",
+      "santé_osseuse",
+      "immunité",
+      "peau",
+      "santé_cheveux",
+      "ongles",
+      "thyroïde",
+      "santé_cardiaque",
+      "métabolisme"
+    ],
     scores: [
       { condition: "Soutien nutritionnel", score: 5 },
-      { condition: "Santé générale", score: 5 }
+      { condition: "Santé générale", score: 5 },
+      { condition: "Immunité", score: 4 },
+      { condition: "Santé osseuse", score: 4 },
+      { condition: "Métabolisme", score: 4 }
     ],
     therapeuticClaims: [
-      "Apport quotidien en vitamines et minéraux",
-      "Soutien du système immunitaire",
-      "Énergie et vitalité"
+      "Aide au maintien des os et à prévenir la perte osseuse/l'ostéoporose",
+      "Aide à maintenir le métabolisme normal du fer",
+      "Aide au maintien de la santé des cheveux, de la peau, des ongles, des gencives et des dents",
+      "Aide au maintien des fonctions immunitaires",
+      "Aide au maintien des muscles dont celui du cœur",
+      "Aide au fonctionnement normal de la glande thyroïde",
+      "Favorise la cicatrisation des blessures",
+      "Aide au maintien de la production d'énergie",
+      "Aide au maintien des fonctions hépatiques"
     ],
     relationships: {
-      complementaryProducts: ["magnesium"],
+      complementaryProducts: ["mineral-drop", "omega-3"],
       contraindications: []
     },
     usage: {
-      timing: "Prendre avec un repas",
-      duration: "Utilisation quotidienne recommandée",
+      timing: "Prendre avec de la nourriture/un repas",
+      dosage: "3 - 5 comprimés, 1 fois par jour",
+      duration: "Consulter un praticien de soins de santé si l'usage se prolonge au-delà de 12 semaines",
       seasonality: ["toute_année"]
     },
     timeFrame: "long_terme"
