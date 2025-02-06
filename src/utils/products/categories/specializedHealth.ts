@@ -78,11 +78,11 @@ export const SPECIALIZED_HEALTH_PRODUCTS: ProductDefinition[] = [
   {
     id: "formule-apaisante",
     name: "Formule Apaisante",
-    description: "Notre formule apaisante est un mélange d'huiles essentielles, qui vous surprendra par sa couleur bleue. Appliquez-la sur toutes vos rougeurs, éruptions cutanées, cicatrices.",
-    imageUrl: "/lovable-uploads/914b81f6-ea1e-4b1a-b3ee-c6dea3898711.png",
-    expectedResults: "Apaisement des rougeurs et éruptions cutanées, aide à la cicatrisation",
-    recommendationReason: "Mélange unique d'huiles essentielles aux propriétés apaisantes et cicatrisantes",
-    dietaryInfo: "100% naturel, pur et actif, sans agent de conservation. Contient: lavande aspic, géranium bourbon, camomille matricaire, camomille romaine, camomille bleue, sauge officinale, hélichryse italienne",
+    description: "Notre formule apaisante est un mélange d'huiles essentielles, qui vous surprendra par sa couleur bleue. Appliquez-la sur toutes vos rougeurs, éruptions cutanées, cicatrices. Son odeur fraîche et florale, mélange de lavande et camomille, saura vous relaxer lors de son application.",
+    imageUrl: "/lovable-uploads/0592f1d5-124f-4219-8fdf-a197d9906a5c.png",
+    expectedResults: "Apaisement des rougeurs, éruptions cutanées et cicatrices. Effet relaxant grâce à son odeur fraîche et florale.",
+    recommendationReason: "Formule 100% naturelle, pure et active, sans agent de conservation. Sa couleur bleue unique provient de l'azulène de la camomille matricaire et du chamazulène de la camomille bleue.",
+    dietaryInfo: "Format : 5 ml. Texture : Huile. Arôme : Frais et floral. Mode d'emploi : Une goutte sur les rougeurs avant l'application du sérum, 3 soirs par semaine. Contient: lavande aspic, géranium bourbon, camomille matricaire, camomille romaine, camomille bleue, sauge officinale, hélichryse italienne",
     productUrl: "https://maisonjacynthe.ca/fr/formule-apaisante",
     categories: ["topique", "peau"],
     scores: [
@@ -94,15 +94,22 @@ export const SPECIALIZED_HEALTH_PRODUCTS: ProductDefinition[] = [
       "Apaisante et calmante",
       "Cicatrisante",
       "Anti-inflammatoire",
-      "Décongestionnante"
+      "Décongestionnante",
+      "100% naturel, pur et actif",
+      "Sans agent de conservation"
     ],
     relationships: {
-      complementaryProducts: ["bobome"],
-      contraindications: []
+      complementaryProducts: ["bobome", "gel-apaisant", "eau-florale"],
+      contraindications: [
+        "Ne pas appliquer sur des plaies ouvertes",
+        "Faire un test d'allergie avant utilisation",
+        "Garder hors de la portée des enfants"
+      ]
     },
     usage: {
-      timing: "Appliquer localement sur les zones affectées",
-      duration: "Usage régulier jusqu'à amélioration",
+      timing: "3 soirs par semaine",
+      duration: "Selon les besoins",
+      dosage: "Une goutte par application",
       seasonality: ["toute_année"]
     },
     timeFrame: "court_terme"
