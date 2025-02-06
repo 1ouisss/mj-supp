@@ -26,6 +26,17 @@ interface ProductCardProps {
   onFeedbackSubmit?: (feedback: ProductFeedback) => void;
 }
 
+const PLACEHOLDER_IMAGES = [
+  "https://images.unsplash.com/photo-1721322800607-8c38375eef04",
+  "https://images.unsplash.com/photo-1582562124811-c09040d0a901",
+  "https://images.unsplash.com/photo-1618160702438-9b02ab6515c9"
+];
+
+const getRandomPlaceholder = () => {
+  const randomIndex = Math.floor(Math.random() * PLACEHOLDER_IMAGES.length);
+  return PLACEHOLDER_IMAGES[randomIndex];
+};
+
 const translateCategory = (category: ProductCategory): string => {
   const translations: Record<ProductCategory, string> = {
     relaxation: "Relaxation",
@@ -66,19 +77,23 @@ const translateCategory = (category: ProductCategory): string => {
 
 export const ProductCard = ({ product, onFeedbackSubmit }: ProductCardProps) => {
   const [showFeedback, setShowFeedback] = useState(false);
+  const [imageSrc, setImageSrc] = useState(product.imageUrl);
+
+  const handleImageError = () => {
+    console.warn(`Image not found for product: ${product.name}, using placeholder`);
+    setImageSrc(getRandomPlaceholder());
+  };
 
   return (
     <Card className="h-full flex flex-col bg-white overflow-hidden hover:shadow-lg transition-shadow border-amber-100">
       <CardHeader className="p-0">
         <div className="aspect-square w-full overflow-hidden bg-amber-50">
           <img 
-            src={product.imageUrl} 
+            src={imageSrc} 
             alt={product.name} 
             className="w-full h-full object-contain p-4"
             loading="lazy"
-            onError={(e) => {
-              e.currentTarget.src = "/placeholder.svg";
-            }}
+            onError={handleImageError}
           />
         </div>
       </CardHeader>
