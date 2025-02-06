@@ -5,7 +5,7 @@ export const GENERAL_WELLNESS_PRODUCTS: ProductDefinition[] = [
     id: "omega-3",
     name: "Multivitamines La Totale",
     description: "Complexe complet de vitamines et minéraux essentiels.",
-    imageUrl: "/lovable-uploads/b1645716-9315-4412-9bda-c2b124ef8e6e.png",
+    imageUrl: "/lovable-uploads/619ebd4c-4db4-4654-a7a3-dae356c66657.png",
     expectedResults: "Soutien nutritionnel complet 🌟",
     recommendationReason: "Base nutritionnelle essentielle",
     dietaryInfo: "Vegan, Sans gluten",
