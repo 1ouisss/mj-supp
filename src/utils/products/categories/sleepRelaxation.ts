@@ -34,68 +34,6 @@ export const SLEEP_RELAXATION_PRODUCTS: ProductDefinition[] = [
     timeFrame: "court_terme"
   },
   {
-    id: "complexe-b",
-    name: "Complexe B",
-    description: "Formule complète de vitamines B essentielles pour le système nerveux et l'énergie.",
-    imageUrl: "/lovable-uploads/b254b737-e6ef-457f-ae66-fa69df445e12.png",
-    expectedResults: "Meilleure gestion du stress et soutien énergétique",
-    recommendationReason: "Support nutritionnel essentiel pour le système nerveux",
-    dietaryInfo: "Vegan, Sans gluten",
-    productUrl: "https://maisonjacynthe.ca/fr/complexe-b",
-    categories: ["stress", "énergie", "cerveau"],
-    scores: [
-      { condition: "Stress", score: 4 },
-      { condition: "Fatigue", score: 4 },
-      { condition: "Santé cérébrale", score: 4 }
-    ],
-    therapeuticClaims: [
-      "Soutient le système nerveux",
-      "Aide à la production d'énergie",
-      "Contribue à la formation des globules rouges"
-    ],
-    relationships: {
-      complementaryProducts: ["magnesium", "omega-3"],
-      contraindications: []
-    },
-    usage: {
-      timing: "Avec un repas",
-      duration: "Usage quotidien recommandé",
-      seasonality: ["toute_année"]
-    },
-    timeFrame: "long_terme"
-  },
-  {
-    id: "magnesium",
-    name: "Magnésium",
-    description: "Minéral essentiel pour la relaxation musculaire et nerveuse.",
-    imageUrl: "/lovable-uploads/13e46990-e5e0-4bd3-8238-5682ce7a6045.png",
-    expectedResults: "Détente musculaire et mentale 🧘‍♀️",
-    recommendationReason: "Soutien pour la relaxation",
-    dietaryInfo: "Vegan, Sans gluten",
-    productUrl: "https://maisonjacynthe.ca/fr/magnesium",
-    categories: ["relaxation", "stress", "muscles"],
-    scores: [
-      { condition: "Gérer le stress", score: 5 },
-      { condition: "Améliorer le sommeil", score: 4 },
-      { condition: "Douleurs musculaires", score: 4 }
-    ],
-    therapeuticClaims: [
-      "Relaxation musculaire profonde",
-      "Réduction du stress chronique",
-      "Soutien du système nerveux"
-    ],
-    relationships: {
-      complementaryProducts: ["melatonine"],
-      contraindications: ["Insuffisance rénale"]
-    },
-    usage: {
-      timing: "Prendre le soir pour la relaxation",
-      duration: "Utilisation quotidienne recommandée",
-      seasonality: ["toute_année"]
-    },
-    timeFrame: "long_terme"
-  },
-  {
     id: "poudre-dodo",
     name: "Poudre Dodo",
     description: "Super poudre apaisante pour un sommeil naturel et réparateur",
@@ -124,6 +62,37 @@ export const SLEEP_RELAXATION_PRODUCTS: ProductDefinition[] = [
       seasonality: ["toute_année"]
     },
     timeFrame: "court_terme"
+  },
+  {
+    id: "magnesium",
+    name: "Magnésium",
+    description: "Minéral essentiel pour la relaxation musculaire et nerveuse.",
+    imageUrl: "/lovable-uploads/13e46990-e5e0-4bd3-8238-5682ce7a6045.png",
+    expectedResults: "Détente musculaire et mentale",
+    recommendationReason: "Soutien pour la relaxation",
+    dietaryInfo: "Vegan, Sans gluten",
+    productUrl: "https://maisonjacynthe.ca/fr/magnesium",
+    categories: ["relaxation", "stress", "muscles"],
+    scores: [
+      { condition: "Gérer le stress", score: 5 },
+      { condition: "Améliorer le sommeil", score: 4 },
+      { condition: "Douleurs musculaires", score: 4 }
+    ],
+    therapeuticClaims: [
+      "Relaxation musculaire profonde",
+      "Réduction du stress chronique",
+      "Soutien du système nerveux"
+    ],
+    relationships: {
+      complementaryProducts: ["melatonine"],
+      contraindications: ["Insuffisance rénale"]
+    },
+    usage: {
+      timing: "Prendre le soir pour la relaxation",
+      duration: "Utilisation quotidienne recommandée",
+      seasonality: ["toute_année"]
+    },
+    timeFrame: "long_terme"
   },
   {
     id: "respire-bien",

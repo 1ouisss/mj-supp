@@ -6,8 +6,8 @@ export const IMMUNITY_HEALTH_PRODUCTS: ProductDefinition[] = [
     name: "Immunitaire",
     description: "Teinture mère botanique pour soutenir le système immunitaire et soulager les symptômes des infections respiratoires.",
     imageUrl: "/lovable-uploads/594a340a-cc3c-4504-92df-cc5a54d7482a.png",
-    expectedResults: "Aide à soulager les symptômes et réduire la durée des infections des voies respiratoires supérieures. Soutient le système immunitaire.",
-    recommendationReason: "Formule traditionnelle combinant l'échinacée, l'astragale et d'autres plantes médicinales pour renforcer l'immunité.",
+    expectedResults: "Renforcement du système immunitaire et réduction des symptômes d'infections",
+    recommendationReason: "Formule traditionnelle pour renforcer l'immunité",
     dietaryInfo: "Format : 150 ml, NPN : 80105353",
     productUrl: "https://maisonjacynthe.ca/fr/immunitaire",
     categories: ["immunité", "santé_générale", "gorge"],
@@ -17,57 +17,79 @@ export const IMMUNITY_HEALTH_PRODUCTS: ProductDefinition[] = [
       { condition: "Gorge", score: 4 }
     ],
     therapeuticClaims: [
-      "Soulage les maux de gorge et les symptômes d'infections respiratoires",
-      "Réduit la durée des infections des voies respiratoires supérieures",
-      "Aide au maintien d'un système immunitaire sain",
-      "Soutient la circulation périphérique"
+      "Soutient le système immunitaire",
+      "Réduit les symptômes d'infections respiratoires",
+      "Action anti-inflammatoire naturelle"
     ],
     relationships: {
-      complementaryProducts: [],
-      contraindications: [
-        "Ne pas utiliser si vous prenez des immunosuppresseurs",
-        "Ne pas utiliser si vous souffrez de maladies auto-immunes",
-        "Consulter un professionnel si enceinte ou allaitante"
-      ]
+      complementaryProducts: ["vitamine-d", "zinc"],
+      contraindications: []
     },
     usage: {
-      timing: "1 cuillère à thé, 3 fois par jour",
-      duration: "Utiliser dès les premiers signes d'un rhume. Ne pas utiliser plus de 8 semaines sans avis médical",
+      timing: "1-3 fois par jour",
+      duration: "Usage régulier ou selon les besoins",
       seasonality: ["automne", "hiver"]
     },
     timeFrame: "court_terme"
   },
   {
-    id: "le-protecteur",
-    name: "Le Protecteur",
-    description: "Miel aromatisé pour consommation, enrichi d'huiles essentielles naturelles pour soutenir le système immunitaire.",
-    imageUrl: "/lovable-uploads/5da495ea-a536-4ef9-8ae4-eb82cef13544.png",
-    expectedResults: "Soutien du système immunitaire et bien-être général",
-    recommendationReason: "Formule 100% naturelle combinant les bienfaits du miel et des huiles essentielles protectrices",
-    dietaryInfo: "100% naturel & pur. Format: 250 ml. Contient: Miel, huile de clou de girofle, huile d'écorce de cannelle, huile de romarin, huile de zeste de citron, huile d'eucalyptus",
-    productUrl: "https://maisonjacynthe.ca/fr/le-protecteur",
-    categories: ["immunité", "santé_générale"],
+    id: "vitamine-d",
+    name: "Vitamine D & K",
+    description: "Combinaison synergique de vitamines D3 et K2 pour une absorption optimale",
+    imageUrl: "/lovable-uploads/d5909b03-6e45-4800-9745-c277e084faf9.png",
+    expectedResults: "Renforcement immunitaire et santé osseuse",
+    recommendationReason: "Support essentiel pour l'immunité et la santé osseuse",
+    dietaryInfo: "Sans gluten, végétarien",
+    productUrl: "https://maisonjacynthe.ca/fr/vitamine-d-k",
+    categories: ["immunité", "santé_osseuse"],
     scores: [
       { condition: "Immunité", score: 5 },
-      { condition: "Bien-être général", score: 4 }
+      { condition: "Santé osseuse", score: 4 }
     ],
     therapeuticClaims: [
-      "Soutien du système immunitaire",
-      "Propriétés antimicrobiennes naturelles",
-      "Action protectrice"
+      "Renforce le système immunitaire",
+      "Favorise l'absorption du calcium",
+      "Soutient la santé osseuse"
     ],
     relationships: {
-      complementaryProducts: [],
-      contraindications: [
-        "Ne pas utiliser sur le visage",
-        "Non recommandé pour les enfants de moins de 6 ans"
-      ]
+      complementaryProducts: ["calcium", "magnesium"],
+      contraindications: []
     },
     usage: {
-      timing: "Selon les besoins",
-      duration: "Usage régulier ou ponctuel",
+      timing: "Quotidien avec un repas",
+      duration: "Usage régulier recommandé",
       seasonality: ["toute_année"]
     },
-    timeFrame: "court_terme"
+    timeFrame: "long_terme"
+  },
+  {
+    id: "vitamine-c",
+    name: "Vitamine C",
+    description: "Formule de vitamine C hautement absorbable avec bioflavonoïdes",
+    imageUrl: "/lovable-uploads/cf2a70e5-72c3-43e4-b261-cd5d17373860.png",
+    expectedResults: "Renforcement immunitaire et protection antioxydante",
+    recommendationReason: "Support antioxydant essentiel",
+    dietaryInfo: "Vegan, sans gluten",
+    productUrl: "https://maisonjacynthe.ca/fr/vitamine-c",
+    categories: ["immunité", "antioxydant"],
+    scores: [
+      { condition: "Immunité", score: 5 },
+      { condition: "Protection cellulaire", score: 4 }
+    ],
+    therapeuticClaims: [
+      "Renforce le système immunitaire",
+      "Protection antioxydante",
+      "Soutient la production de collagène"
+    ],
+    relationships: {
+      complementaryProducts: ["zinc", "quercetin"],
+      contraindications: []
+    },
+    usage: {
+      timing: "1-2 fois par jour",
+      duration: "Usage régulier recommandé",
+      seasonality: ["toute_année"]
+    },
+    timeFrame: "long_terme"
   }
 ];

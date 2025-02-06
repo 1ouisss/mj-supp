@@ -4,7 +4,7 @@ export const BRAIN_HEALTH_PRODUCTS: ProductDefinition[] = [
   {
     id: "focus",
     name: "Focus",
-    description: "Formule avancée pour la concentration et la clarté mentale.",
+    description: "Formule avancée pour la concentration et la clarté mentale",
     imageUrl: "/lovable-uploads/ce08bdaa-0440-4064-9cd7-04bd6a5ed979.png",
     expectedResults: "Amélioration de la concentration et des performances cognitives",
     recommendationReason: "Support optimal pour la fonction cognitive",
@@ -34,7 +34,7 @@ export const BRAIN_HEALTH_PRODUCTS: ProductDefinition[] = [
   {
     id: "omega-3",
     name: "Oméga-3",
-    description: "Acides gras essentiels pour la santé cérébrale et cardiovasculaire.",
+    description: "Acides gras essentiels pour la santé cérébrale et cardiovasculaire",
     imageUrl: "/lovable-uploads/9fe3dcb7-455a-4684-af23-43bb9a63de07.png",
     expectedResults: "Soutien à la santé cognitive et réduction de l'inflammation",
     recommendationReason: "Essentiel pour le bon fonctionnement du cerveau",
@@ -64,7 +64,7 @@ export const BRAIN_HEALTH_PRODUCTS: ProductDefinition[] = [
   {
     id: "complexe-b",
     name: "Complexe B",
-    description: "Formule complète de vitamines B essentielles pour le système nerveux et l'énergie.",
+    description: "Formule complète de vitamines B essentielles pour le système nerveux",
     imageUrl: "/lovable-uploads/b254b737-e6ef-457f-ae66-fa69df445e12.png",
     expectedResults: "Meilleure gestion du stress et soutien énergétique",
     recommendationReason: "Support nutritionnel essentiel pour le système nerveux",
@@ -91,38 +91,5 @@ export const BRAIN_HEALTH_PRODUCTS: ProductDefinition[] = [
       seasonality: ["toute_année"]
     },
     timeFrame: "long_terme"
-  },
-  {
-    id: "energie-adaptogene",
-    name: "Énergie & Adaptogène",
-    description: "Supplément énergétique et adaptogène pour accroître l'énergie et la résistance au stress.",
-    imageUrl: "/lovable-uploads/b34b8702-e883-457c-80f3-0ede7e7ca946.png",
-    expectedResults: "Augmentation rapide de l'énergie et amélioration de la résistance au stress",
-    recommendationReason: "Formule complète combinant adaptogènes et vitamines pour un effet énergisant rapide",
-    dietaryInfo: "Sans produits laitiers, sans gluten.",
-    productUrl: "https://maisonjacynthe.ca/fr/energie-adaptogene",
-    categories: ["énergie", "stress", "concentration", "vitalité"],
-    scores: [
-      { condition: "Fatigue", score: 5 },
-      { condition: "Stress", score: 4 },
-      { condition: "Performance physique", score: 4 },
-      { condition: "Concentration", score: 3 }
-    ],
-    therapeuticClaims: [
-      "Aide à accroître l'énergie et la résistance au stress",
-      "Améliore les performances lors d'exercices intenses",
-      "Source d'antioxydants"
-    ],
-    relationships: {
-      complementaryProducts: ["champignons-adaptogenes", "magnesium", "vitamine-d3"],
-      contraindications: ["Contre-indiqué avec certains médicaments pour le cœur ou la pression sanguine"]
-    },
-    usage: {
-      timing: "3 capsules 1 fois par jour avec de la nourriture.",
-      duration: "Consulter un praticien si l'utilisation dépasse 15 jours",
-      dosage: "3 capsules par jour",
-      seasonality: ["toute_année"]
-    },
-    timeFrame: "court_terme"
   }
 ];
