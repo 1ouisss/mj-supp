@@ -31,7 +31,9 @@ export type ProductCategory =
   | "court_terme" 
   | "long_terme"
   | "vitalité"
-  | "récupération";
+  | "récupération"
+  | "minéraux"
+  | "antioxydant";
 
 export type TimeFrame = "court_terme" | "long_terme";
 export type Season = "hiver" | "printemps" | "été" | "automne" | "toute_année";
