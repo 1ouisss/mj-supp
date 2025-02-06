@@ -93,5 +93,40 @@ export const SPECIALIZED_HEALTH_PRODUCTS: ProductDefinition[] = [
       seasonality: ["toute_année"]
     },
     timeFrame: "long_terme"
+  },
+  {
+    id: "cocktail-cheveux",
+    name: "Cocktail Cheveux",
+    description: "Nourrissez vos cheveux de l'intérieur. Une formule unique qui pénètre vos cheveux, les nourrissant à leur plein potentiel pour une chevelure forte et saine.",
+    imageUrl: "/lovable-uploads/7fe19697-39eb-46b2-bbe2-366835c10d30.png",
+    expectedResults: "Cheveux plus forts et plus sains, ongles renforcés, et amélioration de la santé de la peau",
+    recommendationReason: "Formule complète de nutriments essentiels pour la santé des cheveux, des ongles et de la peau",
+    dietaryInfo: "Sans OGM, sans gluten, sans allergène, convient aux diabétiques",
+    productUrl: "https://maisonjacynthe.ca/fr/cocktail-cheveux",
+    categories: ["santé_cheveux", "peau", "ongles"],
+    scores: [
+      { condition: "Santé des cheveux", score: 5 },
+      { condition: "Santé des ongles", score: 4 },
+      { condition: "Santé de la peau", score: 4 }
+    ],
+    therapeuticClaims: [
+      "Contribue au maintien d'une chevelure saine",
+      "Aide à renforcer les cheveux et les ongles",
+      "Prévient une carence en zinc et en cuivre",
+      "Fournit un apport en silice",
+      "Améliore la fermeté et l'élasticité de la peau",
+      "Réduit les rougeurs et les ridules"
+    ],
+    relationships: {
+      complementaryProducts: [],
+      contraindications: []
+    },
+    usage: {
+      timing: "2 capsules, 2 fois par jour",
+      duration: "Usage régulier",
+      dosage: "4 capsules par jour pour les adultes",
+      seasonality: ["toute_année"]
+    },
+    timeFrame: "long_terme"
   }
 ];
