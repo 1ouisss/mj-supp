@@ -5,6 +5,7 @@ import { SPECIALIZED_HEALTH_PRODUCTS } from './categories/specializedHealth';
 import { GENERAL_HEALTH_PRODUCTS } from './categories/generalHealth';
 import { MUSCLE_HEALTH_PRODUCTS } from './categories/muscleHealth';
 import { IMMUNITY_HEALTH_PRODUCTS } from './categories/immunityHealth';
+import { METABOLIC_HEALTH_PRODUCTS } from './categories/metabolicHealth';
 import { ProductDefinition } from './productTypes';
 
 export const PRODUCTS: ProductDefinition[] = [
@@ -14,5 +15,6 @@ export const PRODUCTS: ProductDefinition[] = [
   ...SPECIALIZED_HEALTH_PRODUCTS,
   ...GENERAL_HEALTH_PRODUCTS,
   ...MUSCLE_HEALTH_PRODUCTS,
-  ...IMMUNITY_HEALTH_PRODUCTS
+  ...IMMUNITY_HEALTH_PRODUCTS,
+  ...METABOLIC_HEALTH_PRODUCTS
 ];
