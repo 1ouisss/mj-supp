@@ -26,6 +26,13 @@ interface ProductCardProps {
   onFeedbackSubmit?: (feedback: ProductFeedback) => void;
 }
 
+// Updated local image mapping
+const LOCAL_PRODUCT_IMAGES: Record<string, string> = {
+  "Focus": "/lovable-uploads/08b3afe7-d173-4bc6-b68b-575f171df2ff.png",
+  "La Totale": "/lovable-uploads/81fe24a0-70fe-4718-b8e3-db356eb4cd93.png",
+  "Complexe B": "/lovable-uploads/9e2a27a2-80a8-45c6-a120-57d6f9250958.png"
+};
+
 const PLACEHOLDER_IMAGES = [
   "https://images.unsplash.com/photo-1721322800607-8c38375eef04",
   "https://images.unsplash.com/photo-1582562124811-c09040d0a901",
@@ -80,7 +87,11 @@ const translateCategory = (category: ProductCategory): string => {
 
 export const ProductCard = ({ product, onFeedbackSubmit }: ProductCardProps) => {
   const [showFeedback, setShowFeedback] = useState(false);
-  const [imageSrc, setImageSrc] = useState(product.imageUrl);
+  const [imageSrc, setImageSrc] = useState(() => {
+    // Check if we have a local image for this product
+    const localImage = LOCAL_PRODUCT_IMAGES[product.name];
+    return localImage || product.imageUrl;
+  });
 
   const handleImageError = () => {
     console.warn(`Image not found for product: ${product.name}, using placeholder`);
