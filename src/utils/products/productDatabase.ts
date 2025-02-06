@@ -6,6 +6,7 @@ import { GENERAL_HEALTH_PRODUCTS } from './categories/generalHealth';
 import { MUSCLE_HEALTH_PRODUCTS } from './categories/muscleHealth';
 import { IMMUNITY_HEALTH_PRODUCTS } from './categories/immunityHealth';
 import { METABOLIC_HEALTH_PRODUCTS } from './categories/metabolicHealth';
+import { BRAIN_HEALTH_PRODUCTS } from './categories/brainHealth';
 import { ProductDefinition } from './productTypes';
 
 export const PRODUCTS: ProductDefinition[] = [
@@ -16,5 +17,6 @@ export const PRODUCTS: ProductDefinition[] = [
   ...GENERAL_HEALTH_PRODUCTS,
   ...MUSCLE_HEALTH_PRODUCTS,
   ...IMMUNITY_HEALTH_PRODUCTS,
-  ...METABOLIC_HEALTH_PRODUCTS
+  ...METABOLIC_HEALTH_PRODUCTS,
+  ...BRAIN_HEALTH_PRODUCTS
 ];

@@ -118,9 +118,11 @@ export type Database = {
           description: string | null
           dietary_info: string | null
           expected_results: string | null
+          goal_mappings: string[] | null
           id: string
           image_url: string | null
           name: string
+          priority: number | null
           product_url: string
           recommendation_reason: string | null
           therapeutic_claims: string[] | null
@@ -133,9 +135,11 @@ export type Database = {
           description?: string | null
           dietary_info?: string | null
           expected_results?: string | null
+          goal_mappings?: string[] | null
           id?: string
           image_url?: string | null
           name: string
+          priority?: number | null
           product_url: string
           recommendation_reason?: string | null
           therapeutic_claims?: string[] | null
@@ -148,9 +152,11 @@ export type Database = {
           description?: string | null
           dietary_info?: string | null
           expected_results?: string | null
+          goal_mappings?: string[] | null
           id?: string
           image_url?: string | null
           name?: string
+          priority?: number | null
           product_url?: string
           recommendation_reason?: string | null
           therapeutic_claims?: string[] | null
