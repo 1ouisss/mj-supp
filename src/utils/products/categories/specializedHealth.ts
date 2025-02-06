@@ -41,5 +41,70 @@ export const SPECIALIZED_HEALTH_PRODUCTS: ProductDefinition[] = [
       seasonality: ["toute_année"]
     },
     timeFrame: "court_terme"
+  },
+  {
+    id: "bobome",
+    name: "Bobôme",
+    description: "Notre baume qui calme les irritations causées par les piqûres de moustiques grâce aux belles propriétés comprises dans ces ingrédients de qualité.",
+    imageUrl: "/lovable-uploads/914b81f6-ea1e-4b1a-b3ee-c6dea3898711.png",
+    expectedResults: "Soulagement des irritations cutanées et piqûres d'insectes",
+    recommendationReason: "Formule naturelle avec des ingrédients apaisants et anti-inflammatoires",
+    dietaryInfo: "100% naturel, sans agent de conservation. Contient: beurre de karité, calendule CO2, lavande, camomille matricaire, menthe poivrée, géranium",
+    productUrl: "https://maisonjacynthe.ca/fr/bobome",
+    categories: ["topique", "peau"],
+    scores: [
+      { condition: "Irritations cutanées", score: 5 },
+      { condition: "Piqûres d'insectes", score: 5 },
+      { condition: "Inflammation", score: 4 }
+    ],
+    therapeuticClaims: [
+      "Calme les irritations",
+      "Effet anti-inflammatoire",
+      "Propriétés antibactériennes",
+      "Action décongestionnante",
+      "Effet anesthésiant local"
+    ],
+    relationships: {
+      complementaryProducts: ["formule-apaisante"],
+      contraindications: []
+    },
+    usage: {
+      timing: "Appliquer localement selon le besoin",
+      duration: "Usage ponctuel",
+      seasonality: ["été", "printemps"]
+    },
+    timeFrame: "court_terme"
+  },
+  {
+    id: "formule-apaisante",
+    name: "Formule Apaisante",
+    description: "Notre formule apaisante est un mélange d'huiles essentielles, qui vous surprendra par sa couleur bleue. Appliquez-la sur toutes vos rougeurs, éruptions cutanées, cicatrices.",
+    imageUrl: "/lovable-uploads/914b81f6-ea1e-4b1a-b3ee-c6dea3898711.png",
+    expectedResults: "Apaisement des rougeurs et éruptions cutanées, aide à la cicatrisation",
+    recommendationReason: "Mélange unique d'huiles essentielles aux propriétés apaisantes et cicatrisantes",
+    dietaryInfo: "100% naturel, pur et actif, sans agent de conservation. Contient: lavande aspic, géranium bourbon, camomille matricaire, camomille romaine, camomille bleue, sauge officinale, hélichryse italienne",
+    productUrl: "https://maisonjacynthe.ca/fr/formule-apaisante",
+    categories: ["topique", "peau"],
+    scores: [
+      { condition: "Rougeurs", score: 5 },
+      { condition: "Cicatrisation", score: 4 },
+      { condition: "Inflammation", score: 4 }
+    ],
+    therapeuticClaims: [
+      "Apaisante et calmante",
+      "Cicatrisante",
+      "Anti-inflammatoire",
+      "Décongestionnante"
+    ],
+    relationships: {
+      complementaryProducts: ["bobome"],
+      contraindications: []
+    },
+    usage: {
+      timing: "Appliquer localement sur les zones affectées",
+      duration: "Usage régulier jusqu'à amélioration",
+      seasonality: ["toute_année"]
+    },
+    timeFrame: "court_terme"
   }
 ];
