@@ -65,33 +65,35 @@ export const DIGESTIVE_HEALTH_PRODUCTS: ProductDefinition[] = [
     timeFrame: "long_terme"
   },
   {
-    id: "formule-apaisante",
-    name: "Formule Apaisante",
-    description: "Mélange apaisant pour le système digestif",
-    imageUrl: "/lovable-uploads/634957a0-0968-43f3-94ce-f0924832632a.png",
-    expectedResults: "Apaisement du système digestif",
-    recommendationReason: "Solution naturelle pour le confort digestif",
-    dietaryInfo: "Vegan, Sans gluten",
-    productUrl: "https://maisonjacynthe.ca/fr/formule-apaisante",
-    categories: ["digestif", "relaxation"],
+    id: "fibres-ami",
+    name: "Fibres & l'Ami",
+    description: "Duo essentiel pour la santé digestive : fibres avec orme et hibiscus, et activateur du muscle intestinal",
+    imageUrl: "/lovable-uploads/6405a0a0-1775-4627-a954-93376cca4aa4.png",
+    expectedResults: "Régulation digestive et soutien du transit intestinal",
+    recommendationReason: "Combinaison synergique pour une santé digestive optimale",
+    dietaryInfo: "Formule naturelle, Convient aux végétariens",
+    productUrl: "https://maisonjacynthe.ca/fr/fibres-ami",
+    categories: ["digestif", "essentiel"],
     scores: [
-      { condition: "Confort digestif", score: 5 },
-      { condition: "Relaxation", score: 4 }
+      { condition: "Santé digestive", score: 5 },
+      { condition: "Transit intestinal", score: 5 },
+      { condition: "Bien-être général", score: 4 }
     ],
     therapeuticClaims: [
-      "Apaise le système digestif",
-      "Favorise la relaxation",
-      "Soutient le bien-être digestif"
+      "Régulateur digestif naturel",
+      "Soutient le transit intestinal",
+      "Breuvage éliminatoire",
+      "Active le muscle intestinal"
     ],
     relationships: {
-      complementaryProducts: ["bobome"],
+      complementaryProducts: ["probiotiques", "jus-aloes"],
       contraindications: []
     },
     usage: {
-      timing: "Selon les besoins",
+      timing: "Quotidien",
       duration: "Usage régulier",
       seasonality: ["toute_année"]
     },
-    timeFrame: "court_terme"
+    timeFrame: "long_terme"
   }
 ];
