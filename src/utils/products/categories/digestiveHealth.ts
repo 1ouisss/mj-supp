@@ -34,6 +34,37 @@ export const DIGESTIVE_HEALTH_PRODUCTS: ProductDefinition[] = [
     timeFrame: "long_terme"
   },
   {
+    id: "jus-aloes",
+    name: "Jus d'Aloès",
+    description: "Jus d'aloès vera 99% pur, essentiel de base pour la santé digestive",
+    imageUrl: "/lovable-uploads/12fd5f58-c55e-4dbd-896b-e5dbf32417a9.png",
+    expectedResults: "Amélioration de la santé digestive et du système immunitaire",
+    recommendationReason: "Base essentielle pour la santé digestive et le bien-être général",
+    dietaryInfo: "99% Aloe Vera, Base essentielle",
+    productUrl: "https://maisonjacynthe.ca/fr/jus-aloes",
+    categories: ["digestif", "immunité", "santé_générale"],
+    scores: [
+      { condition: "Santé digestive", score: 5 },
+      { condition: "Immunité", score: 4 },
+      { condition: "Bien-être général", score: 4 }
+    ],
+    therapeuticClaims: [
+      "Soutient la santé digestive",
+      "Renforce le système immunitaire",
+      "Favorise l'hydratation naturelle"
+    ],
+    relationships: {
+      complementaryProducts: ["probiotiques", "mineraux"],
+      contraindications: []
+    },
+    usage: {
+      timing: "Quotidien",
+      duration: "Usage régulier",
+      seasonality: ["toute_année"]
+    },
+    timeFrame: "long_terme"
+  },
+  {
     id: "formule-apaisante",
     name: "Formule Apaisante",
     description: "Mélange apaisant pour le système digestif",
