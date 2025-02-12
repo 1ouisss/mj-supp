@@ -1,3 +1,4 @@
+
 import { Question } from "@/components/quiz/types";
 
 export const QUESTIONS: Question[] = [
@@ -9,12 +10,6 @@ export const QUESTIONS: Question[] = [
   },
   {
     id: 2,
-    question: "À quel groupe d'âge appartenez-vous ?",
-    type: "single",
-    options: ["<18", "18-35", "36-50", "51+"]
-  },
-  {
-    id: 3,
     question: "Quel est votre objectif principal de bien-être ?",
     type: "single",
     options: [
@@ -23,11 +18,13 @@ export const QUESTIONS: Question[] = [
       "Améliorer la digestion",
       "Gérer le stress",
       "Soutenir la santé cérébrale",
-      "Améliorer l'énergie"
+      "Améliorer l'énergie",
+      "Soulager les migraines",
+      "Soutenir la thyroïde"
     ]
   },
   {
-    id: 4,
+    id: 3,
     question: "Avez-vous des préoccupations de santé spécifiques ?",
     type: "multiple",
     options: [
@@ -36,6 +33,8 @@ export const QUESTIONS: Question[] = [
       "Stress ou anxiété",
       "Fatigue chronique",
       "Système immunitaire affaibli",
+      "Migraines fréquentes",
+      "Problèmes de thyroïde",
       "Aucune"
     ],
     followUpQuestions: [
@@ -47,7 +46,7 @@ export const QUESTIONS: Question[] = [
             question: "À quelle fréquence avez-vous des difficultés à dormir ?",
             type: "single",
             options: ["Occasionnellement", "Fréquemment", "Presque toutes les nuits"],
-            parentQuestionId: 4
+            parentQuestionId: 3
           }
         ]
       },
@@ -64,59 +63,7 @@ export const QUESTIONS: Question[] = [
               "Transit irrégulier",
               "Inconfort intestinal"
             ],
-            parentQuestionId: 4
-          }
-        ]
-      }
-    ]
-  },
-  {
-    id: 5,
-    question: "Comment décririez-vous votre alimentation ?",
-    type: "single",
-    options: [
-      "Équilibrée",
-      "Végétarienne/Végétalienne",
-      "Riche en produits transformés",
-      "Pauvre en fibres",
-      "Régime spécifique"
-    ]
-  },
-  {
-    id: 6,
-    question: "Combien d'heures dormez-vous en moyenne par nuit ?",
-    type: "slider",
-    sliderConfig: {
-      min: 4,
-      max: 12,
-      step: 0.5,
-      labels: {
-        min: "4h ou moins",
-        max: "12h ou plus"
-      }
-    }
-  },
-  {
-    id: 7,
-    question: "Prenez-vous actuellement des compléments naturels ?",
-    type: "single",
-    options: ["Oui", "Non"],
-    followUpQuestions: [
-      {
-        triggerAnswer: "Oui",
-        questions: [
-          {
-            id: 701,
-            question: "Lesquels prenez-vous actuellement ?",
-            type: "multiple",
-            options: [
-              "Produits pour le sommeil",
-              "Produits digestifs",
-              "Produits relaxants",
-              "Produits énergisants",
-              "Autres"
-            ],
-            parentQuestionId: 7
+            parentQuestionId: 3
           }
         ]
       }
