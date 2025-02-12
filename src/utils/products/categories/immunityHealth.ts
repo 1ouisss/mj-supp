@@ -1,3 +1,4 @@
+
 import { ProductDefinition } from "../productTypes";
 
 export const IMMUNITY_HEALTH_PRODUCTS: ProductDefinition[] = [
@@ -36,7 +37,7 @@ export const IMMUNITY_HEALTH_PRODUCTS: ProductDefinition[] = [
     id: "vitamine-d",
     name: "Vitamine D & K",
     description: "Combinaison synergique de vitamines D3 et K2 pour une absorption optimale",
-    imageUrl: "/lovable-uploads/d5909b03-6e45-4800-9745-c277e084faf9.png",
+    imageUrl: "/lovable-uploads/0def73d4-861c-4e96-8a86-247966b03669.png",
     expectedResults: "Renforcement immunitaire et santé osseuse",
     recommendationReason: "Support essentiel pour l'immunité et la santé osseuse",
     dietaryInfo: "Sans gluten, végétarien",
@@ -66,11 +67,11 @@ export const IMMUNITY_HEALTH_PRODUCTS: ProductDefinition[] = [
     id: "vitamine-c",
     name: "Vitamine C",
     description: "Formule de vitamine C hautement absorbable avec bioflavonoïdes",
-    imageUrl: "/lovable-uploads/cf2a70e5-72c3-43e4-b261-cd5d17373860.png",
+    imageUrl: "/lovable-uploads/78ea4d44-88c3-454d-ada8-ed8e148f7e99.png",
     expectedResults: "Renforcement immunitaire et protection antioxydante",
     recommendationReason: "Support antioxydant essentiel",
     dietaryInfo: "Vegan, sans gluten",
-    productUrl: "https://maisonjacynthe.ca/fr/vitamine-c",
+    productUrl: "https://maisonjacynthe.ca/fr/vitamine-c-a-croquer",
     categories: ["immunité", "antioxydant"],
     scores: [
       { condition: "Immunité", score: 5 },
