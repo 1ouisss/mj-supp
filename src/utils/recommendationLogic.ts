@@ -1,3 +1,4 @@
+
 import { Answer } from "@/components/quiz/types";
 import { Product } from "@/components/results/ProductCard";
 import { PRODUCTS } from "./products/productDatabase";
@@ -70,6 +71,22 @@ const RECOMMENDATION_MAPPING: Record<string, string[]> = {
     "Mineral Drop",
     "La Totale",
     "Soutien Santé"
+  ],
+  "Soulager les migraines": [
+    "Coenzyme Q10",
+    "Magnésium",
+    "Oméga-3",
+    "Complexe B",
+    "La Totale",
+    "Minéraux"
+  ],
+  "Soutenir la thyroïde": [
+    "Sélénium",
+    "Minéraux",
+    "La Totale",
+    "Zinc",
+    "Complexe B",
+    "Magnésium"
   ]
 };
 
@@ -87,7 +104,7 @@ export async function getRecommendations(answers: Answer[]): Promise<Product[]> 
       return [];
     }
 
-    const primaryGoalAnswer = answers.find(a => a.questionId === 3)?.answers[0] as string;
+    const primaryGoalAnswer = answers.find(a => a.questionId === 2)?.answers[0] as string;
     console.log("Primary goal:", primaryGoalAnswer);
 
     if (!primaryGoalAnswer) {
