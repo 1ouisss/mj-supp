@@ -1,3 +1,4 @@
+
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
@@ -32,7 +33,7 @@ const Index = () => {
       <Card className="max-w-2xl w-full bg-white/80 backdrop-blur-sm p-8 space-y-8 relative z-10 shadow-xl hover:shadow-2xl transition-all duration-500">
         <div className="text-center space-y-6">
           <h1 className="text-4xl font-bold text-gray-800 hover:scale-105 transition-transform duration-300">
-            Maison Jacynthe
+            Maison Jacynthe Présente MJ Nutra
           </h1>
           <p className="text-xl text-gray-600">
             Découvrez les produits naturels adaptés à vos besoins
