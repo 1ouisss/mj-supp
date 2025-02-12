@@ -1,3 +1,4 @@
+
 export type ProductCategory = 
   | "relaxation" 
   | "sommeil" 
