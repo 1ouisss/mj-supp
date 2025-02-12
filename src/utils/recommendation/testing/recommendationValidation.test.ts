@@ -2,63 +2,128 @@
 import { getRecommendations } from "../../recommendationLogic";
 import { Answer } from "@/components/quiz/types";
 import { Product } from "@/components/results/ProductCard";
-import { ProductCategory } from "../../products/productTypes";
+import { PRODUCTS } from "../../products/productDatabase";
 
-describe('Recommendation Validation Tests', () => {
-  describe('New Categories Tests', () => {
-    it('should provide recommendations for migraine concerns', async () => {
+describe('Système de Recommandations - Tests Complets', () => {
+  describe('Test des Recommandations', () => {
+    const testScenarios = [
+      {
+        name: 'Migraines',
+        answers: [
+          { questionId: 1, answers: ["Femme"] },
+          { questionId: 2, answers: ["Soulager les migraines"] },
+          { questionId: 3, answers: ["Migraines fréquentes"] }
+        ],
+        expectedProducts: ['Coenzyme Q10', 'Magnésium'],
+        expectedCategories: ['migraine']
+      },
+      {
+        name: 'Thyroïde',
+        answers: [
+          { questionId: 1, answers: ["Femme"] },
+          { questionId: 2, answers: ["Soutenir la thyroïde"] },
+          { questionId: 3, answers: ["Problèmes de thyroïde"] }
+        ],
+        expectedProducts: ['Sélénium'],
+        expectedCategories: ['thyroïde']
+      }
+    ];
+
+    testScenarios.forEach(scenario => {
+      it(`devrait fournir des recommandations cohérentes pour ${scenario.name}`, async () => {
+        const recommendations = await getRecommendations(scenario.answers);
+        
+        // Vérifier que nous avons des recommandations
+        expect(recommendations.length).toBeGreaterThan(0);
+        
+        // Vérifier les produits attendus
+        scenario.expectedProducts.forEach(productName => {
+          const product = recommendations.find(p => p.name === productName);
+          expect(product).toBeDefined();
+          
+          // Vérifier l'URL du produit
+          expect(product?.productUrl).toMatch(/^https:\/\/maisonjacynthe\.ca\/fr\//);
+          
+          // Vérifier l'image du produit
+          expect(product?.imageUrl).toBeTruthy();
+        });
+        
+        // Vérifier les catégories
+        scenario.expectedCategories.forEach(category => {
+          expect(recommendations.some(p => p.categories.includes(category))).toBe(true);
+        });
+        
+        // Vérifier les niveaux de confiance
+        recommendations.forEach(product => {
+          expect(product.confidenceLevel).toBeGreaterThanOrEqual(80);
+        });
+      });
+    });
+  });
+
+  describe('Validation des Données des Produits', () => {
+    it('devrait avoir des URLs valides pour tous les produits', () => {
+      PRODUCTS.forEach(product => {
+        expect(product.productUrl).toMatch(/^https:\/\/maisonjacynthe\.ca\/fr\//);
+      });
+    });
+
+    it('devrait avoir des images valides pour tous les produits', () => {
+      PRODUCTS.forEach(product => {
+        expect(product.imageUrl).toBeTruthy();
+        expect(product.imageUrl).toMatch(/^(\/lovable-uploads\/|\/placeholder\.svg)/);
+      });
+    });
+
+    it('devrait avoir des catégories valides pour tous les produits', () => {
+      PRODUCTS.forEach(product => {
+        expect(product.categories.length).toBeGreaterThan(0);
+        product.categories.forEach(category => {
+          expect(typeof category).toBe('string');
+          expect(category.length).toBeGreaterThan(0);
+        });
+      });
+    });
+
+    it('devrait avoir des scores cohérents pour tous les produits', () => {
+      PRODUCTS.forEach(product => {
+        expect(product.scores.length).toBeGreaterThan(0);
+        product.scores.forEach(score => {
+          expect(score.score).toBeGreaterThanOrEqual(0);
+          expect(score.score).toBeLessThanOrEqual(10);
+        });
+      });
+    });
+  });
+
+  describe('Test des Cas Spéciaux', () => {
+    it('devrait gérer correctement les réponses multiples', async () => {
       const answers: Answer[] = [
         { questionId: 1, answers: ["Femme"] },
         { questionId: 2, answers: ["Soulager les migraines"] },
-        { questionId: 3, answers: ["Migraines fréquentes"] }
+        { questionId: 3, answers: ["Migraines fréquentes", "Stress ou anxiété"] }
       ];
       
       const recommendations = await getRecommendations(answers);
       
-      // Verify we get migraine-related products
-      expect(recommendations.length).toBeGreaterThan(0);
-      expect(recommendations.some(p => 
-        p.categories.includes('migraine')
-      )).toBe(true);
-      
-      // Check specific products
-      const productNames = recommendations.map(p => p.name);
-      expect(productNames).toContain('Coenzyme Q10');
-      expect(productNames).toContain('Magnésium');
+      // Vérifier que les recommandations incluent des produits pour les deux conditions
+      expect(recommendations.some(p => p.categories.includes('migraine'))).toBe(true);
+      expect(recommendations.some(p => p.categories.includes('stress'))).toBe(true);
     });
 
-    it('should provide recommendations for thyroid concerns', async () => {
+    it('devrait maintenir la diversité des recommandations', async () => {
       const answers: Answer[] = [
         { questionId: 1, answers: ["Femme"] },
         { questionId: 2, answers: ["Soutenir la thyroïde"] },
-        { questionId: 3, answers: ["Problèmes de thyroïde"] }
+        { questionId: 3, answers: ["Problèmes de thyroïde", "Fatigue chronique"] }
       ];
       
       const recommendations = await getRecommendations(answers);
       
-      // Verify we get thyroid-related products
-      expect(recommendations.length).toBeGreaterThan(0);
-      expect(recommendations.some(p => 
-        p.categories.includes('thyroïde')
-      )).toBe(true);
-      
-      // Check specific products
-      const productNames = recommendations.map(p => p.name);
-      expect(productNames).toContain('Sélénium');
-    });
-
-    // Test confidence levels
-    it('should maintain high confidence for primary goal matches', async () => {
-      const answers: Answer[] = [
-        { questionId: 1, answers: ["Femme"] },
-        { questionId: 2, answers: ["Soulager les migraines"] }
-      ];
-      
-      const recommendations = await getRecommendations(answers);
-      
-      recommendations.forEach(product => {
-        expect(product.confidenceLevel).toBeGreaterThanOrEqual(80);
-      });
+      // Vérifier la diversité des catégories
+      const allCategories = recommendations.flatMap(p => p.categories);
+      const uniqueCategories = new Set(allCategories);
+      expect(uniqueCategories.size).toBeGreaterThan(2);
     });
   });
 });
