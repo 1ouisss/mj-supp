@@ -3,6 +3,7 @@ import { getRecommendations } from "../../recommendationLogic";
 import { Answer } from "@/components/quiz/types";
 import { Product } from "@/components/results/ProductCard";
 import { PRODUCTS } from "../../products/productDatabase";
+import { ProductCategory } from "@/utils/products/productTypes";
 
 describe('Système de Recommandations - Tests Complets', () => {
   describe('Test des Recommandations', () => {
@@ -15,7 +16,7 @@ describe('Système de Recommandations - Tests Complets', () => {
           { questionId: 3, answers: ["Migraines fréquentes"] }
         ],
         expectedProducts: ['Coenzyme Q10', 'Magnésium'],
-        expectedCategories: ['migraine']
+        expectedCategories: ['migraine'] as ProductCategory[]
       },
       {
         name: 'Thyroïde',
@@ -25,7 +26,7 @@ describe('Système de Recommandations - Tests Complets', () => {
           { questionId: 3, answers: ["Problèmes de thyroïde"] }
         ],
         expectedProducts: ['Sélénium'],
-        expectedCategories: ['thyroïde']
+        expectedCategories: ['thyroïde'] as ProductCategory[]
       }
     ];
 
@@ -107,8 +108,10 @@ describe('Système de Recommandations - Tests Complets', () => {
       const recommendations = await getRecommendations(answers);
       
       // Vérifier que les recommandations incluent des produits pour les deux conditions
-      expect(recommendations.some(p => p.categories.includes('migraine'))).toBe(true);
-      expect(recommendations.some(p => p.categories.includes('stress'))).toBe(true);
+      const categories: ProductCategory[] = ['migraine', 'stress'];
+      categories.forEach(category => {
+        expect(recommendations.some(p => p.categories.includes(category))).toBe(true);
+      });
     });
 
     it('devrait maintenir la diversité des recommandations', async () => {
