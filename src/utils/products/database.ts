@@ -15,6 +15,7 @@ import { METABOLIC_HEALTH_PRODUCTS } from './categories/metabolicHealth';
 import { ESSENTIAL_FATTY_ACIDS_PRODUCTS } from './categories/essentialFattyAcids';
 import { ANTISEPTIC_HEALTH_PRODUCTS } from './categories/antisepticHealth';
 import { MUSCLE_HEALTH_PRODUCTS } from './categories/muscleHealth';
+import { HORMONE_HEALTH_PRODUCTS } from './categories/hormoneHealth';
 import { ProductDefinition } from './productTypes';
 
 // Local product database
@@ -43,7 +44,8 @@ export const PRODUCTS: ProductDefinition[] = [
   ...METABOLIC_HEALTH_PRODUCTS,
   ...ESSENTIAL_FATTY_ACIDS_PRODUCTS,
   ...ANTISEPTIC_HEALTH_PRODUCTS,
-  ...MUSCLE_HEALTH_PRODUCTS
+  ...MUSCLE_HEALTH_PRODUCTS,
+  ...HORMONE_HEALTH_PRODUCTS
 ].map(product => ({
   ...product,
   imageUrl: LOCAL_PRODUCT_IMAGES[product.name] || product.imageUrl
