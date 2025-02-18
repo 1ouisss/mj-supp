@@ -14,9 +14,10 @@ import { ADAPTOGENIC_PRODUCTS } from './categories/adaptogenicProducts';
 import { METABOLIC_HEALTH_PRODUCTS } from './categories/metabolicHealth';
 import { ESSENTIAL_FATTY_ACIDS_PRODUCTS } from './categories/essentialFattyAcids';
 import { ANTISEPTIC_HEALTH_PRODUCTS } from './categories/antisepticHealth';
+import { MUSCLE_HEALTH_PRODUCTS } from './categories/muscleHealth';
 import { ProductDefinition } from './productTypes';
 
-// Local product image mapping
+// Local product database
 const LOCAL_PRODUCT_IMAGES = {
   "Focus": "/lovable-uploads/08b3afe7-d173-4bc6-b68b-575f171df2ff.png",
   "La Totale": "/lovable-uploads/81fe24a0-70fe-4718-b8e3-db356eb4cd93.png",
@@ -25,7 +26,7 @@ const LOCAL_PRODUCT_IMAGES = {
   "Vitamine D & K": "/lovable-uploads/0def73d4-861c-4e96-8a86-247966b03669.png"
 };
 
-// Combine all products
+// Update product images in their respective category arrays
 export const PRODUCTS: ProductDefinition[] = [
   ...SLEEP_RELAXATION_PRODUCTS,
   ...DIGESTIVE_HEALTH_PRODUCTS,
@@ -41,7 +42,8 @@ export const PRODUCTS: ProductDefinition[] = [
   ...ADAPTOGENIC_PRODUCTS,
   ...METABOLIC_HEALTH_PRODUCTS,
   ...ESSENTIAL_FATTY_ACIDS_PRODUCTS,
-  ...ANTISEPTIC_HEALTH_PRODUCTS
+  ...ANTISEPTIC_HEALTH_PRODUCTS,
+  ...MUSCLE_HEALTH_PRODUCTS
 ].map(product => ({
   ...product,
   imageUrl: LOCAL_PRODUCT_IMAGES[product.name] || product.imageUrl
