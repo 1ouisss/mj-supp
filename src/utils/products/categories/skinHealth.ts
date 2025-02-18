@@ -3,56 +3,116 @@ import { ProductDefinition } from "../productTypes";
 
 export const SKIN_HEALTH_PRODUCTS: ProductDefinition[] = [
   {
-    id: "dermo-calm",
-    name: "Dermo-Calm",
-    description: "Complexe apaisant pour peaux sensibles",
+    id: "formule-eczema",
+    name: "Formule eczéma",
+    description: "Solution aromathérapeutique pour le soulagement de l'eczéma",
     imageUrl: "/placeholder.svg",
-    expectedResults: "Apaisement et protection de la peau sensible",
-    recommendationReason: "Solution naturelle pour les peaux réactives",
-    dietaryInfo: "Sans allergènes majeurs",
-    productUrl: "https://maisonjacynthe.ca/fr/dermo-calm",
-    categories: ["peau_sensible", "peau", "défense"],
+    expectedResults: "Soulagement des symptômes de l'eczéma et de la dermatite",
+    recommendationReason: "Solution naturelle pour les problèmes d'eczéma",
+    dietaryInfo: "NPN: 80096912",
+    productUrl: "https://maisonjacynthe.ca/fr/formule-eczema",
+    categories: ["peau", "peau_sensible", "topique"],
     scores: [
-      { condition: "Peau sensible", score: 5 },
-      { condition: "Irritations cutanées", score: 4 }
+      { condition: "Eczéma", score: 9 },
+      { condition: "Dermatite", score: 9 }
     ],
     therapeuticClaims: [
-      "Apaise les peaux sensibles et réactives",
-      "Renforce la barrière cutanée",
-      "Réduit les rougeurs et irritations"
+      "Soulagement symptomatique de l'eczéma",
+      "Soulagement de la dermatite",
+      "Solution aromathérapeutique"
     ],
     relationships: {
-      complementaryProducts: ["omega-3", "zinc"],
+      complementaryProducts: ["formuleApaisante", "bobome"],
       contraindications: []
     },
     usage: {
-      timing: "Quotidien",
+      timing: "Selon les besoins",
       duration: "Usage régulier",
       seasonality: ["toute_année"]
     },
-    timeFrame: "long_terme"
+    timeFrame: "court_terme"
   },
   {
-    id: "apaisant-cutane",
-    name: "Apaisant Cutané",
-    description: "Formule apaisante pour les réactions cutanées",
+    id: "formule-eczema-enfant",
+    name: "Baume apaisant et protecteur",
+    description: "Formule spéciale pour enfants, soulage l'eczéma et la dermatite",
     imageUrl: "/placeholder.svg",
-    expectedResults: "Soulagement rapide des irritations",
-    recommendationReason: "Apaisement immédiat des peaux sensibles",
-    dietaryInfo: "Application topique",
-    productUrl: "https://maisonjacynthe.ca/fr/apaisant-cutane",
-    categories: ["peau_sensible", "topique", "antiseptique"],
+    expectedResults: "Soulagement doux des symptômes d'eczéma chez l'enfant",
+    recommendationReason: "Solution douce adaptée aux enfants",
+    dietaryInfo: "NPN: 80104780",
+    productUrl: "https://maisonjacynthe.ca/fr/baume-apaisant-protecteur",
+    categories: ["peau", "peau_sensible", "enfants", "topique"],
     scores: [
-      { condition: "Réactions cutanées", score: 5 },
-      { condition: "Démangeaisons", score: 4 }
+      { condition: "Eczéma enfant", score: 9 },
+      { condition: "Dermatite enfant", score: 9 }
     ],
     therapeuticClaims: [
-      "Soulage rapidement les irritations",
-      "Effet apaisant immédiat",
-      "Action antiseptique naturelle"
+      "Soulagement symptomatique de l'eczéma",
+      "Adapté aux enfants",
+      "Protection de la peau sensible"
     ],
     relationships: {
-      complementaryProducts: ["dermo-calm"],
+      complementaryProducts: ["formuleApaisante"],
+      contraindications: []
+    },
+    usage: {
+      timing: "Selon les besoins",
+      duration: "Usage régulier",
+      seasonality: ["toute_année"]
+    },
+    timeFrame: "court_terme"
+  },
+  {
+    id: "dermopur-acne",
+    name: "Dermopur acné",
+    description: "Solution naturelle pour le traitement de l'acné",
+    imageUrl: "/placeholder.svg",
+    expectedResults: "Soulagement des symptômes de l'acné",
+    recommendationReason: "Traitement naturel de l'acné",
+    dietaryInfo: "NPN: 80096927",
+    productUrl: "https://maisonjacynthe.ca/fr/dermopur-acne",
+    categories: ["peau", "peau_sensible"],
+    scores: [
+      { condition: "Acné", score: 9 },
+      { condition: "Furoncles", score: 8 }
+    ],
+    therapeuticClaims: [
+      "Soulagement symptomatique de l'acné",
+      "Traitement des furoncles",
+      "Solution aromathérapeutique"
+    ],
+    relationships: {
+      complementaryProducts: ["gelSebo", "zinc"],
+      contraindications: []
+    },
+    usage: {
+      timing: "Selon les besoins",
+      duration: "Usage régulier",
+      seasonality: ["toute_année"]
+    },
+    timeFrame: "court_terme"
+  },
+  {
+    id: "formule-apaisante",
+    name: "Formule apaisante",
+    description: "Solution apaisante pour les irritations cutanées",
+    imageUrl: "/placeholder.svg",
+    expectedResults: "Soulagement des irritations mineures de la peau",
+    recommendationReason: "Apaisement rapide des irritations cutanées",
+    dietaryInfo: "NPN: 80094787",
+    productUrl: "https://maisonjacynthe.ca/fr/formule-apaisante",
+    categories: ["peau", "peau_sensible", "guérison"],
+    scores: [
+      { condition: "Irritations cutanées", score: 9 },
+      { condition: "Démangeaisons", score: 8 }
+    ],
+    therapeuticClaims: [
+      "Soulage les irritations mineures de la peau",
+      "Apaise les démangeaisons",
+      "Solution aromathérapeutique"
+    ],
+    relationships: {
+      complementaryProducts: ["bobome", "formulEczema"],
       contraindications: []
     },
     usage: {
@@ -61,35 +121,5 @@ export const SKIN_HEALTH_PRODUCTS: ProductDefinition[] = [
       seasonality: ["toute_année"]
     },
     timeFrame: "court_terme"
-  },
-  {
-    id: "protection-cutanee",
-    name: "Protection Cutanée",
-    description: "Formule protectrice pour peaux fragiles",
-    imageUrl: "/placeholder.svg",
-    expectedResults: "Protection et renforcement de la barrière cutanée",
-    recommendationReason: "Protection quotidienne des peaux sensibles",
-    dietaryInfo: "Sans parfum, hypoallergénique",
-    productUrl: "https://maisonjacynthe.ca/fr/protection-cutanee",
-    categories: ["peau_sensible", "peau", "défense"],
-    scores: [
-      { condition: "Fragilité cutanée", score: 5 },
-      { condition: "Protection peau", score: 4 }
-    ],
-    therapeuticClaims: [
-      "Renforce la barrière cutanée",
-      "Protège contre les agressions extérieures",
-      "Maintient l'hydratation naturelle"
-    ],
-    relationships: {
-      complementaryProducts: ["dermo-calm", "omega-3"],
-      contraindications: []
-    },
-    usage: {
-      timing: "Matin et soir",
-      duration: "Usage quotidien",
-      seasonality: ["toute_année"]
-    },
-    timeFrame: "long_terme"
   }
 ];
