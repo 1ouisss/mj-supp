@@ -11,6 +11,7 @@ import { RESPIRATORY_HEALTH_PRODUCTS } from './categories/respiratoryHealth';
 import { SKIN_HEALTH_PRODUCTS } from './categories/skinHealth';
 import { VITAMINS_AND_MINERALS_PRODUCTS } from './categories/vitaminsAndMinerals';
 import { ADAPTOGENIC_PRODUCTS } from './categories/adaptogenicProducts';
+import { METABOLIC_HEALTH_PRODUCTS } from './categories/metabolicHealth';
 import { ProductDefinition } from './productTypes';
 
 // Local product image mapping
@@ -35,7 +36,8 @@ export const PRODUCTS: ProductDefinition[] = [
   ...RESPIRATORY_HEALTH_PRODUCTS,
   ...SKIN_HEALTH_PRODUCTS,
   ...VITAMINS_AND_MINERALS_PRODUCTS,
-  ...ADAPTOGENIC_PRODUCTS
+  ...ADAPTOGENIC_PRODUCTS,
+  ...METABOLIC_HEALTH_PRODUCTS
 ].map(product => ({
   ...product,
   imageUrl: LOCAL_PRODUCT_IMAGES[product.name] || product.imageUrl
