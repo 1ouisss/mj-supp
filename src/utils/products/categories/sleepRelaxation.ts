@@ -1,65 +1,126 @@
 
-import { ProductDefinition } from '../productTypes';
+import { ProductDefinition } from "../productTypes";
 
 export const SLEEP_RELAXATION_PRODUCTS: ProductDefinition[] = [
   {
-    id: "melatonine",
-    name: "Mélatonine",
-    description: "Aide naturelle pour la qualité du sommeil et la régulation du cycle veille-sommeil",
-    imageUrl: "/lovable-uploads/44cf3f14-98a1-43e6-b5f4-e1ddcbda3d93.png",
-    expectedResults: "Amélioration de la qualité du sommeil et réduction du temps d'endormissement",
-    recommendationReason: "Aide à rétablir le cycle veille-sommeil",
-    dietaryInfo: "NPN : 80111173",
-    productUrl: "https://maisonjacynthe.ca/fr/melatonine-cerise",
-    categories: ["sommeil", "relaxation"],
+    id: "poudre-dodo",
+    name: "Poudre Dodo",
+    description: "Formule naturelle pour favoriser un sommeil réparateur",
+    imageUrl: "/placeholder.svg",
+    expectedResults: "Amélioration de la qualité du sommeil",
+    recommendationReason: "Solution naturelle pour le sommeil",
+    dietaryInfo: "NPN: 80095441. Sans gluten, végétalien",
+    productUrl: "https://maisonjacynthe.ca/fr/poudre-dodo",
+    categories: ["sommeil", "relaxation", "stress"],
     scores: [
-      { condition: "Troubles du sommeil", score: 5 },
-      { condition: "Difficulté d'endormissement", score: 5 }
+      { condition: "Troubles du sommeil", score: 9 },
+      { condition: "Stress", score: 8 },
+      { condition: "Anxiété nocturne", score: 8 }
     ],
     therapeuticClaims: [
-      "Aide à rétablir le cycle veille-sommeil (aspect du rythme circadien)",
-      "Aide à accélérer/réduire le temps nécessaire pour s'endormir",
-      "Aide les personnes qui s'endorment lentement"
+      "Favorise l'endormissement naturel",
+      "Améliore la qualité du sommeil",
+      "Aide à la relaxation"
     ],
     relationships: {
-      complementaryProducts: ["magnesium"],
+      complementaryProducts: ["magnesium", "melatonine"],
+      contraindications: []
+    },
+    usage: {
+      timing: "30-60 minutes avant le coucher",
+      duration: "Usage régulier recommandé",
+      seasonality: ["toute_année"]
+    },
+    timeFrame: "long_terme"
+  },
+  {
+    id: "melatonine",
+    name: "Mélatonine",
+    description: "Hormone naturelle du sommeil",
+    imageUrl: "/placeholder.svg",
+    expectedResults: "Régulation du cycle du sommeil",
+    recommendationReason: "Aide naturelle pour le sommeil",
+    dietaryInfo: "NPN: 80095442. Végétarien",
+    productUrl: "https://maisonjacynthe.ca/fr/melatonine",
+    categories: ["sommeil", "relaxation"],
+    scores: [
+      { condition: "Troubles du sommeil", score: 9 },
+      { condition: "Décalage horaire", score: 9 },
+      { condition: "Rythme circadien", score: 8 }
+    ],
+    therapeuticClaims: [
+      "Aide à réduire le temps d'endormissement",
+      "Soulage les symptômes du décalage horaire",
+      "Régule le cycle du sommeil"
+    ],
+    relationships: {
+      complementaryProducts: ["poudreDodo", "magnesium"],
       contraindications: []
     },
     usage: {
       timing: "30 minutes avant le coucher",
-      duration: "Utilisation ponctuelle recommandée",
+      duration: "Usage ponctuel ou régulier",
       seasonality: ["toute_année"]
     },
     timeFrame: "court_terme"
   },
   {
-    id: "magnesium",
-    name: "Magnésium",
-    description: "Support pour la relaxation musculaire et nerveuse",
-    imageUrl: "/lovable-uploads/13e46990-e5e0-4bd3-8238-5682ce7a6045.png",
-    expectedResults: "Meilleur fonctionnement musculaire et réduction du stress",
-    recommendationReason: "Aide au bon fonctionnement des muscles et au maintien de la santé",
-    dietaryInfo: "NPN : 80095762",
-    productUrl: "https://maisonjacynthe.ca/fr/magnesium",
-    categories: ["relaxation", "muscles", "stress"],
+    id: "relaxation-intense",
+    name: "Relaxation Intense",
+    description: "Formule apaisante pour la détente et le calme",
+    imageUrl: "/placeholder.svg",
+    expectedResults: "Réduction du stress et de l'anxiété",
+    recommendationReason: "Solution naturelle pour la relaxation",
+    dietaryInfo: "NPN: 80095443. Sans gluten",
+    productUrl: "https://maisonjacynthe.ca/fr/relaxation-intense",
+    categories: ["relaxation", "stress", "sommeil"],
     scores: [
-      { condition: "Stress", score: 5 },
-      { condition: "Tension musculaire", score: 4 },
-      { condition: "Sommeil", score: 4 }
+      { condition: "Stress", score: 9 },
+      { condition: "Anxiété", score: 9 },
+      { condition: "Tension nerveuse", score: 8 }
     ],
     therapeuticClaims: [
-      "Aide au bon fonctionnement des muscles, incluant le muscle du cœur",
-      "Aide au développement et au maintien des os et des dents",
-      "Aide à maintenir la formation de globules rouges et des tissus",
-      "Aide à réduire les symptômes liés au syndrome prémenstruel",
-      "Source d'électrolyte pour le maintien d'une bonne santé"
+      "Aide à la relaxation",
+      "Réduit le stress",
+      "Favorise le calme mental"
     ],
     relationships: {
-      complementaryProducts: ["melatonine", "complexe-b"],
+      complementaryProducts: ["magnesium", "poudreDodo"],
       contraindications: []
     },
     usage: {
-      timing: "Le soir pour la relaxation",
+      timing: "Selon les besoins",
+      duration: "Usage régulier possible",
+      seasonality: ["toute_année"]
+    },
+    timeFrame: "long_terme"
+  },
+  {
+    id: "force-botanique",
+    name: "Force Botanique",
+    description: "Mélange de plantes adaptogènes pour l'équilibre",
+    imageUrl: "/placeholder.svg",
+    expectedResults: "Équilibre du système nerveux et gestion du stress",
+    recommendationReason: "Support naturel pour le stress",
+    dietaryInfo: "NPN: 80095444. Végétalien",
+    productUrl: "https://maisonjacynthe.ca/fr/force-botanique",
+    categories: ["stress", "adaptogène", "relaxation"],
+    scores: [
+      { condition: "Stress chronique", score: 9 },
+      { condition: "Fatigue", score: 8 },
+      { condition: "Équilibre émotionnel", score: 8 }
+    ],
+    therapeuticClaims: [
+      "Aide à l'adaptation au stress",
+      "Soutient l'équilibre nerveux",
+      "Favorise la vitalité"
+    ],
+    relationships: {
+      complementaryProducts: ["relaxationIntense", "champignonsAdaptogenes"],
+      contraindications: []
+    },
+    usage: {
+      timing: "Matin et midi",
       duration: "Usage régulier recommandé",
       seasonality: ["toute_année"]
     },
