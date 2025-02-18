@@ -60,5 +60,35 @@ export const DIGESTIVE_HEALTH_PRODUCTS: ProductDefinition[] = [
       seasonality: ["toute_année"]
     },
     timeFrame: "long_terme"
+  },
+  {
+    id: "fibres-essentielles",
+    name: "Fibres Essentielles",
+    description: "Support pour la santé digestive et le transit intestinal",
+    imageUrl: "/placeholder.svg",
+    expectedResults: "Amélioration du transit et de la régularité",
+    recommendationReason: "Source naturelle de fibres pour la santé digestive",
+    dietaryInfo: "NPN: 80095063",
+    productUrl: "https://maisonjacynthe.ca/fr/fibres-essentielles",
+    categories: ["digestif"],
+    scores: [
+      { condition: "Transit intestinal", score: 9 },
+      { condition: "Constipation", score: 8 }
+    ],
+    therapeuticClaims: [
+      "Laxatif mucilagineux pour soulager en douceur la constipation",
+      "Facilite l'évacuation intestinale",
+      "Aide à la régularité"
+    ],
+    relationships: {
+      complementaryProducts: ["lAmi", "probiotiques"],
+      contraindications: []
+    },
+    usage: {
+      timing: "Quotidien",
+      duration: "Usage régulier",
+      seasonality: ["toute_année"]
+    },
+    timeFrame: "long_terme"
   }
 ];

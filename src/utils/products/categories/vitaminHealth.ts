@@ -1,4 +1,3 @@
-
 import { ProductDefinition } from "../productTypes";
 
 export const VITAMIN_HEALTH_PRODUCTS: ProductDefinition[] = [
@@ -53,6 +52,40 @@ export const VITAMIN_HEALTH_PRODUCTS: ProductDefinition[] = [
     ],
     relationships: {
       complementaryProducts: ["omega3"],
+      contraindications: []
+    },
+    usage: {
+      timing: "Quotidien",
+      duration: "Usage régulier",
+      seasonality: ["toute_année"]
+    },
+    timeFrame: "long_terme"
+  },
+  {
+    id: "magnesium",
+    name: "Magnésium",
+    description: "Support essentiel pour les muscles et le système nerveux",
+    imageUrl: "/placeholder.svg",
+    expectedResults: "Amélioration du fonctionnement musculaire et nerveux",
+    recommendationReason: "Minéral essentiel pour plusieurs fonctions corporelles",
+    dietaryInfo: "NPN: 80095762",
+    productUrl: "https://maisonjacynthe.ca/fr/magnesium",
+    categories: ["minéraux", "stress", "muscles", "santé_osseuse"],
+    scores: [
+      { condition: "Fonction musculaire", score: 9 },
+      { condition: "Stress", score: 8 },
+      { condition: "SPM", score: 8 }
+    ],
+    therapeuticClaims: [
+      "Aide au bon fonctionnement des muscles, incluant le muscle du cœur",
+      "Aide au développement et au maintien des os et des dents",
+      "Aide à maintenir la formation de globules rouges et des tissus",
+      "Aide à maintenir les capacités du corps à métaboliser les nutriments",
+      "Aide à réduire les symptômes liés au syndrome prémenstruel",
+      "Source d'électrolyte pour le maintien d'une bonne santé"
+    ],
+    relationships: {
+      complementaryProducts: ["vitamineDK", "calcium"],
       contraindications: []
     },
     usage: {
