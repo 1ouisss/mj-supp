@@ -1,4 +1,3 @@
-
 import { SLEEP_RELAXATION_PRODUCTS } from './categories/sleepRelaxation';
 import { DIGESTIVE_HEALTH_PRODUCTS } from './categories/digestiveHealth';
 import { MENTAL_HEALTH_PRODUCTS } from './categories/mentalHealth';
@@ -7,6 +6,7 @@ import { GENERAL_HEALTH_PRODUCTS } from './categories/generalHealth';
 import { IMMUNITY_HEALTH_PRODUCTS } from './categories/immunityHealth';
 import { BRAIN_HEALTH_PRODUCTS } from './categories/brainHealth';
 import { ENERGY_HEALTH_PRODUCTS } from './categories/energyHealth';
+import { VITAMIN_HEALTH_PRODUCTS } from './categories/vitaminHealth';
 import { ProductDefinition } from './productTypes';
 
 // Local product database
@@ -84,7 +84,7 @@ const LOCAL_PRODUCT_IMAGES = {
   "Vitamine D & K": "/lovable-uploads/0def73d4-861c-4e96-8a86-247966b03669.png"
 };
 
-// Update the image URLs in the products array
+// Update the products array
 export const PRODUCTS: ProductDefinition[] = [
   ...SLEEP_RELAXATION_PRODUCTS,
   ...DIGESTIVE_HEALTH_PRODUCTS,
@@ -94,7 +94,7 @@ export const PRODUCTS: ProductDefinition[] = [
   ...IMMUNITY_HEALTH_PRODUCTS,
   ...BRAIN_HEALTH_PRODUCTS,
   ...ENERGY_HEALTH_PRODUCTS,
-  ...MIGRAINE_THYROID_PRODUCTS
+  ...VITAMIN_HEALTH_PRODUCTS
 ].map(product => ({
   ...product,
   imageUrl: LOCAL_PRODUCT_IMAGES[product.name] || product.imageUrl
