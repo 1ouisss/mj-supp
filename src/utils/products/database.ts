@@ -14,6 +14,7 @@ import { JOINT_HEALTH_PRODUCTS } from './categories/jointHealth';
 import { ANTISEPTIC_HEALTH_PRODUCTS } from './categories/antisepticHealth';
 import { RESPIRATORY_HEALTH_PRODUCTS } from './categories/respiratoryHealth';
 import { SKIN_HEALTH_PRODUCTS } from './categories/skinHealth';
+import { GENERAL_WELLNESS_PRODUCTS } from './categories/generalWellness';
 import { ProductDefinition } from './productTypes';
 
 // Local product database
@@ -41,7 +42,8 @@ export const PRODUCTS: ProductDefinition[] = [
   ...JOINT_HEALTH_PRODUCTS,
   ...ANTISEPTIC_HEALTH_PRODUCTS,
   ...RESPIRATORY_HEALTH_PRODUCTS,
-  ...SKIN_HEALTH_PRODUCTS
+  ...SKIN_HEALTH_PRODUCTS,
+  ...GENERAL_WELLNESS_PRODUCTS
 ].map(product => ({
   ...product,
   imageUrl: LOCAL_PRODUCT_IMAGES[product.name] || product.imageUrl
