@@ -3,92 +3,93 @@ import { ProductDefinition } from "../productTypes";
 
 export const METABOLIC_HEALTH_PRODUCTS: ProductDefinition[] = [
   {
-    id: "gluconig",
-    name: "Gluconig",
-    description: "Régulateur de glucose sanguin naturel",
+    id: "metabolisme-plus",
+    name: "Métabolisme Plus",
+    description: "Formule naturelle pour soutenir le métabolisme",
     imageUrl: "/placeholder.svg",
-    expectedResults: "Maintien d'une glycémie saine",
-    recommendationReason: "Aide à la régulation du sucre sanguin",
-    dietaryInfo: "NPN : 80087435",
-    productUrl: "https://maisonjacynthe.ca/fr/gluconig",
-    categories: ["métabolisme", "santé_générale"],
+    expectedResults: "Soutien du métabolisme et gestion du poids",
+    recommendationReason: "Support naturel pour la gestion du poids",
+    dietaryInfo: "Sans gluten, végétarien",
+    productUrl: "https://maisonjacynthe.ca/fr/metabolisme-plus",
+    categories: ["poids", "métabolisme", "vitalité"],
     scores: [
-      { condition: "Glycémie élevée", score: 5 },
-      { condition: "Métabolisme", score: 4 }
+      { condition: "Gestion du poids", score: 5 },
+      { condition: "Métabolisme lent", score: 4 }
     ],
     therapeuticClaims: [
-      "Aide au maintien d'un taux de glucose sanguin sain",
-      "Aide à réduire l'index glycémique des aliments ingérés"
+      "Soutient un métabolisme sain",
+      "Aide à la gestion du poids",
+      "Favorise l'énergie naturelle"
     ],
     relationships: {
-      complementaryProducts: ["metzaben", "complexe-b"],
+      complementaryProducts: ["omega-3", "complexe-b"],
       contraindications: []
     },
     usage: {
-      timing: "Avant les repas",
+      timing: "Matin et midi",
       duration: "Usage régulier",
       seasonality: ["toute_année"]
     },
     timeFrame: "long_terme"
   },
   {
-    id: "metzaben",
-    name: "Metzaben",
-    description: "Support pour un métabolisme sain",
+    id: "brule-graisse",
+    name: "Brûle-Graisse",
+    description: "Complexe naturel pour la gestion du poids",
     imageUrl: "/placeholder.svg",
-    expectedResults: "Amélioration du métabolisme du glucose",
-    recommendationReason: "Soutien du métabolisme et des fonctions hépatiques",
-    dietaryInfo: "NPN : 80093296",
-    productUrl: "https://maisonjacynthe.ca/fr/metzaben",
-    categories: ["métabolisme", "santé_générale"],
+    expectedResults: "Optimisation du métabolisme des graisses",
+    recommendationReason: "Support pour la perte de poids",
+    dietaryInfo: "Sans stimulants artificiels",
+    productUrl: "https://maisonjacynthe.ca/fr/brule-graisse",
+    categories: ["poids", "sport", "métabolisme"],
     scores: [
-      { condition: "Métabolisme", score: 5 },
-      { condition: "Santé hépatique", score: 4 }
+      { condition: "Perte de poids", score: 5 },
+      { condition: "Métabolisme", score: 4 }
     ],
     therapeuticClaims: [
-      "Contribue au sain métabolisme de glucose",
-      "Aide à maintenir les capacités du corps à métaboliser les nutriments",
-      "Aide à appuyer les fonctions hépatiques",
-      "Source d'antioxydants pour le maintien d'une bonne santé"
+      "Aide à la gestion du poids",
+      "Soutient le métabolisme des graisses",
+      "Favorise l'énergie pendant l'exercice"
     ],
     relationships: {
-      complementaryProducts: ["gluconig", "mineral-drop"],
+      complementaryProducts: ["metabolisme-plus", "mineral-drop"],
       contraindications: []
     },
     usage: {
-      timing: "Quotidien",
+      timing: "Avant l'activité physique",
       duration: "Usage régulier",
       seasonality: ["toute_année"]
     },
     timeFrame: "long_terme"
   },
   {
-    id: "extrait-the-vert",
-    name: "Extrait de thé vert",
-    description: "Support naturel pour la gestion du poids",
+    id: "detox-minceur",
+    name: "Détox Minceur",
+    description: "Programme de détoxification et de gestion du poids",
     imageUrl: "/placeholder.svg",
-    expectedResults: "Aide à la gestion du poids dans le cadre d'un mode de vie sain",
-    recommendationReason: "Complément naturel pour la gestion du poids",
-    dietaryInfo: "NPN : 80095039",
-    productUrl: "https://maisonjacynthe.ca/fr/extrait-the-vert",
-    categories: ["poids", "antioxydant", "métabolisme"],
+    expectedResults: "Détoxification et support pour la perte de poids",
+    recommendationReason: "Programme complet de détox et minceur",
+    dietaryInfo: "Naturel, sans additifs",
+    productUrl: "https://maisonjacynthe.ca/fr/detox-minceur",
+    categories: ["poids", "digestion", "détox"],
     scores: [
-      { condition: "Gestion du poids", score: 4 },
-      { condition: "Métabolisme", score: 4 }
+      { condition: "Détoxification", score: 5 },
+      { condition: "Perte de poids", score: 4 }
     ],
     therapeuticClaims: [
-      "À utiliser dans le cadre d'un programme de réduction de l'apport calorique",
-      "Aide à la gestion du poids avec une activité physique régulière"
+      "Soutient la détoxification naturelle",
+      "Aide à la gestion du poids",
+      "Améliore la digestion"
     ],
     relationships: {
-      complementaryProducts: ["mineral-drop", "complexe-b"],
+      complementaryProducts: ["probiotiques", "mineral-drop"],
       contraindications: []
     },
     usage: {
-      timing: "Quotidien",
-      duration: "Usage régulier",
-      seasonality: ["toute_année"]
+      timing: "Matin à jeun",
+      duration: "Programme de 30 jours",
+      seasonality: ["printemps", "été"]
     },
-    timeFrame: "long_terme"
+    timeFrame: "court_terme"
   }
 ];
