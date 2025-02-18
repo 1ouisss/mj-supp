@@ -3,86 +3,97 @@ import { ProductDefinition } from "../productTypes";
 
 export const SPECIALIZED_HEALTH_PRODUCTS: ProductDefinition[] = [
   {
-    id: "formule-eczema-enfant",
-    name: "Baume apaisant et protecteur (Formule eczéma Enfant)",
-    description: "Solution naturelle pour le soulagement de l'eczéma chez les enfants",
+    id: "formule-libido",
+    name: "Formule Libido",
+    description: "Soutien naturel pour la libido et les fonctions cognitives",
     imageUrl: "/placeholder.svg",
-    expectedResults: "Soulagement symptomatique de l'eczéma et de la dermatite",
-    recommendationReason: "Formule spécialement conçue pour la peau sensible des enfants",
-    dietaryInfo: "NPN : 80104780",
-    productUrl: "https://maisonjacynthe.ca/fr/formule-eczema-enfant",
-    categories: ["peau", "enfants", "peau_sensible"],
+    expectedResults: "Amélioration de la libido et réduction de la nervosité",
+    recommendationReason: "Solution naturelle pour la santé féminine",
+    dietaryInfo: "NPN : 80125167",
+    productUrl: "https://maisonjacynthe.ca/fr/formule-libido",
+    categories: ["libido", "santé_femme", "adaptogène", "stress"],
     scores: [
-      { condition: "Eczéma enfant", score: 5 },
-      { condition: "Dermatite", score: 5 }
+      { condition: "Libido faible", score: 5 },
+      { condition: "Stress", score: 4 },
+      { condition: "Fonctions cognitives", score: 4 }
     ],
     therapeuticClaims: [
-      "Utilisé en aromathérapie pour le soulagement symptomatique de l'eczéma/de la dermatite"
+      "Aide à augmenter et soutenir la libido saine chez les femmes",
+      "Aide à améliorer les fonctions cognitives",
+      "Aide à soulager l'agitation et la nervosité",
+      "Adaptogène pour accroître l'énergie et la résistance au stress"
     ],
     relationships: {
-      complementaryProducts: ["formule-apaisante"],
+      complementaryProducts: ["energie-et-adaptogenes"],
       contraindications: []
     },
     usage: {
-      timing: "Selon les besoins",
-      duration: "Usage régulier recommandé",
+      timing: "Quotidien",
+      duration: "Usage régulier",
       seasonality: ["toute_année"]
     },
-    timeFrame: "court_terme"
+    timeFrame: "long_terme"
   },
   {
-    id: "gel-sebo",
-    name: "Gel sébo",
-    description: "Solution aromathérapeutique pour l'acné et les furoncles",
+    id: "formule-menopause",
+    name: "Formule Ménopause",
+    description: "Solution naturelle pour les symptômes de la ménopause",
     imageUrl: "/placeholder.svg",
-    expectedResults: "Soulagement symptomatique de l'acné et des furoncles",
-    recommendationReason: "Traitement naturel pour les problèmes d'acné",
-    dietaryInfo: "NPN : 80096913",
-    productUrl: "https://maisonjacynthe.ca/fr/gel-sebo",
-    categories: ["peau", "topique"],
+    expectedResults: "Soulagement des symptômes de la ménopause",
+    recommendationReason: "Support complet pour la ménopause",
+    dietaryInfo: "NPN : 80124806",
+    productUrl: "https://maisonjacynthe.ca/fr/formule-menopause",
+    categories: ["ménopause", "santé_femme", "adaptogène", "stress"],
     scores: [
-      { condition: "Acné", score: 5 },
-      { condition: "Furoncles", score: 4 }
+      { condition: "Symptômes ménopause", score: 5 },
+      { condition: "Bouffées de chaleur", score: 5 },
+      { condition: "Stress", score: 4 }
     ],
     therapeuticClaims: [
-      "Utilisé en aromathérapie pour le soulagement symptomatique de l'acné/des furoncles"
+      "Aide au maintien des fonctions cognitives",
+      "Aide à réduire la fatigue mentale",
+      "Soulage les symptômes de la ménopause",
+      "Source d'antioxydants"
     ],
     relationships: {
-      complementaryProducts: ["zinc", "omega-3"],
+      complementaryProducts: ["magnésium", "vitamine-d-et-k"],
       contraindications: []
     },
     usage: {
-      timing: "Application locale selon les besoins",
-      duration: "Usage régulier recommandé",
+      timing: "Quotidien",
+      duration: "Usage régulier selon les besoins",
       seasonality: ["toute_année"]
     },
-    timeFrame: "court_terme"
+    timeFrame: "long_terme"
   },
   {
-    id: "defense-topic",
-    name: "Défense Topic",
-    description: "Solution aromathérapeutique pour le soulagement du rhume et de la toux",
+    id: "formule-douleurs-musculaires",
+    name: "Formule Douleurs Musculaires",
+    description: "Huile topique pour le soulagement des douleurs musculaires et articulaires",
     imageUrl: "/placeholder.svg",
-    expectedResults: "Soulagement des symptômes du rhume et de la toux",
-    recommendationReason: "Aide naturelle pour les symptômes du rhume",
-    dietaryInfo: "NPN : 80103255",
-    productUrl: "https://maisonjacynthe.ca/fr/defense-topic",
-    categories: ["défense", "voies_respiratoires", "immunité"],
+    expectedResults: "Soulagement temporaire des douleurs musculaires et articulaires",
+    recommendationReason: "Solution naturelle pour les douleurs",
+    dietaryInfo: "NPN : 80119457",
+    productUrl: "https://maisonjacynthe.ca/fr/formule-douleurs-musculaires",
+    categories: ["douleur", "muscles", "articulations", "sport"],
     scores: [
-      { condition: "Rhume", score: 5 },
-      { condition: "Toux", score: 5 }
+      { condition: "Douleurs musculaires", score: 5 },
+      { condition: "Douleurs articulaires", score: 5 }
     ],
     therapeuticClaims: [
-      "Utilisé en aromathérapie pour aider à soulager le rhume et la toux"
+      "Soulage temporairement la douleur des muscles et des articulations",
+      "Aide pour le mal de dos et le lumbago",
+      "Soulage les contusions et les entorses",
+      "Soulage la douleur arthritique"
     ],
     relationships: {
-      complementaryProducts: ["vitamine-c", "zinc"],
+      complementaryProducts: ["magnesium", "collagene-marin"],
       contraindications: []
     },
     usage: {
-      timing: "Selon les besoins",
+      timing: "Application selon les besoins",
       duration: "Usage ponctuel",
-      seasonality: ["automne", "hiver"]
+      seasonality: ["toute_année"]
     },
     timeFrame: "court_terme"
   }
