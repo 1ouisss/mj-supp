@@ -3,93 +3,89 @@ import { ProductDefinition } from "../productTypes";
 
 export const ANTISEPTIC_HEALTH_PRODUCTS: ProductDefinition[] = [
   {
-    id: "respire-bien",
-    name: "Respire Bien",
-    description: "Formule aromatique pour la santé respiratoire",
+    id: "gel-antiseptique-1",
+    name: "Gel Antiseptique",
+    description: "Gel nettoyant antiseptique pour les mains",
     imageUrl: "/placeholder.svg",
-    expectedResults: "Dégagement des voies respiratoires et respiration facilitée",
-    recommendationReason: "Solution naturelle pour la respiration",
-    dietaryInfo: "NPN: 80095447. 100% naturel",
-    productUrl: "https://maisonjacynthe.ca/fr/respire-bien",
-    categories: ["respiratoire", "antiseptique", "voies_respiratoires"],
+    expectedResults: "Nettoyage antiseptique efficace des mains",
+    recommendationReason: "Protection contre les bactéries nocives",
+    dietaryInfo: "NPN: 80097884",
+    productUrl: "https://maisonjacynthe.ca/fr/gel-antiseptique",
+    categories: ["antiseptique", "défense"],
     scores: [
-      { condition: "Congestion", score: 9 },
-      { condition: "Respiration difficile", score: 9 },
-      { condition: "Allergies saisonnières", score: 8 }
+      { condition: "Hygiène des mains", score: 9 },
+      { condition: "Protection antibactérienne", score: 9 }
     ],
     therapeuticClaims: [
-      "Aide à dégager les voies respiratoires",
-      "Soulage les symptômes du rhume",
-      "Propriétés antiseptiques naturelles"
+      "Efficace pour détruire les bactéries nocives",
+      "Nettoyant antibactérien pour la peau",
+      "Prévient la propagation de bactéries"
     ],
     relationships: {
-      complementaryProducts: ["immunitaire", "vitaminec"],
+      complementaryProducts: [],
       contraindications: []
     },
     usage: {
       timing: "Selon les besoins",
-      duration: "Usage ponctuel",
-      seasonality: ["automne", "hiver"]
+      duration: "Usage quotidien",
+      seasonality: ["toute_année"]
     },
     timeFrame: "court_terme"
   },
   {
-    id: "synergie-fraicheur",
-    name: "Synergie Fraîcheur",
-    description: "Mélange d'huiles essentielles purifiantes",
+    id: "l-antiseptique",
+    name: "L'Antiseptique",
+    description: "Solution antiseptique naturelle",
     imageUrl: "/placeholder.svg",
-    expectedResults: "Purification de l'air et bien-être respiratoire",
-    recommendationReason: "Solution naturelle pour l'air ambiant",
-    dietaryInfo: "Usage externe uniquement",
-    productUrl: "https://maisonjacynthe.ca/fr/synergie-fraicheur",
-    categories: ["antiseptique", "respiratoire", "voies_respiratoires"],
+    expectedResults: "Protection antibactérienne efficace",
+    recommendationReason: "Nettoyage antiseptique naturel",
+    dietaryInfo: "NPN: 80106684",
+    productUrl: "https://maisonjacynthe.ca/fr/antiseptique",
+    categories: ["antiseptique", "défense"],
     scores: [
-      { condition: "Qualité de l'air", score: 9 },
-      { condition: "Respiration", score: 8 },
-      { condition: "Bien-être", score: 8 }
+      { condition: "Désinfection", score: 9 },
+      { condition: "Protection cutanée", score: 8 }
     ],
     therapeuticClaims: [
-      "Purifie l'air ambiant",
-      "Propriétés antiseptiques naturelles",
-      "Favorise une respiration saine"
+      "Efficace pour détruire des bactéries nocives",
+      "Nettoyant antibactérien pour la peau",
+      "Pour l'hygiène personnelle des mains"
     ],
     relationships: {
-      complementaryProducts: ["respireBien", "immunitaire"],
+      complementaryProducts: [],
       contraindications: []
     },
     usage: {
-      timing: "Usage quotidien ou selon les besoins",
-      duration: "Usage régulier",
+      timing: "Selon les besoins",
+      duration: "Usage quotidien",
       seasonality: ["toute_année"]
     },
-    timeFrame: "long_terme"
+    timeFrame: "court_terme"
   },
   {
-    id: "miel-protecteur",
-    name: "Miel Protecteur",
-    description: "Formule naturelle pour la gorge et le système respiratoire",
+    id: "formule-respiratoire",
+    name: "Formule Respiratoire",
+    description: "Solution aromatique pour le soutien respiratoire",
     imageUrl: "/placeholder.svg",
-    expectedResults: "Soulagement de la gorge et soutien respiratoire",
-    recommendationReason: "Solution naturelle pour la gorge",
-    dietaryInfo: "NPN: 80095448. Contient du miel",
-    productUrl: "https://maisonjacynthe.ca/fr/miel-protecteur",
-    categories: ["gorge", "respiratoire", "antiseptique"],
+    expectedResults: "Soulagement des symptômes respiratoires",
+    recommendationReason: "Support naturel pour les voies respiratoires",
+    dietaryInfo: "NPN: 80095323",
+    productUrl: "https://maisonjacynthe.ca/fr/formule-respiratoire",
+    categories: ["respiratoire", "voies_respiratoires"],
     scores: [
-      { condition: "Irritation gorge", score: 9 },
-      { condition: "Toux", score: 8 },
-      { condition: "Confort respiratoire", score: 8 }
+      { condition: "Rhume", score: 8 },
+      { condition: "Toux", score: 8 }
     ],
     therapeuticClaims: [
-      "Soulage les irritations de la gorge",
-      "Propriétés antiseptiques naturelles",
-      "Aide à apaiser la toux"
+      "Utilisé en aromathérapie pour aider à soulager le rhume",
+      "Aide à soulager la toux"
     ],
     relationships: {
-      complementaryProducts: ["respireBien", "immunitaire"],
+      complementaryProducts: ["respireBien", "defenseInhalation"],
       contraindications: []
     },
     usage: {
-      timing: "3-4 fois par jour",
+      timing: "Selon les besoins",
       duration: "Usage ponctuel",
       seasonality: ["automne", "hiver"]
     },
