@@ -1,69 +1,127 @@
 
-import { ProductDefinition } from '../productTypes';
+import { ProductDefinition } from "../productTypes";
 
 export const ENERGY_HEALTH_PRODUCTS: ProductDefinition[] = [
   {
-    id: "energie-adaptogene",
-    name: "Énergie & Adaptogène",
-    description: "Formule adaptogène pour accroître l'énergie et la résistance au stress",
-    imageUrl: "/lovable-uploads/b34b8702-e883-457c-80f3-0ede7e7ca946.png",
-    expectedResults: "Augmentation de l'énergie et amélioration de la résistance au stress",
-    recommendationReason: "Aide au métabolisme de l'énergie et améliore la performance lors d'exercices intenses",
-    dietaryInfo: "NPN : 80129617",
-    productUrl: "https://maisonjacynthe.ca/fr/energie-adaptogene",
-    categories: ["énergie", "stress", "concentration"],
+    id: "energie-vitalite",
+    name: "Énergie & Vitalité",
+    description: "Formule énergisante naturelle pour la vitalité quotidienne",
+    imageUrl: "/placeholder.svg",
+    expectedResults: "Augmentation de l'énergie et de la vitalité",
+    recommendationReason: "Solution naturelle pour l'énergie",
+    dietaryInfo: "NPN: 80095445. Sans stimulants artificiels",
+    productUrl: "https://maisonjacynthe.ca/fr/energie-vitalite",
+    categories: ["énergie", "vitalité", "adaptogène"],
     scores: [
-      { condition: "Fatigue", score: 5 },
-      { condition: "Stress", score: 4 },
-      { condition: "Performance physique", score: 4 }
+      { condition: "Fatigue", score: 9 },
+      { condition: "Manque d'énergie", score: 9 },
+      { condition: "Performance", score: 8 }
     ],
     therapeuticClaims: [
-      "Utilisé en phytothérapie comme adaptogène pour aider à accroître l'énergie et la résistance au stress",
-      "Aide au métabolisme de l'énergie",
-      "Aide à la formation de globules rouges",
-      "Aide à la production d'énergie",
-      "Améliore la consommation d'oxygène musculaire",
-      "Améliore les performances lors d'exercices intenses"
+      "Augmente l'énergie naturellement",
+      "Améliore l'endurance",
+      "Soutient la vitalité"
     ],
     relationships: {
-      complementaryProducts: ["complexe-b", "magnesium"],
+      complementaryProducts: ["mineralDrop", "complexeB"],
       contraindications: []
     },
     usage: {
-      timing: "Le matin ou en début d'après-midi",
+      timing: "Matin ou midi",
       duration: "Usage régulier recommandé",
       seasonality: ["toute_année"]
     },
-    timeFrame: "court_terme"
+    timeFrame: "long_terme"
+  },
+  {
+    id: "mineral-drop",
+    name: "Mineral Drop",
+    description: "Concentré de minéraux essentiels",
+    imageUrl: "/lovable-uploads/32c160a9-abc3-47bd-b0ad-507c4dec3c50.png",
+    expectedResults: "Amélioration de l'énergie et de la minéralisation",
+    recommendationReason: "Source concentrée de minéraux",
+    dietaryInfo: "NPN: 80095446. Végétalien",
+    productUrl: "https://maisonjacynthe.ca/fr/mineral-drop",
+    categories: ["énergie", "minéraux", "électrolytes"],
+    scores: [
+      { condition: "Fatigue", score: 8 },
+      { condition: "Minéralisation", score: 9 },
+      { condition: "Hydratation", score: 8 }
+    ],
+    therapeuticClaims: [
+      "Source de minéraux essentiels",
+      "Soutient l'énergie cellulaire",
+      "Aide à l'hydratation"
+    ],
+    relationships: {
+      complementaryProducts: ["magnesium", "complexeB"],
+      contraindications: []
+    },
+    usage: {
+      timing: "Tout au long de la journée",
+      duration: "Usage quotidien recommandé",
+      seasonality: ["toute_année"]
+    },
+    timeFrame: "long_terme"
   },
   {
     id: "complexe-b",
     name: "Complexe B",
-    description: "Soutient la production d'énergie et le métabolisme",
+    description: "Formule complète de vitamines B essentielles",
     imageUrl: "/lovable-uploads/9e2a27a2-80a8-45c6-a120-57d6f9250958.png",
-    expectedResults: "Meilleure production d'énergie et métabolisme optimal",
-    recommendationReason: "Aide à la formation de globules rouges et au métabolisme des nutriments",
-    dietaryInfo: "NPN : 80103784. La B3 est sous forme de niacinamide donc pas de flushing (sans rougeur)",
+    expectedResults: "Optimisation du métabolisme énergétique",
+    recommendationReason: "Support essentiel pour l'énergie",
+    dietaryInfo: "NPN: 80095447. Végétarien",
     productUrl: "https://maisonjacynthe.ca/fr/complexe-b",
-    categories: ["énergie", "métabolisme"],
+    categories: ["énergie", "métabolisme", "stress"],
     scores: [
-      { condition: "Fatigue", score: 5 },
-      { condition: "Métabolisme", score: 4 }
+      { condition: "Fatigue", score: 9 },
+      { condition: "Stress", score: 8 },
+      { condition: "Métabolisme", score: 9 }
     ],
     therapeuticClaims: [
-      "Soutient la production d'énergie",
-      "Aide à la formation de globules rouges",
-      "Aide à maintenir une bonne santé",
-      "Aide aux capacités du corps à métaboliser les nutriments",
-      "Aide à la formation des tissus"
+      "Soutient le métabolisme énergétique",
+      "Aide à réduire la fatigue",
+      "Soutient la fonction nerveuse"
     ],
     relationships: {
-      complementaryProducts: ["magnesium", "mineral-drop"],
+      complementaryProducts: ["mineralDrop", "energieVitalite"],
       contraindications: []
     },
     usage: {
-      timing: "Avec un repas",
-      duration: "Usage régulier recommandé",
+      timing: "Avec les repas",
+      duration: "Usage quotidien recommandé",
+      seasonality: ["toute_année"]
+    },
+    timeFrame: "long_terme"
+  },
+  {
+    id: "huile-tcm",
+    name: "Huile TCM",
+    description: "Huile de triglycérides à chaîne moyenne pour l'énergie",
+    imageUrl: "/placeholder.svg",
+    expectedResults: "Énergie stable et durable",
+    recommendationReason: "Source d'énergie rapide et durable",
+    dietaryInfo: "Sans gluten, cétogène",
+    productUrl: "https://maisonjacynthe.ca/fr/huile-tcm",
+    categories: ["énergie", "métabolisme", "cerveau"],
+    scores: [
+      { condition: "Énergie", score: 9 },
+      { condition: "Concentration", score: 8 },
+      { condition: "Performance", score: 8 }
+    ],
+    therapeuticClaims: [
+      "Source d'énergie rapide",
+      "Soutient la fonction cognitive",
+      "Aide à maintenir des niveaux d'énergie stables"
+    ],
+    relationships: {
+      complementaryProducts: ["complexeB", "energieVitalite"],
+      contraindications: []
+    },
+    usage: {
+      timing: "Matin ou avant l'effort",
+      duration: "Usage quotidien possible",
       seasonality: ["toute_année"]
     },
     timeFrame: "long_terme"
