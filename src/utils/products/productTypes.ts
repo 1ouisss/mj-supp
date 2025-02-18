@@ -1,4 +1,3 @@
-
 export type ProductCategory = 
   | "relaxation" 
   | "sommeil" 
@@ -34,7 +33,9 @@ export type ProductCategory =
   | "vitalité"
   | "récupération"
   | "minéraux"
-  | "antioxydant";
+  | "antioxydant"
+  | "respiratoire"
+  | "voies_respiratoires";
 
 export type TimeFrame = "court_terme" | "long_terme";
 export type Season = "hiver" | "printemps" | "été" | "automne" | "toute_année";

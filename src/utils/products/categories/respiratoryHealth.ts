@@ -11,7 +11,7 @@ export const RESPIRATORY_HEALTH_PRODUCTS: ProductDefinition[] = [
     recommendationReason: "Aide naturelle pour les problèmes respiratoires",
     dietaryInfo: "NPN : 80095323",
     productUrl: "https://maisonjacynthe.ca/fr/formule-respiratoire",
-    categories: ["respiratoire", "immunité"],
+    categories: ["voies_respiratoires", "immunité"],
     scores: [
       { condition: "Rhume", score: 5 },
       { condition: "Toux", score: 5 }
@@ -39,7 +39,7 @@ export const RESPIRATORY_HEALTH_PRODUCTS: ProductDefinition[] = [
     recommendationReason: "Solution naturelle pour la congestion nasale",
     dietaryInfo: "NPN : 80103169, 80103170",
     productUrl: "https://maisonjacynthe.ca/fr/respire-bien-vapo",
-    categories: ["respiratoire", "immunité"],
+    categories: ["voies_respiratoires", "immunité"],
     scores: [
       { condition: "Congestion nasale", score: 5 },
       { condition: "Toux", score: 4 }
