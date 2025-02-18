@@ -35,7 +35,11 @@ export type ProductCategory =
   | "minéraux"
   | "antioxydant"
   | "respiratoire"
-  | "voies_respiratoires";
+  | "voies_respiratoires"
+  | "peau_sensible"
+  | "défense"
+  | "adaptogène"
+  | "digestion";
 
 export type TimeFrame = "court_terme" | "long_terme";
 export type Season = "hiver" | "printemps" | "été" | "automne" | "toute_année";
