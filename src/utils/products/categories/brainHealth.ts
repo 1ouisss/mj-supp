@@ -1,14 +1,15 @@
+
 import { ProductDefinition } from '../productTypes';
 
 export const BRAIN_HEALTH_PRODUCTS: ProductDefinition[] = [
   {
     id: "focus",
     name: "Focus",
-    description: "Formule avancée pour la concentration et la clarté mentale",
+    description: "Formule avancée pour soutenir les fonctions cognitives et la mémoire",
     imageUrl: "/lovable-uploads/7ac7bf3d-65ed-4a17-8d76-c34aa2255e4f.png",
-    expectedResults: "Amélioration de la concentration et des performances cognitives",
-    recommendationReason: "Support optimal pour la fonction cognitive",
-    dietaryInfo: "Vegan, Sans gluten",
+    expectedResults: "Amélioration des fonctions cognitives et de la mémoire",
+    recommendationReason: "Support optimal pour la fonction cognitive et la concentration",
+    dietaryInfo: "NPN : 80040236",
     productUrl: "https://maisonjacynthe.ca/fr/focus",
     categories: ["cerveau", "concentration"],
     scores: [
@@ -16,9 +17,9 @@ export const BRAIN_HEALTH_PRODUCTS: ProductDefinition[] = [
       { condition: "Performance mentale", score: 5 }
     ],
     therapeuticClaims: [
-      "Améliore la concentration",
-      "Soutient la mémoire",
-      "Favorise la clarté mentale"
+      "Aide à améliorer les fonctions cognitives",
+      "Aide à améliorer la mémoire",
+      "Aide à améliorer le rendement"
     ],
     relationships: {
       complementaryProducts: ["omega-3", "complexe-b"],

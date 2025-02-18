@@ -1,25 +1,29 @@
+
 import { ProductDefinition } from '../productTypes';
 
 export const ENERGY_HEALTH_PRODUCTS: ProductDefinition[] = [
   {
     id: "energie-adaptogene",
     name: "Énergie & Adaptogène",
-    description: "Supplément énergétique et adaptogène pour accroître l'énergie et la résistance au stress",
+    description: "Formule adaptogène pour accroître l'énergie et la résistance au stress",
     imageUrl: "/lovable-uploads/b34b8702-e883-457c-80f3-0ede7e7ca946.png",
     expectedResults: "Augmentation de l'énergie et amélioration de la résistance au stress",
-    recommendationReason: "Formule complète pour un effet énergisant naturel",
-    dietaryInfo: "Sans produits laitiers, sans gluten",
+    recommendationReason: "Aide au métabolisme de l'énergie et améliore la performance lors d'exercices intenses",
+    dietaryInfo: "NPN : 80129617",
     productUrl: "https://maisonjacynthe.ca/fr/energie-adaptogene",
-    categories: ["énergie", "stress", "concentration", "vitalité"],
+    categories: ["énergie", "stress", "concentration"],
     scores: [
       { condition: "Fatigue", score: 5 },
       { condition: "Stress", score: 4 },
       { condition: "Performance physique", score: 4 }
     ],
     therapeuticClaims: [
-      "Accroît l'énergie naturellement",
-      "Améliore la résistance au stress",
-      "Source d'antioxydants"
+      "Utilisé en phytothérapie comme adaptogène pour aider à accroître l'énergie et la résistance au stress",
+      "Aide au métabolisme de l'énergie",
+      "Aide à la formation de globules rouges",
+      "Aide à la production d'énergie",
+      "Améliore la consommation d'oxygène musculaire",
+      "Améliore les performances lors d'exercices intenses"
     ],
     relationships: {
       complementaryProducts: ["complexe-b", "magnesium"],
@@ -33,61 +37,32 @@ export const ENERGY_HEALTH_PRODUCTS: ProductDefinition[] = [
     timeFrame: "court_terme"
   },
   {
-    id: "mineral-drop",
-    name: "Mineral Drop",
-    description: "Concentré de minéraux essentiels pour l'énergie et la vitalité",
-    imageUrl: "/lovable-uploads/d4d5dd78-75fc-4f0d-bc94-18072b2a4115.png",
-    expectedResults: "Meilleur niveau d'énergie et équilibre minéral",
-    recommendationReason: "Source concentrée de minéraux essentiels",
-    dietaryInfo: "Vegan, Sans gluten",
-    productUrl: "https://maisonjacynthe.ca/fr/mineral-drop",
-    categories: ["énergie", "minéraux", "vitalité"],
+    id: "complexe-b",
+    name: "Complexe B",
+    description: "Soutient la production d'énergie et le métabolisme",
+    imageUrl: "/lovable-uploads/9e2a27a2-80a8-45c6-a120-57d6f9250958.png",
+    expectedResults: "Meilleure production d'énergie et métabolisme optimal",
+    recommendationReason: "Aide à la formation de globules rouges et au métabolisme des nutriments",
+    dietaryInfo: "NPN : 80103784. La B3 est sous forme de niacinamide donc pas de flushing (sans rougeur)",
+    productUrl: "https://maisonjacynthe.ca/fr/complexe-b",
+    categories: ["énergie", "métabolisme"],
     scores: [
-      { condition: "Fatigue", score: 4 },
-      { condition: "Équilibre minéral", score: 5 }
+      { condition: "Fatigue", score: 5 },
+      { condition: "Métabolisme", score: 4 }
     ],
     therapeuticClaims: [
-      "Soutient les niveaux d'énergie",
-      "Équilibre minéral optimal",
-      "Améliore la vitalité"
+      "Soutient la production d'énergie",
+      "Aide à la formation de globules rouges",
+      "Aide à maintenir une bonne santé",
+      "Aide aux capacités du corps à métaboliser les nutriments",
+      "Aide à la formation des tissus"
     ],
     relationships: {
-      complementaryProducts: ["magnesium", "complexe-b"],
+      complementaryProducts: ["magnesium", "mineral-drop"],
       contraindications: []
     },
     usage: {
-      timing: "Quotidien",
-      duration: "Usage régulier recommandé",
-      seasonality: ["toute_année"]
-    },
-    timeFrame: "long_terme"
-  },
-  {
-    id: "la-totale",
-    name: "La Totale",
-    description: "Complexe multivitaminé complet pour une santé optimale",
-    imageUrl: "/lovable-uploads/2e0bb200-ebeb-42d1-9631-c0fd9eb9d463.png",
-    expectedResults: "Soutien nutritionnel complet et énergie optimale",
-    recommendationReason: "Formule complète pour une santé globale",
-    dietaryInfo: "Vegan, Sans gluten",
-    productUrl: "https://maisonjacynthe.ca/fr/la-totale",
-    categories: ["santé_générale", "énergie", "vitalité"],
-    scores: [
-      { condition: "Santé générale", score: 5 },
-      { condition: "Énergie", score: 4 },
-      { condition: "Vitalité", score: 4 }
-    ],
-    therapeuticClaims: [
-      "Soutien nutritionnel complet",
-      "Améliore les niveaux d'énergie",
-      "Renforce la vitalité"
-    ],
-    relationships: {
-      complementaryProducts: ["mineral-drop", "omega-3"],
-      contraindications: []
-    },
-    usage: {
-      timing: "Quotidien avec un repas",
+      timing: "Avec un repas",
       duration: "Usage régulier recommandé",
       seasonality: ["toute_année"]
     },

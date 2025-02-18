@@ -1,64 +1,33 @@
+
 import { ProductDefinition } from '../productTypes';
 
 export const SLEEP_RELAXATION_PRODUCTS: ProductDefinition[] = [
   {
     id: "melatonine",
     name: "Mélatonine",
-    description: "Aide naturelle pour améliorer la qualité du sommeil et réduire l'insomnie.",
+    description: "Aide naturelle pour la qualité du sommeil et la régulation du cycle veille-sommeil",
     imageUrl: "/lovable-uploads/44cf3f14-98a1-43e6-b5f4-e1ddcbda3d93.png",
-    expectedResults: "Sommeil réparateur, réduction des troubles du sommeil",
-    recommendationReason: "Solution naturelle pour le sommeil",
-    dietaryInfo: "Vegan, Sans gluten",
+    expectedResults: "Amélioration de la qualité du sommeil et réduction du temps d'endormissement",
+    recommendationReason: "Aide à rétablir le cycle veille-sommeil",
+    dietaryInfo: "NPN : 80111173",
     productUrl: "https://maisonjacynthe.ca/fr/melatonine-cerise",
     categories: ["sommeil", "relaxation"],
     scores: [
-      { condition: "Améliorer le sommeil", score: 5 },
-      { condition: "Difficulté à se détendre ou à dormir", score: 5 }
+      { condition: "Troubles du sommeil", score: 5 },
+      { condition: "Difficulté d'endormissement", score: 5 }
     ],
     therapeuticClaims: [
-      "Améliore l'endormissement",
-      "Réduit les réveils nocturnes",
-      "Aide à l'endormissement naturel",
-      "Régulation du cycle circadien"
+      "Aide à rétablir le cycle veille-sommeil (aspect du rythme circadien)",
+      "Aide à accélérer/réduire le temps nécessaire pour s'endormir",
+      "Aide les personnes qui s'endorment lentement"
     ],
     relationships: {
-      complementaryProducts: ["magnesium", "poudre-dodo"],
-      contraindications: ["Grossesse", "Allaitement"]
-    },
-    usage: {
-      timing: "Prendre 30 minutes avant le coucher",
-      duration: "Utilisation ponctuelle recommandée",
-      dosage: "1-3mg selon les besoins",
-      seasonality: ["toute_année"]
-    },
-    timeFrame: "court_terme"
-  },
-  {
-    id: "poudre-dodo",
-    name: "Poudre Dodo",
-    description: "Super poudre apaisante pour un sommeil naturel et réparateur",
-    imageUrl: "/lovable-uploads/ef8d4c63-b573-46d0-9be3-4033e7cca34b.png",
-    expectedResults: "Sommeil profond et relaxation naturelle",
-    recommendationReason: "Solution naturelle pour le sommeil",
-    dietaryInfo: "Vegan, Sans gluten, Orale/Oral 90g",
-    productUrl: "https://maisonjacynthe.ca/fr/poudre-dodo",
-    categories: ["sommeil", "relaxation"],
-    scores: [
-      { condition: "Améliorer le sommeil", score: 5 },
-      { condition: "Stress nocturne", score: 4 }
-    ],
-    therapeuticClaims: [
-      "Favorise un sommeil naturel",
-      "Aide à la relaxation",
-      "Soutient la qualité du sommeil"
-    ],
-    relationships: {
-      complementaryProducts: ["magnesium", "melatonine"],
+      complementaryProducts: ["magnesium"],
       contraindications: []
     },
     usage: {
-      timing: "Prendre 30 minutes avant le coucher",
-      duration: "Utilisation quotidienne possible",
+      timing: "30 minutes avant le coucher",
+      duration: "Utilisation ponctuelle recommandée",
       seasonality: ["toute_année"]
     },
     timeFrame: "court_terme"
@@ -66,61 +35,34 @@ export const SLEEP_RELAXATION_PRODUCTS: ProductDefinition[] = [
   {
     id: "magnesium",
     name: "Magnésium",
-    description: "Minéral essentiel pour la relaxation musculaire et nerveuse.",
+    description: "Support pour la relaxation musculaire et nerveuse",
     imageUrl: "/lovable-uploads/13e46990-e5e0-4bd3-8238-5682ce7a6045.png",
-    expectedResults: "Détente musculaire et mentale",
-    recommendationReason: "Soutien pour la relaxation",
-    dietaryInfo: "Vegan, Sans gluten",
+    expectedResults: "Meilleur fonctionnement musculaire et réduction du stress",
+    recommendationReason: "Aide au bon fonctionnement des muscles et au maintien de la santé",
+    dietaryInfo: "NPN : 80095762",
     productUrl: "https://maisonjacynthe.ca/fr/magnesium",
-    categories: ["relaxation", "stress", "muscles"],
+    categories: ["relaxation", "muscles", "stress"],
     scores: [
-      { condition: "Gérer le stress", score: 5 },
-      { condition: "Améliorer le sommeil", score: 4 },
-      { condition: "Douleurs musculaires", score: 4 }
+      { condition: "Stress", score: 5 },
+      { condition: "Tension musculaire", score: 4 },
+      { condition: "Sommeil", score: 4 }
     ],
     therapeuticClaims: [
-      "Relaxation musculaire profonde",
-      "Réduction du stress chronique",
-      "Soutien du système nerveux"
+      "Aide au bon fonctionnement des muscles, incluant le muscle du cœur",
+      "Aide au développement et au maintien des os et des dents",
+      "Aide à maintenir la formation de globules rouges et des tissus",
+      "Aide à réduire les symptômes liés au syndrome prémenstruel",
+      "Source d'électrolyte pour le maintien d'une bonne santé"
     ],
     relationships: {
-      complementaryProducts: ["melatonine"],
-      contraindications: ["Insuffisance rénale"]
-    },
-    usage: {
-      timing: "Prendre le soir pour la relaxation",
-      duration: "Utilisation quotidienne recommandée",
-      seasonality: ["toute_année"]
-    },
-    timeFrame: "long_terme"
-  },
-  {
-    id: "respire-bien",
-    name: "Respire Bien",
-    description: "Support naturel pour la respiration, à vaporiser (2 ans et plus)",
-    imageUrl: "/lovable-uploads/4ad65483-777a-46cb-9ec8-2728ee8022e3.png",
-    expectedResults: "Respiration facilitée et voies respiratoires dégagées",
-    recommendationReason: "Soutien respiratoire naturel",
-    dietaryInfo: "Vaporisateur 30ml, NPN 80131370",
-    productUrl: "https://maisonjacynthe.ca/fr/respire-bien",
-    categories: ["saisonnier", "gorge"],
-    scores: [
-      { condition: "Problèmes respiratoires", score: 5 },
-      { condition: "Congestion", score: 4 }
-    ],
-    therapeuticClaims: [
-      "Soutient la santé respiratoire",
-      "Aide à dégager les voies respiratoires"
-    ],
-    relationships: {
-      complementaryProducts: [],
+      complementaryProducts: ["melatonine", "complexe-b"],
       contraindications: []
     },
     usage: {
-      timing: "Selon les besoins",
-      duration: "Usage ponctuel ou régulier",
-      seasonality: ["hiver", "printemps"]
+      timing: "Le soir pour la relaxation",
+      duration: "Usage régulier recommandé",
+      seasonality: ["toute_année"]
     },
-    timeFrame: "court_terme"
+    timeFrame: "long_terme"
   }
 ];
