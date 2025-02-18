@@ -1,3 +1,4 @@
+
 import { ProductCategory } from "@/utils/products/productTypes";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card";
@@ -92,7 +93,8 @@ const translateCategory = (category: ProductCategory): string => {
     sport: "Sport",
     poids: "Gestion du poids",
     libido: "Libido",
-    ménopause: "Ménopause"
+    ménopause: "Ménopause",
+    détox: "Détox"
   };
   return translations[category] || category;
 };
