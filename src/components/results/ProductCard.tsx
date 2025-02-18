@@ -81,7 +81,9 @@ const translateCategory = (category: ProductCategory): string => {
     vitalité: "Vitalité",
     récupération: "Récupération",
     minéraux: "Minéraux",
-    antioxydant: "Antioxydant"
+    antioxydant: "Antioxydant",
+    respiratoire: "Respiratoire",
+    voies_respiratoires: "Voies respiratoires"
   };
   return translations[category] || category;
 };
