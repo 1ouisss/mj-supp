@@ -3,93 +3,123 @@ import { ProductDefinition } from "../productTypes";
 
 export const RESPIRATORY_HEALTH_PRODUCTS: ProductDefinition[] = [
   {
-    id: "respira-plus",
-    name: "Respira Plus",
-    description: "Complexe naturel pour le soutien respiratoire",
+    id: "formule-respiratoire",
+    name: "Formule respiratoire",
+    description: "Aide à soulager le rhume et la toux en aromathérapie",
     imageUrl: "/placeholder.svg",
-    expectedResults: "Respiration facilitée et voies respiratoires dégagées",
-    recommendationReason: "Soutien optimal des voies respiratoires",
-    dietaryInfo: "Sans allergènes majeurs",
-    productUrl: "https://maisonjacynthe.ca/fr/respira-plus",
+    expectedResults: "Soulagement des symptômes du rhume et de la toux",
+    recommendationReason: "Solution naturelle pour les problèmes respiratoires",
+    dietaryInfo: "NPN: 80095323",
+    productUrl: "https://maisonjacynthe.ca/fr/formule-respiratoire",
     categories: ["respiratoire", "voies_respiratoires", "saisonnier"],
     scores: [
-      { condition: "Congestion", score: 5 },
-      { condition: "Respiration", score: 4 }
+      { condition: "Rhume", score: 9 },
+      { condition: "Toux", score: 9 }
     ],
     therapeuticClaims: [
-      "Aide à dégager les voies respiratoires",
-      "Soutient la fonction respiratoire",
-      "Apaise les irritations saisonnières"
+      "Aide à soulager le rhume",
+      "Aide à soulager la toux",
+      "Solution aromathérapeutique naturelle"
     ],
     relationships: {
-      complementaryProducts: ["huile-eucalyptus", "zinc-plus"],
-      contraindications: []
-    },
-    usage: {
-      timing: "Quotidien",
-      duration: "Usage régulier ou saisonnier",
-      seasonality: ["hiver", "printemps"]
-    },
-    timeFrame: "court_terme"
-  },
-  {
-    id: "huile-eucalyptus",
-    name: "Huile d'Eucalyptus",
-    description: "Huile essentielle pour le bien-être respiratoire",
-    imageUrl: "/placeholder.svg",
-    expectedResults: "Voies respiratoires dégagées et sensation de fraîcheur",
-    recommendationReason: "Solution naturelle pour la respiration",
-    dietaryInfo: "Usage externe ou en diffusion",
-    productUrl: "https://maisonjacynthe.ca/fr/huile-eucalyptus",
-    categories: ["respiratoire", "voies_respiratoires", "essentiel"],
-    scores: [
-      { condition: "Congestion", score: 5 },
-      { condition: "Bien-être respiratoire", score: 4 }
-    ],
-    therapeuticClaims: [
-      "Aide à dégager les voies respiratoires",
-      "Procure une sensation de fraîcheur",
-      "Favorise une respiration facile"
-    ],
-    relationships: {
-      complementaryProducts: ["respira-plus"],
+      complementaryProducts: ["defenseTopique", "mielProtecteur"],
       contraindications: []
     },
     usage: {
       timing: "Selon les besoins",
-      duration: "Usage ponctuel",
-      seasonality: ["hiver", "printemps"]
+      duration: "Pendant les symptômes",
+      seasonality: ["hiver", "automne"]
     },
     timeFrame: "court_terme"
   },
   {
-    id: "poumon-vital",
-    name: "Poumon Vital",
-    description: "Formule complète pour la santé pulmonaire",
+    id: "respire-bien-vapo",
+    name: "Respire Bien Vapo",
+    description: "Fournit des vapeurs apaisantes pour soulager la congestion nasale",
     imageUrl: "/placeholder.svg",
-    expectedResults: "Soutien de la fonction pulmonaire et respiratoire",
-    recommendationReason: "Support complet pour la santé respiratoire",
-    dietaryInfo: "Sans gluten, végétarien",
-    productUrl: "https://maisonjacynthe.ca/fr/poumon-vital",
-    categories: ["respiratoire", "voies_respiratoires", "long_terme"],
+    expectedResults: "Soulagement temporaire de la congestion nasale",
+    recommendationReason: "Solution naturelle pour la respiration",
+    dietaryInfo: "NPN: 80103169",
+    productUrl: "https://maisonjacynthe.ca/fr/respire-bien-vapo",
+    categories: ["respiratoire", "voies_respiratoires", "saisonnier"],
     scores: [
-      { condition: "Santé pulmonaire", score: 5 },
-      { condition: "Respiration", score: 4 }
+      { condition: "Congestion nasale", score: 9 },
+      { condition: "Toux", score: 8 }
     ],
     therapeuticClaims: [
-      "Soutient la santé pulmonaire",
-      "Renforce le système respiratoire",
-      "Favorise une respiration optimale"
+      "Soulage temporairement la congestion nasale",
+      "Aide à soulager la toux associée au rhume",
+      "Vapeurs apaisantes naturelles"
     ],
     relationships: {
-      complementaryProducts: ["respira-plus", "vitamine-d-et-k"],
+      complementaryProducts: ["formuleRespiratoire", "defenseTopic"],
       contraindications: []
     },
     usage: {
-      timing: "Quotidien",
-      duration: "Usage régulier",
-      seasonality: ["toute_année"]
+      timing: "Selon les besoins",
+      duration: "Pendant les symptômes",
+      seasonality: ["hiver", "automne"]
     },
-    timeFrame: "long_terme"
+    timeFrame: "court_terme"
+  },
+  {
+    id: "defense-topic",
+    name: "Défense Topic",
+    description: "Solution aromathérapeutique pour soulager le rhume et la toux",
+    imageUrl: "/placeholder.svg",
+    expectedResults: "Soulagement des symptômes du rhume",
+    recommendationReason: "Protection naturelle contre les symptômes du rhume",
+    dietaryInfo: "NPN: 80103255",
+    productUrl: "https://maisonjacynthe.ca/fr/defense-topic",
+    categories: ["défense", "respiratoire", "voies_respiratoires"],
+    scores: [
+      { condition: "Rhume", score: 9 },
+      { condition: "Toux", score: 8 }
+    ],
+    therapeuticClaims: [
+      "Aide à soulager le rhume",
+      "Aide à soulager la toux",
+      "Solution aromathérapeutique"
+    ],
+    relationships: {
+      complementaryProducts: ["respireBien", "mielProtecteur"],
+      contraindications: []
+    },
+    usage: {
+      timing: "Selon les besoins",
+      duration: "Pendant les symptômes",
+      seasonality: ["hiver", "automne"]
+    },
+    timeFrame: "court_terme"
+  },
+  {
+    id: "defense-inhalation",
+    name: "Défense Inhalation",
+    description: "Solution d'inhalation pour soulager le rhume et la toux",
+    imageUrl: "/placeholder.svg",
+    expectedResults: "Soulagement des voies respiratoires",
+    recommendationReason: "Inhalation thérapeutique naturelle",
+    dietaryInfo: "NPN: 80104490",
+    productUrl: "https://maisonjacynthe.ca/fr/defense-inhalation",
+    categories: ["défense", "respiratoire", "voies_respiratoires"],
+    scores: [
+      { condition: "Rhume", score: 9 },
+      { condition: "Toux", score: 9 }
+    ],
+    therapeuticClaims: [
+      "Aide à soulager le rhume",
+      "Aide à soulager la toux",
+      "Solution d'inhalation naturelle"
+    ],
+    relationships: {
+      complementaryProducts: ["defenseTopic", "respireBien"],
+      contraindications: []
+    },
+    usage: {
+      timing: "Selon les besoins",
+      duration: "Pendant les symptômes",
+      seasonality: ["hiver", "automne"]
+    },
+    timeFrame: "court_terme"
   }
 ];
