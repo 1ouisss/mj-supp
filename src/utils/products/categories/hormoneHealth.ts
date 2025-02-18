@@ -3,90 +3,63 @@ import { ProductDefinition } from "../productTypes";
 
 export const HORMONE_HEALTH_PRODUCTS: ProductDefinition[] = [
   {
-    id: "equilibre-hormonal",
-    name: "Équilibre Hormonal",
-    description: "Complexe naturel pour l'équilibre hormonal",
+    id: "libido-boost",
+    name: "Libido Boost",
+    description: "Formule naturelle pour soutenir la santé hormonale et la libido",
     imageUrl: "/placeholder.svg",
-    expectedResults: "Meilleur équilibre hormonal et bien-être général",
-    recommendationReason: "Support naturel pour l'équilibre hormonal",
+    expectedResults: "Amélioration de la vitalité et de l'énergie sexuelle",
+    recommendationReason: "Solution naturelle pour améliorer la libido",
     dietaryInfo: "Sans gluten, végétarien",
-    productUrl: "https://maisonjacynthe.ca/fr/equilibre-hormonal",
-    categories: ["hormones", "santé_femme", "adaptogène"],
+    productUrl: "https://maisonjacynthe.ca/fr/libido-boost",
+    categories: ["libido", "hormones", "vitalité"],
     scores: [
-      { condition: "Déséquilibre hormonal", score: 5 },
-      { condition: "Symptômes prémenstruels", score: 4 }
+      { condition: "Baisse de libido", score: 9 },
+      { condition: "Fatigue", score: 7 },
+      { condition: "Stress", score: 6 }
     ],
     therapeuticClaims: [
-      "Aide à équilibrer les hormones naturellement",
-      "Soutient le bien-être féminin",
-      "Contribue à réduire les symptômes hormonaux"
+      "Soutient la santé hormonale",
+      "Améliore la libido naturellement",
+      "Augmente l'énergie et la vitalité",
+      "Aide à réduire la fatigue"
     ],
     relationships: {
-      complementaryProducts: ["omega-3", "magnesium"],
+      complementaryProducts: ["vitamine-d", "zinc"],
       contraindications: []
     },
     usage: {
-      timing: "Quotidien",
-      duration: "Usage régulier",
+      timing: "Matin et soir",
+      duration: "Usage quotidien",
+      dosage: "Selon les recommandations",
       seasonality: ["toute_année"]
     },
     timeFrame: "long_terme"
   },
   {
-    id: "thyro-plus",
-    name: "Thyro Plus",
-    description: "Support naturel pour la fonction thyroïdienne",
+    id: "hormonal-harmony",
+    name: "Harmonie Hormonale",
+    description: "Complexe naturel pour l'équilibre hormonal et la vitalité",
     imageUrl: "/placeholder.svg",
-    expectedResults: "Meilleur fonctionnement de la thyroïde",
-    recommendationReason: "Soutien optimal de la thyroïde",
-    dietaryInfo: "Sans allergènes majeurs",
-    productUrl: "https://maisonjacynthe.ca/fr/thyro-plus",
-    categories: ["thyroïde", "hormones", "métabolisme"],
+    expectedResults: "Équilibre hormonal et amélioration du bien-être général",
+    recommendationReason: "Support complet pour la santé hormonale",
+    dietaryInfo: "100% naturel, sans hormones synthétiques",
+    productUrl: "https://maisonjacynthe.ca/fr/harmonie-hormonale",
+    categories: ["hormones", "libido", "santé_femme"],
     scores: [
-      { condition: "Fonction thyroïdienne", score: 5 },
-      { condition: "Métabolisme", score: 4 }
+      { condition: "Déséquilibre hormonal", score: 9 },
+      { condition: "Baisse de libido", score: 8 }
     ],
     therapeuticClaims: [
-      "Soutient la fonction thyroïdienne",
-      "Aide à maintenir un métabolisme sain",
-      "Contribue à l'équilibre hormonal"
+      "Favorise l'équilibre hormonal naturel",
+      "Soutient la santé reproductive",
+      "Améliore l'énergie et la vitalité"
     ],
     relationships: {
-      complementaryProducts: ["selenium", "zinc"],
+      complementaryProducts: ["omega-3", "magnésium"],
       contraindications: []
     },
     usage: {
       timing: "Matin",
-      duration: "Usage régulier",
-      seasonality: ["toute_année"]
-    },
-    timeFrame: "long_terme"
-  },
-  {
-    id: "meno-harmonie",
-    name: "Méno-Harmonie",
-    description: "Formule naturelle pour la ménopause",
-    imageUrl: "/placeholder.svg",
-    expectedResults: "Réduction des symptômes de la ménopause",
-    recommendationReason: "Support naturel pendant la ménopause",
-    dietaryInfo: "Sans gluten, végétarien",
-    productUrl: "https://maisonjacynthe.ca/fr/meno-harmonie",
-    categories: ["ménopause", "hormones", "santé_femme"],
-    scores: [
-      { condition: "Symptômes ménopause", score: 5 },
-      { condition: "Bouffées de chaleur", score: 4 }
-    ],
-    therapeuticClaims: [
-      "Aide à réduire les bouffées de chaleur",
-      "Soutient l'équilibre hormonal",
-      "Favorise le bien-être pendant la ménopause"
-    ],
-    relationships: {
-      complementaryProducts: ["equilibre-hormonal", "magnesium"],
-      contraindications: []
-    },
-    usage: {
-      timing: "Quotidien",
       duration: "Usage régulier",
       seasonality: ["toute_année"]
     },

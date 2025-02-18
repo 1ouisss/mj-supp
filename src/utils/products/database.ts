@@ -7,15 +7,10 @@ import { GENERAL_HEALTH_PRODUCTS } from './categories/generalHealth';
 import { IMMUNITY_HEALTH_PRODUCTS } from './categories/immunityHealth';
 import { BRAIN_HEALTH_PRODUCTS } from './categories/brainHealth';
 import { ENERGY_HEALTH_PRODUCTS } from './categories/energyHealth';
-import { RESPIRATORY_HEALTH_PRODUCTS } from './categories/respiratoryHealth';
-import { SKIN_HEALTH_PRODUCTS } from './categories/skinHealth';
-import { VITAMINS_AND_MINERALS_PRODUCTS } from './categories/vitaminsAndMinerals';
-import { ADAPTOGENIC_PRODUCTS } from './categories/adaptogenicProducts';
 import { METABOLIC_HEALTH_PRODUCTS } from './categories/metabolicHealth';
-import { ESSENTIAL_FATTY_ACIDS_PRODUCTS } from './categories/essentialFattyAcids';
-import { ANTISEPTIC_HEALTH_PRODUCTS } from './categories/antisepticHealth';
-import { MUSCLE_HEALTH_PRODUCTS } from './categories/muscleHealth';
 import { HORMONE_HEALTH_PRODUCTS } from './categories/hormoneHealth';
+import { ANTIOXIDANT_PRODUCTS } from './categories/antioxidantProducts';
+import { JOINT_HEALTH_PRODUCTS } from './categories/jointHealth';
 import { ProductDefinition } from './productTypes';
 
 // Local product database
@@ -27,7 +22,7 @@ const LOCAL_PRODUCT_IMAGES = {
   "Vitamine D & K": "/lovable-uploads/0def73d4-861c-4e96-8a86-247966b03669.png"
 };
 
-// Update product images in their respective category arrays
+// Update product images in their respective category files
 export const PRODUCTS: ProductDefinition[] = [
   ...SLEEP_RELAXATION_PRODUCTS,
   ...DIGESTIVE_HEALTH_PRODUCTS,
@@ -37,15 +32,10 @@ export const PRODUCTS: ProductDefinition[] = [
   ...IMMUNITY_HEALTH_PRODUCTS,
   ...BRAIN_HEALTH_PRODUCTS,
   ...ENERGY_HEALTH_PRODUCTS,
-  ...RESPIRATORY_HEALTH_PRODUCTS,
-  ...SKIN_HEALTH_PRODUCTS,
-  ...VITAMINS_AND_MINERALS_PRODUCTS,
-  ...ADAPTOGENIC_PRODUCTS,
   ...METABOLIC_HEALTH_PRODUCTS,
-  ...ESSENTIAL_FATTY_ACIDS_PRODUCTS,
-  ...ANTISEPTIC_HEALTH_PRODUCTS,
-  ...MUSCLE_HEALTH_PRODUCTS,
-  ...HORMONE_HEALTH_PRODUCTS
+  ...HORMONE_HEALTH_PRODUCTS,
+  ...ANTIOXIDANT_PRODUCTS,
+  ...JOINT_HEALTH_PRODUCTS
 ].map(product => ({
   ...product,
   imageUrl: LOCAL_PRODUCT_IMAGES[product.name] || product.imageUrl
