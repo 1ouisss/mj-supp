@@ -3,88 +3,89 @@ import { ProductDefinition } from "../productTypes";
 
 export const SPECIALIZED_HEALTH_PRODUCTS: ProductDefinition[] = [
   {
-    id: "bobome",
-    name: "Bobôme",
-    description: "Baume apaisant pour les irritations cutanées",
-    imageUrl: "/lovable-uploads/b44d19fb-631d-40bb-acba-aa274dc40fd8.png",
-    expectedResults: "Soulagement des irritations cutanées et piqûres d'insectes",
-    recommendationReason: "Formule naturelle pour le soulagement des irritations mineures de la peau",
-    dietaryInfo: "NPN : 80106560",
-    productUrl: "https://maisonjacynthe.ca/fr/bobome",
-    categories: ["topique", "peau"],
+    id: "gel-antiseptique",
+    name: "Gel Antiseptique",
+    description: "Nettoyant antiseptique pour les mains",
+    imageUrl: "/placeholder.svg",
+    expectedResults: "Nettoyage antiseptique efficace des mains",
+    recommendationReason: "Efficace pour détruire les bactéries nocives et prévenir leur propagation",
+    dietaryInfo: "NPN : 80097884, 80097881, 80097878, 80098596",
+    productUrl: "https://maisonjacynthe.ca/fr/gel-antiseptique",
+    categories: ["peau", "santé_générale"],
     scores: [
-      { condition: "Irritations cutanées", score: 5 },
-      { condition: "Cicatrisation", score: 4 }
+      { condition: "Hygiène des mains", score: 5 }
     ],
     therapeuticClaims: [
-      "Utilisé traditionnellement en phytothérapie pour aider à la cicatrisation des plaies",
-      "Aide à soulager les inflammations et les irritations de la peau"
+      "Efficace pour détruire les bactéries nocives afin de procurer un nettoyage antiseptique",
+      "Nettoyant antibactérien pour la peau",
+      "Nettoyant antiseptique pour la peau",
+      "Pour l'hygiène personnelle des mains afin de prévenir la propagation de bactéries",
+      "Tue des bactéries et microbes nocifs"
+    ],
+    relationships: {
+      complementaryProducts: [],
+      contraindications: []
+    },
+    usage: {
+      timing: "Selon les besoins",
+      duration: "Usage quotidien",
+      seasonality: ["toute_année"]
+    },
+    timeFrame: "court_terme"
+  },
+  {
+    id: "formule-eczema",
+    name: "Formule Eczéma",
+    description: "Formule en aromathérapie pour le soulagement de l'eczéma",
+    imageUrl: "/placeholder.svg",
+    expectedResults: "Soulagement symptomatique de l'eczéma et de la dermatite",
+    recommendationReason: "Soulagement des symptômes de l'eczéma par aromathérapie",
+    dietaryInfo: "NPN : 80096912",
+    productUrl: "https://maisonjacynthe.ca/fr/formule-eczema",
+    categories: ["peau", "topique"],
+    scores: [
+      { condition: "Eczéma", score: 5 },
+      { condition: "Dermatite", score: 5 }
+    ],
+    therapeuticClaims: [
+      "Utilisé en aromathérapie pour le soulagement symptomatique de l'eczéma/de la dermatite"
     ],
     relationships: {
       complementaryProducts: ["formule-apaisante"],
       contraindications: []
     },
     usage: {
-      timing: "Appliquer localement selon le besoin",
-      duration: "Usage ponctuel",
-      seasonality: ["toute_année"]
-    },
-    timeFrame: "court_terme"
-  },
-  {
-    id: "formule-apaisante",
-    name: "Formule Apaisante",
-    description: "Mélange d'huiles essentielles pour les soins de la peau",
-    imageUrl: "/lovable-uploads/0592f1d5-124f-4219-8fdf-a197d9906a5c.png",
-    expectedResults: "Apaisement des rougeurs et des irritations cutanées",
-    recommendationReason: "Formule 100% naturelle pour le soin des irritations cutanées",
-    dietaryInfo: "NPN : 80094787",
-    productUrl: "https://maisonjacynthe.ca/fr/formule-apaisante",
-    categories: ["topique", "peau"],
-    scores: [
-      { condition: "Irritations cutanées", score: 5 },
-      { condition: "Rougeurs", score: 4 }
-    ],
-    therapeuticClaims: [
-      "Utilisé en aromathérapie pour soulager les irritations mineures de la peau"
-    ],
-    relationships: {
-      complementaryProducts: ["bobome"],
-      contraindications: []
-    },
-    usage: {
-      timing: "3 soirs par semaine",
-      duration: "Selon les besoins",
-      seasonality: ["toute_année"]
-    },
-    timeFrame: "court_terme"
-  },
-  {
-    id: "miel-protecteur",
-    name: "Miel Protecteur",
-    description: "Formule apaisante pour la gorge",
-    imageUrl: "/lovable-uploads/ce08bdaa-0440-4064-9cd7-04bd6a5ed979.png",
-    expectedResults: "Soulagement des maux de gorge et de la toux",
-    recommendationReason: "Adoucissant naturel pour les symptômes du mal de gorge",
-    dietaryInfo: "NPN : 80108553",
-    productUrl: "https://maisonjacynthe.ca/fr/miel-protecteur",
-    categories: ["gorge", "immunité"],
-    scores: [
-      { condition: "Mal de gorge", score: 5 },
-      { condition: "Toux", score: 4 }
-    ],
-    therapeuticClaims: [
-      "Adoucissant oral pour apaiser les maux de gorge et la toux",
-      "Aide à soulager temporairement les symptômes du mal de gorge et de la toux"
-    ],
-    relationships: {
-      complementaryProducts: ["vitamine-c", "zinc"],
-      contraindications: []
-    },
-    usage: {
       timing: "Selon les besoins",
-      duration: "Usage ponctuel",
-      seasonality: ["automne", "hiver"]
+      duration: "Usage régulier recommandé",
+      seasonality: ["toute_année"]
+    },
+    timeFrame: "court_terme"
+  },
+  {
+    id: "dermopur-acne",
+    name: "Dermopur Acné",
+    description: "Solution aromathérapeutique pour l'acné",
+    imageUrl: "/placeholder.svg",
+    expectedResults: "Soulagement symptomatique de l'acné et des furoncles",
+    recommendationReason: "Traitement naturel pour les problèmes d'acné",
+    dietaryInfo: "NPN : 80096927, 80114704",
+    productUrl: "https://maisonjacynthe.ca/fr/dermopur-acne",
+    categories: ["peau", "topique"],
+    scores: [
+      { condition: "Acné", score: 5 },
+      { condition: "Furoncles", score: 4 }
+    ],
+    therapeuticClaims: [
+      "Utilisé en aromathérapie pour le soulagement symptomatique de l'acné/des furoncles"
+    ],
+    relationships: {
+      complementaryProducts: ["zinc", "omega-3", "extrait-the-vert"],
+      contraindications: []
+    },
+    usage: {
+      timing: "Application locale selon les besoins",
+      duration: "Usage régulier recommandé",
+      seasonality: ["toute_année"]
     },
     timeFrame: "court_terme"
   }
