@@ -3,89 +3,93 @@ import { ProductDefinition } from "../productTypes";
 
 export const RESPIRATORY_HEALTH_PRODUCTS: ProductDefinition[] = [
   {
-    id: "formule-respiratoire",
-    name: "Formule respiratoire",
-    description: "Solution aromathérapeutique pour le soulagement du rhume et de la toux",
+    id: "respira-plus",
+    name: "Respira Plus",
+    description: "Complexe naturel pour le soutien respiratoire",
     imageUrl: "/placeholder.svg",
-    expectedResults: "Soulagement des symptômes du rhume et de la toux",
-    recommendationReason: "Aide naturelle pour les symptômes respiratoires",
-    dietaryInfo: "NPN : 80095323",
-    productUrl: "https://maisonjacynthe.ca/fr/formule-respiratoire",
-    categories: ["respiratoire", "voies_respiratoires"],
+    expectedResults: "Respiration facilitée et voies respiratoires dégagées",
+    recommendationReason: "Soutien optimal des voies respiratoires",
+    dietaryInfo: "Sans allergènes majeurs",
+    productUrl: "https://maisonjacynthe.ca/fr/respira-plus",
+    categories: ["respiratoire", "voies_respiratoires", "saisonnier"],
     scores: [
-      { condition: "Rhume", score: 5 },
-      { condition: "Toux", score: 5 }
+      { condition: "Congestion", score: 5 },
+      { condition: "Respiration", score: 4 }
     ],
     therapeuticClaims: [
-      "Utilisé en aromathérapie pour aider à soulager le rhume et la toux"
+      "Aide à dégager les voies respiratoires",
+      "Soutient la fonction respiratoire",
+      "Apaise les irritations saisonnières"
     ],
     relationships: {
-      complementaryProducts: ["defense-topic", "miel-apaisant"],
+      complementaryProducts: ["huile-eucalyptus", "zinc-plus"],
       contraindications: []
     },
     usage: {
-      timing: "Selon les besoins",
-      duration: "Usage ponctuel",
-      seasonality: ["automne", "hiver"]
+      timing: "Quotidien",
+      duration: "Usage régulier ou saisonnier",
+      seasonality: ["hiver", "printemps"]
     },
     timeFrame: "court_terme"
   },
   {
-    id: "respire-bien-vapo",
-    name: "Respire Bien Vapo",
-    description: "Solution apaisante pour la congestion nasale et la toux",
+    id: "huile-eucalyptus",
+    name: "Huile d'Eucalyptus",
+    description: "Huile essentielle pour le bien-être respiratoire",
     imageUrl: "/placeholder.svg",
-    expectedResults: "Soulagement temporaire de la congestion nasale et de la toux",
+    expectedResults: "Voies respiratoires dégagées et sensation de fraîcheur",
     recommendationReason: "Solution naturelle pour la respiration",
-    dietaryInfo: "NPN : 80103169",
-    productUrl: "https://maisonjacynthe.ca/fr/respire-bien-vapo",
-    categories: ["respiratoire", "voies_respiratoires"],
+    dietaryInfo: "Usage externe ou en diffusion",
+    productUrl: "https://maisonjacynthe.ca/fr/huile-eucalyptus",
+    categories: ["respiratoire", "voies_respiratoires", "essentiel"],
     scores: [
-      { condition: "Congestion nasale", score: 5 },
-      { condition: "Toux rhume", score: 4 }
+      { condition: "Congestion", score: 5 },
+      { condition: "Bien-être respiratoire", score: 4 }
     ],
     therapeuticClaims: [
-      "Fournit des vapeurs apaisantes qui aident à soulager temporairement la congestion nasale mineure",
-      "Aide à soulager la toux associée au rhume commun"
+      "Aide à dégager les voies respiratoires",
+      "Procure une sensation de fraîcheur",
+      "Favorise une respiration facile"
     ],
     relationships: {
-      complementaryProducts: ["formule-respiratoire", "defense-topic"],
+      complementaryProducts: ["respira-plus"],
       contraindications: []
     },
     usage: {
       timing: "Selon les besoins",
       duration: "Usage ponctuel",
-      seasonality: ["automne", "hiver"]
+      seasonality: ["hiver", "printemps"]
     },
     timeFrame: "court_terme"
   },
   {
-    id: "miel-apaisant",
-    name: "Miel apaisant",
-    description: "Adoucissant oral naturel pour le soulagement de la gorge",
+    id: "poumon-vital",
+    name: "Poumon Vital",
+    description: "Formule complète pour la santé pulmonaire",
     imageUrl: "/placeholder.svg",
-    expectedResults: "Soulagement temporaire des maux de gorge et de la toux",
-    recommendationReason: "Solution naturelle et apaisante",
-    dietaryInfo: "NPN : 80108553",
-    productUrl: "https://maisonjacynthe.ca/fr/miel-apaisant",
-    categories: ["gorge", "respiratoire"],
+    expectedResults: "Soutien de la fonction pulmonaire et respiratoire",
+    recommendationReason: "Support complet pour la santé respiratoire",
+    dietaryInfo: "Sans gluten, végétarien",
+    productUrl: "https://maisonjacynthe.ca/fr/poumon-vital",
+    categories: ["respiratoire", "voies_respiratoires", "long_terme"],
     scores: [
-      { condition: "Mal de gorge", score: 5 },
-      { condition: "Toux", score: 4 }
+      { condition: "Santé pulmonaire", score: 5 },
+      { condition: "Respiration", score: 4 }
     ],
     therapeuticClaims: [
-      "Adoucissant oral pour apaiser les maux de gorge et la toux",
-      "Aide à soulager temporairement les symptômes du mal de gorge"
+      "Soutient la santé pulmonaire",
+      "Renforce le système respiratoire",
+      "Favorise une respiration optimale"
     ],
     relationships: {
-      complementaryProducts: ["defense-topic", "formule-respiratoire"],
+      complementaryProducts: ["respira-plus", "vitamine-d-et-k"],
       contraindications: []
     },
     usage: {
-      timing: "Selon les besoins",
-      duration: "Usage ponctuel",
+      timing: "Quotidien",
+      duration: "Usage régulier",
       seasonality: ["toute_année"]
     },
-    timeFrame: "court_terme"
+    timeFrame: "long_terme"
   }
 ];
