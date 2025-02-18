@@ -42,7 +42,7 @@ export const ENERGY_HEALTH_PRODUCTS: ProductDefinition[] = [
     recommendationReason: "Source concentrée de minéraux",
     dietaryInfo: "NPN: 80095446. Végétalien",
     productUrl: "https://maisonjacynthe.ca/fr/mineral-drop",
-    categories: ["énergie", "minéraux", "électrolytes"],
+    categories: ["énergie", "minéraux", "essentiel"],
     scores: [
       { condition: "Fatigue", score: 8 },
       { condition: "Minéralisation", score: 9 },
