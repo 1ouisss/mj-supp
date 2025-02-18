@@ -88,7 +88,13 @@ const translateCategory = (category: ProductCategory): string => {
     peau_sensible: "Peau sensible",
     défense: "Défense",
     adaptogène: "Adaptogène",
-    digestion: "Digestion"
+    digestion: "Digestion",
+    antiseptique: "Antiseptique",
+    allergie: "Allergie",
+    sport: "Sport",
+    poids: "Gestion du poids",
+    libido: "Libido",
+    ménopause: "Ménopause"
   };
   return translations[category] || category;
 };
