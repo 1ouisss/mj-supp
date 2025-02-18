@@ -1,4 +1,3 @@
-
 import { ProductCategory } from "@/utils/products/productTypes";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card";
@@ -27,7 +26,6 @@ interface ProductCardProps {
   onFeedbackSubmit?: (feedback: ProductFeedback) => void;
 }
 
-// Updated local image mapping
 const LOCAL_PRODUCT_IMAGES: Record<string, string> = {
   "Focus": "/lovable-uploads/08b3afe7-d173-4bc6-b68b-575f171df2ff.png",
   "La Totale": "/lovable-uploads/81fe24a0-70fe-4718-b8e3-db356eb4cd93.png",
@@ -102,7 +100,6 @@ const translateCategory = (category: ProductCategory): string => {
 export const ProductCard = ({ product, onFeedbackSubmit }: ProductCardProps) => {
   const [showFeedback, setShowFeedback] = useState(false);
   const [imageSrc, setImageSrc] = useState(() => {
-    // Check if we have a local image for this product
     const localImage = LOCAL_PRODUCT_IMAGES[product.name];
     return localImage || product.imageUrl;
   });
@@ -195,7 +192,7 @@ export const ProductCard = ({ product, onFeedbackSubmit }: ProductCardProps) => 
             onClick={() => setShowFeedback(true)}
             className="w-full mt-4 border-amber-200 text-amber-800 hover:bg-amber-50"
           >
-            Rate this recommendation
+            Évaluez cette recommandation
           </Button>
         )}
       </CardContent>

@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import { Star, ThumbsUp, ThumbsDown, MessageSquare } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -25,7 +26,7 @@ export const FeedbackForm = ({ product, onFeedbackSubmit }: FeedbackFormProps) =
 
   const handleSubmit = () => {
     if (rating === 0) {
-      toast.error("Please provide a rating before submitting");
+      toast.error("Veuillez attribuer une note avant de soumettre");
       return;
     }
 
@@ -37,13 +38,13 @@ export const FeedbackForm = ({ product, onFeedbackSubmit }: FeedbackFormProps) =
     });
 
     setSubmitted(true);
-    toast.success("Thank you for your feedback!");
+    toast.success("Merci pour votre évaluation !");
   };
 
   if (submitted) {
     return (
       <div className="text-center p-4 bg-amber-50 rounded-lg">
-        <p className="text-amber-800">Thank you for your feedback!</p>
+        <p className="text-amber-800">Merci pour votre évaluation !</p>
       </div>
     );
   }
@@ -51,7 +52,7 @@ export const FeedbackForm = ({ product, onFeedbackSubmit }: FeedbackFormProps) =
   return (
     <div className="space-y-4 p-4 bg-amber-50 rounded-lg">
       <div className="space-y-2">
-        <p className="text-sm font-medium text-amber-900">Rate this recommendation:</p>
+        <p className="text-sm font-medium text-amber-900">Notez cette recommandation :</p>
         <div className="flex gap-1">
           {[1, 2, 3, 4, 5].map((value) => (
             <button
@@ -72,7 +73,7 @@ export const FeedbackForm = ({ product, onFeedbackSubmit }: FeedbackFormProps) =
       </div>
 
       <div className="space-y-2">
-        <p className="text-sm font-medium text-amber-900">Was this recommendation helpful?</p>
+        <p className="text-sm font-medium text-amber-900">Cette recommandation vous a-t-elle été utile ?</p>
         <div className="flex gap-2">
           <Button
             variant="outline"
@@ -83,7 +84,7 @@ export const FeedbackForm = ({ product, onFeedbackSubmit }: FeedbackFormProps) =
             } border-amber-300`}
           >
             <ThumbsUp className="w-4 h-4 mr-2" />
-            Yes
+            Oui
           </Button>
           <Button
             variant="outline"
@@ -94,21 +95,21 @@ export const FeedbackForm = ({ product, onFeedbackSubmit }: FeedbackFormProps) =
             } border-amber-300`}
           >
             <ThumbsDown className="w-4 h-4 mr-2" />
-            No
+            Non
           </Button>
         </div>
       </div>
 
       <div className="space-y-2">
         <p className="text-sm font-medium text-amber-900">
-          What other products would you like to see?
+          Quels autres produits aimeriez-vous voir ?
         </p>
         <div className="flex items-start gap-2">
           <MessageSquare className="w-4 h-4 mt-3 text-amber-500" />
           <Textarea
             value={feedback}
             onChange={(e) => setFeedback(e.target.value)}
-            placeholder="Share your thoughts..."
+            placeholder="Partagez vos suggestions..."
             className="min-h-[80px] bg-white border-amber-200"
           />
         </div>
@@ -118,7 +119,7 @@ export const FeedbackForm = ({ product, onFeedbackSubmit }: FeedbackFormProps) =
         onClick={handleSubmit}
         className="w-full bg-amber-600 hover:bg-amber-700 text-white"
       >
-        Submit Feedback
+        Envoyer l'évaluation
       </Button>
     </div>
   );
