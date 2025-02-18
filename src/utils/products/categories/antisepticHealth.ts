@@ -3,61 +3,63 @@ import { ProductDefinition } from "../productTypes";
 
 export const ANTISEPTIC_HEALTH_PRODUCTS: ProductDefinition[] = [
   {
-    id: "huile-tea-tree",
-    name: "Huile de Tea Tree",
-    description: "Huile essentielle aux propriétés antiseptiques naturelles",
+    id: "gel-antiseptique-1",
+    name: "Gel antiseptique",
+    description: "Efficace pour détruire les bactéries nocives et procurer un nettoyage antiseptique",
     imageUrl: "/placeholder.svg",
-    expectedResults: "Action antiseptique et purifiante",
-    recommendationReason: "Solution naturelle pour les soins antiseptiques",
-    dietaryInfo: "Usage externe uniquement",
-    productUrl: "https://maisonjacynthe.ca/fr/huile-tea-tree",
-    categories: ["antiseptique", "topique", "peau"],
+    expectedResults: "Nettoyage antiseptique et prévention des bactéries",
+    recommendationReason: "Protection antibactérienne efficace",
+    dietaryInfo: "NPN: 80097884",
+    productUrl: "https://maisonjacynthe.ca/fr/gel-antiseptique",
+    categories: ["antiseptique", "défense", "peau"],
     scores: [
-      { condition: "Soins cutanés", score: 5 },
-      { condition: "Antiseptique", score: 5 }
+      { condition: "Hygiène des mains", score: 9 },
+      { condition: "Protection antibactérienne", score: 9 }
     ],
     therapeuticClaims: [
-      "Propriétés antiseptiques naturelles",
-      "Aide à purifier la peau",
-      "Soutient la santé cutanée"
+      "Efficace pour détruire les bactéries nocives",
+      "Nettoyant antibactérien pour la peau",
+      "Prévient la propagation de bactéries",
+      "Nettoyant antiseptique pour la peau"
     ],
     relationships: {
-      complementaryProducts: ["calendula", "lavande"],
+      complementaryProducts: [],
       contraindications: []
     },
     usage: {
       timing: "Selon les besoins",
-      duration: "Usage ponctuel",
+      duration: "Usage quotidien",
       seasonality: ["toute_année"]
     },
     timeFrame: "court_terme"
   },
   {
-    id: "calendula",
-    name: "Calendula",
-    description: "Solution apaisante et cicatrisante naturelle",
+    id: "antiseptique-concentre",
+    name: "L'Antiseptique",
+    description: "Solution antiseptique concentrée pour l'hygiène personnelle",
     imageUrl: "/placeholder.svg",
-    expectedResults: "Apaisement et soutien de la guérison cutanée",
-    recommendationReason: "Soin naturel pour la peau",
-    dietaryInfo: "Usage externe",
-    productUrl: "https://maisonjacynthe.ca/fr/calendula",
-    categories: ["antiseptique", "peau", "guérison"],
+    expectedResults: "Protection antibactérienne efficace",
+    recommendationReason: "Désinfection puissante et protection durable",
+    dietaryInfo: "NPN: 80106684",
+    productUrl: "https://maisonjacynthe.ca/fr/antiseptique",
+    categories: ["antiseptique", "défense", "peau"],
     scores: [
-      { condition: "Soins cutanés", score: 4 },
-      { condition: "Cicatrisation", score: 5 }
+      { condition: "Désinfection", score: 9 },
+      { condition: "Protection antibactérienne", score: 9 }
     ],
     therapeuticClaims: [
-      "Aide à la cicatrisation",
-      "Propriétés apaisantes naturelles",
-      "Soutient la santé de la peau"
+      "Efficace pour détruire des bactéries nocives",
+      "Nettoyant antibactérien pour la peau",
+      "Prévient la propagation de bactéries",
+      "Tue les bactéries et microbes nocifs"
     ],
     relationships: {
-      complementaryProducts: ["huile-tea-tree", "lavande"],
+      complementaryProducts: [],
       contraindications: []
     },
     usage: {
       timing: "Selon les besoins",
-      duration: "Usage régulier",
+      duration: "Usage quotidien",
       seasonality: ["toute_année"]
     },
     timeFrame: "court_terme"

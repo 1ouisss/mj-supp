@@ -11,6 +11,7 @@ import { METABOLIC_HEALTH_PRODUCTS } from './categories/metabolicHealth';
 import { HORMONE_HEALTH_PRODUCTS } from './categories/hormoneHealth';
 import { ANTIOXIDANT_PRODUCTS } from './categories/antioxidantProducts';
 import { JOINT_HEALTH_PRODUCTS } from './categories/jointHealth';
+import { ANTISEPTIC_HEALTH_PRODUCTS } from './categories/antisepticHealth';
 import { ProductDefinition } from './productTypes';
 
 // Local product database
@@ -22,7 +23,7 @@ const LOCAL_PRODUCT_IMAGES = {
   "Vitamine D & K": "/lovable-uploads/0def73d4-861c-4e96-8a86-247966b03669.png"
 };
 
-// Update product images in their respective category files
+// Mettre à jour les images des produits dans leurs fichiers de catégories respectifs
 export const PRODUCTS: ProductDefinition[] = [
   ...SLEEP_RELAXATION_PRODUCTS,
   ...DIGESTIVE_HEALTH_PRODUCTS,
@@ -35,7 +36,8 @@ export const PRODUCTS: ProductDefinition[] = [
   ...METABOLIC_HEALTH_PRODUCTS,
   ...HORMONE_HEALTH_PRODUCTS,
   ...ANTIOXIDANT_PRODUCTS,
-  ...JOINT_HEALTH_PRODUCTS
+  ...JOINT_HEALTH_PRODUCTS,
+  ...ANTISEPTIC_HEALTH_PRODUCTS
 ].map(product => ({
   ...product,
   imageUrl: LOCAL_PRODUCT_IMAGES[product.name] || product.imageUrl
