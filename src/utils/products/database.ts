@@ -13,6 +13,7 @@ import { VITAMINS_AND_MINERALS_PRODUCTS } from './categories/vitaminsAndMinerals
 import { ADAPTOGENIC_PRODUCTS } from './categories/adaptogenicProducts';
 import { METABOLIC_HEALTH_PRODUCTS } from './categories/metabolicHealth';
 import { ESSENTIAL_FATTY_ACIDS_PRODUCTS } from './categories/essentialFattyAcids';
+import { ANTISEPTIC_HEALTH_PRODUCTS } from './categories/antisepticHealth';
 import { ProductDefinition } from './productTypes';
 
 // Local product image mapping
@@ -39,7 +40,8 @@ export const PRODUCTS: ProductDefinition[] = [
   ...VITAMINS_AND_MINERALS_PRODUCTS,
   ...ADAPTOGENIC_PRODUCTS,
   ...METABOLIC_HEALTH_PRODUCTS,
-  ...ESSENTIAL_FATTY_ACIDS_PRODUCTS
+  ...ESSENTIAL_FATTY_ACIDS_PRODUCTS,
+  ...ANTISEPTIC_HEALTH_PRODUCTS
 ].map(product => ({
   ...product,
   imageUrl: LOCAL_PRODUCT_IMAGES[product.name] || product.imageUrl

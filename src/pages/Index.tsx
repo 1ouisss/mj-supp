@@ -38,9 +38,6 @@ const Index = () => {
           <p className="text-xl text-gray-600">
             Découvrez les produits naturels adaptés à vos besoins
           </p>
-          <p className="text-gray-500">
-            Découvrez le véritable potentiel de votre santé
-          </p>
           <Button 
             onClick={() => navigate("/quiz")}
             className="bg-amber-900 hover:bg-amber-800 text-white px-8 py-6 text-lg rounded-full transform hover:scale-105 transition-all duration-300"

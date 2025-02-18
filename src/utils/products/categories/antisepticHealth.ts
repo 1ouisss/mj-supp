@@ -3,61 +3,61 @@ import { ProductDefinition } from "../productTypes";
 
 export const ANTISEPTIC_HEALTH_PRODUCTS: ProductDefinition[] = [
   {
-    id: "gel-antiseptique-1",
-    name: "Gel antiseptique",
-    description: "Efficace pour détruire les bactéries nocives afin de procurer un nettoyage antiseptique",
+    id: "huile-tea-tree",
+    name: "Huile de Tea Tree",
+    description: "Huile essentielle aux propriétés antiseptiques naturelles",
     imageUrl: "/placeholder.svg",
-    expectedResults: "Nettoyage antiseptique et prévention de la propagation des bactéries",
-    recommendationReason: "Solution efficace pour l'hygiène des mains",
-    dietaryInfo: "NPN : 80097884",
-    productUrl: "https://maisonjacynthe.ca/fr/gel-antiseptique",
-    categories: ["antiseptique", "peau"],
+    expectedResults: "Action antiseptique et purifiante",
+    recommendationReason: "Solution naturelle pour les soins antiseptiques",
+    dietaryInfo: "Usage externe uniquement",
+    productUrl: "https://maisonjacynthe.ca/fr/huile-tea-tree",
+    categories: ["antiseptique", "topique", "peau"],
     scores: [
-      { condition: "Hygiène des mains", score: 5 },
-      { condition: "Nettoyage antiseptique", score: 5 }
+      { condition: "Soins cutanés", score: 5 },
+      { condition: "Antiseptique", score: 5 }
     ],
     therapeuticClaims: [
-      "Efficace pour détruire les bactéries nocives",
-      "Nettoyant antibactérien pour la peau",
-      "Pour l'hygiène personnelle des mains"
+      "Propriétés antiseptiques naturelles",
+      "Aide à purifier la peau",
+      "Soutient la santé cutanée"
     ],
     relationships: {
-      complementaryProducts: [],
-      contraindications: []
-    },
-    usage: {
-      timing: "Selon les besoins",
-      duration: "Usage quotidien",
-      seasonality: ["toute_année"]
-    },
-    timeFrame: "court_terme"
-  },
-  {
-    id: "bobome",
-    name: "Bobôme",
-    description: "Solution naturelle pour la cicatrisation des plaies",
-    imageUrl: "/placeholder.svg",
-    expectedResults: "Aide à la cicatrisation et soulagement des irritations cutanées",
-    recommendationReason: "Solution naturelle pour divers problèmes cutanés",
-    dietaryInfo: "NPN : 80106560",
-    productUrl: "https://maisonjacynthe.ca/fr/bobome",
-    categories: ["peau", "guérison"],
-    scores: [
-      { condition: "Cicatrisation", score: 5 },
-      { condition: "Irritations cutanées", score: 4 }
-    ],
-    therapeuticClaims: [
-      "Aide à la cicatrisation des plaies",
-      "Aide à soulager les inflammations de la peau",
-      "Aide à soulager les irritations de la peau"
-    ],
-    relationships: {
-      complementaryProducts: ["formule-apaisante"],
+      complementaryProducts: ["calendula", "lavande"],
       contraindications: []
     },
     usage: {
       timing: "Selon les besoins",
       duration: "Usage ponctuel",
+      seasonality: ["toute_année"]
+    },
+    timeFrame: "court_terme"
+  },
+  {
+    id: "calendula",
+    name: "Calendula",
+    description: "Solution apaisante et cicatrisante naturelle",
+    imageUrl: "/placeholder.svg",
+    expectedResults: "Apaisement et soutien de la guérison cutanée",
+    recommendationReason: "Soin naturel pour la peau",
+    dietaryInfo: "Usage externe",
+    productUrl: "https://maisonjacynthe.ca/fr/calendula",
+    categories: ["antiseptique", "peau", "guérison"],
+    scores: [
+      { condition: "Soins cutanés", score: 4 },
+      { condition: "Cicatrisation", score: 5 }
+    ],
+    therapeuticClaims: [
+      "Aide à la cicatrisation",
+      "Propriétés apaisantes naturelles",
+      "Soutient la santé de la peau"
+    ],
+    relationships: {
+      complementaryProducts: ["huile-tea-tree", "lavande"],
+      contraindications: []
+    },
+    usage: {
+      timing: "Selon les besoins",
+      duration: "Usage régulier",
       seasonality: ["toute_année"]
     },
     timeFrame: "court_terme"
