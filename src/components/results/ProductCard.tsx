@@ -1,3 +1,4 @@
+
 import { ProductCategory } from "@/utils/products/productTypes";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card";
@@ -83,7 +84,11 @@ const translateCategory = (category: ProductCategory): string => {
     minéraux: "Minéraux",
     antioxydant: "Antioxydant",
     respiratoire: "Respiratoire",
-    voies_respiratoires: "Voies respiratoires"
+    voies_respiratoires: "Voies respiratoires",
+    peau_sensible: "Peau sensible",
+    défense: "Défense",
+    adaptogène: "Adaptogène",
+    digestion: "Digestion"
   };
   return translations[category] || category;
 };
