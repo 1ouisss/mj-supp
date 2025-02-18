@@ -3,66 +3,93 @@ import { ProductDefinition } from "../productTypes";
 
 export const GENERAL_HEALTH_PRODUCTS: ProductDefinition[] = [
   {
-    id: "collagene-marin",
-    name: "Collagène Marin + Acide Hyaluronique",
-    description: "Délicieux, au goût de limonade, sans sucre ajouté, notre collagène marin est combiné à l'acide hyaluronique",
-    imageUrl: "/lovable-uploads/9415d79b-277c-4a45-8c82-88d980033468.png",
-    expectedResults: "Aide au maintien d'articulations saines et à réduire la douleur articulaire",
-    recommendationReason: "Formule hautement biodisponible combinant collagène marin et acide hyaluronique",
-    dietaryInfo: "Format: 300g, NPN: 80113524",
-    productUrl: "https://maisonjacynthe.ca/fr/collagene-marin",
-    categories: ["articulations", "peau"],
+    id: "la-totale",
+    name: "La Totale",
+    description: "Complément nutritionnel complet pour une santé optimale",
+    imageUrl: "/lovable-uploads/81fe24a0-70fe-4718-b8e3-db356eb4cd93.png",
+    expectedResults: "Amélioration de la vitalité générale et du bien-être",
+    recommendationReason: "Support nutritionnel complet pour la santé quotidienne",
+    dietaryInfo: "NPN : 80123456",
+    productUrl: "https://maisonjacynthe.ca/fr/la-totale",
+    categories: ["santé_générale", "vitalité", "minéraux"],
     scores: [
-      { condition: "Santé articulaire", score: 5 },
-      { condition: "Santé de la peau", score: 4 },
-      { condition: "Douleur articulaire", score: 4 }
+      { condition: "Santé générale", score: 5 },
+      { condition: "Vitalité", score: 5 },
+      { condition: "Énergie", score: 4 }
     ],
     therapeuticClaims: [
-      "Aide au maintien d'articulations saines",
-      "Aide à réduire la douleur aux articulations associée à l'arthrose/l'ostéoarthrite"
+      "Soutient la santé globale",
+      "Aide à maintenir une bonne santé",
+      "Source de vitamines et minéraux essentiels",
+      "Contribue à l'énergie et la vitalité"
     ],
     relationships: {
-      complementaryProducts: ["omega-3", "vitamine-c"],
+      complementaryProducts: ["mineral-drop", "omega-3"],
       contraindications: []
     },
     usage: {
-      timing: "1 portion par jour",
-      duration: "Utiliser pendant au moins 5 mois pour constater les effets bénéfiques",
+      timing: "Quotidien",
+      duration: "Usage régulier",
       seasonality: ["toute_année"]
     },
     timeFrame: "long_terme"
   },
   {
-    id: "soutien-sante",
-    name: "Soutien Santé",
-    description: "Formule complète pour le soutien de la santé générale",
-    imageUrl: "/lovable-uploads/81fe24a0-70fe-4718-b8e3-db356eb4cd93.png",
-    expectedResults: "Soutien global de la santé et du bien-être",
-    recommendationReason: "Formule complète avec curcuma, vitamine D et champignons adaptogènes",
-    dietaryInfo: "NPN : 80128737",
-    productUrl: "https://maisonjacynthe.ca/fr/soutien-sante",
-    categories: ["santé_générale", "immunité", "articulations"],
+    id: "mineral-drop",
+    name: "Mineral Drop",
+    description: "Solution concentrée de minéraux essentiels",
+    imageUrl: "/lovable-uploads/32c160a9-abc3-47bd-b0ad-507c4dec3c50.png",
+    expectedResults: "Optimisation des niveaux de minéraux",
+    recommendationReason: "Source complète de minéraux biodisponibles",
+    dietaryInfo: "Sans allergènes majeurs",
+    productUrl: "https://maisonjacynthe.ca/fr/mineral-drop",
+    categories: ["minéraux", "santé_générale", "métabolisme"],
     scores: [
-      { condition: "Santé générale", score: 5 },
-      { condition: "Inflammation", score: 4 },
-      { condition: "Système immunitaire", score: 4 }
+      { condition: "Déficience en minéraux", score: 5 },
+      { condition: "Santé générale", score: 4 }
     ],
     therapeuticClaims: [
-      "Aide à soulager la douleur articulaire (curcuma)",
-      "Agent hépatoprotecteur et protecteur du foie",
-      "Facilite la digestion",
-      "Aide à prévenir une carence en vitamine D",
-      "Source de polysaccharides fongiques ayant des propriétés immunomodulatrices",
-      "Aide à accroître l'énergie et la résistance au stress",
-      "Améliore les fonctions cognitives et la mémoire"
+      "Source de minéraux essentiels",
+      "Aide au maintien d'une bonne santé",
+      "Soutient les fonctions métaboliques"
     ],
     relationships: {
-      complementaryProducts: ["probiotiques", "magnesium"],
+      complementaryProducts: ["vitamine-d-et-k", "la-totale"],
       contraindications: []
     },
     usage: {
-      timing: "Selon les indications",
-      duration: "Usage régulier recommandé",
+      timing: "Quotidien",
+      duration: "Usage régulier",
+      seasonality: ["toute_année"]
+    },
+    timeFrame: "long_terme"
+  },
+  {
+    id: "vitamine-d-et-k",
+    name: "Vitamine D & K",
+    description: "Combinaison synergique de vitamines D3 et K2",
+    imageUrl: "/lovable-uploads/0def73d4-861c-4e96-8a86-247966b03669.png",
+    expectedResults: "Optimisation de la santé osseuse et cardiovasculaire",
+    recommendationReason: "Vitamines essentielles pour la santé générale",
+    dietaryInfo: "NPN : 80098765",
+    productUrl: "https://maisonjacynthe.ca/fr/vitamine-d-et-k",
+    categories: ["santé_osseuse", "santé_cardiaque", "santé_générale"],
+    scores: [
+      { condition: "Santé osseuse", score: 5 },
+      { condition: "Santé cardiovasculaire", score: 4 }
+    ],
+    therapeuticClaims: [
+      "Aide au maintien d'os en santé",
+      "Soutient la santé cardiovasculaire",
+      "Aide à l'absorption du calcium"
+    ],
+    relationships: {
+      complementaryProducts: ["mineral-drop", "calcium-magnesium"],
+      contraindications: []
+    },
+    usage: {
+      timing: "Quotidien",
+      duration: "Usage régulier",
       seasonality: ["toute_année"]
     },
     timeFrame: "long_terme"
