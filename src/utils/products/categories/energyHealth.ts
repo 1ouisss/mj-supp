@@ -9,7 +9,7 @@ export const ENERGY_HEALTH_PRODUCTS: ProductDefinition[] = [
     imageUrl: "/placeholder.svg",
     expectedResults: "Augmentation de l'énergie et de la vitalité",
     recommendationReason: "Solution naturelle pour l'énergie",
-    dietaryInfo: "NPN: 80095445. Sans stimulants artificiels",
+    dietaryInfo: "NPN: 80095445",
     productUrl: "https://maisonjacynthe.ca/fr/energie-vitalite",
     categories: ["énergie", "vitalité", "adaptogène"],
     scores: [
@@ -20,46 +20,17 @@ export const ENERGY_HEALTH_PRODUCTS: ProductDefinition[] = [
     therapeuticClaims: [
       "Augmente l'énergie naturellement",
       "Améliore l'endurance",
-      "Soutient la vitalité"
+      "Soutient la vitalité",
+      "Aide au métabolisme énergétique",
+      "Source d'antioxydants pour le maintien d'une bonne santé"
     ],
     relationships: {
-      complementaryProducts: ["mineralDrop", "complexeB"],
+      complementaryProducts: ["mineral-drop", "complexe-b"],
       contraindications: []
     },
     usage: {
       timing: "Matin ou midi",
       duration: "Usage régulier recommandé",
-      seasonality: ["toute_année"]
-    },
-    timeFrame: "long_terme"
-  },
-  {
-    id: "mineral-drop",
-    name: "Mineral Drop",
-    description: "Concentré de minéraux essentiels",
-    imageUrl: "/lovable-uploads/32c160a9-abc3-47bd-b0ad-507c4dec3c50.png",
-    expectedResults: "Amélioration de l'énergie et de la minéralisation",
-    recommendationReason: "Source concentrée de minéraux",
-    dietaryInfo: "NPN: 80095446. Végétalien",
-    productUrl: "https://maisonjacynthe.ca/fr/mineral-drop",
-    categories: ["énergie", "minéraux", "essentiel"],
-    scores: [
-      { condition: "Fatigue", score: 8 },
-      { condition: "Minéralisation", score: 9 },
-      { condition: "Hydratation", score: 8 }
-    ],
-    therapeuticClaims: [
-      "Source de minéraux essentiels",
-      "Soutient l'énergie cellulaire",
-      "Aide à l'hydratation"
-    ],
-    relationships: {
-      complementaryProducts: ["magnesium", "complexeB"],
-      contraindications: []
-    },
-    usage: {
-      timing: "Tout au long de la journée",
-      duration: "Usage quotidien recommandé",
       seasonality: ["toute_année"]
     },
     timeFrame: "long_terme"
@@ -71,7 +42,7 @@ export const ENERGY_HEALTH_PRODUCTS: ProductDefinition[] = [
     imageUrl: "/lovable-uploads/9e2a27a2-80a8-45c6-a120-57d6f9250958.png",
     expectedResults: "Optimisation du métabolisme énergétique",
     recommendationReason: "Support essentiel pour l'énergie",
-    dietaryInfo: "NPN: 80095447. Végétarien",
+    dietaryInfo: "NPN: 80095447",
     productUrl: "https://maisonjacynthe.ca/fr/complexe-b",
     categories: ["énergie", "métabolisme", "stress"],
     scores: [
@@ -82,10 +53,12 @@ export const ENERGY_HEALTH_PRODUCTS: ProductDefinition[] = [
     therapeuticClaims: [
       "Soutient le métabolisme énergétique",
       "Aide à réduire la fatigue",
-      "Soutient la fonction nerveuse"
+      "Soutient la fonction nerveuse",
+      "Aide à la formation des globules rouges",
+      "Favorise le métabolisme des protéines, des lipides et des glucides"
     ],
     relationships: {
-      complementaryProducts: ["mineralDrop", "energieVitalite"],
+      complementaryProducts: ["mineral-drop", "energie-vitalite"],
       contraindications: []
     },
     usage: {
@@ -113,10 +86,12 @@ export const ENERGY_HEALTH_PRODUCTS: ProductDefinition[] = [
     therapeuticClaims: [
       "Source d'énergie rapide",
       "Soutient la fonction cognitive",
-      "Aide à maintenir des niveaux d'énergie stables"
+      "Aide à maintenir des niveaux d'énergie stables",
+      "Favorise la production de cétones",
+      "Support pour le régime cétogène"
     ],
     relationships: {
-      complementaryProducts: ["complexeB", "energieVitalite"],
+      complementaryProducts: ["complexe-b", "energie-vitalite"],
       contraindications: []
     },
     usage: {
