@@ -14,15 +14,19 @@ export const SPECIALIZED_HEALTH_PRODUCTS: ProductDefinition[] = [
     categories: ["détox", "digestif"],
     scores: [
       { condition: "Fonction hépatique", score: 9 },
-      { condition: "Digestion", score: 8 }
+      { condition: "Digestion", score: 8 },
+      { condition: "Détoxification", score: 9 }
     ],
     therapeuticClaims: [
       "Aide à appuyer les fonctions hépatiques",
       "Soulage les troubles de digestion",
-      "Source d'antioxydants"
+      "Source d'antioxydants",
+      "Aide à la détoxification de l'organisme",
+      "Soutient la santé du foie",
+      "Favorise une bonne digestion"
     ],
     relationships: {
-      complementaryProducts: ["lAmi", "probiotiques"],
+      complementaryProducts: ["l-ami", "probiotiques"],
       contraindications: []
     },
     usage: {
@@ -35,31 +39,34 @@ export const SPECIALIZED_HEALTH_PRODUCTS: ProductDefinition[] = [
   {
     id: "astaxanthine",
     name: "Astaxanthine",
-    description: "Antioxydant puissant pour la santé oculaire",
+    description: "Antioxydant puissant pour la santé oculaire et la protection cellulaire",
     imageUrl: "/placeholder.svg",
-    expectedResults: "Réduction de la fatigue oculaire",
-    recommendationReason: "Support pour la santé des yeux",
+    expectedResults: "Réduction de la fatigue oculaire et protection antioxydante",
+    recommendationReason: "Support pour la santé des yeux et antioxydant puissant",
     dietaryInfo: "NPN: 80118375",
     productUrl: "https://maisonjacynthe.ca/fr/astaxanthine",
-    categories: ["antioxydant"],
+    categories: ["antioxydant", "santé_oculaire"],
     scores: [
       { condition: "Fatigue oculaire", score: 9 },
-      { condition: "Protection antioxydante", score: 8 }
+      { condition: "Protection antioxydante", score: 9 },
+      { condition: "Santé oculaire", score: 8 }
     ],
     therapeuticClaims: [
-      "Source d'antioxydants",
-      "Aide à réduire la fatigue oculaire"
+      "Source d'antioxydants pour le maintien d'une bonne santé",
+      "Aide à réduire la fatigue oculaire",
+      "Soutient la santé des yeux",
+      "Protège contre le stress oxydatif",
+      "Contribue à la santé de la vision"
     ],
     relationships: {
-      complementaryProducts: ["omega3"],
+      complementaryProducts: ["omega3", "vitamine-c"],
       contraindications: []
     },
     usage: {
-      timing: "Quotidien",
-      duration: "Usage régulier",
+      timing: "Quotidien avec un repas",
+      duration: "Usage régulier recommandé",
       seasonality: ["toute_année"]
     },
     timeFrame: "long_terme"
   }
 ];
-
