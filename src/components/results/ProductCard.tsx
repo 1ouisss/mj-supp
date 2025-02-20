@@ -94,7 +94,8 @@ const translateCategory = (category: ProductCategory): string => {
     poids: "Gestion du poids",
     libido: "Libido",
     ménopause: "Ménopause",
-    détox: "Détox"
+    détox: "Détox",
+    santé_oculaire: "Santé oculaire"
   };
   return translations[category] || category;
 };
