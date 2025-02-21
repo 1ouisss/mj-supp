@@ -1,3 +1,4 @@
+
 import { SLEEP_RELAXATION_PRODUCTS } from './categories/sleepRelaxation';
 import { DIGESTIVE_HEALTH_PRODUCTS } from './categories/digestiveHealth';
 import { MENTAL_HEALTH_PRODUCTS } from './categories/mentalHealth';
@@ -7,6 +8,7 @@ import { IMMUNITY_HEALTH_PRODUCTS } from './categories/immunityHealth';
 import { BRAIN_HEALTH_PRODUCTS } from './categories/brainHealth';
 import { ENERGY_HEALTH_PRODUCTS } from './categories/energyHealth';
 import { VITAMIN_HEALTH_PRODUCTS } from './categories/vitaminHealth';
+import { ANTISEPTIC_HEALTH_PRODUCTS } from './categories/antisepticHealth';
 import { ProductDefinition } from './productTypes';
 
 // Local product database
@@ -94,7 +96,8 @@ export const PRODUCTS: ProductDefinition[] = [
   ...IMMUNITY_HEALTH_PRODUCTS,
   ...BRAIN_HEALTH_PRODUCTS,
   ...ENERGY_HEALTH_PRODUCTS,
-  ...VITAMIN_HEALTH_PRODUCTS
+  ...VITAMIN_HEALTH_PRODUCTS,
+  ...ANTISEPTIC_HEALTH_PRODUCTS
 ].map(product => ({
   ...product,
   imageUrl: LOCAL_PRODUCT_IMAGES[product.name] || product.imageUrl
