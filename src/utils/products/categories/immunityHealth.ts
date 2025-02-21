@@ -3,65 +3,68 @@ import { ProductDefinition } from "../productTypes";
 
 export const IMMUNITY_HEALTH_PRODUCTS: ProductDefinition[] = [
   {
-    id: "immunitaire",
-    name: "Immunitaire",
-    description: "Formule botanique traditionnelle pour le soutien du système immunitaire",
-    imageUrl: "/lovable-uploads/594a340a-cc3c-4504-92df-cc5a54d7482a.png",
-    expectedResults: "Renforcement du système immunitaire",
-    recommendationReason: "Support immunitaire naturel",
-    dietaryInfo: "NPN: 80105353",
-    productUrl: "https://maisonjacynthe.ca/fr/immunitaire",
-    categories: ["immunité", "défense"],
+    id: "immunite-plus",
+    name: "Immunité Plus",
+    description: "Formule complète pour renforcer le système immunitaire",
+    imageUrl: "/placeholder.svg",
+    expectedResults: "Renforcement des défenses naturelles et protection immunitaire",
+    recommendationReason: "Support optimal pour le système immunitaire",
+    dietaryInfo: "NPN: 80084376. Sans gluten",
+    productUrl: "https://maisonjacynthe.ca/fr/immunite-plus",
+    categories: ["immunité", "défense", "santé_générale"],
     scores: [
-      { condition: "Système immunitaire", score: 9 },
-      { condition: "Défenses naturelles", score: 8 }
+      { condition: "Système immunitaire faible", score: 9 },
+      { condition: "Défenses naturelles", score: 9 },
+      { condition: "Protection saisonnière", score: 8 }
     ],
     therapeuticClaims: [
-      "Aide à maintenir un système immunitaire sain",
-      "Soulage les symptômes du rhume",
-      "Soutient la santé du système immunitaire",
-      "Source d'antioxydants pour le maintien d'une bonne santé"
+      "Renforce le système immunitaire",
+      "Stimule les défenses naturelles",
+      "Aide à combattre les infections",
+      "Soutient la santé générale",
+      "Protection contre les agressions extérieures"
     ],
     relationships: {
-      complementaryProducts: ["vitamine-d", "vitamine-c"],
+      complementaryProducts: ["vitamine-c", "vitamine-d"],
       contraindications: []
     },
     usage: {
-      timing: "1-3 fois par jour",
-      duration: "Usage régulier ou selon besoins",
+      timing: "Quotidien",
+      duration: "Usage préventif ou cure intensive",
       seasonality: ["automne", "hiver"]
     },
     timeFrame: "court_terme"
   },
   {
-    id: "vitamine-c",
-    name: "Vitamine C",
-    description: "Vitamine C hautement absorbable pour le soutien immunitaire",
-    imageUrl: "/lovable-uploads/78ea4d44-88c3-454d-ada8-ed8e148f7e99.png",
-    expectedResults: "Renforcement du système immunitaire",
-    recommendationReason: "Support antioxydant essentiel",
-    dietaryInfo: "NPN: 80097181",
-    productUrl: "https://maisonjacynthe.ca/fr/vitamine-c-a-croquer",
-    categories: ["immunité", "antioxydant"],
+    id: "defense-naturelle",
+    name: "Défense Naturelle",
+    description: "Complexe d'herbes et nutriments pour la protection immunitaire",
+    imageUrl: "/placeholder.svg",
+    expectedResults: "Protection immunitaire renforcée et résistance accrue",
+    recommendationReason: "Solution naturelle pour renforcer l'immunité",
+    dietaryInfo: "NPN: 80084377. Végétalien",
+    productUrl: "https://maisonjacynthe.ca/fr/defense-naturelle",
+    categories: ["immunité", "défense", "adaptogène"],
     scores: [
-      { condition: "Immunité", score: 9 },
-      { condition: "Antioxydant", score: 8 }
+      { condition: "Protection immunitaire", score: 9 },
+      { condition: "Résistance naturelle", score: 8 },
+      { condition: "Santé générale", score: 9 }
     ],
     therapeuticClaims: [
-      "Aide à maintenir les fonctions du système immunitaire",
-      "Source d'antioxydants",
-      "Aide au développement et au maintien des os et du cartilage",
-      "Favorise la cicatrisation",
-      "Aide à la formation de collagène"
+      "Stimule le système immunitaire",
+      "Aide à prévenir les infections",
+      "Renforce les défenses naturelles",
+      "Soutient la récupération",
+      "Protection contre les agressions saisonnières"
     ],
     relationships: {
-      complementaryProducts: ["zinc", "vitamine-d"],
+      complementaryProducts: ["vitamine-c", "zinc"],
       contraindications: []
     },
     usage: {
-      timing: "1-2 fois par jour",
-      duration: "Usage régulier recommandé",
-      seasonality: ["toute_année"]
+      timing: "Matin et soir",
+      duration: "3 mois ou en continu",
+      seasonality: ["automne", "hiver"]
     },
     timeFrame: "long_terme"
   }

@@ -3,102 +3,70 @@ import { ProductDefinition } from "../productTypes";
 
 export const ENERGY_HEALTH_PRODUCTS: ProductDefinition[] = [
   {
-    id: "energie-vitalite",
-    name: "Énergie & Vitalité",
-    description: "Formule énergisante naturelle pour la vitalité quotidienne",
+    id: "energie-vitale",
+    name: "Énergie Vitale",
+    description: "Formule complète pour booster l'énergie naturelle et la vitalité",
     imageUrl: "/placeholder.svg",
-    expectedResults: "Augmentation de l'énergie et de la vitalité",
-    recommendationReason: "Solution naturelle pour l'énergie",
-    dietaryInfo: "NPN: 80095445",
-    productUrl: "https://maisonjacynthe.ca/fr/energie-vitalite",
+    expectedResults: "Augmentation de l'énergie et réduction de la fatigue",
+    recommendationReason: "Solution naturelle pour retrouver son énergie",
+    dietaryInfo: "NPN: 80084374. Sans gluten, végétalien",
+    productUrl: "https://maisonjacynthe.ca/fr/energie-vitale",
     categories: ["énergie", "vitalité", "adaptogène"],
     scores: [
-      { condition: "Fatigue", score: 9 },
+      { condition: "Fatigue chronique", score: 9 },
       { condition: "Manque d'énergie", score: 9 },
-      { condition: "Performance", score: 8 }
+      { condition: "Épuisement", score: 8 }
     ],
     therapeuticClaims: [
-      "Augmente l'énergie naturellement",
+      "Aide à combattre la fatigue",
+      "Augmente l'énergie naturelle",
       "Améliore l'endurance",
-      "Soutient la vitalité",
-      "Aide au métabolisme énergétique",
-      "Source d'antioxydants pour le maintien d'une bonne santé"
+      "Soutient le système immunitaire",
+      "Aide à la récupération",
+      "Renforce la vitalité"
     ],
     relationships: {
-      complementaryProducts: ["mineral-drop", "complexe-b"],
+      complementaryProducts: ["vitamine-b", "mineral-complexe"],
       contraindications: []
     },
     usage: {
-      timing: "Matin ou midi",
-      duration: "Usage régulier recommandé",
+      timing: "Matin et début d'après-midi",
+      duration: "Usage quotidien",
       seasonality: ["toute_année"]
     },
     timeFrame: "long_terme"
   },
   {
-    id: "complexe-b",
-    name: "Complexe B",
-    description: "Formule complète de vitamines B essentielles",
-    imageUrl: "/lovable-uploads/9e2a27a2-80a8-45c6-a120-57d6f9250958.png",
-    expectedResults: "Optimisation du métabolisme énergétique",
-    recommendationReason: "Support essentiel pour l'énergie",
-    dietaryInfo: "NPN: 80095447",
-    productUrl: "https://maisonjacynthe.ca/fr/complexe-b",
-    categories: ["énergie", "métabolisme", "stress"],
-    scores: [
-      { condition: "Fatigue", score: 9 },
-      { condition: "Stress", score: 8 },
-      { condition: "Métabolisme", score: 9 }
-    ],
-    therapeuticClaims: [
-      "Soutient le métabolisme énergétique",
-      "Aide à réduire la fatigue",
-      "Soutient la fonction nerveuse",
-      "Aide à la formation des globules rouges",
-      "Favorise le métabolisme des protéines, des lipides et des glucides"
-    ],
-    relationships: {
-      complementaryProducts: ["mineral-drop", "energie-vitalite"],
-      contraindications: []
-    },
-    usage: {
-      timing: "Avec les repas",
-      duration: "Usage quotidien recommandé",
-      seasonality: ["toute_année"]
-    },
-    timeFrame: "long_terme"
-  },
-  {
-    id: "huile-tcm",
-    name: "Huile TCM",
-    description: "Huile de triglycérides à chaîne moyenne pour l'énergie",
+    id: "force-botanique",
+    name: "Force Botanique",
+    description: "Mélange d'adaptogènes pour l'énergie et la résistance au stress",
     imageUrl: "/placeholder.svg",
-    expectedResults: "Énergie stable et durable",
-    recommendationReason: "Source d'énergie rapide et durable",
-    dietaryInfo: "Sans gluten, cétogène",
-    productUrl: "https://maisonjacynthe.ca/fr/huile-tcm",
-    categories: ["énergie", "métabolisme", "cerveau"],
+    expectedResults: "Amélioration de l'énergie et de l'adaptation au stress",
+    recommendationReason: "Support naturel pour l'énergie et la résistance",
+    dietaryInfo: "NPN: 80084375. Végétalien",
+    productUrl: "https://maisonjacynthe.ca/fr/force-botanique",
+    categories: ["énergie", "adaptogène", "stress"],
     scores: [
-      { condition: "Énergie", score: 9 },
-      { condition: "Concentration", score: 8 },
-      { condition: "Performance", score: 8 }
+      { condition: "Stress chronique", score: 9 },
+      { condition: "Fatigue adaptative", score: 8 },
+      { condition: "Résistance physique", score: 9 }
     ],
     therapeuticClaims: [
-      "Source d'énergie rapide",
-      "Soutient la fonction cognitive",
-      "Aide à maintenir des niveaux d'énergie stables",
-      "Favorise la production de cétones",
-      "Support pour le régime cétogène"
+      "Augmente la résistance au stress",
+      "Améliore l'adaptation de l'organisme",
+      "Soutient l'énergie naturelle",
+      "Renforce la vitalité",
+      "Aide à maintenir l'équilibre hormonal"
     ],
     relationships: {
-      complementaryProducts: ["complexe-b", "energie-vitalite"],
+      complementaryProducts: ["vitamine-d", "mineral-complexe"],
       contraindications: []
     },
     usage: {
-      timing: "Matin ou avant l'effort",
-      duration: "Usage quotidien possible",
-      seasonality: ["toute_année"]
+      timing: "Matin",
+      duration: "Cure de 2-3 mois",
+      seasonality: ["automne", "hiver"]
     },
-    timeFrame: "long_terme"
+    timeFrame: "court_terme"
   }
 ];
