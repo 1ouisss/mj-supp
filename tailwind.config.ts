@@ -1,3 +1,4 @@
+
 import type { Config } from "tailwindcss";
 
 export default {
@@ -95,20 +96,37 @@ export default {
           }
         },
         'float': {
-          '0%, 100%': { 
-            transform: 'translateY(0) rotate(0deg)',
+          '0%': { 
+            transform: 'translateY(0px) rotate(0deg)',
             opacity: '0'
           },
-          '50%': { 
-            transform: 'translateY(-20px) rotate(180deg)',
-            opacity: '0.4'
+          '25%': { 
+            opacity: '0.6'
+          },
+          '75%': { 
+            opacity: '0.6'
+          },
+          '100%': { 
+            transform: 'translateY(-100px) rotate(60deg)',
+            opacity: '0'
+          }
+        },
+        'scale-up': {
+          '0%': { 
+            transform: 'scale(0.95)',
+            opacity: '0'
+          },
+          '100%': { 
+            transform: 'scale(1)',
+            opacity: '1'
           }
         }
       },
       animation: {
         'gradient-shift': 'gradient-shift 15s ease infinite',
         'smoke': 'smoke-drift 8s ease-out infinite',
-        'float': 'float 12s ease-in-out infinite'
+        'float': 'float 20s ease-in-out infinite',
+        'scale-up': 'scale-up 0.5s ease-out forwards'
       }
     }
   },
